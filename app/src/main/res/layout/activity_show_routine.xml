@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uppper_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".showroutine.ShowRoutineActivity" >
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:id="@+id/routines_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="88dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewRoutine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lower_layout"
+        android:background="@color/DarkSlateGray"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/uppper_layout">
+
+        <TextView
+            android:id="@+id/button_delete_workout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/text_delete_workout"
+            android:textColor="@color/AntiqueWhite"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

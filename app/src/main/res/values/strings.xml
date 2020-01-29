@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">WorkoutApp</string>
+    <string name="text_main_activity_title">Workout Tracker</string>
+    <string name="text_add_workout">Add Workout</string>
+    <string name="text_show_workout">Show Workout</string>
+    <string name="text_add_workout_title">Add a name for your workout:</string>
+    <string name="text_add_workout_title_field">workout name</string>
+    <string name="text_continue">Continue</string>
+    <string name="text_save_routines">Save</string>
+    <string name="text_routine_name">Name</string>
+    <string name="text_routine_sets">Sets</string>
+    <string name="text_routine_reps">Reps</string>
+    <string name="text_routine_weight">Weight</string>
+    <string name="text_routine_rest">Rest</string>
+    <string name="text_routine_name_field">routine name</string>
+    <string name="text_routine_sets_field">sets</string>
+    <string name="text_routine_reps_field">reps</string>
+    <string name="text_routine_weight_field">weight</string>
+    <string name="text_routine_rest_field">rest</string>
+    <string name="text_routine_name_list">Name: </string>
+    <string name="text_routine_sets_list">Sets: </string>
+    <string name="text_routine_reps_list">Reps: </string>
+    <string name="text_routine_weight_list">Weight: </string>
+    <string name="text_routine_rest_list">Rest: </string>
+    <string name="text_toast_add_workout">"Please add a name for the workout" </string>
+    <string name="text_toast_add_routine_onContinue">Please fill in all the information to add a routine to your workout</string>
+    <string name="text_field_cannotEmpty">Field cannot be empty</string>
+    <string name="text_delete_workout">Delete Workout</string>
+    <string name="text_dialog_delete_routines">Delete Routines?</string>
+    <string name="text_dialog_delete_routines_cancel">Cancel</string>
+    <string name="text_dialog_delete_routines_confirm">Confirm</string>
+</resources>

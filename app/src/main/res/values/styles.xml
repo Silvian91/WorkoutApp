@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Background -->
+    <style name="buttonColorAndBackground" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:background">@color/DarkSlateGray</item>
+        <item name="android:textColor">@color/AntiqueWhite</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorAccent">@color/dialogButtonText</item>
+    </style>
+
+
+</resources>
