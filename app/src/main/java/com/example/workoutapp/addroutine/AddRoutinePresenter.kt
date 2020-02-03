@@ -44,8 +44,8 @@ class AddRoutinePresenter(
                 routine_name,
                 routine_sets,
                 routine_reps,
-                routine_rest,
                 routine_weight,
+                routine_rest,
                 workoutId
             )
         )
@@ -59,74 +59,79 @@ class AddRoutinePresenter(
             .addTo(compositeDisposable)
     }
 
-    override fun onContinueClicked(
+    private fun addRoutinePairsOrShowError(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_rest: String
-    ) {
+    ): Boolean {
         when {
             routine_name.isEmpty() -> {
                 view.showError(NAME_EMPTY)
+                return false
             }
             routine_sets.isEmpty() -> {
                 view.showError(SETS_EMPTY)
+                return false
             }
             routine_reps.isEmpty() -> {
                 view.showError(REPS_EMPTY)
+                return false
             }
             routine_weight.isEmpty() -> {
                 view.showError(WEIGHT_EMPTY)
+                return false
             }
             routine_rest.isEmpty() -> {
                 view.showError(REST_EMPTY)
+                return false
             }
             else -> {
                 addRoutinePairs(
                     routine_name,
                     routine_sets,
                     routine_reps,
-                    routine_rest,
                     routine_weight,
+                    routine_rest,
                     workoutId
                 )
-                view.clearAllInputFields()
-                view.resetFocus()
+                return true
             }
         }
+    }
+
+    override fun onContinueClicked(
+        routine_name: String, routine_sets: String, routine_reps: String,
+        routine_weight: String, routine_rest: String
+    ) {
+        if (addRoutinePairsOrShowError(
+                routine_name,
+                routine_sets,
+                routine_reps,
+                routine_weight,
+                routine_rest
+            )
+        ) {
+            view.clearAllInputFields()
+            view.resetFocus()
+        }
+
     }
 
     override fun onFinishClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_rest: String
     ) {
-        when {
-            routine_name.isEmpty() -> {
-                view.showError(NAME_EMPTY)
-            }
-            routine_sets.isEmpty() -> {
-                view.showError(SETS_EMPTY)
-            }
-            routine_reps.isEmpty() -> {
-                view.showError(REPS_EMPTY)
-            }
-            routine_weight.isEmpty() -> {
-                view.showError(WEIGHT_EMPTY)
-            }
-            routine_rest.isEmpty() -> {
-                view.showError(REST_EMPTY)
-            }
-            else -> {
-                addRoutinePairs(
-                    routine_name,
-                    routine_sets,
-                    routine_reps,
-                    routine_rest,
-                    routine_weight,
-                    workoutId
-                )
-                saveRoutines(routinePairs)
-                view.nextActivity()
-            }
+        if (addRoutinePairsOrShowError(
+                routine_name,
+                routine_sets,
+                routine_reps,
+                routine_weight,
+                routine_rest
+            )
+        ) {
+            saveRoutines(routinePairs)
+            view.nextActivity()
         }
+
     }
 
     override fun onBackClicked(
