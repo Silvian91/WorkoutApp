@@ -15,19 +15,19 @@ import io.reactivex.disposables.CompositeDisposable
 class ShowWorkoutModule {
     @Provides
     fun providesShowWorkoutPresenter(
-        workoutRepository: WorkoutRepository?,
-        compositeDisposable: CompositeDisposable?
+        workoutRepository: WorkoutRepository,
+        compositeDisposable: CompositeDisposable
     ): ShowWorkoutContract.Presenter {
-        return ShowWorkoutPresenter(workoutRepository!!, compositeDisposable!!)
+        return ShowWorkoutPresenter(workoutRepository, compositeDisposable)
     }
 
     @Provides
-    fun providesWorkoutRepository(workoutLocalDataSource: WorkoutLocalDataSource?): WorkoutRepository {
-        return WorkoutRepositoryImpl(workoutLocalDataSource!!)
+    fun providesWorkoutRepository(workoutLocalDataSource: WorkoutLocalDataSource): WorkoutRepository {
+        return WorkoutRepositoryImpl(workoutLocalDataSource)
     }
 
     @Provides
-    fun providesWorkoutLocalDataSource(context: Context?): WorkoutLocalDataSource {
-        return WorkoutLocalDataSourceImpl(context!!)
+    fun providesWorkoutLocalDataSource(context: Context): WorkoutLocalDataSource {
+        return WorkoutLocalDataSourceImpl(context)
     }
 }

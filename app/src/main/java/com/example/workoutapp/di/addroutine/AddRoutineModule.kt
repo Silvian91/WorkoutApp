@@ -19,30 +19,30 @@ import io.reactivex.disposables.CompositeDisposable
 class AddRoutineModule {
     @Provides
     fun providesAddRoutinePresenter(
-        routineRepository: RoutineRepository?,
-        workoutRepository: WorkoutRepository?,
-        compositeDisposable: CompositeDisposable?
+        routineRepository: RoutineRepository,
+        workoutRepository: WorkoutRepository,
+        compositeDisposable: CompositeDisposable
     ): AddRoutineContract.Presenter {
-        return AddRoutinePresenter(routineRepository!!, workoutRepository!!, compositeDisposable!!)
+        return AddRoutinePresenter(routineRepository, workoutRepository, compositeDisposable)
     }
 
     @Provides
-    fun providesRoutineRepository(routineLocalDataSource: RoutineLocalDataSource?): RoutineRepository {
-        return RoutineRepositoryImpl(routineLocalDataSource!!)
+    fun providesRoutineRepository(routineLocalDataSource: RoutineLocalDataSource): RoutineRepository {
+        return RoutineRepositoryImpl(routineLocalDataSource)
     }
 
     @Provides
-    fun providesRoutineLocalDataSource(context: Context?): RoutineLocalDataSource {
-        return RoutineLocalDataSourceImpl(context!!)
+    fun providesRoutineLocalDataSource(context: Context): RoutineLocalDataSource {
+        return RoutineLocalDataSourceImpl(context)
     }
 
     @Provides
-    fun providesWorkoutRepository(workoutLocalDataSource: WorkoutLocalDataSource?): WorkoutRepository {
-        return WorkoutRepositoryImpl(workoutLocalDataSource!!)
+    fun providesWorkoutRepository(workoutLocalDataSource: WorkoutLocalDataSource): WorkoutRepository {
+        return WorkoutRepositoryImpl(workoutLocalDataSource)
     }
 
     @Provides
-    fun providesWorkoutLocalDataSource(context: Context?): WorkoutLocalDataSource {
-        return WorkoutLocalDataSourceImpl(context!!)
+    fun providesWorkoutLocalDataSource(context: Context): WorkoutLocalDataSource {
+        return WorkoutLocalDataSourceImpl(context)
     }
 }

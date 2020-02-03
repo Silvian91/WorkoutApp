@@ -15,14 +15,14 @@ import com.example.workoutapp.model.workout.WorkoutEntity
     version = 1
 )
 abstract class WorkoutAppDatabase : RoomDatabase() {
-    abstract fun routineDao(): RoutineDao?
-    abstract fun workoutDao(): WorkoutDao?
+    abstract fun routineDao(): RoutineDao
+    abstract fun workoutDao(): WorkoutDao
 
     companion object {
         const val DB_NAME = "workout_db"
         var instance: WorkoutAppDatabase? = null
         @Synchronized
-        fun getInstance(context: Context): WorkoutAppDatabase? {
+        fun getInstance(context: Context): WorkoutAppDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
@@ -32,7 +32,7 @@ abstract class WorkoutAppDatabase : RoomDatabase() {
                     .fallbackToDestructiveMigration()
                     .build()
             }
-            return instance
+            return instance!!
         }
     }
 }

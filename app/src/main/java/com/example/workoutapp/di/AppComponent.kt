@@ -29,16 +29,16 @@ import dagger.Component
  */
 @Component(modules = [AndroidModule::class, CompositeDisposableModule::class])
 interface AppComponent {
-    fun inject(workoutApplication: WorkoutApplication?)
-    operator fun plus(addWorkoutModule: AddWorkoutModule?): AddWorkoutComponent?
-    operator fun plus(showWorkoutModule: ShowWorkoutModule?): ShowWorkoutComponent?
-    operator fun plus(addRoutineModule: AddRoutineModule?): AddRoutineComponent?
-    operator fun plus(showRoutineModule: ShowRoutineModule?): ShowRoutineComponent?
+    fun inject(workoutApplication: WorkoutApplication)
+    fun plus(addWorkoutModule: AddWorkoutModule): AddWorkoutComponent
+    fun plus(showWorkoutModule: ShowWorkoutModule): ShowWorkoutComponent
+    fun plus(addRoutineModule: AddRoutineModule): AddRoutineComponent
+    fun plus(showRoutineModule: ShowRoutineModule): ShowRoutineComponent
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: Application?): Builder?
+        fun application(application: Application): Builder
 
-        fun build(): AppComponent?
+        fun build(): AppComponent
     }
 }

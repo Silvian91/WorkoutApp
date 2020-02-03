@@ -153,7 +153,6 @@ class AddRoutinePresenter(
             view.nextActivity()
         }
     }
-
 }
 
 

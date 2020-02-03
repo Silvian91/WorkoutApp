@@ -1,11 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/DarkSlateGray</item>
     </style>
 
     <!-- Background -->
@@ -19,6 +19,17 @@
 
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="colorAccent">@color/dialogButtonText</item>
+    </style>
+
+    <style name="FullScreenButton" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:background">@color/DarkSlateGray</item>
+        <item name="android:textColor">@color/AntiqueWhite</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
 
 
