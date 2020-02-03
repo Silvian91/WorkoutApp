@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/DarkSlateGray</item>
     </style>
 
-    <!-- Background -->
+    <!-- Buttons -->
     <style name="buttonColorAndBackground" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:background">@color/DarkSlateGray</item>
         <item name="android:textColor">@color/AntiqueWhite</item>
@@ -17,10 +17,21 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="colorAccent">@color/dialogButtonText</item>
+    <!-- Alert Dialog Buttons -->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
     </style>
 
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/DarkSlateGray</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#D81B60</item>
+    </style>
+
+    <!-- Full Width Buttons -->
     <style name="FullScreenButton" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:background">@color/DarkSlateGray</item>
         <item name="android:textColor">@color/AntiqueWhite</item>
