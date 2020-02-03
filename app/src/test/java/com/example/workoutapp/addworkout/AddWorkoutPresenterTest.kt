@@ -52,12 +52,14 @@ internal class AddWorkoutPresenterTest {
 
     @Test
     fun testSavingOfWorkoutTitle() {
+        //input
         every { repository.insertWorkout(workoutEntity) } returns Single.just(6789839)
-
         presenter.setView(view)
 
+        //execution
         presenter.onConfirmClicked(workoutTitleField)
 
+        //expected output
         verify(exactly = 1) { repository.insertWorkout(workoutEntity) }
         verify(exactly = 1) { view.showAddRoutine(6789839) }
         verify(exactly = 0) { view.showError() }
