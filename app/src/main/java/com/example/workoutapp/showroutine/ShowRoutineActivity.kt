@@ -64,8 +64,12 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
-        finish()
-        startActivity(MainActivity.newIntent(this))
+//        if (item.itemId == )
+        startActivity(
+            MainActivity.newIntent(this)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
+
         return true
     }
 
@@ -78,7 +82,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     }
 
     override fun nextActivity() {
-        startActivity(ShowWorkoutActivity.newIntent(this))
+        startActivity(ShowWorkoutActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
     override fun onDestroy() {
@@ -90,11 +94,12 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     companion object {
         const val workoutIdExtra = "workoutId"
 
-        fun newIntent(context: Context, workoutId: Long): Intent {
-            val intent = Intent(context, ShowRoutineActivity::class.java)
-            intent.putExtra(workoutIdExtra, workoutId)
-            return intent
-        }
+        //Intent.apply
+        fun newIntent(context: Context, workoutId: Long) =
+            Intent(context, ShowRoutineActivity::class.java).apply {
+                putExtra(workoutIdExtra, workoutId)
+
+            }
     }
 
 }

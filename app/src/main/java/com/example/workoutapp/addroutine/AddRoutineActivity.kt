@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.MainActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.WorkoutApplication
@@ -74,7 +77,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
     }
 
     override fun nextActivity() {
-        startActivity(MainActivity.newIntent(this))
+        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
     override fun errorFieldEmpty(): String {

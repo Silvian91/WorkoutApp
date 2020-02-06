@@ -39,7 +39,7 @@ class AddWorkoutActivity : AppCompatActivity(), AddWorkoutContract.View {
     }
 
     override fun showAddRoutine(workoutId: Long) {
-        startActivity(AddRoutineActivity.newIntent(this, workoutId))
+        startActivity(AddRoutineActivity.newIntent(this, workoutId).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
     override fun showError() {

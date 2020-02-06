@@ -53,7 +53,7 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View{
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
         finish()
-        startActivity(MainActivity.newIntent(this))
+        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         return true
     }
 
