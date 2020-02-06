@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.MainActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.WorkoutApplication
@@ -111,18 +109,26 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
-        finish()
-        presenter.onBackClicked(
-            routine_name.text.toString(),
-            routine_sets.text.toString(),
-            routine_reps.text.toString(),
-            routine_weight.text.toString(),
-            routine_rest.text.toString()
-        )
-
+        AlertDialog.Builder(this, R.style.AlertDialogTheme)
+            .setMessage(R.string.text_dialog_delete_routines_back_button)
+            .setNegativeButton(
+                R.string.text_dialog_delete_routines_cancel
+            ) { _, _ -> }
+            .setPositiveButton(
+                R.string.text_dialog_delete_routines_confirm
+            ) { _, _ ->
+                finish()
+                presenter.onBackClicked(
+                    routine_name.text.toString(),
+                    routine_sets.text.toString(),
+                    routine_reps.text.toString(),
+                    routine_weight.text.toString(),
+                    routine_rest.text.toString()
+                )
+            }
+            .show()
         return true
     }
-
 
     override fun onDestroy() {
         button_confirm_routine.setOnClickListener(null)

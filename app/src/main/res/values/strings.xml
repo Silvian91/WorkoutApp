@@ -29,4 +29,5 @@
     <string name="text_dialog_delete_routines">Delete Routines?</string>
     <string name="text_dialog_delete_routines_cancel">Cancel</string>
     <string name="text_dialog_delete_routines_confirm">Confirm</string>
+    <string name="text_dialog_delete_routines_back_button">Are you sure you want to quit? Progress might be lost</string>
 </resources>
