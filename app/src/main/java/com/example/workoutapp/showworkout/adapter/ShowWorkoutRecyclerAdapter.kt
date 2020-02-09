@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutapp.R
 import com.example.workoutapp.model.workout.WorkoutEntity
 
-class ShowWorkoutRecyclerAdapter(val listener: WorkoutViewHolderListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ShowWorkoutRecyclerAdapter(private val listener: WorkoutViewHolderListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private var workouts: List<WorkoutEntity> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -19,7 +19,7 @@ class ShowWorkoutRecyclerAdapter(val listener: WorkoutViewHolderListener) : Recy
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ShowWorkoutViewHolder -> {
-                holder.bind(workouts.get(position))
+                holder.bind(workouts[position])
             }
         }
     }

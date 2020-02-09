@@ -23,7 +23,7 @@ class ShowRoutineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is ShowRoutineViewHolder -> {
-                holder.bind(routinePairs.get(position))
+                holder.bind(routinePairs[position])
             }
         }
     }

@@ -7,15 +7,15 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.layout_workout_list.view.*
 
 class ShowWorkoutViewHolder(
-    override val containerView: View, val listener: ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener
+    override val containerView: View, private val listener: ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener
     ): RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        val workoutName = containerView.button_show_workout_name
-        val workoutButton = containerView.show_workout_name
+        private val workoutName = containerView.button_show_workout_name
+        private val workoutButton = containerView.show_workout_name
 
 
     fun bind(workouts: WorkoutEntity){
-        workoutName.setText(workouts.title)
+        workoutName.text = workouts.title
         workoutButton.setOnClickListener {
             listener.onWorkoutClicked(workouts.id)
         }
