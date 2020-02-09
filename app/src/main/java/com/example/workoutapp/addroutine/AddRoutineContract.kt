@@ -25,6 +25,7 @@ interface AddRoutineContract {
             routine_sets: String,
             routine_reps: String,
             routine_weight: String,
+            routine_weight_measurement: String,
             routine_rest: String
         )
 
@@ -33,6 +34,7 @@ interface AddRoutineContract {
             routine_sets: String,
             routine_reps: String,
             routine_weight: String,
+            routine_weight_measurement: String,
             routine_rest: String
         )
 
@@ -41,12 +43,13 @@ interface AddRoutineContract {
             routine_sets: String,
             routine_reps: String,
             routine_weight: String,
+            routine_weight_measurement: String,
             routine_rest: String
         )
     }
 
     enum class ErrorType {
-        NAME_EMPTY, SETS_EMPTY, REPS_EMPTY, WEIGHT_EMPTY, REST_EMPTY
+        NAME_EMPTY, SETS_EMPTY, REPS_EMPTY, WEIGHT_EMPTY, WEIGHT_MEASUREMENT_EMPTY, REST_EMPTY
     }
 
 

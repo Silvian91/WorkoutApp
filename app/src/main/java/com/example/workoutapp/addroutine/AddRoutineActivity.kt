@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.MainActivity
@@ -17,6 +18,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
 
     @Inject
     lateinit var presenter: AddRoutineContract.Presenter
+    private var DROPDOWNLIST = arrayOf("kg", "lbs")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,9 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
         presenter.setWorkoutId(workoutId)
         setOnClickListenerEvent()
+        val adapter = ArrayAdapter(this, R.layout.component_dropdown_list_item, DROPDOWNLIST)
+        weight_measurement.setAdapter(adapter)
+        weight_measurement.onItemSelectedListener
     }
 
     private fun setToolbar() {
@@ -47,6 +52,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
                 routine_sets.text.toString(),
                 routine_reps.text.toString(),
                 routine_weight.text.toString(),
+                weight_measurement.text.toString(),
                 routine_rest.text.toString()
             )
         }
@@ -56,6 +62,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
                 routine_sets.text.toString(),
                 routine_reps.text.toString(),
                 routine_weight.text.toString(),
+                weight_measurement.text.toString(),
                 routine_rest.text.toString()
             )
         }
@@ -67,6 +74,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
         routine_sets.setText("")
         routine_reps.setText("")
         routine_weight.setText("")
+        weight_measurement.setText("")
         routine_rest.setText("")
     }
 
@@ -100,6 +108,10 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
                 routine_weight.requestFocus()
                 routine_weight.error = errorFieldEmpty()
             }
+            WEIGHT_MEASUREMENT_EMPTY -> {
+                weight_measurement.requestFocus()
+                weight_measurement.error = errorFieldEmpty()
+            }
             REST_EMPTY -> {
                 routine_rest.requestFocus()
                 routine_rest.error = errorFieldEmpty()
@@ -123,6 +135,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
                     routine_weight.text.toString(),
+                    weight_measurement.text.toString(),
                     routine_rest.text.toString()
                 )
             }

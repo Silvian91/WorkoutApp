@@ -7,7 +7,7 @@ import com.example.workoutapp.model.workout.WorkoutEntity
 
 @Entity(tableName = "routine", foreignKeys = [ForeignKey(entity = WorkoutEntity::class, parentColumns = ["id"], childColumns = ["workoutId"], onDelete = ForeignKey.CASCADE)])
 data class RoutineEntity(
-    var routineName: String, var sets: String, var reps: String, var weight: String, var rest: String, var workoutId: Long
+    var routineName: String, var sets: String, var reps: String, var weight: String, var weightMeasurement: String, var rest: String, var workoutId: Long
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

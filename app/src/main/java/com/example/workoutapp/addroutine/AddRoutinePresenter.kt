@@ -36,8 +36,13 @@ class AddRoutinePresenter(
     }
 
     private fun addRoutinePairs(
-        routine_name: String, routine_reps: String, routine_sets: String,
-        routine_weight: String, routine_rest: String, workoutId: Long
+        routine_name: String,
+        routine_reps: String,
+        routine_sets: String,
+        routine_weight: String,
+        routine_weight_measurement: String,
+        routine_rest: String,
+        workoutId: Long
     ) {
         routinePairs.add(
             RoutineEntity(
@@ -45,6 +50,7 @@ class AddRoutinePresenter(
                 routine_sets,
                 routine_reps,
                 routine_weight,
+                routine_weight_measurement,
                 routine_rest,
                 workoutId
             )
@@ -61,7 +67,7 @@ class AddRoutinePresenter(
 
     private fun addRoutinePairsOrShowError(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_rest: String
+        routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ): Boolean {
         when {
             routine_name.isEmpty() -> {
@@ -80,6 +86,10 @@ class AddRoutinePresenter(
                 view.showError(WEIGHT_EMPTY)
                 return false
             }
+            routine_weight_measurement.isEmpty() -> {
+                view.showError(WEIGHT_MEASUREMENT_EMPTY)
+                return false
+            }
             routine_rest.isEmpty() -> {
                 view.showError(REST_EMPTY)
                 return false
@@ -90,6 +100,7 @@ class AddRoutinePresenter(
                     routine_sets,
                     routine_reps,
                     routine_weight,
+                    routine_weight_measurement,
                     routine_rest,
                     workoutId
                 )
@@ -100,13 +111,14 @@ class AddRoutinePresenter(
 
     override fun onContinueClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_rest: String
+        routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ) {
         if (addRoutinePairsOrShowError(
                 routine_name,
                 routine_sets,
                 routine_reps,
                 routine_weight,
+                routine_weight_measurement,
                 routine_rest
             )
         ) {
@@ -118,13 +130,14 @@ class AddRoutinePresenter(
 
     override fun onFinishClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_rest: String
+        routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ) {
         if (addRoutinePairsOrShowError(
                 routine_name,
                 routine_sets,
                 routine_reps,
                 routine_weight,
+                routine_weight_measurement,
                 routine_rest
             )
         ) {
@@ -136,9 +149,11 @@ class AddRoutinePresenter(
 
     override fun onBackClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_rest: String
+        routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ) {
-        if (routine_name.isEmpty() || routine_sets.isEmpty() || routine_reps.isEmpty() || routine_weight.isEmpty() || routine_rest.isEmpty()) {
+        if (routine_name.isEmpty() || routine_sets.isEmpty() || routine_reps.isEmpty() || routine_weight.isEmpty() || routine_weight_measurement.isEmpty() ||
+            routine_rest.isEmpty()
+        ) {
             workoutRepository.deleteRoutine(workoutId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -150,8 +165,9 @@ class AddRoutinePresenter(
                 routine_name,
                 routine_sets,
                 routine_reps,
-                routine_rest,
                 routine_weight,
+                routine_weight_measurement,
+                routine_rest,
                 workoutId
             )
             saveRoutines(routinePairs)
