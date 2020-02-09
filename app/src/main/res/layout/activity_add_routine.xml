@@ -1,150 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".addroutine.AddRoutineActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:context=".addroutine.AddRoutineActivity">
+
+    <include layout="@layout/toolbar" />
 
     <ScrollView
         android:id="@+id/routine_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_confirm_routine" >
+        app:layout_constraintBottom_toTopOf="@id/button_confirm_routine"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <include layout="@layout/toolbar" />
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/sets_layout"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/routine_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
                     android:hint="@string/text_routine_name"
                     android:inputType="textPersonName"
-                    android:textColor="@color/DarkSlateGray"
-                    />
+                    android:textColor="@color/DarkSlateGray" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sets_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/reps_layout"
+                app:layout_constraintTop_toBottomOf="@+id/name_layout">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/routine_sets"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
                     android:hint="@string/text_routine_sets"
                     android:inputType="textPersonName"
-                    android:textColor="@color/DarkSlateGray"
-                    />
+                    android:textColor="@color/DarkSlateGray" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/reps_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/weight_layout"
+                app:layout_constraintTop_toBottomOf="@id/sets_layout">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/routine_reps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
                     android:hint="@string/text_routine_reps"
                     android:inputType="textPersonName"
-                    android:textColor="@color/DarkSlateGray"
-                    />
+                    android:textColor="@color/DarkSlateGray" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:id="@+id/weight_layout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/rest_layout"
+                app:layout_constraintEnd_toStartOf="@id/weight_measurement_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/weight_layout">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/routine_weight"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
                     android:hint="@string/text_routine_weight"
                     android:inputType="textPersonName"
-                    android:textColor="@color/DarkSlateGray"
-                    />
+                    android:textColor="@color/DarkSlateGray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/weight_measurement_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+
+                app:layout_constraintBottom_toTopOf="@+id/rest_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/weight_layout"
+                app:layout_constraintTop_toBottomOf="@id/reps_layout">
+
+                <AutoCompleteTextView
+                    android:id="@+id/weight_measurement"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cursorVisible="false"
+                    android:focusable="false" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/rest_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@id/weight_layout">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/routine_rest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
                     android:hint="@string/text_routine_rest"
                     android:inputType="textPersonName"
-                    android:textColor="@color/DarkSlateGray"
-                    />
+                    android:textColor="@color/DarkSlateGray" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
     <Button
         android:id="@+id/button_confirm_routine"
+        style="@style/buttonColorAndBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="40dp"
-        android:layout_gravity="center"
         android:text="@string/text_continue"
-        style="@style/buttonColorAndBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button_save_routine"
-        app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toStartOf="@id/button_save_routine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view" />
 
     <Button
         android:id="@+id/button_save_routine"
+        style="@style/buttonColorAndBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="40dp"
         android:layout_gravity="center"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/text_save_routines"
-        style="@style/buttonColorAndBackground"
-        app:layout_constraintStart_toEndOf="@id/button_confirm_routine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_confirm_routine"
+        app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
