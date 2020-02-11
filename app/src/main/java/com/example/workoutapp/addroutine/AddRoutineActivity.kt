@@ -154,10 +154,9 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
     companion object {
         const val workoutIdExtra = "workoutId"
 
-        fun newIntent(context: Context, workoutId: Long): Intent {
-            val intent = Intent(context, AddRoutineActivity::class.java)
-            intent.putExtra(workoutIdExtra, workoutId)
-            return intent
-        }
+        fun newIntent(context: Context, workoutId: Long) =
+            Intent(context, AddRoutineActivity::class.java).apply {
+                putExtra(workoutIdExtra, workoutId)
+            }
     }
 }
