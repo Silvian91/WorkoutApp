@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WorkoutApp</string>
     <string name="text_main_activity_title">Workout Tracker</string>
+    <string name="text_main_activity_subheading">Add and track personalized workouts</string>
     <string name="text_add_workout">Add Workout</string>
     <string name="text_show_workout">Show Workout</string>
     <string name="text_add_workout_title">Add a name for your workout:</string>

@@ -33,6 +33,14 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <!-- SubHeading -->
+    <style name="subheadingStyle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/DarkSlateGray</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <!-- Alert Dialog Buttons -->
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
