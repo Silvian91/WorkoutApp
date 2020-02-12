@@ -224,8 +224,8 @@ internal class AddRoutinePresenterTest {
     fun showErrorForEmptySetsReps() {
         val routineName = "name"
         val routineSets = ""
-        val routineReps = "reps"
-        val routineWeight = ""
+        val routineReps = ""
+        val routineWeight = "weight"
         val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
