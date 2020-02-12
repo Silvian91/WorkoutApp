@@ -18,7 +18,7 @@
     </style>
 
     <!-- Body -->
-    <style name="textBody" parent="TextAppearance.MaterialComponents.Body1">
+    <style name="textBodyStyle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textStyle">normal</item>
