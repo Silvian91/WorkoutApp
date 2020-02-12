@@ -1,10 +1,8 @@
 package com.example.workoutapp.addroutine
 
 import com.example.workoutapp.addroutine.AddRoutineContract.ErrorType.*
-import com.example.workoutapp.model.routine.RoutineEntity
 import com.example.workoutapp.model.routine.RoutineRepository
 import com.example.workoutapp.model.workout.WorkoutRepository
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -25,19 +23,6 @@ internal class AddRoutinePresenterTest {
     private val presenter =
         AddRoutinePresenter(routineRepository, workoutRepository, compositeDisposable)
 
-
-    private val routineName = "name"
-    private val routineReps: String = "set"
-    private val routineSets: String = "reps"
-    private val routineWeight: String = "weight"
-    private val routineRest: String = "rest"
-    private val routineEmptyString: String = ""
-    private val workoutId: Long = 0
-    private val routineEntity =
-        RoutineEntity(routineName, routineReps, routineSets, routineWeight, routineRest, workoutId)
-    private val routinePairs = ArrayList<RoutineEntity>()
-
-
     @BeforeEach
     fun setUp() {
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
@@ -56,6 +41,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = "sets"
         val routineReps = "reps"
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -64,6 +50,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -72,6 +59,7 @@ internal class AddRoutinePresenterTest {
         verify(exactly = 0) { view.resetFocus() }
         verify(exactly = 0) { view.showError(SETS_EMPTY) }
         verify(exactly = 0) { view.showError(REST_EMPTY) }
+        verify(exactly = 0) { view.showError(WEIGHT_MEASUREMENT_EMPTY) }
     }
 
     @Test
@@ -80,6 +68,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = "reps"
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -88,6 +77,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -104,6 +94,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = "sets"
         val routineReps = ""
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -112,6 +103,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -128,6 +120,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = "sets"
         val routineReps = "reps"
         val routineWeight = ""
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -136,6 +129,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -147,11 +141,39 @@ internal class AddRoutinePresenterTest {
     }
 
     @Test
+    fun showErrorForEmptyWeightMeasurement() {
+        val routineName = "name"
+        val routineSets = "sets"
+        val routineReps = "reps"
+        val routineWeight = "1"
+        val routineWeightMeasurement = ""
+        val routineRest = "rest"
+        presenter.setView(view)
+
+        presenter.onContinueClicked(
+            routineName,
+            routineSets,
+            routineReps,
+            routineWeight,
+            routineWeightMeasurement,
+            routineRest
+        )
+
+        verify(exactly = 1) { view.showError(WEIGHT_MEASUREMENT_EMPTY) }
+        verify(exactly = 0) { view.clearAllInputFields() }
+        verify(exactly = 0) { view.resetFocus() }
+        verify(exactly = 0) { view.showError(WEIGHT_EMPTY) }
+        verify(exactly = 0) { view.showError(NAME_EMPTY) }
+        verify(exactly = 0) { view.showError(REPS_EMPTY) }
+    }
+
+    @Test
     fun showErrorForEmptyRest() {
         val routineName = "name"
         val routineSets = "sets"
         val routineReps = "reps"
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = ""
         presenter.setView(view)
 
@@ -160,6 +182,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -176,6 +199,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = "reps"
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -184,6 +208,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -201,6 +226,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = "reps"
         val routineWeight = ""
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -209,6 +235,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -226,6 +253,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = "sets"
         val routineReps = ""
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = ""
         presenter.setView(view)
 
@@ -234,6 +262,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -251,6 +280,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = ""
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -259,6 +289,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -276,6 +307,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = ""
         val routineWeight = ""
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -284,6 +316,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -301,6 +334,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = ""
         val routineWeight = ""
+        val routineWeightMeasurement = "kg"
         val routineRest = "rest"
         presenter.setView(view)
 
@@ -309,6 +343,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -326,6 +361,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = ""
         val routineWeight = ""
+        val routineWeightMeasurement = "kg"
         val routineRest = ""
         presenter.setView(view)
 
@@ -334,6 +370,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -352,6 +389,7 @@ internal class AddRoutinePresenterTest {
         val routineSets = ""
         val routineReps = "reps"
         val routineWeight = "weight"
+        val routineWeightMeasurement = "kg"
         val routineRest = ""
         presenter.setView(view)
 
@@ -360,6 +398,7 @@ internal class AddRoutinePresenterTest {
             routineSets,
             routineReps,
             routineWeight,
+            routineWeightMeasurement,
             routineRest
         )
 
@@ -370,34 +409,6 @@ internal class AddRoutinePresenterTest {
         verify(exactly = 0) { view.showError(REPS_EMPTY) }
         verify(exactly = 0) { view.showError(WEIGHT_EMPTY) }
         verify(exactly = 0) { view.showError(REST_EMPTY) }
-    }
-
-    @Test
-    fun addRoutineToArray(){
-        val routineName = "name"
-        val routineReps = "set"
-        val routineSets = "reps"
-        val routineWeight = "weight"
-        val routineRest = "rest"
-        val workoutId: Long = 0
-        val routineEntity =
-            RoutineEntity(routineName, routineReps, routineSets, routineWeight, routineRest, workoutId)
-        val routinePairs = ArrayList<RoutineEntity>()
-        routinePairs.add(routineEntity)
-
-        presenter.setView(view)
-
-        presenter.onFinishClicked(
-            routineName,
-            routineSets,
-            routineReps,
-            routineWeight,
-            routineRest
-        )
-        routineRepository.insertRoutine(routinePairs)
-
-        verify(exactly = 1 ) { view.nextActivity() }
-
     }
 
     @Test
