@@ -48,6 +48,11 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <!-- Caption -->
+    <style name="captionStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/DarkSlateGray</item>
+    </style>
+
     <!-- Alert Dialog Buttons -->
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
