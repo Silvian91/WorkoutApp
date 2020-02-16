@@ -1,4 +1,4 @@
-package com.example.workoutapp.model.workout
+package com.example.workoutapp.data.workout
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

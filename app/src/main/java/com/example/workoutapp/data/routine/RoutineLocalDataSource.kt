@@ -1,4 +1,4 @@
-package com.example.workoutapp.model.routine
+package com.example.workoutapp.data.routine
 
 import io.reactivex.Completable
 import io.reactivex.Single

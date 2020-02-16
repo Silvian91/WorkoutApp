@@ -1,13 +1,13 @@
-package com.example.workoutapp.model
+package com.example.workoutapp.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.workoutapp.model.routine.RoutineDao
-import com.example.workoutapp.model.routine.RoutineEntity
-import com.example.workoutapp.model.workout.WorkoutDao
-import com.example.workoutapp.model.workout.WorkoutEntity
+import com.example.workoutapp.data.routine.RoutineDao
+import com.example.workoutapp.data.routine.RoutineEntity
+import com.example.workoutapp.data.workout.WorkoutDao
+import com.example.workoutapp.data.workout.WorkoutEntity
 
 @Database(
     entities = [RoutineEntity::class, WorkoutEntity::class],

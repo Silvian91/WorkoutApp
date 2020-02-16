@@ -1,7 +1,7 @@
-package com.example.workoutapp.model.workout
+package com.example.workoutapp.data.workout
 
 import android.content.Context
-import com.example.workoutapp.model.WorkoutAppDatabase
+import com.example.workoutapp.data.WorkoutAppDatabase
 import io.reactivex.Completable
 import io.reactivex.Single
 
