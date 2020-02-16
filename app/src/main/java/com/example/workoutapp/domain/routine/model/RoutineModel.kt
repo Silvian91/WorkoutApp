@@ -1,4 +1,4 @@
-package com.example.workoutapp.domain.routine
+package com.example.workoutapp.domain.routine.model
 
 data class RoutineModel(
     var routineName: String,
