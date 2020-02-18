@@ -2,12 +2,12 @@ package com.example.workoutapp.showroutine
 
 import com.example.workoutapp.common.BasePresenter
 import com.example.workoutapp.common.BaseView
-import com.example.workoutapp.model.routine.RoutineEntity
+import com.example.workoutapp.showroutine.adapter.ShowRoutineItemWrapper
 
 interface ShowRoutineContract {
 
     interface View : BaseView<Presenter> {
-        fun showRoutineData(routineData: List<RoutineEntity>)
+        fun showRoutineData(routineData: List<ShowRoutineItemWrapper>)
 
         fun nextActivity()
     }

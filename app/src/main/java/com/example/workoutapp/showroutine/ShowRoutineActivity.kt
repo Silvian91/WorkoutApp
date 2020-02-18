@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.MainActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.WorkoutApplication
-import com.example.workoutapp.model.routine.RoutineEntity
+import com.example.workoutapp.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.showroutine.adapter.ShowRoutineRecyclerAdapter
 import com.example.workoutapp.showworkout.ShowWorkoutActivity
 import kotlinx.android.synthetic.main.activity_show_routine.*
@@ -23,7 +23,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     private lateinit var showRoutineAdapter: ShowRoutineRecyclerAdapter
 
-    override fun showRoutineData(routineData: List<RoutineEntity>) {
+    override fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
         showRoutineAdapter.setData(routineData)
     }
 
@@ -94,7 +94,6 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     companion object {
         const val workoutIdExtra = "workoutId"
 
-        //Intent.apply
         fun newIntent(context: Context, workoutId: Long) =
             Intent(context, ShowRoutineActivity::class.java).apply {
                 putExtra(workoutIdExtra, workoutId)

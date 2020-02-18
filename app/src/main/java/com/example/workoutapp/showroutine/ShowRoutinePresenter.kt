@@ -1,7 +1,9 @@
 package com.example.workoutapp.showroutine
 
-import com.example.workoutapp.model.routine.RoutineRepository
-import com.example.workoutapp.model.workout.WorkoutRepository
+import com.example.workoutapp.data.routine.RoutineRepository
+import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.domain.routine.model.RoutineModel
+import com.example.workoutapp.showroutine.adapter.ShowRoutineItemWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -10,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 class ShowRoutinePresenter(
     private val routineRepository: RoutineRepository,
     private val workoutRepository: WorkoutRepository,
-    private val compositeDisposable : CompositeDisposable
+    private val compositeDisposable: CompositeDisposable
 ) : ShowRoutineContract.Presenter {
 
     private lateinit var view: ShowRoutineContract.View
@@ -21,8 +23,31 @@ class ShowRoutinePresenter(
         routineRepository.getRoutine(workoutId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { routineData -> view.showRoutineData(routineData) }
+            .map {
+                val models = ArrayList<RoutineModel>()
+                it.forEach { entity ->
+                    models.add(entity.toModel())
+                }
+                models
+            }
+            .map {
+                convertToItemWrappers(it)
+            }
+            .subscribe { routineData ->
+                view.showRoutineData(routineData)
+            }
             .addTo(compositeDisposable)
+    }
+
+    private fun convertToItemWrappers(models: ArrayList<RoutineModel>): List<ShowRoutineItemWrapper> {
+        val itemWrappers = ArrayList<ShowRoutineItemWrapper>()
+        itemWrappers.add(ShowRoutineItemWrapper.Title("Routines"))
+
+        models.forEach {
+            ShowRoutineItemWrapper.Entry(it)
+        }
+
+        return itemWrappers
     }
 
     override fun finish() {
