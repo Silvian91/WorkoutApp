@@ -1,9 +1,9 @@
 package com.example.workoutapp.addroutine
 
 import com.example.workoutapp.addroutine.AddRoutineContract.ErrorType.*
-import com.example.workoutapp.model.routine.RoutineEntity
-import com.example.workoutapp.model.routine.RoutineRepository
-import com.example.workoutapp.model.workout.WorkoutRepository
+import com.example.workoutapp.data.routine.RoutineEntity
+import com.example.workoutapp.data.routine.RoutineRepository
+import com.example.workoutapp.data.workout.WorkoutRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
