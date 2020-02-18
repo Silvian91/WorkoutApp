@@ -1,26 +1,25 @@
-package com.example.workoutapp.showworkout.adapter
+package com.example.workoutapp.showworkout.adapter.viewholder
 
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
-import com.example.workoutapp.data.workout.WorkoutEntity
+import com.example.workoutapp.common.BaseViewHolder
+import com.example.workoutapp.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
+import com.example.workoutapp.showworkout.adapter.ShowWorkoutRecyclerAdapter
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.layout_workout_list.view.*
+import kotlinx.android.synthetic.main.layout_workout_list.*
 
 class ShowWorkoutViewHolder(
-    override val containerView: View, private val listener: ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener
-    ): RecyclerView.ViewHolder(containerView), LayoutContainer {
+    override val containerView: View,
+    private val listener: ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener
+) : BaseViewHolder<WorkoutTitle>(containerView), LayoutContainer {
 
-        private val workoutName = containerView.button_show_workout_name
-        private val workoutButton = containerView.show_workout_name_card
-
-
-    fun bind(workouts: WorkoutEntity){
-        workoutName.text = workouts.title
-        workoutButton.setOnClickListener {
-            listener.onWorkoutClicked(workouts.id)
+    override fun bind(model: WorkoutTitle) {
+        button_show_workout_name.text = model.workoutTitle.title
+        show_workout_name_card.setOnClickListener {
+            listener.onWorkoutClicked(model.workoutTitle.id)
         }
+    }
 
-        //show_workout_name_card.setCallback???
+    //show_workout_name_card.setCallback???
 //        object : ViewDragHelper.Callback() {
 //            override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
 //                super.onViewReleased(releasedChild, xvel, yvel)
@@ -30,6 +29,6 @@ class ShowWorkoutViewHolder(
 //                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 //            }
 //        }
-    }
+
 
 }
