@@ -1,8 +1,8 @@
 package com.example.workoutapp.addroutine
 
 import com.example.workoutapp.addroutine.AddRoutineContract.ErrorType.*
-import com.example.workoutapp.model.routine.RoutineRepository
-import com.example.workoutapp.model.workout.WorkoutRepository
+import com.example.workoutapp.data.routine.RoutineRepository
+import com.example.workoutapp.data.workout.WorkoutRepository
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.android.plugins.RxAndroidPlugins

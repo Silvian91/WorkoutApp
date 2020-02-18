@@ -1,7 +1,7 @@
 package com.example.workoutapp.addworkout
 
-import com.example.workoutapp.model.workout.WorkoutEntity
-import com.example.workoutapp.model.workout.WorkoutRepository
+import com.example.workoutapp.data.workout.WorkoutEntity
+import com.example.workoutapp.data.workout.WorkoutRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
