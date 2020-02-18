@@ -9,20 +9,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.MainActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.WorkoutApplication
-import com.example.workoutapp.model.workout.WorkoutEntity
 import com.example.workoutapp.showroutine.ShowRoutineActivity
+import com.example.workoutapp.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.showworkout.adapter.ShowWorkoutRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_show_workout.*
 import javax.inject.Inject
 
-class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View{
+class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
 
     @Inject
     lateinit var presenter: ShowWorkoutContract.Presenter
 
     private lateinit var showWorkoutAdapter: ShowWorkoutRecyclerAdapter
 
-    override fun showWorkoutListData(workoutList: List<WorkoutEntity>) {
+    override fun showWorkoutListData(workoutList: List<ShowWorkoutItemWrapper>) {
         showWorkoutAdapter.setData(workoutList)
     }
 
@@ -57,7 +57,7 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View{
         return true
     }
 
-    private fun initWorkoutRecyclerView(){
+    private fun initWorkoutRecyclerView() {
         recyclerViewWorkout.apply {
             layoutManager = LinearLayoutManager(this@ShowWorkoutActivity)
             showWorkoutAdapter = ShowWorkoutRecyclerAdapter(presenter)

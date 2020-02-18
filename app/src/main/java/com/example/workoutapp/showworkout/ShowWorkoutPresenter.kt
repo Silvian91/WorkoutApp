@@ -1,6 +1,8 @@
 package com.example.workoutapp.showworkout
 
-import com.example.workoutapp.model.workout.WorkoutRepository
+import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.domain.workout.model.WorkoutModel
+import com.example.workoutapp.showworkout.adapter.ShowWorkoutItemWrapper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,8 +24,24 @@ class ShowWorkoutPresenter(
         Observable.fromCallable { workoutRepository.getAllWorkouts() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                val models = ArrayList<WorkoutModel>()
+                it.forEach { workout ->
+                    models.add(workout.toModel())
+                }
+                models
+            }
+            .map { convertToItemWrapper(it) }
             .subscribe { workouts -> view.showWorkoutListData(workouts) }
             .addTo(compositeDisposable)
+    }
+
+    private fun convertToItemWrapper(models: ArrayList<WorkoutModel>): List<ShowWorkoutItemWrapper> {
+        val itemWrappers = ArrayList<ShowWorkoutItemWrapper>()
+        models.forEach {
+            itemWrappers.add(ShowWorkoutItemWrapper.WorkoutTitle(it))
+        }
+        return itemWrappers
     }
 
     override fun finish() {
