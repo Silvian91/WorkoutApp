@@ -11,6 +11,7 @@ data class WorkoutEntity(val title: String ) {
 
     fun toModel(): WorkoutModel {
         return WorkoutModel(
+            id,
             title
         )
     }
