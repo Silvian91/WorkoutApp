@@ -44,7 +44,7 @@ class ShowRoutinePresenter(
         itemWrappers.add(ShowRoutineItemWrapper.Title("Routines"))
 
         models.forEach {
-            ShowRoutineItemWrapper.Entry(it)
+            itemWrappers.add(ShowRoutineItemWrapper.Entry(it))
         }
 
         return itemWrappers
