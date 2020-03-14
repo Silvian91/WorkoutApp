@@ -1,6 +1,5 @@
 package com.example.workoutapp.di.main
 
-import android.content.Context
 import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRemoteDataSource
 import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRemoteDataSourceImpl
 import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRepositoryImpl

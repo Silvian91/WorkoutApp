@@ -1,6 +1,8 @@
 package com.example.workoutapp.ui.mainactivity
 
 import com.example.workoutapp.domain.chucknorrisquote.ChuckNorrisQuoteRepository
+import com.example.workoutapp.domain.chucknorrisquote.model.ChuckNorrisQuoteModel
+import io.reactivex.Single
 
 class MainPresenter(
     private val chuckNorrisQuoteRepository: ChuckNorrisQuoteRepository
@@ -16,8 +18,8 @@ class MainPresenter(
 
     override fun finish() {}
 
-    override fun getChuckNorrisQuote() {
-        chuckNorrisQuoteRepository.getRandomQuote()
+    override fun getChuckNorrisQuote(): Single<ChuckNorrisQuoteModel> {
+        return chuckNorrisQuoteRepository.getRandomQuote()
     }
 
 }

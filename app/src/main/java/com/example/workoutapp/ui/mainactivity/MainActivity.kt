@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
+import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
+        WorkoutApplication.get().components.createMainComponent().inject(this)
 
         setToolbar()
         presenter.setView(this)
