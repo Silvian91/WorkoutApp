@@ -1,8 +1,8 @@
 package com.example.workoutapp.di.addroutine
 
 import android.content.Context
-import com.example.workoutapp.addroutine.AddRoutineContract
-import com.example.workoutapp.addroutine.AddRoutinePresenter
+import com.example.workoutapp.ui.addroutine.AddRoutineContract
+import com.example.workoutapp.ui.addroutine.AddRoutinePresenter
 import com.example.workoutapp.data.routine.RoutineLocalDataSource
 import com.example.workoutapp.data.routine.RoutineLocalDataSourceImpl
 import com.example.workoutapp.data.routine.RoutineRepository

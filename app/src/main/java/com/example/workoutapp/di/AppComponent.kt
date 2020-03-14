@@ -1,15 +1,18 @@
 package com.example.workoutapp.di
 
 import android.app.Application
-import com.example.workoutapp.WorkoutApplication
 import com.example.workoutapp.di.addroutine.AddRoutineComponent
 import com.example.workoutapp.di.addroutine.AddRoutineModule
 import com.example.workoutapp.di.addworkout.AddWorkoutComponent
 import com.example.workoutapp.di.addworkout.AddWorkoutModule
+import com.example.workoutapp.di.api.ApiModule
+import com.example.workoutapp.di.main.MainComponent
+import com.example.workoutapp.di.main.MainModule
 import com.example.workoutapp.di.showroutine.ShowRoutineComponent
 import com.example.workoutapp.di.showroutine.ShowRoutineModule
 import com.example.workoutapp.di.showworkout.ShowWorkoutComponent
 import com.example.workoutapp.di.showworkout.ShowWorkoutModule
+import com.example.workoutapp.ui.WorkoutApplication
 import dagger.BindsInstance
 import dagger.Component
 
@@ -27,13 +30,15 @@ import dagger.Component
  *
  * the rest was groundwork that makes it easier to work with Dagger
  */
-@Component(modules = [AndroidModule::class, CompositeDisposableModule::class])
+@Component(modules = [AndroidModule::class, CompositeDisposableModule::class, ApiModule::class])
 interface AppComponent {
     fun inject(workoutApplication: WorkoutApplication)
     fun plus(addWorkoutModule: AddWorkoutModule): AddWorkoutComponent
     fun plus(showWorkoutModule: ShowWorkoutModule): ShowWorkoutComponent
     fun plus(addRoutineModule: AddRoutineModule): AddRoutineComponent
     fun plus(showRoutineModule: ShowRoutineModule): ShowRoutineComponent
+    fun plus(mainModule: MainModule): MainComponent
+
     @Component.Builder
     interface Builder {
         @BindsInstance

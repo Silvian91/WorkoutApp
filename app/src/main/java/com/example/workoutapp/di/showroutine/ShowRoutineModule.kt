@@ -9,8 +9,8 @@ import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
 import com.example.workoutapp.data.workout.WorkoutRepository
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
-import com.example.workoutapp.showroutine.ShowRoutineContract
-import com.example.workoutapp.showroutine.ShowRoutinePresenter
+import com.example.workoutapp.ui.showroutine.ShowRoutineContract
+import com.example.workoutapp.ui.showroutine.ShowRoutinePresenter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable

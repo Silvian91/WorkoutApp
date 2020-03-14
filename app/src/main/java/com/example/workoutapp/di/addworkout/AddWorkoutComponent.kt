@@ -1,6 +1,6 @@
 package com.example.workoutapp.di.addworkout
 
-import com.example.workoutapp.addworkout.AddWorkoutActivity
+import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [AddWorkoutModule::class])

@@ -22,6 +22,10 @@ android {
     androidExtensions {
         experimental = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -46,6 +50,12 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.1.0"
     implementation "com.google.android.material:material:1.0.0"
     testImplementation "io.mockk:mockk:1.9.3"
+    implementation "com.squareup.retrofit2:retrofit:2.7.1"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.2'
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
 
     // Espresso

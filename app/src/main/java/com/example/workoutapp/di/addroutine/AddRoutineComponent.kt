@@ -1,6 +1,6 @@
 package com.example.workoutapp.di.addroutine
 
-import com.example.workoutapp.addroutine.AddRoutineActivity
+import com.example.workoutapp.ui.addroutine.AddRoutineActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [AddRoutineModule::class])
