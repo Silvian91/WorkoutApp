@@ -24,13 +24,6 @@ class ShowRoutinePresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map {
-                val models = ArrayList<RoutineModel>()
-                it.forEach { entity ->
-                    models.add(entity.toModel())
-                }
-                models
-            }
-            .map {
                 convertToItemWrappers(it)
             }
             .subscribe { routineData ->
