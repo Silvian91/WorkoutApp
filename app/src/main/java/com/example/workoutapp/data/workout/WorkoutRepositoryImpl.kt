@@ -1,6 +1,8 @@
 package com.example.workoutapp.data.workout
 
+import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class WorkoutRepositoryImpl(private val workoutLocalDataSource: WorkoutLocalDataSource): WorkoutRepository {
@@ -9,7 +11,7 @@ class WorkoutRepositoryImpl(private val workoutLocalDataSource: WorkoutLocalData
         return workoutLocalDataSource.insertWorkout(workoutTitleField)
     }
 
-    override fun getAllWorkouts(): List<WorkoutEntity> {
+    override fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>> {
         return workoutLocalDataSource.getAllWorkouts()
     }
 

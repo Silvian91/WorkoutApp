@@ -17,8 +17,8 @@ class RoutineLocalDataSourceImpl(val context: Context) : RoutineLocalDataSource 
 
     override fun getRoutines(workoutId: Long): Single<ArrayList<RoutineModel>> {
         return Single.fromCallable {
-            WorkoutAppDatabase.getInstance(context).routineDao().getWorkoutRoutines(workoutId)
-        }
+                WorkoutAppDatabase.getInstance(context).routineDao().getWorkoutRoutines(workoutId)
+            }
             .map {
                 val models = ArrayList<RoutineModel>()
                 it.forEach { entity ->

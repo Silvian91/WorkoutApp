@@ -21,16 +21,9 @@ class ShowWorkoutPresenter(
     }
 
     override fun start() {
-        Observable.fromCallable { workoutRepository.getAllWorkouts() }
+         workoutRepository.getAllWorkouts()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map {
-                val models = ArrayList<WorkoutModel>()
-                it.forEach { workout ->
-                    models.add(workout.toModel())
-                }
-                models
-            }
             .map { convertToItemWrapper(it) }
             .subscribe { workouts -> view.showWorkoutListData(workouts) }
             .addTo(compositeDisposable)
