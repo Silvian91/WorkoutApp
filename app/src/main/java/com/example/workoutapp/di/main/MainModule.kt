@@ -9,15 +9,17 @@ import com.example.workoutapp.ui.mainactivity.MainContract
 import com.example.workoutapp.ui.mainactivity.MainPresenter
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class MainModule {
 
     @Provides
     fun providesMainPresenter(
-        chuckNorrisQuoteRepository: ChuckNorrisQuoteRepository
+        chuckNorrisQuoteRepository: ChuckNorrisQuoteRepository,
+        compositeDisposable: CompositeDisposable
     ): MainContract.Presenter {
-        return MainPresenter(chuckNorrisQuoteRepository)
+        return MainPresenter(chuckNorrisQuoteRepository, compositeDisposable)
     }
 
     @Provides

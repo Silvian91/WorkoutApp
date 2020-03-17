@@ -9,7 +9,7 @@
     <include layout="@layout/toolbar" />
 
     <TextView
-        android:id="@+id/test_api"
+        android:id="@+id/chuck_norris_quote_api"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -18,7 +18,7 @@
         android:layout_marginBottom="12dp"
         style="@style/subheadingStyle"
         android:gravity="center"
-        android:text="@string/text_main_activity_subheading" />
+        android:text="" />
 
     <Button
         android:id="@+id/add_workout"

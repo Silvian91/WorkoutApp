@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
+import com.example.workoutapp.domain.chucknorrisquote.model.ChuckNorrisQuoteModel
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         setToolbar()
         presenter.setView(this)
-        displayChuckNorrisQuote()
+        presenter.start()
         setOnClickListeners()
     }
 
@@ -47,10 +48,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         startActivity(ShowWorkoutActivity.newIntent(this))
     }
 
-    private fun displayChuckNorrisQuote() {
-        test_api.text = presenter.getChuckNorrisQuote().toString()
-    }
-
     override fun onDestroy() {
         add_workout.setOnClickListener(null)
         show_workout.setOnClickListener(null)
@@ -60,5 +57,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     companion object {
         fun newIntent(context: Context) = Intent(context, MainActivity::class.java)
+    }
+
+    override fun displayChuckNorrisQuote(quotes: ChuckNorrisQuoteModel) {
+        chuck_norris_quote_api.text = quotes.value
     }
 }

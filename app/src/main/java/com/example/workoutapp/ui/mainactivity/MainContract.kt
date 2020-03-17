@@ -8,7 +8,7 @@ import io.reactivex.Single
 interface MainContract {
 
     interface View : BaseView<Presenter> {
-
+        fun displayChuckNorrisQuote(quotes: ChuckNorrisQuoteModel)
     }
 
     interface Presenter : BasePresenter<View> {
