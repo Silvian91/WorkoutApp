@@ -6,12 +6,18 @@ import com.example.workoutapp.di.addroutine.AddRoutineModule
 import com.example.workoutapp.di.addworkout.AddWorkoutComponent
 import com.example.workoutapp.di.addworkout.AddWorkoutModule
 import com.example.workoutapp.di.api.ApiModule
+import com.example.workoutapp.di.login.LoginComponent
+import com.example.workoutapp.di.login.LoginModule
 import com.example.workoutapp.di.main.MainComponent
 import com.example.workoutapp.di.main.MainModule
+import com.example.workoutapp.di.register.RegisterComponent
+import com.example.workoutapp.di.register.RegisterModule
 import com.example.workoutapp.di.showroutine.ShowRoutineComponent
 import com.example.workoutapp.di.showroutine.ShowRoutineModule
 import com.example.workoutapp.di.showworkout.ShowWorkoutComponent
 import com.example.workoutapp.di.showworkout.ShowWorkoutModule
+import com.example.workoutapp.di.signup.SignupComponent
+import com.example.workoutapp.di.signup.SignupModule
 import com.example.workoutapp.ui.WorkoutApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -38,6 +44,9 @@ interface AppComponent {
     fun plus(addRoutineModule: AddRoutineModule): AddRoutineComponent
     fun plus(showRoutineModule: ShowRoutineModule): ShowRoutineComponent
     fun plus(mainModule: MainModule): MainComponent
+    fun plus(singupModule: SignupModule): SignupComponent
+    fun plus(loginModule: LoginModule): LoginComponent
+    fun plus(registerModule: RegisterModule): RegisterComponent
 
     @Component.Builder
     interface Builder {

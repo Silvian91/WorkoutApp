@@ -31,4 +31,11 @@
     <string name="text_dialog_delete_routines_cancel">Cancel</string>
     <string name="text_dialog_delete_routines_confirm">Confirm</string>
     <string name="text_dialog_delete_routines_back_button">Are you sure you want to quit? Progress might be lost</string>
+    <string name="text_register_button">Register</string>
+    <string name="text_login_button">Login</string>
+    <string name="text_signup_screen">Register a new account or log in with an existing one</string>
+    <string name="text_login_title">Enter your credentials to login</string>
+    <string name="text_login_register">Enter a username and password to register</string>
+    <string name="text_username">Username</string>
+    <string name="text_password">Password</string>
 </resources>
