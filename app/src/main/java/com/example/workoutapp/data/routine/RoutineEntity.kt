@@ -3,8 +3,8 @@ package com.example.workoutapp.data.routine
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.workoutapp.domain.routine.model.RoutineModel
 import com.example.workoutapp.data.workout.WorkoutEntity
+import com.example.workoutapp.domain.routine.model.RoutineModel
 
 @Entity(
     tableName = "routine",
@@ -36,5 +36,16 @@ data class RoutineEntity(
             weightMeasurement,
             rest
         )
+    }
+
+    fun fromModel(routineModel: RoutineModel): RoutineEntity {
+        return RoutineEntity(
+            routineName,
+            sets,
+            reps,
+            weight,
+            weightMeasurement,
+            rest,
+            workoutId)
     }
 }

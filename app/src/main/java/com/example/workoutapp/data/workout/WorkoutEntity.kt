@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 
 @Entity(tableName = "workout")
-data class WorkoutEntity(val title: String ) {
+data class WorkoutEntity(val title: String) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
@@ -15,4 +15,9 @@ data class WorkoutEntity(val title: String ) {
             title
         )
     }
+
+    fun fromModel(workoutModel: WorkoutModel): WorkoutEntity {
+        return WorkoutEntity(title)
+    }
+
 }
