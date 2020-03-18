@@ -4,15 +4,19 @@ import android.content.Context
 import com.example.workoutapp.data.WorkoutAppDatabase
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class RoutineLocalDataSourceImpl(val context: Context) : RoutineLocalDataSource {
 
-    override fun insertRoutine(routinePairs: List<RoutineEntity>): Completable {
-        return Completable.fromCallable {
-            val routineDao = WorkoutAppDatabase.getInstance(context).routineDao()
-            routinePairs.forEach { routineDao.insertRoutine(it) }
-        }
+    override fun insertRoutine(routinePairs: List<RoutineModel>): Completable {
+        val routineDao = WorkoutAppDatabase.getInstance(context).routineDao()
+        return Observable.fromIterable(routinePairs)
+            .map {
+                routineDao.insertRoutine(RoutineEntity.fromModel(it))
+            }
+            .toList()
+            .flatMapCompletable { Completable.complete() }
     }
 
     override fun getRoutines(workoutId: Long): Single<ArrayList<RoutineModel>> {

@@ -6,5 +6,6 @@ data class RoutineModel(
     var reps: String,
     var weight: String,
     var weightMeasurement: String,
-    var rest: String
+    var rest: String,
+    var workoutId: Long
 )

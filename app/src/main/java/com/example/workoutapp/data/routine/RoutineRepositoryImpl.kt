@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 class RoutineRepositoryImpl(private val routineLocalDataSource: RoutineLocalDataSource) : RoutineRepository {
 
-    override fun insertRoutine(routinePairs: List<RoutineEntity>): Completable {
+    override fun insertRoutine(routinePairs: List<RoutineModel>): Completable {
         return routineLocalDataSource.insertRoutine(routinePairs)
     }
 

@@ -9,10 +9,10 @@ import io.reactivex.Single
 
 class WorkoutLocalDataSourceImpl(val context: Context) : WorkoutLocalDataSource {
 
-    override fun insertWorkout(workoutTitleField: WorkoutEntity): Single<Long> {
-        return Single.fromCallable {
-            WorkoutAppDatabase.getInstance(context).workoutDao().insertWorkout(workoutTitleField)
-        }
+    override fun insertWorkout(workoutModel: WorkoutModel): Single<Long> {
+        return Single.just(workoutModel)
+            .map { WorkoutEntity.fromModel(it) }
+            .map { WorkoutAppDatabase.getInstance(context).workoutDao().insertWorkout(it) }
     }
 
     override fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>> {

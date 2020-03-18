@@ -4,6 +4,7 @@ import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import com.example.workoutapp.data.routine.RoutineEntity
 import com.example.workoutapp.data.routine.RoutineRepository
 import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.domain.routine.model.RoutineModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -18,7 +19,7 @@ class AddRoutinePresenter(
 
     private lateinit var view: AddRoutineContract.View
     private var workoutId: Long = 0
-    private val routinePairs = ArrayList<RoutineEntity>()
+    private val routinePairs = ArrayList<RoutineModel>()
 
     override fun setView(view: AddRoutineContract.View) {
         this.view = view
@@ -45,7 +46,7 @@ class AddRoutinePresenter(
         workoutId: Long
     ) {
         routinePairs.add(
-            RoutineEntity(
+            RoutineModel(
                 routine_name,
                 routine_sets,
                 routine_reps,
@@ -57,7 +58,7 @@ class AddRoutinePresenter(
         )
     }
 
-    private fun saveRoutines(routinePairs: ArrayList<RoutineEntity>) {
+    private fun saveRoutines(routinePairs: ArrayList<RoutineModel>) {
         routineRepository.insertRoutine(routinePairs)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -34,18 +34,22 @@ data class RoutineEntity(
             reps,
             weight,
             weightMeasurement,
-            rest
+            rest,
+            workoutId
         )
     }
 
-    fun fromModel(routineModel: RoutineModel): RoutineEntity {
-        return RoutineEntity(
-            routineName,
-            sets,
-            reps,
-            weight,
-            weightMeasurement,
-            rest,
-            workoutId)
+    companion object {
+        fun fromModel(routineModel: RoutineModel): RoutineEntity {
+            return RoutineEntity(
+                routineModel.routineName,
+                routineModel.sets,
+                routineModel.reps,
+                routineModel.weight,
+                routineModel.weightMeasurement,
+                routineModel.rest,
+                routineModel.workoutId
+            )
+        }
     }
 }

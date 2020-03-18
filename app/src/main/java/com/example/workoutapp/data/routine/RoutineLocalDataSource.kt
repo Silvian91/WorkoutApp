@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 interface RoutineLocalDataSource {
 
-    fun insertRoutine(routinePairs: List<RoutineEntity>): Completable
+    fun insertRoutine(routinePairs: List<RoutineModel>): Completable
 
     fun getRoutines(workoutId: Long): Single<ArrayList<RoutineModel>>
 

@@ -1,7 +1,7 @@
 package com.example.workoutapp.ui.addworkout
 
-import com.example.workoutapp.data.workout.WorkoutEntity
 import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -28,8 +28,8 @@ class AddWorkoutPresenter
         compositeDisposable.clear()
     }
 
-    private fun saveWorkoutTitle(workoutTitleField: WorkoutEntity) {
-        workoutRepository.insertWorkout(workoutTitleField)
+    private fun saveWorkout(workoutModel: WorkoutModel) {
+        workoutRepository.insertWorkout(workoutModel)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
@@ -38,15 +38,11 @@ class AddWorkoutPresenter
             .addTo(compositeDisposable)
     }
 
-    override fun onConfirmClicked(workoutTitleField: String) {
-        if (workoutTitleField.isEmpty()) {
+    override fun onConfirmClicked(workoutTitle: String) {
+        if (workoutTitle.isEmpty()) {
             view.showError()
         } else {
-            saveWorkoutTitle(
-                WorkoutEntity(
-                    workoutTitleField
-                )
-            )
+            saveWorkout(WorkoutModel(title = workoutTitle))
         }
     }
 

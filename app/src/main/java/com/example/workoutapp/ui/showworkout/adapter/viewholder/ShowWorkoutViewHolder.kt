@@ -15,7 +15,7 @@ class ShowWorkoutViewHolder(
     override fun bind(model: WorkoutTitle) {
         button_show_workout_name.text = model.workoutTitle.title
         show_workout_name_card.setOnClickListener {
-            listener.onWorkoutClicked(model.workoutTitle.id)
+            listener.onWorkoutClicked(model.workoutTitle.id!!)
         }
     }
 

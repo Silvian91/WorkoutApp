@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 interface RoutineRepository {
 
-    fun insertRoutine(routinePairs: List<RoutineEntity>): Completable
+    fun insertRoutine(routinePairs: List<RoutineModel>): Completable
 
     fun getRoutine(workoutId: Long): Single<ArrayList<RoutineModel>>
 

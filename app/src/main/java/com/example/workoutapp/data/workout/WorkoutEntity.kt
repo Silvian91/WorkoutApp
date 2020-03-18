@@ -16,8 +16,11 @@ data class WorkoutEntity(val title: String) {
         )
     }
 
-    fun fromModel(workoutModel: WorkoutModel): WorkoutEntity {
-        return WorkoutEntity(title)
+    companion object {
+        fun fromModel(workoutModel: WorkoutModel): WorkoutEntity {
+            return WorkoutEntity(workoutModel.title)
+        }
     }
+
 
 }
