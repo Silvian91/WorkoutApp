@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.registeractivity
+package com.example.workoutapp.ui.register
 
 class RegisterPresenter : RegisterContract.Presenter {
 

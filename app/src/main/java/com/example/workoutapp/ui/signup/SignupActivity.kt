@@ -1,11 +1,11 @@
-package com.example.workoutapp.ui.signupactivity
+package com.example.workoutapp.ui.signup
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
-import com.example.workoutapp.ui.loginactivity.LoginActivity
-import com.example.workoutapp.ui.registeractivity.RegisterActivity
+import com.example.workoutapp.ui.login.LoginActivity
+import com.example.workoutapp.ui.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_signup.*
 import javax.inject.Inject
 

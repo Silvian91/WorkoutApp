@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.registeractivity
+package com.example.workoutapp.ui.register
 
 import android.content.Context
 import android.content.Intent

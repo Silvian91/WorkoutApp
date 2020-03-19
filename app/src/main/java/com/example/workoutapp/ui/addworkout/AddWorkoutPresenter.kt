@@ -1,6 +1,7 @@
 package com.example.workoutapp.ui.addworkout
 
 import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -10,8 +11,8 @@ import io.reactivex.schedulers.Schedulers
 
 class AddWorkoutPresenter
     (
-    private val workoutRepository: WorkoutRepository,
-    private val compositeDisposable: CompositeDisposable
+    private val compositeDisposable: CompositeDisposable,
+    private val workoutRepository: WorkoutRepository
 ) : AddWorkoutContract.Presenter {
 
     private lateinit var view: AddWorkoutContract.View
@@ -24,14 +25,9 @@ class AddWorkoutPresenter
     override fun start() {
     }
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
-
     private fun saveWorkout(workoutModel: WorkoutModel) {
         workoutRepository.insertWorkout(workoutModel)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .doOnIoObserveOnMain()
             .subscribeBy {
                 view.showAddRoutine(it)
             }
@@ -44,6 +40,10 @@ class AddWorkoutPresenter
         } else {
             saveWorkout(WorkoutModel(title = workoutTitle))
         }
+    }
+
+    override fun finish() {
+        compositeDisposable.clear()
     }
 
 }

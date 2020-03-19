@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.loginactivity
+package com.example.workoutapp.ui.login
 
 import com.example.workoutapp.ui.common.BasePresenter
 import com.example.workoutapp.ui.common.BaseView

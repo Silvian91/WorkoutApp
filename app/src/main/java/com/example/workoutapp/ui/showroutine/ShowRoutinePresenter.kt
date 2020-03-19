@@ -2,12 +2,11 @@ package com.example.workoutapp.ui.showroutine
 
 import com.example.workoutapp.data.routine.RoutineRepository
 import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
 
 class ShowRoutinePresenter(
     private val routineRepository: RoutineRepository,
@@ -21,8 +20,7 @@ class ShowRoutinePresenter(
 
     override fun start() {
         routineRepository.getRoutine(workoutId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .doOnIoObserveOnMain()
             .map {
                 convertToItemWrappers(it)
             }
@@ -57,11 +55,9 @@ class ShowRoutinePresenter(
 
     override fun onDeleteClicked(workoutId: Long) {
         workoutRepository.deleteRoutine(workoutId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { finish() }
+            .doOnIoObserveOnMain()
+            .subscribe { view.nextActivity() }
             .addTo(compositeDisposable)
-        view.nextActivity()
     }
 
 }

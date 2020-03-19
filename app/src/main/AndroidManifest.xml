@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BaseAppTheme">
-        <activity android:name=".ui.mainactivity.MainActivity">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +22,9 @@
         <activity android:name="com.example.workoutapp.ui.showworkout.ShowWorkoutActivity" />
         <activity android:name="com.example.workoutapp.ui.addroutine.AddRoutineActivity" />
         <activity android:name="com.example.workoutapp.ui.showroutine.ShowRoutineActivity" />
-        <activity android:name="com.example.workoutapp.ui.signupactivity.SignupActivity" />
-        <activity android:name="com.example.workoutapp.ui.loginactivity.LoginActivity" />
-        <activity android:name="com.example.workoutapp.ui.registeractivity.RegisterActivity" />
+        <activity android:name="com.example.workoutapp.ui.signup.SignupActivity" />
+        <activity android:name="com.example.workoutapp.ui.login.LoginActivity" />
+        <activity android:name="com.example.workoutapp.ui.register.RegisterActivity" />
     </application>
 
 </manifest>

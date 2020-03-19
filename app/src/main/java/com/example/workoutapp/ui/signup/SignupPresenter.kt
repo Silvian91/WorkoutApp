@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.signupactivity
+package com.example.workoutapp.ui.signup
 
 class SignupPresenter : SignupContract.Presenter {
 
@@ -9,10 +9,10 @@ class SignupPresenter : SignupContract.Presenter {
     }
 
     override fun start() {
-        TODO("Not yet implemented")
+
     }
 
     override fun finish() {
-        TODO("Not yet implemented")
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.mainactivity
+package com.example.workoutapp.ui.main
 
 import com.example.workoutapp.domain.chucknorrisquote.model.ChuckNorrisQuoteModel
 import com.example.workoutapp.ui.common.BasePresenter
@@ -11,9 +11,6 @@ interface MainContract {
         fun displayChuckNorrisQuote(quotes: ChuckNorrisQuoteModel)
     }
 
-    interface Presenter : BasePresenter<View> {
+    interface Presenter : BasePresenter<View>
 
-        fun getChuckNorrisQuote(): Single<ChuckNorrisQuoteModel>
-
-    }
 }

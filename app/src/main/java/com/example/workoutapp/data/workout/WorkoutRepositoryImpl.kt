@@ -7,8 +7,8 @@ import io.reactivex.Single
 
 class WorkoutRepositoryImpl(private val workoutLocalDataSource: WorkoutLocalDataSource): WorkoutRepository {
 
-    override fun insertWorkout(workoutTitleField: WorkoutModel): Single<Long> {
-        return workoutLocalDataSource.insertWorkout(workoutTitleField)
+    override fun insertWorkout(workoutModel: WorkoutModel): Single<Long> {
+        return workoutLocalDataSource.insertWorkout(workoutModel)
     }
 
     override fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>> {

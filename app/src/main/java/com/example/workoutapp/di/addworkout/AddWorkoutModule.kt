@@ -18,7 +18,7 @@ class AddWorkoutModule {
         workoutRepository: WorkoutRepository,
         compositeDisposable: CompositeDisposable
     ): AddWorkoutContract.Presenter {
-        return AddWorkoutPresenter(workoutRepository, compositeDisposable)
+        return AddWorkoutPresenter(compositeDisposable, workoutRepository)
     }
 
     @Provides

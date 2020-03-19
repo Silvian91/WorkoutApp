@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.loginactivity
+package com.example.workoutapp.ui.login
 
 class LoginPresenter : LoginContract.Presenter {
 

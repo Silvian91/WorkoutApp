@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface WorkoutRepository {
 
-    fun insertWorkout(workoutTitleField: WorkoutModel): Single<Long>
+    fun insertWorkout(workoutModel: WorkoutModel): Single<Long>
 
     fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>>
 

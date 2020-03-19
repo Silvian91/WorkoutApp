@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.mainactivity
+package com.example.workoutapp.ui.main
 
 import android.content.Context
 import android.content.Intent

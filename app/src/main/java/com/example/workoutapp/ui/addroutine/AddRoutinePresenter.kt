@@ -1,14 +1,12 @@
 package com.example.workoutapp.ui.addroutine
 
-import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
-import com.example.workoutapp.data.routine.RoutineEntity
 import com.example.workoutapp.data.routine.RoutineRepository
 import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
 
 class AddRoutinePresenter(
     private val routineRepository: RoutineRepository,
@@ -60,9 +58,8 @@ class AddRoutinePresenter(
 
     private fun saveRoutines(routinePairs: ArrayList<RoutineModel>) {
         routineRepository.insertRoutine(routinePairs)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { finish() }
+            .doOnIoObserveOnMain()
+            .subscribe { view.nextActivity() }
             .addTo(compositeDisposable)
     }
 
@@ -143,7 +140,6 @@ class AddRoutinePresenter(
             )
         ) {
             saveRoutines(routinePairs)
-            view.nextActivity()
         }
 
     }
@@ -156,11 +152,9 @@ class AddRoutinePresenter(
             routine_rest.isEmpty()
         ) {
             workoutRepository.deleteRoutine(workoutId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { finish() }
+                .doOnIoObserveOnMain()
+                .subscribe { view.nextActivity() }
                 .addTo(compositeDisposable)
-            view.nextActivity()
         } else {
             addRoutinePairs(
                 routine_name,
@@ -172,7 +166,6 @@ class AddRoutinePresenter(
                 workoutId
             )
             saveRoutines(routinePairs)
-            view.nextActivity()
         }
     }
 }

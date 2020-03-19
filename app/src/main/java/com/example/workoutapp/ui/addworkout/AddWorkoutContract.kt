@@ -11,7 +11,7 @@ interface AddWorkoutContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun onConfirmClicked(workoutTitleField: String)
+        fun onConfirmClicked(workoutTitle: String)
     }
 
 }

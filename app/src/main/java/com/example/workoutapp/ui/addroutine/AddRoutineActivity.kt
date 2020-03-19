@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.workoutapp.ui.mainactivity.MainActivity
+import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*

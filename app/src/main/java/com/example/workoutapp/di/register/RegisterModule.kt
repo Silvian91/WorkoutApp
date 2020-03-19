@@ -1,7 +1,7 @@
 package com.example.workoutapp.di.register
 
-import com.example.workoutapp.ui.registeractivity.RegisterContract
-import com.example.workoutapp.ui.registeractivity.RegisterPresenter
+import com.example.workoutapp.ui.register.RegisterContract
+import com.example.workoutapp.ui.register.RegisterPresenter
 import dagger.Module
 import dagger.Provides
 

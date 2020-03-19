@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.loginactivity
+package com.example.workoutapp.ui.login
 
 import android.content.Context
 import android.content.Intent
