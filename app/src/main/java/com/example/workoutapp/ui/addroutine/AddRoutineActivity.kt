@@ -18,7 +18,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
 
     @Inject
     lateinit var presenter: AddRoutineContract.Presenter
-    private var DROPDOWNLIST = arrayOf("kg", "lbs")
+    val DROPDOWNLIST = arrayOf("kg", "lbs")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

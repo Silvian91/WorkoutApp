@@ -14,8 +14,5 @@ interface ShowWorkoutContract {
     }
 
     interface Presenter : BasePresenter<View>,
-        ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener {
-
-    }
-
+        ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener
 }
