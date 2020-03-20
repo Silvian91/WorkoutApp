@@ -9,7 +9,7 @@ interface WorkoutLocalDataSource {
 
     fun insertWorkout(workoutModel: WorkoutModel): Single<Long>
 
-    fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>>
+    fun getAllWorkouts(): Single<ArrayList<WorkoutModel>>
 
     fun deleteRoutines(workoutId: Long): Completable
 }

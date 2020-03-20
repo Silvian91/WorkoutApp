@@ -9,7 +9,7 @@ interface WorkoutRepository {
 
     fun insertWorkout(workoutModel: WorkoutModel): Single<Long>
 
-    fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>>
+    fun getAllWorkouts(): Single<ArrayList<WorkoutModel>>
 
     fun deleteRoutine(workoutId: Long): Completable
 }

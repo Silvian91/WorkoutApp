@@ -15,8 +15,8 @@ class WorkoutLocalDataSourceImpl(val context: Context) : WorkoutLocalDataSource 
             .map { WorkoutAppDatabase.getInstance(context).workoutDao().insertWorkout(it) }
     }
 
-    override fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>> {
-        return Observable.fromCallable {
+    override fun getAllWorkouts(): Single<ArrayList<WorkoutModel>> {
+        return Single.fromCallable {
                 WorkoutAppDatabase.getInstance(context).workoutDao().getAllWorkouts
             }
             .map {

@@ -11,7 +11,7 @@ class WorkoutRepositoryImpl(private val workoutLocalDataSource: WorkoutLocalData
         return workoutLocalDataSource.insertWorkout(workoutModel)
     }
 
-    override fun getAllWorkouts(): Observable<ArrayList<WorkoutModel>> {
+    override fun getAllWorkouts(): Single<ArrayList<WorkoutModel>> {
         return workoutLocalDataSource.getAllWorkouts()
     }
 
