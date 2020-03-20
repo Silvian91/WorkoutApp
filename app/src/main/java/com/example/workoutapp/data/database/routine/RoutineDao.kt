@@ -1,4 +1,4 @@
-package com.example.workoutapp.data.routine
+package com.example.workoutapp.data.database.routine
 
 import androidx.room.*
 

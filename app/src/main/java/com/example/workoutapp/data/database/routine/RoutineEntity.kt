@@ -1,9 +1,9 @@
-package com.example.workoutapp.data.routine
+package com.example.workoutapp.data.database.routine
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.workoutapp.data.workout.WorkoutEntity
+import com.example.workoutapp.data.database.workout.WorkoutEntity
 import com.example.workoutapp.domain.routine.model.RoutineModel
 
 @Entity(

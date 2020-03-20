@@ -1,10 +1,10 @@
 package com.example.workoutapp.data.workout
 
 import android.content.Context
-import com.example.workoutapp.data.WorkoutAppDatabase
+import com.example.workoutapp.data.database.WorkoutAppDatabase
+import com.example.workoutapp.data.database.workout.WorkoutEntity
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 
 class WorkoutLocalDataSourceImpl(val context: Context) : WorkoutLocalDataSource {

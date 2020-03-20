@@ -1,7 +1,8 @@
 package com.example.workoutapp.data.routine
 
 import android.content.Context
-import com.example.workoutapp.data.WorkoutAppDatabase
+import com.example.workoutapp.data.database.WorkoutAppDatabase
+import com.example.workoutapp.data.database.routine.RoutineEntity
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import io.reactivex.Completable
 import io.reactivex.Observable

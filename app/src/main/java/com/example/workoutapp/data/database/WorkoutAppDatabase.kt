@@ -1,13 +1,13 @@
-package com.example.workoutapp.data
+package com.example.workoutapp.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.workoutapp.data.routine.RoutineDao
-import com.example.workoutapp.data.routine.RoutineEntity
-import com.example.workoutapp.data.workout.WorkoutDao
-import com.example.workoutapp.data.workout.WorkoutEntity
+import com.example.workoutapp.data.database.routine.RoutineDao
+import com.example.workoutapp.data.database.routine.RoutineEntity
+import com.example.workoutapp.data.database.workout.WorkoutDao
+import com.example.workoutapp.data.database.workout.WorkoutEntity
 
 @Database(
     entities = [RoutineEntity::class, WorkoutEntity::class],
@@ -27,7 +27,7 @@ abstract class WorkoutAppDatabase : RoomDatabase() {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
                     WorkoutAppDatabase::class.java,
-                    DB_NAME
+                        DB_NAME
                 )
                     .fallbackToDestructiveMigration()
                     .build()

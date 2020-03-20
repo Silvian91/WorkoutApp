@@ -1,9 +1,8 @@
 package com.example.workoutapp.ui.showworkout
 
-import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.data.database.workout.WorkoutRepository
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

@@ -1,4 +1,4 @@
-package com.example.workoutapp.data.user
+package com.example.workoutapp.data.database.user
 
 import androidx.room.Entity
 

@@ -1,13 +1,11 @@
 package com.example.workoutapp.ui.addworkout
 
-import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.data.database.workout.WorkoutRepository
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.workout.model.WorkoutModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 
 class AddWorkoutPresenter
     (

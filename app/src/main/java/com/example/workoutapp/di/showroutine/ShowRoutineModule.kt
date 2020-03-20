@@ -3,11 +3,11 @@ package com.example.workoutapp.di.showroutine
 import android.content.Context
 import com.example.workoutapp.data.routine.RoutineLocalDataSource
 import com.example.workoutapp.data.routine.RoutineLocalDataSourceImpl
-import com.example.workoutapp.data.routine.RoutineRepository
+import com.example.workoutapp.data.database.routine.RoutineRepository
 import com.example.workoutapp.data.routine.RoutineRepositoryImpl
 import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
-import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.data.database.workout.WorkoutRepository
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
 import com.example.workoutapp.ui.showroutine.ShowRoutineContract
 import com.example.workoutapp.ui.showroutine.ShowRoutinePresenter

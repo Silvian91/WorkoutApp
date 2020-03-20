@@ -1,7 +1,7 @@
 package com.example.workoutapp.ui.addroutine
 
-import com.example.workoutapp.data.routine.RoutineRepository
-import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.data.database.routine.RoutineRepository
+import com.example.workoutapp.data.database.workout.WorkoutRepository
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*

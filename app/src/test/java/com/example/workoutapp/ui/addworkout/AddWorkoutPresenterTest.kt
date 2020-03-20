@@ -1,7 +1,7 @@
 package com.example.workoutapp.ui.addworkout
 
-import com.example.workoutapp.data.workout.WorkoutEntity
-import com.example.workoutapp.data.workout.WorkoutRepository
+import com.example.workoutapp.data.database.workout.WorkoutEntity
+import com.example.workoutapp.data.database.workout.WorkoutRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -23,7 +23,8 @@ internal class AddWorkoutPresenterTest {
 
 
     private val presenter = AddWorkoutPresenter(repository, compositeDisposable)
-    private val workoutEntity = WorkoutEntity(workoutTitleField)
+    private val workoutEntity =
+        WorkoutEntity(workoutTitleField)
 
     @BeforeEach
     fun setUp() {

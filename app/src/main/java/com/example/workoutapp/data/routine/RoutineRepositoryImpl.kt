@@ -1,10 +1,12 @@
 package com.example.workoutapp.data.routine
 
+import com.example.workoutapp.data.database.routine.RoutineRepository
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class RoutineRepositoryImpl(private val routineLocalDataSource: RoutineLocalDataSource) : RoutineRepository {
+class RoutineRepositoryImpl(private val routineLocalDataSource: RoutineLocalDataSource) :
+    RoutineRepository {
 
     override fun insertRoutine(routinePairs: List<RoutineModel>): Completable {
         return routineLocalDataSource.insertRoutine(routinePairs)

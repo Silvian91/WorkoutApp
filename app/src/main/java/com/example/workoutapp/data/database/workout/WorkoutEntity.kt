@@ -1,4 +1,4 @@
-package com.example.workoutapp.data.workout
+package com.example.workoutapp.data.database.workout
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -18,7 +18,9 @@ data class WorkoutEntity(val title: String) {
 
     companion object {
         fun fromModel(workoutModel: WorkoutModel): WorkoutEntity {
-            return WorkoutEntity(workoutModel.title)
+            return WorkoutEntity(
+                workoutModel.title
+            )
         }
     }
 
