@@ -1,6 +1,6 @@
 package com.example.workoutapp.data.workout
 
-import com.example.workoutapp.data.database.workout.WorkoutRepository
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.Completable
 import io.reactivex.Single

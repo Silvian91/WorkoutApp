@@ -5,7 +5,7 @@ import com.example.workoutapp.ui.addworkout.AddWorkoutContract
 import com.example.workoutapp.ui.addworkout.AddWorkoutPresenter
 import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
-import com.example.workoutapp.data.database.workout.WorkoutRepository
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
 import dagger.Module
 import dagger.Provides

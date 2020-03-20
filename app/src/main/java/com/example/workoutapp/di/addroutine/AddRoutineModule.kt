@@ -5,11 +5,11 @@ import com.example.workoutapp.ui.addroutine.AddRoutineContract
 import com.example.workoutapp.ui.addroutine.AddRoutinePresenter
 import com.example.workoutapp.data.routine.RoutineLocalDataSource
 import com.example.workoutapp.data.routine.RoutineLocalDataSourceImpl
-import com.example.workoutapp.data.database.routine.RoutineRepository
+import com.example.workoutapp.domain.routine.RoutineRepository
 import com.example.workoutapp.data.routine.RoutineRepositoryImpl
 import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
-import com.example.workoutapp.data.database.workout.WorkoutRepository
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
 import dagger.Module
 import dagger.Provides

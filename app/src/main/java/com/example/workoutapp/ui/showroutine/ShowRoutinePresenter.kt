@@ -1,7 +1,7 @@
 package com.example.workoutapp.ui.showroutine
 
-import com.example.workoutapp.data.database.routine.RoutineRepository
-import com.example.workoutapp.data.database.workout.WorkoutRepository
+import com.example.workoutapp.domain.routine.RoutineRepository
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper

@@ -1,4 +1,4 @@
-package com.example.workoutapp.data.database.workout
+package com.example.workoutapp.domain.workout
 
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.Completable
