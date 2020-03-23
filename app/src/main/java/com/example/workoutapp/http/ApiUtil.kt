@@ -18,8 +18,16 @@ object ApiUtil {
             .build()
     }
 
-    fun buildOkHttpClient(context: Context): OkHttpClient {
+    fun buildOpenWeatherOkHttpClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val request = chain.request()
+                val headerBuilder = request.newBuilder()
+                    .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com/weather")
+                    .header("x-rapidapi-key", "9fc5dc8d71msh5cfb93a2eb45d4ep1726e8jsn4423db34d1ba")
+                    .header("accept", "application/json")
+                chain.proceed(headerBuilder.build())
+            }
             .addInterceptor(ChuckInterceptor(context))
             .build()
     }
