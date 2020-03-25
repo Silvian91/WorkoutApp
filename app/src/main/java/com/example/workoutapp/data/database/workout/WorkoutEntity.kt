@@ -7,7 +7,7 @@ import com.example.workoutapp.domain.workout.model.WorkoutModel
 @Entity(tableName = "workout")
 data class WorkoutEntity(val title: String) {
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    val id: Long = 0
 
     fun toModel(): WorkoutModel {
         return WorkoutModel(

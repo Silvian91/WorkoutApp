@@ -7,7 +7,7 @@ import com.example.workoutapp.domain.user.model.UserModel
 @Entity(tableName = "user")
 data class UserEntity(val username: String, val password: String) {
     @PrimaryKey(autoGenerate = false)
-    var id: Long = 0
+    val id: Long = 0
 
     fun toModel(): UserModel {
         return UserModel(

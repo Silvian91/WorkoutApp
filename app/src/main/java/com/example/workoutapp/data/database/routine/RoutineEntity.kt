@@ -16,13 +16,13 @@ import com.example.workoutapp.domain.routine.model.RoutineModel
     )]
 )
 data class RoutineEntity(
-    var routineName: String,
-    var sets: String,
-    var reps: String,
-    var weight: String,
-    var weightMeasurement: String,
-    var rest: String,
-    var workoutId: Long
+    val routineName: String,
+    val sets: String,
+    val reps: String,
+    val weight: String,
+    val weightMeasurement: String,
+    val rest: String,
+    val workoutId: Long
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
