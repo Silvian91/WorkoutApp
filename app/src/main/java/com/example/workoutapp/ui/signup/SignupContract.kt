@@ -5,11 +5,8 @@ import com.example.workoutapp.ui.common.BaseView
 
 interface SignupContract {
 
-    interface View : BaseView<Presenter> {
+    interface View : BaseView<Presenter>
 
-    }
+    interface Presenter : BasePresenter<View>
 
-    interface Presenter : BasePresenter<View> {
-
-    }
 }
