@@ -12,7 +12,7 @@ class RoutineRepositoryImpl(private val routineLocalDataSource: RoutineLocalData
         return routineLocalDataSource.insertRoutine(routinePairs)
     }
 
-    override fun getRoutine(workoutId: Long): Single<ArrayList<RoutineModel>> {
+    override fun getRoutine(workoutId: Long): Single<List<RoutineModel>> {
         return routineLocalDataSource.getRoutines(workoutId)
     }
 

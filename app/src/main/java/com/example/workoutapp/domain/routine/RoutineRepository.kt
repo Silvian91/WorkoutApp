@@ -8,7 +8,7 @@ interface RoutineRepository {
 
     fun insertRoutine(routinePairs: List<RoutineModel>): Completable
 
-    fun getRoutine(workoutId: Long): Single<ArrayList<RoutineModel>>
+    fun getRoutine(workoutId: Long): Single<List<RoutineModel>>
 
     fun deleteRoutine(workoutId: Long): Completable
 }

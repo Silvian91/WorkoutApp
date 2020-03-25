@@ -8,7 +8,7 @@ interface RoutineLocalDataSource {
 
     fun insertRoutine(routinePairs: List<RoutineModel>): Completable
 
-    fun getRoutines(workoutId: Long): Single<ArrayList<RoutineModel>>
+    fun getRoutines(workoutId: Long): Single<List<RoutineModel>>
 
     fun deleteRoutines(workoutId: Long): Completable
 

@@ -30,7 +30,7 @@ class ShowRoutinePresenter(
             .addTo(compositeDisposable)
     }
 
-    private fun convertToItemWrappers(models: ArrayList<RoutineModel>): List<ShowRoutineItemWrapper> {
+    private fun convertToItemWrappers(models: List<RoutineModel>): List<ShowRoutineItemWrapper> {
         val itemWrappers = ArrayList<ShowRoutineItemWrapper>()
         itemWrappers.add(ShowRoutineItemWrapper.Title("Routines"))
 

@@ -20,18 +20,14 @@ class RoutineLocalDataSourceImpl(val context: Context) : RoutineLocalDataSource 
             .flatMapCompletable { Completable.complete() }
     }
 
-    override fun getRoutines(workoutId: Long): Single<ArrayList<RoutineModel>> {
-        return Single.fromCallable {
-                WorkoutAppDatabase.getInstance(context).routineDao().getWorkoutRoutines(workoutId)
-            }
-            .map {
-                val models = ArrayList<RoutineModel>()
-                it.forEach { entity ->
-                    models.add(entity.toModel())
-                }
-                models
-            }
-
+    override fun getRoutines(workoutId: Long): Single<List<RoutineModel>> {
+        return Observable.fromIterable(
+            WorkoutAppDatabase.getInstance(context).routineDao().getWorkoutRoutines(
+                workoutId
+            )
+        )
+            .map { it.toModel() }
+            .toList()
     }
 
     override fun deleteRoutines(workoutId: Long): Completable {
