@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.workoutapp.data.user.UserLocalDataSource
 import com.example.workoutapp.data.user.UserLocalDataSourceImpl
 import com.example.workoutapp.data.user.UserRepositoryImpl
+import com.example.workoutapp.domain.login.LoginUseCase
+import com.example.workoutapp.domain.login.LoginUseCaseImpl
 import com.example.workoutapp.domain.user.UserRepository
 import com.example.workoutapp.ui.login.LoginContract
 import com.example.workoutapp.ui.login.LoginPresenter
@@ -16,10 +18,15 @@ class LoginModule {
 
     @Provides
     fun providesLoginPresenter(
-        userRepository: UserRepository,
+        loginUseCase: LoginUseCase,
         compositeDisposable: CompositeDisposable
     ): LoginContract.Presenter {
-        return LoginPresenter(userRepository, compositeDisposable)
+        return LoginPresenter(loginUseCase, compositeDisposable)
+    }
+
+    @Provides
+    fun providesLoginUseCase(userRepository: UserRepository): LoginUseCase{
+        return LoginUseCaseImpl(userRepository)
     }
 
     @Provides

@@ -1,10 +1,11 @@
 package com.example.workoutapp.data.user
 
 import android.content.Context
-import com.example.workoutapp.data.database.WorkoutAppDatabase
-import com.example.workoutapp.data.database.user.UserEntity
+import com.example.workoutapp.database.WorkoutAppDatabase
+import com.example.workoutapp.database.user.UserEntity
 import com.example.workoutapp.domain.user.model.UserModel
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 
 class UserLocalDataSourceImpl(val context: Context) : UserLocalDataSource {
@@ -16,6 +17,12 @@ class UserLocalDataSourceImpl(val context: Context) : UserLocalDataSource {
             }
             .toList()
             .flatMapCompletable { Completable.complete() }
+    }
+
+    override fun getUser(username: String): Maybe<UserModel> {
+        return Maybe.just(
+            WorkoutAppDatabase.getInstance(context).userDao().getUser(username)
+        ).map { it.toModel() }
     }
 
 }

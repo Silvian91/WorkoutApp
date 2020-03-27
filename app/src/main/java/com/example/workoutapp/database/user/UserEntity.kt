@@ -1,13 +1,13 @@
-package com.example.workoutapp.data.database.user
+package com.example.workoutapp.database.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.workoutapp.domain.user.model.UserModel
 
-@Entity(tableName = "user")
+@Entity(tableName = "users")
 data class UserEntity(val username: String, val password: String) {
     @PrimaryKey(autoGenerate = false)
-    val id: Long = 0
+    var id: Long = 0
 
     fun toModel(): UserModel {
         return UserModel(

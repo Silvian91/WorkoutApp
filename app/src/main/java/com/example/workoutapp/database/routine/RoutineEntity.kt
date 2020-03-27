@@ -1,9 +1,9 @@
-package com.example.workoutapp.data.database.routine
+package com.example.workoutapp.database.routine
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.workoutapp.data.database.workout.WorkoutEntity
+import com.example.workoutapp.database.workout.WorkoutEntity
 import com.example.workoutapp.domain.routine.model.RoutineModel
 
 @Entity(
@@ -16,13 +16,13 @@ import com.example.workoutapp.domain.routine.model.RoutineModel
     )]
 )
 data class RoutineEntity(
-    val routineName: String,
-    val sets: String,
-    val reps: String,
-    val weight: String,
-    val weightMeasurement: String,
-    val rest: String,
-    val workoutId: Long
+    var routineName: String,
+    var sets: String,
+    var reps: String,
+    var weight: String,
+    var weightMeasurement: String,
+    var rest: String,
+    var workoutId: Long
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

@@ -1,4 +1,4 @@
-package com.example.workoutapp.data.database.workout
+package com.example.workoutapp.database.workout
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -17,7 +17,7 @@
         android:layout_marginBottom="12dp"
         style="@style/headingStyle"
         android:gravity="center"
-        android:text="@string/text_login_title" />
+        android:text="@string/text_login_register" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
