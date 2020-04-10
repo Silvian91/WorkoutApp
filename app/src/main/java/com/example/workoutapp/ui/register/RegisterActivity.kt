@@ -39,7 +39,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         }
     }
 
-    override fun nextActivity() {
+    override fun showMain() {
         startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 

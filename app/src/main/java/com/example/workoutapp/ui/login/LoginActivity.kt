@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun showMain() {
-        Toast.makeText(this, "Succes", Toast.LENGTH_SHORT).show()
+        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
     override fun showErrorInvalidCredentials() {

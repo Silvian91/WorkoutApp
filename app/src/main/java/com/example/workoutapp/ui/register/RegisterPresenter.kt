@@ -32,7 +32,7 @@ class RegisterPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy(
                 onComplete = {
-                    view.nextActivity()
+                    view.showMain()
                 },
                 onError = {
                     Timber.e(it)

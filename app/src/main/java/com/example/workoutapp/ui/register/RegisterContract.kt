@@ -6,7 +6,7 @@ import com.example.workoutapp.ui.common.BaseView
 interface RegisterContract {
 
     interface View : BaseView<Presenter> {
-        fun nextActivity()
+        fun showMain()
     }
 
     interface Presenter : BasePresenter<View> {
