@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.ui.main.MainActivity
@@ -28,6 +29,14 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
 
     override fun showRoutines(workoutId: Long) {
         startActivity(ShowRoutineActivity.newIntent(this, workoutId))
+    }
+
+    override fun showEmptyScreen() {
+        Toast.makeText(this, "Show Empty Screen", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showError() {
+        Toast.makeText(this, "Show Error", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

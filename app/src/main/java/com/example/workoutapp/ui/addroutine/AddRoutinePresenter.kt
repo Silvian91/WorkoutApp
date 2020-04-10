@@ -56,7 +56,7 @@ class AddRoutinePresenter(
         )
     }
 
-    private fun saveRoutines(routinePairs: ArrayList<RoutineModel>) {
+    private fun saveRoutines(routinePairs: List<RoutineModel>) {
         routineRepository.insertRoutine(routinePairs)
             .doOnIoObserveOnMain()
             .subscribe { view.nextActivity() }

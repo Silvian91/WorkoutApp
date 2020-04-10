@@ -7,8 +7,8 @@ import io.reactivex.Maybe
 
 class UserRepositoryImpl(private val userLocalDataSource: UserLocalDataSource) : UserRepository {
 
-    override fun insertUsernameAndPassword(user: ArrayList<UserModel>): Completable {
-        return userLocalDataSource.insertUsernameAndPassword(user)
+    override fun insertUser(user: UserModel): Completable {
+        return userLocalDataSource.insertUser(user)
     }
 
     override fun getUser(username: String): Maybe<UserModel> {

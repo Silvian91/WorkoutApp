@@ -9,8 +9,9 @@ interface ShowWorkoutContract {
 
     interface View : BaseView<Presenter> {
         fun showWorkoutListData(workoutList: List<ShowWorkoutItemWrapper>)
-
         fun showRoutines(workoutId: Long)
+        fun showEmptyScreen()
+        fun showError()
     }
 
     interface Presenter : BasePresenter<View>,

@@ -6,7 +6,7 @@ import io.reactivex.Maybe
 
 interface UserLocalDataSource {
 
-    fun insertUsernameAndPassword(user: ArrayList<UserModel>): Completable
+    fun insertUser(user: UserModel): Completable
 
     fun getUser(username: String): Maybe<UserModel>
 

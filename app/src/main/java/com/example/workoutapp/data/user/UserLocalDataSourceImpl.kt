@@ -6,23 +6,23 @@ import com.example.workoutapp.database.user.UserEntity
 import com.example.workoutapp.domain.user.model.UserModel
 import io.reactivex.Completable
 import io.reactivex.Maybe
-import io.reactivex.Observable
+import io.reactivex.Single
 
 class UserLocalDataSourceImpl(val context: Context) : UserLocalDataSource {
-    override fun insertUsernameAndPassword(user: ArrayList<UserModel>): Completable {
+    override fun insertUser(user: UserModel): Completable {
         val userDao = WorkoutAppDatabase.getInstance(context).userDao()
-        return Observable.fromIterable(user)
+        return Single.just(user)
             .map {
-                userDao.insertUsernameAndPassword(UserEntity.fromModel(it))
+                userDao.insertUser(UserEntity.fromModel(it))
             }
-            .toList()
             .flatMapCompletable { Completable.complete() }
     }
 
     override fun getUser(username: String): Maybe<UserModel> {
-        return Maybe.just(
+        return Maybe.fromCallable {
             WorkoutAppDatabase.getInstance(context).userDao().getUser(username)
-        ).map { it.toModel() }
+        }
+            .map { it.toModel() }
     }
 
 }

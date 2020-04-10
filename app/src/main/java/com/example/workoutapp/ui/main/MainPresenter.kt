@@ -1,9 +1,7 @@
 package com.example.workoutapp.ui.main
 
 import com.example.workoutapp.domain.chucknorrisquote.ChuckNorrisQuoteRepository
-import com.example.workoutapp.domain.chucknorrisquote.model.ChuckNorrisQuoteModel
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 

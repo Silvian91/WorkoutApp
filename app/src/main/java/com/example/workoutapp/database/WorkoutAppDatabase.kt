@@ -14,7 +14,7 @@ import com.example.workoutapp.database.workout.WorkoutEntity
 @Database(
     entities = [RoutineEntity::class, WorkoutEntity::class, UserEntity::class],
     exportSchema = false,
-    version = 1
+    version = 2
 )
 abstract class WorkoutAppDatabase : RoomDatabase() {
     abstract fun routineDao(): RoutineDao

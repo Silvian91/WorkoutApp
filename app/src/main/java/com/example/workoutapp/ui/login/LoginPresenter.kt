@@ -2,9 +2,11 @@ package com.example.workoutapp.ui.login
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.login.LoginUseCase
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 
 class LoginPresenter(
     private val loginUseCase: LoginUseCase,
@@ -26,8 +28,9 @@ class LoginPresenter(
 
     override fun onLoginClicked(username: String, password: String) {
         loginUseCase.execute(LoginUseCase.Input(username, password))
-            .doOnIoObserveOnMain()
-            .subscribeBy {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { it ->
                 when (it) {
                     is LoginUseCase.Output.Success -> view.showMain()
                     is LoginUseCase.Output.ErrorInvalidCredentials -> view.showErrorInvalidCredentials()

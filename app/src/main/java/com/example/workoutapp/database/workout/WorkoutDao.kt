@@ -8,7 +8,7 @@ import androidx.room.Query
 interface WorkoutDao {
 
     @Insert
-    fun insertWorkout(workoutEntity: WorkoutEntity) : Long
+    fun insertWorkout(workoutEntity: WorkoutEntity): Long
 
     @get:Query("SELECT * FROM workout")
     val getAllWorkouts: List<WorkoutEntity>

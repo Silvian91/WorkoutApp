@@ -1,15 +1,15 @@
 package com.example.workoutapp.ui.showworkout
 
-import com.example.workoutapp.domain.workout.WorkoutRepository
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.subscribeBy
 
 class ShowWorkoutPresenter(
-    private val workoutRepository: WorkoutRepository,
+    private val workoutsUseCase: GetWorkoutsUseCase,
     private val compositeDisposable: CompositeDisposable
 ) : ShowWorkoutContract.Presenter {
 
@@ -20,15 +20,28 @@ class ShowWorkoutPresenter(
     }
 
     override fun start() {
-         workoutRepository.getAllWorkouts()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map { convertToItemWrapper(it) }
-            .subscribe { workouts -> view.showWorkoutListData(workouts) }
+        workoutsUseCase.execute(GetWorkoutsUseCase.Input)
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    is GetWorkoutsUseCase.Output.SuccessNoData -> view.showEmptyScreen()
+                    is GetWorkoutsUseCase.Output.Success -> {
+                        val items = convertToItemWrapper(it.workouts)
+                        view.showWorkoutListData(items)
+                    }
+                    else -> view.showError()
+                }
+            }
             .addTo(compositeDisposable)
+//         workoutRepository.getAllWorkouts()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .map { convertToItemWrapper(it) }
+//            .subscribe { workouts -> view.showWorkoutListData(workouts) }
+//            .addTo(compositeDisposable)
     }
 
-    private fun convertToItemWrapper(models: ArrayList<WorkoutModel>): List<ShowWorkoutItemWrapper> {
+    private fun convertToItemWrapper(models: List<WorkoutModel>): List<ShowWorkoutItemWrapper> {
         val itemWrappers = ArrayList<ShowWorkoutItemWrapper>()
         models.forEach {
             itemWrappers.add(ShowWorkoutItemWrapper.WorkoutTitle(it))
