@@ -3,7 +3,8 @@ package com.example.workoutapp.ui.showworkout
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase
 import com.example.workoutapp.domain.workout.model.WorkoutModel
-import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutNoData
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
@@ -24,10 +25,13 @@ class ShowWorkoutPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetWorkoutsUseCase.Output.SuccessNoData -> view.showEmptyScreen()
+                    is GetWorkoutsUseCase.Output.SuccessNoData -> {
+                        val items = convertToItemWrapperNoData(it.noWorkouts)
+                        view.showNoWorkoutsListData(items)
+                    }
                     is GetWorkoutsUseCase.Output.Success -> {
                         val items = convertToItemWrapper(it.workouts)
-                        view.showWorkoutListData(items)
+                        view.showWorkoutsListData(items)
                     }
                     else -> view.showError()
                 }
@@ -41,10 +45,18 @@ class ShowWorkoutPresenter(
 //            .addTo(compositeDisposable)
     }
 
-    private fun convertToItemWrapper(models: List<WorkoutModel>): List<ShowWorkoutItemWrapper> {
-        val itemWrappers = ArrayList<ShowWorkoutItemWrapper>()
+    private fun convertToItemWrapper(models: List<WorkoutModel>): List<WorkoutTitle> {
+        val itemWrappers = ArrayList<WorkoutTitle>()
         models.forEach {
-            itemWrappers.add(ShowWorkoutItemWrapper.WorkoutTitle(it))
+            itemWrappers.add(WorkoutTitle(it))
+        }
+        return itemWrappers
+    }
+
+    private fun convertToItemWrapperNoData(models: List<WorkoutModel>): List<WorkoutNoData> {
+        val itemWrappers = ArrayList<WorkoutNoData>()
+        models.forEach {
+            itemWrappers.add(WorkoutNoData(it))
         }
         return itemWrappers
     }

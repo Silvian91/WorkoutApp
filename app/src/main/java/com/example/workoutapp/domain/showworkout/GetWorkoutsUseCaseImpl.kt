@@ -13,7 +13,7 @@ class GetWorkoutsUseCaseImpl(
         return workoutRepository.getAllWorkouts()
             .map { workouts ->
                 if (workouts.isEmpty()) {
-                    SuccessNoData
+                    SuccessNoData(workouts)
                 } else {
                     Success(workouts)
                 }

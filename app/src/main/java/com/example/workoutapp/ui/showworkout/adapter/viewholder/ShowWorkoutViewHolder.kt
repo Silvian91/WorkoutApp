@@ -5,7 +5,7 @@ import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutRecyclerAdapter
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.layout_workout_list.*
+import kotlinx.android.synthetic.main.view_holder_workouts.*
 
 class ShowWorkoutViewHolder(
     override val containerView: View,
