@@ -3,6 +3,8 @@ package com.example.workoutapp.ui.register
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
@@ -23,11 +25,28 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
         setOnClickListenerEvent()
         presenter.setView(this)
+
+        register_username_field.addTextChangedListener(setTextWatcher)
+        register_password_field.addTextChangedListener(setTextWatcher)
+
     }
 
     companion object {
         fun newIntent(context: Context) =
             Intent(context, RegisterActivity::class.java)
+    }
+
+    private val setTextWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            button_confirm_register.isEnabled =
+                register_username_field.text.toString().isNotEmpty()
+                        &&
+                        register_password_field.text.toString().isNotEmpty()
+                        &&
+                        register_password_field.text.toString().length > 7
+        }
     }
 
     private fun setOnClickListenerEvent() {
