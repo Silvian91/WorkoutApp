@@ -6,7 +6,10 @@ import com.example.workoutapp.database.routine.RoutineEntity
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class RoutineLocalDataSourceImpl(val context: Context) : RoutineLocalDataSource {
 
@@ -21,13 +24,19 @@ class RoutineLocalDataSourceImpl(val context: Context) : RoutineLocalDataSource 
     }
 
     override fun getRoutines(workoutId: Long): Single<List<RoutineModel>> {
-        return Observable.fromIterable(
+        return Single.fromCallable {
             WorkoutAppDatabase.getInstance(context).routineDao().getWorkoutRoutines(
                 workoutId
             )
-        )
-            .map { it.toModel() }
-            .toList()
+        }
+            .map {
+                val models = ArrayList<RoutineModel>()
+                it.forEach { routines ->
+                    models.add(routines.toModel())
+                }
+                models
+            }
+
     }
 
     override fun deleteRoutines(workoutId: Long): Completable {
