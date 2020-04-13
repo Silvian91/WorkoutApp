@@ -33,10 +33,11 @@
     <string name="text_dialog_delete_routines_back_button">Are you sure you want to quit? Progress might be lost</string>
     <string name="text_register_button">Register</string>
     <string name="text_login_button">Login</string>
-    <string name="text_signup_screen">Register a new account or log in with an existing one</string>
+    <string name="text_sign_up_screen">Register a new account or log in with an existing one</string>
     <string name="text_login_title">Enter your credentials to login</string>
     <string name="text_login_register">Enter a username and password to register</string>
     <string name="text_username">Username</string>
     <string name="text_password">Password</string>
     <string name="text_workouts_no_data">There are no workouts added yet, go back and add some from Add Workout</string>
+    <string name="text_password_length">Password should be at least 8 characters long</string>
 </resources>
