@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineRecyclerAdapter
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
@@ -83,6 +84,10 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     override fun nextActivity() {
         startActivity(ShowWorkoutActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+    }
+
+    override fun showNoRoutinesError() {
+        Toast.makeText(this, "No Routines", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

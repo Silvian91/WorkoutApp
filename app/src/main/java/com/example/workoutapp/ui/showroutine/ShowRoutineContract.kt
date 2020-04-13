@@ -8,13 +8,12 @@ interface ShowRoutineContract {
 
     interface View : BaseView<Presenter> {
         fun showRoutineData(routineData: List<ShowRoutineItemWrapper>)
-
         fun nextActivity()
+        fun showNoRoutinesError()
     }
 
     interface Presenter : BasePresenter<View> {
         fun setWorkoutId(workoutId: Long)
-
         fun onDeleteClicked(workoutId: Long)
     }
 

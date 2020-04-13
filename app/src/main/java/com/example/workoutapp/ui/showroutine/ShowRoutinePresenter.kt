@@ -1,15 +1,17 @@
 package com.example.workoutapp.ui.showroutine
 
-import com.example.workoutapp.domain.routine.RoutineRepository
-import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
+import com.example.workoutapp.domain.showroutine.GetRoutineUseCase
+import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Input
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 
 class ShowRoutinePresenter(
-    private val routineRepository: RoutineRepository,
+    private val getRoutineUseCase: GetRoutineUseCase,
     private val workoutRepository: WorkoutRepository,
     private val compositeDisposable: CompositeDisposable
 ) : ShowRoutineContract.Presenter {
@@ -19,13 +21,18 @@ class ShowRoutinePresenter(
     private var workoutId: Long = 0
 
     override fun start() {
-        routineRepository.getRoutine(workoutId)
+        getRoutineUseCase.execute(Input(workoutId))
             .doOnIoObserveOnMain()
-            .map {
-                convertToItemWrappers(it)
-            }
-            .subscribe { routineData ->
-                view.showRoutineData(routineData)
+            .subscribeBy {
+                when (it) {
+                    is GetRoutineUseCase.Output.Success -> {
+                        val routines = convertToItemWrappers(it.routines)
+                        view.showRoutineData(routines)
+                    }
+                    is GetRoutineUseCase.Output.ErrorNoRoutines -> {
+                        view.showNoRoutinesError()
+                    }
+                }
             }
             .addTo(compositeDisposable)
     }
