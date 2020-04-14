@@ -7,13 +7,9 @@ interface AddRoutineContract {
 
     interface View : BaseView<Presenter> {
         fun clearAllInputFields()
-
         fun resetFocus()
-
         fun nextActivity()
-
         fun errorFieldEmpty(): String
-
         fun showError(errorType: ErrorType)
     }
 

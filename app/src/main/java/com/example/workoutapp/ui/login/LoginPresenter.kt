@@ -1,11 +1,11 @@
 package com.example.workoutapp.ui.login
 
-import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.login.LoginUseCase
+import com.example.workoutapp.domain.login.LoginUseCase.Output.*
+import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 class LoginPresenter(
@@ -32,10 +32,14 @@ class LoginPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { it ->
                 when (it) {
-                    is LoginUseCase.Output.Success -> view.showMain()
-                    is LoginUseCase.Output.ErrorInvalidCredentials -> view.showErrorInvalidCredentials()
-                    is LoginUseCase.Output.ErrorUserDoesNotExist -> view.showErrorUserDoesNotExist()
-                    else -> view.showUnknownError()
+                    is Success -> view.showMain()
+                    is ErrorInvalidCredentials -> view.showError(
+                        INVALID_CREDENTIALS
+                    )
+                    is ErrorUserDoesNotExist -> view.showError(
+                        USER_DOES_NOT_EXIST
+                    )
+                    else -> view.showError(UNKNOWN)
                 }
             }
             .addTo(compositeDisposable)
