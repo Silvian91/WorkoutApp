@@ -2,7 +2,10 @@ package com.example.workoutapp.ui.showworkout
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase
+import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Output.Success
+import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Output.SuccessNoData
 import com.example.workoutapp.domain.workout.model.WorkoutModel
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutNoData
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +13,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 
 class ShowWorkoutPresenter(
-    private val workoutsUseCase: GetWorkoutsUseCase,
+    private val getWorkoutsUseCase: GetWorkoutsUseCase,
     private val compositeDisposable: CompositeDisposable
 ) : ShowWorkoutContract.Presenter {
 
@@ -21,15 +24,15 @@ class ShowWorkoutPresenter(
     }
 
     override fun start() {
-        workoutsUseCase.execute(GetWorkoutsUseCase.Input)
+        getWorkoutsUseCase.execute(GetWorkoutsUseCase.Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetWorkoutsUseCase.Output.SuccessNoData -> {
-                        val items = convertToItemWrapperNoData(it.noWorkouts)
-                        view.showNoWorkoutsListData(items)
+                    is SuccessNoData -> {
+                        val items = convertToItemWrapper()
+                        view.showWorkoutsListData(items)
                     }
-                    is GetWorkoutsUseCase.Output.Success -> {
+                    is Success -> {
                         val items = convertToItemWrapper(it.workouts)
                         view.showWorkoutsListData(items)
                     }
@@ -37,28 +40,20 @@ class ShowWorkoutPresenter(
                 }
             }
             .addTo(compositeDisposable)
-//         workoutRepository.getAllWorkouts()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .map { convertToItemWrapper(it) }
-//            .subscribe { workouts -> view.showWorkoutListData(workouts) }
-//            .addTo(compositeDisposable)
     }
 
-    private fun convertToItemWrapper(models: List<WorkoutModel>): List<WorkoutTitle> {
-        val itemWrappers = ArrayList<WorkoutTitle>()
-        models.forEach {
-            itemWrappers.add(WorkoutTitle(it))
+    private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<ShowWorkoutItemWrapper> {
+        val itemWrappers = ArrayList<ShowWorkoutItemWrapper>()
+        return if (models.isNotEmpty()) {
+            models.forEach {
+                itemWrappers.add(WorkoutTitle(it))
+            }
+            itemWrappers
+        } else {
+            itemWrappers.add(WorkoutNoData)
+            itemWrappers
         }
-        return itemWrappers
-    }
 
-    private fun convertToItemWrapperNoData(models: List<WorkoutModel>): List<WorkoutNoData> {
-        val itemWrappers = ArrayList<WorkoutNoData>()
-        models.forEach {
-            itemWrappers.add(WorkoutNoData(it))
-        }
-        return itemWrappers
     }
 
     override fun finish() {

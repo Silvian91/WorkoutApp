@@ -11,8 +11,7 @@ import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
-import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutNoData
-import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_show_workout.*
 import javax.inject.Inject
@@ -24,12 +23,8 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
 
     private lateinit var showWorkoutAdapter: ShowWorkoutRecyclerAdapter
 
-    override fun showWorkoutsListData(workoutsList: List<WorkoutTitle>) {
+    override fun showWorkoutsListData(workoutsList: List<ShowWorkoutItemWrapper>) {
         showWorkoutAdapter.setData(workoutsList)
-    }
-
-    override fun showNoWorkoutsListData(noWorkouts: List<WorkoutNoData>) {
-        showWorkoutAdapter.setNoData(noWorkouts)
     }
 
     override fun showRoutines(workoutId: Long) {

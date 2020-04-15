@@ -15,5 +15,5 @@ sealed class ShowWorkoutItemWrapper(
     data class WorkoutTitle(val workoutTitle: WorkoutModel) :
         ShowWorkoutItemWrapper(WORKOUT_TITLE)
 
-    data class WorkoutNoData(val noWorkouts: WorkoutModel) : ShowWorkoutItemWrapper(WORKOUT_NO_DATA)
+    object WorkoutNoData : ShowWorkoutItemWrapper(WORKOUT_NO_DATA)
 }
