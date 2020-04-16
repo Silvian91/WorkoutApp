@@ -31,7 +31,7 @@ class ShowRoutinePresenter(
                         view.showRoutineData(routines)
                     }
                     is GetRoutineUseCase.Output.ErrorNoRoutines -> {
-                        view.showError()
+                        view.errorUnknown()
                     }
                 }
             }
@@ -67,7 +67,7 @@ class ShowRoutinePresenter(
             .subscribeBy {
                 when (it) {
                     is Success -> view.nextActivity()
-                    else -> view.showError()
+                    else -> view.errorUnknown()
 
                 }
             }

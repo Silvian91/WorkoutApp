@@ -88,7 +88,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         startActivity(ShowWorkoutActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
-    override fun showError() {
+    override fun errorUnknown() {
         Snackbar.make(upper_layout, text_unknown_error, LENGTH_SHORT).show()
     }
 
