@@ -40,4 +40,6 @@
     <string name="text_password">Password</string>
     <string name="text_workouts_no_data">There are no workouts added yet, go back and add some from Add Workout</string>
     <string name="text_password_length">Password should be at least 8 characters long</string>
+    <string name="text_unknown_error">An unexpected error has occurred</string>
+    <string name="text_error_registration_failed">Registration failed</string>
 </resources>

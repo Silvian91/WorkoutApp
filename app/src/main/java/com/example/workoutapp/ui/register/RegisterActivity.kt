@@ -7,8 +7,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_error_registration_failed
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_register.*
 import javax.inject.Inject
 
@@ -34,6 +36,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     companion object {
         fun newIntent(context: Context) =
             Intent(context, RegisterActivity::class.java)
+        private const val MINIMUM_PASSWORD_LENGTH = 7
     }
 
     private val setTextWatcher = object : TextWatcher {
@@ -45,7 +48,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                         &&
                         register_password_field.text.toString().isNotEmpty()
                         &&
-                        register_password_field.text.toString().length > 7
+                        register_password_field.text.toString().length > MINIMUM_PASSWORD_LENGTH
         }
     }
 
@@ -60,6 +63,14 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     override fun showMain() {
         startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+    }
+
+    override fun showError() {
+        Snackbar.make(
+            register_layout,
+            text_error_registration_failed,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     override fun onDestroy() {

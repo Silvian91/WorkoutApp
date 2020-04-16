@@ -7,6 +7,7 @@ interface RegisterContract {
 
     interface View : BaseView<Presenter> {
         fun showMain()
+        fun showError()
     }
 
     interface Presenter : BasePresenter<View> {
