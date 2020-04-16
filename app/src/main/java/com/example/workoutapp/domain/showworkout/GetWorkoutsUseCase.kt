@@ -5,8 +5,6 @@ import com.example.workoutapp.domain.common.BaseUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Input
 import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Output
 import com.example.workoutapp.domain.workout.model.WorkoutModel
-import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
-import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutNoData
 
 interface GetWorkoutsUseCase : BaseSingleUseCase<Input, Output> {
 

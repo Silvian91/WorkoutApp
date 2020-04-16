@@ -6,7 +6,6 @@ import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.Success
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Input
-import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

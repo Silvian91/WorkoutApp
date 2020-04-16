@@ -5,7 +5,6 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
 
 fun <T> Single<T>.doOnIoObserveOnMain(): Single<T> {
     return observeOn(AndroidSchedulers.mainThread())

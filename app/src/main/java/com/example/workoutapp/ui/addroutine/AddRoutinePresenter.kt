@@ -1,9 +1,9 @@
 package com.example.workoutapp.ui.addroutine
 
-import com.example.workoutapp.domain.routine.RoutineRepository
-import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.routine.RoutineRepository
 import com.example.workoutapp.domain.routine.model.RoutineModel
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

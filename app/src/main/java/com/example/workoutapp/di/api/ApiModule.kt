@@ -6,7 +6,6 @@ import com.example.workoutapp.http.chucknorris.ChuckNorrisApiService
 import com.example.workoutapp.http.openweathermap.OpenWeatherMapApiService
 import dagger.Module
 import dagger.Provides
-import retrofit2.create
 
 @Module
 class ApiModule {

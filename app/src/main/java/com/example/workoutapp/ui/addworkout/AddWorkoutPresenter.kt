@@ -1,7 +1,7 @@
 package com.example.workoutapp.ui.addworkout
 
-import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

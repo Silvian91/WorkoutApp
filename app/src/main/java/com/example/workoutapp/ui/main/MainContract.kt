@@ -3,7 +3,6 @@ package com.example.workoutapp.ui.main
 import com.example.workoutapp.domain.chucknorrisquote.model.ChuckNorrisQuoteModel
 import com.example.workoutapp.ui.common.BasePresenter
 import com.example.workoutapp.ui.common.BaseView
-import io.reactivex.Single
 
 interface MainContract {
 

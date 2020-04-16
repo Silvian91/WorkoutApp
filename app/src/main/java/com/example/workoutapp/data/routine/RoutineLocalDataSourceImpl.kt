@@ -6,10 +6,7 @@ import com.example.workoutapp.database.routine.RoutineEntity
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class RoutineLocalDataSourceImpl(val context: Context) : RoutineLocalDataSource {
 

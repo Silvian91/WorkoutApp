@@ -1,8 +1,6 @@
 package com.example.workoutapp.http.openweathermap.response
 
 
-import com.google.gson.annotations.SerializedName
-
 data class Sys(
     val country: String = "",
     val id: Int = 0,

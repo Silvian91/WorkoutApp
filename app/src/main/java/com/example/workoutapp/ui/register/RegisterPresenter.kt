@@ -3,7 +3,6 @@ package com.example.workoutapp.ui.register
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.register.RegisterUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase.Input
-import com.example.workoutapp.domain.user.UserRepository
 import com.example.workoutapp.domain.user.model.UserModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
