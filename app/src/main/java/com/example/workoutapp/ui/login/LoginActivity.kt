@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
-import com.example.workoutapp.ui.login.LoginContract.ErrorType.INVALID_CREDENTIALS
-import com.example.workoutapp.ui.login.LoginContract.ErrorType.USER_DOES_NOT_EXIST
+import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -48,15 +48,15 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             INVALID_CREDENTIALS -> Snackbar.make(
                 login_layout,
                 INVALID_CREDENTIALS.error,
-                Snackbar.LENGTH_SHORT
+                LENGTH_SHORT
             ).show()
             USER_DOES_NOT_EXIST -> Snackbar.make(
                 login_layout,
                 USER_DOES_NOT_EXIST.error,
-                Snackbar.LENGTH_SHORT
+                LENGTH_SHORT
             ).show()
             else -> {
-                Snackbar.make(login_layout, ErrorType.UNKNOWN.error, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(login_layout, UNKNOWN.error, LENGTH_SHORT).show()
             }
         }
     }
