@@ -1,14 +1,14 @@
 package com.example.workoutapp.domain.showworkout
 
-import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Input
-import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Output
-import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Output.*
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Input
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.*
 import com.example.workoutapp.domain.workout.WorkoutRepository
 import io.reactivex.Single
 
-class GetWorkoutsUseCaseImpl(
+class GetWorkoutUseCaseImpl(
     private val workoutRepository: WorkoutRepository
-) : GetWorkoutsUseCase {
+) : GetWorkoutUseCase {
     override fun execute(input: Input): Single<Output> {
         return workoutRepository.getAllWorkouts()
             .map { workouts ->

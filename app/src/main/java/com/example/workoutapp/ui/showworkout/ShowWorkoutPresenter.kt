@@ -1,9 +1,9 @@
 package com.example.workoutapp.ui.showworkout
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase
-import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Output.Success
-import com.example.workoutapp.domain.showworkout.GetWorkoutsUseCase.Output.SuccessNoData
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.SuccessNoData
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutNoData
@@ -13,7 +13,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 
 class ShowWorkoutPresenter(
-    private val getWorkoutsUseCase: GetWorkoutsUseCase,
+    private val getWorkoutUseCase: GetWorkoutUseCase,
     private val compositeDisposable: CompositeDisposable
 ) : ShowWorkoutContract.Presenter {
 
@@ -24,7 +24,7 @@ class ShowWorkoutPresenter(
     }
 
     override fun start() {
-        getWorkoutsUseCase.execute(GetWorkoutsUseCase.Input)
+        getWorkoutUseCase.execute(GetWorkoutUseCase.Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
