@@ -8,10 +8,13 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import com.example.workoutapp.ui.main.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_routine.*
+import kotlinx.android.synthetic.main.activity_show_routine.*
 import javax.inject.Inject
 
 class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
@@ -117,6 +120,10 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
                 routine_rest.error = errorFieldEmpty()
             }
         }
+    }
+
+    override fun errorUnknown() {
+        Snackbar.make(add_routine_activity, text_unknown_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

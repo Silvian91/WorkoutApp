@@ -11,6 +11,7 @@ interface AddRoutineContract {
         fun nextActivity()
         fun errorFieldEmpty(): String
         fun showError(errorType: ErrorType)
+        fun errorUnknown()
     }
 
     interface Presenter : BasePresenter<View> {

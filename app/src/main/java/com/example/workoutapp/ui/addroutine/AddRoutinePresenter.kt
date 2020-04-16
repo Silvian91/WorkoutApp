@@ -1,16 +1,20 @@
 package com.example.workoutapp.ui.addroutine
 
+import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase
+import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Input
+import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Output
+import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
+import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase.Output.Success
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.domain.routine.RoutineRepository
 import com.example.workoutapp.domain.routine.model.RoutineModel
-import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 
 class AddRoutinePresenter(
-    private val routineRepository: RoutineRepository,
-    private val workoutRepository: WorkoutRepository,
+    private val saveRoutineUseCase: SaveRoutineUseCase,
+    private val deleteRoutineUseCase: DeleteRoutineUseCase,
     private val compositeDisposable: CompositeDisposable
 ) :
     AddRoutineContract.Presenter {
@@ -57,9 +61,14 @@ class AddRoutinePresenter(
     }
 
     private fun saveRoutines(routinePairs: List<RoutineModel>) {
-        routineRepository.insertRoutine(routinePairs)
+        saveRoutineUseCase.execute(SaveRoutineUseCase.Input(routinePairs))
             .doOnIoObserveOnMain()
-            .subscribe { view.nextActivity() }
+            .subscribeBy {
+                when (it) {
+                    is Success -> view.nextActivity()
+                    else -> view.errorUnknown()
+                }
+            }
             .addTo(compositeDisposable)
     }
 
@@ -151,9 +160,14 @@ class AddRoutinePresenter(
         if (routine_name.isEmpty() || routine_sets.isEmpty() || routine_reps.isEmpty() || routine_weight.isEmpty() || routine_weight_measurement.isEmpty() ||
             routine_rest.isEmpty()
         ) {
-            workoutRepository.deleteRoutine(workoutId)
+            deleteRoutineUseCase.execute(Input(workoutId))
                 .doOnIoObserveOnMain()
-                .subscribe { view.nextActivity() }
+                .subscribeBy {
+                    when (it) {
+                        is Output.Success -> view.nextActivity()
+                        else -> view.errorUnknown()
+                    }
+                }
                 .addTo(compositeDisposable)
         } else {
             addRoutinePairs(

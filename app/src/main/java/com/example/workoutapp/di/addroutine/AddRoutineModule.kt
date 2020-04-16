@@ -7,6 +7,10 @@ import com.example.workoutapp.data.routine.RoutineRepositoryImpl
 import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
+import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase
+import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCaseImpl
+import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
+import com.example.workoutapp.domain.addroutine.SaveRoutineUseCaseImpl
 import com.example.workoutapp.domain.routine.RoutineRepository
 import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.addroutine.AddRoutineContract
@@ -19,11 +23,11 @@ import io.reactivex.disposables.CompositeDisposable
 class AddRoutineModule {
     @Provides
     fun providesAddRoutinePresenter(
-        routineRepository: RoutineRepository,
-        workoutRepository: WorkoutRepository,
+        saveRoutineUseCase: SaveRoutineUseCase,
+        deleteRoutineUseCase: DeleteRoutineUseCase,
         compositeDisposable: CompositeDisposable
     ): AddRoutineContract.Presenter {
-        return AddRoutinePresenter(routineRepository, workoutRepository, compositeDisposable)
+        return AddRoutinePresenter(saveRoutineUseCase, deleteRoutineUseCase, compositeDisposable)
     }
 
     @Provides
@@ -44,5 +48,15 @@ class AddRoutineModule {
     @Provides
     fun providesWorkoutLocalDataSource(context: Context): WorkoutLocalDataSource {
         return WorkoutLocalDataSourceImpl(context)
+    }
+
+    @Provides
+    fun providesSaveRoutineUseCase(routineRepository: RoutineRepository): SaveRoutineUseCase {
+        return SaveRoutineUseCaseImpl(routineRepository)
+    }
+
+    @Provides
+    fun providesDeleteRoutineUseCase(workoutRepository: WorkoutRepository): DeleteRoutineUseCase {
+        return DeleteRoutineUseCaseImpl(workoutRepository)
     }
 }
