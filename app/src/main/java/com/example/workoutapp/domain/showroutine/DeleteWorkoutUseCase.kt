@@ -1,9 +1,9 @@
-package com.example.workoutapp.domain.showworkout
+package com.example.workoutapp.domain.showroutine
 
 import com.example.workoutapp.domain.common.BaseSingleUseCase
 import com.example.workoutapp.domain.common.BaseUseCase
-import com.example.workoutapp.domain.showworkout.DeleteWorkoutUseCase.Input
-import com.example.workoutapp.domain.showworkout.DeleteWorkoutUseCase.Output
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Input
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output
 
 interface DeleteWorkoutUseCase : BaseSingleUseCase<Input, Output> {
 
@@ -11,6 +11,6 @@ interface DeleteWorkoutUseCase : BaseSingleUseCase<Input, Output> {
 
     sealed class Output : BaseUseCase.Output {
         object Success : Output()
-        object Error : Output()
+        object ErrorNotDeleted : Output()
     }
 }

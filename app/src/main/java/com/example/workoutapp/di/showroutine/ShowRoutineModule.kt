@@ -3,14 +3,16 @@ package com.example.workoutapp.di.showroutine
 import android.content.Context
 import com.example.workoutapp.data.routine.RoutineLocalDataSource
 import com.example.workoutapp.data.routine.RoutineLocalDataSourceImpl
-import com.example.workoutapp.domain.routine.RoutineRepository
 import com.example.workoutapp.data.routine.RoutineRepositoryImpl
 import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
-import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
+import com.example.workoutapp.domain.routine.RoutineRepository
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCaseImpl
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCaseImpl
+import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.showroutine.ShowRoutineContract
 import com.example.workoutapp.ui.showroutine.ShowRoutinePresenter
 import dagger.Module
@@ -21,11 +23,11 @@ import io.reactivex.disposables.CompositeDisposable
 class ShowRoutineModule {
     @Provides
     fun providesShowRoutinePresenter(
+        deleteWorkoutUseCase: DeleteWorkoutUseCase,
         getRoutineUseCase: GetRoutineUseCase,
-        workoutRepository: WorkoutRepository,
         compositeDisposable: CompositeDisposable
     ): ShowRoutineContract.Presenter {
-        return ShowRoutinePresenter(getRoutineUseCase, workoutRepository, compositeDisposable)
+        return ShowRoutinePresenter(deleteWorkoutUseCase, getRoutineUseCase, compositeDisposable)
     }
 
     @Provides
@@ -48,13 +50,13 @@ class ShowRoutineModule {
         return WorkoutLocalDataSourceImpl(context)
     }
 
-//    @Provides
-//    fun providesDeleteWorkoutUseCase(workoutRepository: WorkoutRepository): DeleteWorkoutUseCase{
-//        return DeleteWorkoutUseCaseImpl(workoutRepository)
-//    }
+    @Provides
+    fun providesDeleteWorkoutUseCase(workoutRepository: WorkoutRepository): DeleteWorkoutUseCase {
+        return DeleteWorkoutUseCaseImpl(workoutRepository)
+    }
 
     @Provides
-    fun providesGetRoutineUseCase(routineRepository: RoutineRepository): GetRoutineUseCase{
+    fun providesGetRoutineUseCase(routineRepository: RoutineRepository): GetRoutineUseCase {
         return GetRoutineUseCaseImpl(routineRepository)
     }
 

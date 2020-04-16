@@ -2,6 +2,8 @@ package com.example.workoutapp.ui.showroutine
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.Success
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Input
 import com.example.workoutapp.domain.workout.WorkoutRepository
@@ -11,8 +13,8 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 
 class ShowRoutinePresenter(
+    private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
     private val getRoutineUseCase: GetRoutineUseCase,
-    private val workoutRepository: WorkoutRepository,
     private val compositeDisposable: CompositeDisposable
 ) : ShowRoutineContract.Presenter {
 
@@ -30,7 +32,7 @@ class ShowRoutinePresenter(
                         view.showRoutineData(routines)
                     }
                     is GetRoutineUseCase.Output.ErrorNoRoutines -> {
-                        view.showNoRoutinesError()
+                        view.showError()
                     }
                 }
             }
@@ -61,9 +63,15 @@ class ShowRoutinePresenter(
     }
 
     override fun onDeleteClicked(workoutId: Long) {
-        workoutRepository.deleteRoutine(workoutId)
+        deleteWorkoutUseCase.execute(DeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
-            .subscribe { view.nextActivity() }
+            .subscribeBy {
+                when (it) {
+                    is Success -> view.nextActivity()
+                    else -> view.showError()
+
+                }
+            }
             .addTo(compositeDisposable)
     }
 

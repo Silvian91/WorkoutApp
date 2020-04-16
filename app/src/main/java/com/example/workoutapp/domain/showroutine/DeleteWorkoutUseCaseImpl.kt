@@ -1,6 +1,8 @@
-package com.example.workoutapp.domain.showworkout
+package com.example.workoutapp.domain.showroutine
 
-import com.example.workoutapp.domain.showworkout.DeleteWorkoutUseCase.Output
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.ErrorNotDeleted
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.Success
 import com.example.workoutapp.domain.workout.WorkoutRepository
 import io.reactivex.Single
 
@@ -9,8 +11,7 @@ class DeleteWorkoutUseCaseImpl(
 ) : DeleteWorkoutUseCase {
     override fun execute(input: DeleteWorkoutUseCase.Input): Single<Output> {
         return workoutRepository.deleteRoutine(input.workoutId)
-            .doOnComplete {
-                if (input.workoutId ==
-            }
+            .andThen(Single.just(Success as Output))
+            .onErrorReturn { ErrorNotDeleted }
     }
 }

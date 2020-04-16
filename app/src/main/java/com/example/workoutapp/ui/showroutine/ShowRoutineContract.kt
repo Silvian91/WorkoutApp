@@ -9,7 +9,7 @@ interface ShowRoutineContract {
     interface View : BaseView<Presenter> {
         fun showRoutineData(routineData: List<ShowRoutineItemWrapper>)
         fun nextActivity()
-        fun showNoRoutinesError()
+        fun showError()
     }
 
     interface Presenter : BasePresenter<View> {

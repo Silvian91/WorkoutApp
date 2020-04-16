@@ -9,11 +9,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.login.LoginContract
 import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineRecyclerAdapter
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_show_routine.*
 import javax.inject.Inject
 
@@ -86,8 +91,8 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         startActivity(ShowWorkoutActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
-    override fun showNoRoutinesError() {
-        Toast.makeText(this, "No Routines", Toast.LENGTH_SHORT).show()
+    override fun showError() {
+        Snackbar.make(upper_layout, text_unknown_error, LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
