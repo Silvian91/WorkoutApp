@@ -2,6 +2,7 @@ package com.example.workoutapp.ui.showworkout
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Input
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.SuccessNoData
 import com.example.workoutapp.domain.workout.model.WorkoutModel
@@ -24,7 +25,7 @@ class ShowWorkoutPresenter(
     }
 
     override fun start() {
-        getWorkoutUseCase.execute(GetWorkoutUseCase.Input)
+        getWorkoutUseCase.execute(Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {

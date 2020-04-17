@@ -1,6 +1,7 @@
 package com.example.workoutapp.ui.login
 
 import com.example.workoutapp.domain.login.LoginUseCase
+import com.example.workoutapp.domain.login.LoginUseCase.Input
 import com.example.workoutapp.domain.login.LoginUseCase.Output.*
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,7 +25,7 @@ class LoginPresenter(
     override fun finish() = compositeDisposable.clear()
 
     override fun onLoginClicked(username: String, password: String) {
-        loginUseCase.execute(LoginUseCase.Input(username, password))
+        loginUseCase.execute(Input(username, password))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { it ->
