@@ -7,6 +7,7 @@ interface AddWorkoutContract {
     interface View : BaseView<Presenter> {
         fun showError()
         fun showAddRoutine(workoutId: Long)
+        fun errorUnknown()
     }
 
     interface Presenter : BasePresenter<View> {

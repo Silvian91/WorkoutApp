@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_workout.*
 import javax.inject.Inject
 
@@ -45,6 +47,10 @@ class AddWorkoutActivity : AppCompatActivity(), AddWorkoutContract.View {
                 workoutId
             ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
+    }
+
+    override fun errorUnknown() {
+        Snackbar.make(add_workout_activity, text_unknown_error, Snackbar.LENGTH_SHORT)
     }
 
     override fun showError() {

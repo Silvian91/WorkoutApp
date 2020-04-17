@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
+import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase
+import com.example.workoutapp.domain.addworkout.AddWorkoutUseCaseImpl
 import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.addworkout.AddWorkoutContract
 import com.example.workoutapp.ui.addworkout.AddWorkoutPresenter
@@ -15,10 +17,10 @@ import io.reactivex.disposables.CompositeDisposable
 class AddWorkoutModule {
     @Provides
     fun providesAddWorkoutPresenter(
-        workoutRepository: WorkoutRepository,
+        addWorkoutUseCase: AddWorkoutUseCase,
         compositeDisposable: CompositeDisposable
     ): AddWorkoutContract.Presenter {
-        return AddWorkoutPresenter(compositeDisposable, workoutRepository)
+        return AddWorkoutPresenter(addWorkoutUseCase, compositeDisposable)
     }
 
     @Provides
@@ -29,5 +31,10 @@ class AddWorkoutModule {
     @Provides
     fun providesWorkoutLocalDataSource(context: Context): WorkoutLocalDataSource {
         return WorkoutLocalDataSourceImpl(context)
+    }
+
+    @Provides
+    fun providesAddWorkoutUseCase(workoutRepository: WorkoutRepository): AddWorkoutUseCase {
+        return AddWorkoutUseCaseImpl(workoutRepository)
     }
 }

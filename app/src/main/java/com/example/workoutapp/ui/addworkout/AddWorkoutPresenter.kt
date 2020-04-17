@@ -1,5 +1,9 @@
 package com.example.workoutapp.ui.addworkout
 
+import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase
+import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase.Input
+import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase.Output.ErrorUnknown
+import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase.Output.Success
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.domain.workout.model.WorkoutModel
@@ -9,12 +13,11 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class AddWorkoutPresenter
     (
-    private val compositeDisposable: CompositeDisposable,
-    private val workoutRepository: WorkoutRepository
+    private val addWorkoutUseCase: AddWorkoutUseCase,
+    private val compositeDisposable: CompositeDisposable
 ) : AddWorkoutContract.Presenter {
 
     private lateinit var view: AddWorkoutContract.View
-
 
     override fun setView(view: AddWorkoutContract.View) {
         this.view = view
@@ -23,10 +26,13 @@ class AddWorkoutPresenter
     override fun start() {}
 
     private fun saveWorkout(workoutModel: WorkoutModel) {
-        workoutRepository.insertWorkout(workoutModel)
+        addWorkoutUseCase.execute(Input(workoutModel))
             .doOnIoObserveOnMain()
             .subscribeBy {
-                view.showAddRoutine(it)
+                when (it) {
+                    is Success -> view.showAddRoutine(it.workoutId)
+                    else -> view.errorUnknown()
+                }
             }
             .addTo(compositeDisposable)
     }
