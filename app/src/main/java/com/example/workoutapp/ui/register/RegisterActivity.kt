@@ -12,6 +12,7 @@ import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_register.*
+import java.util.*
 import javax.inject.Inject
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
@@ -55,7 +56,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     private fun setOnClickListenerEvent() {
         button_confirm_register.setOnClickListener {
             presenter.onContinueClicked(
-                register_username_field.text.toString(),
+                register_username_field.text.toString().toLowerCase(Locale.ENGLISH),
                 register_password_field.text.toString()
             )
         }

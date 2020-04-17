@@ -12,6 +12,7 @@ import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.*
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
@@ -28,7 +29,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         presenter.setView(this)
         button_confirm_login.setOnClickListener {
             presenter.onLoginClicked(
-                login_username_field.text.toString(),
+                login_username_field.text.toString().toLowerCase(Locale.ENGLISH),
                 login_password_field.text.toString()
             )
         }
