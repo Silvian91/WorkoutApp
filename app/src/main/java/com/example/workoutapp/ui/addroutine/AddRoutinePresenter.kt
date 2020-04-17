@@ -27,12 +27,9 @@ class AddRoutinePresenter(
         this.view = view
     }
 
-    override fun start() {
-    }
+    override fun start() {}
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
+    override fun finish() = compositeDisposable.clear()
 
     override fun setWorkoutId(workoutId: Long) {
         this.workoutId = workoutId

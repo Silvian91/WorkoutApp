@@ -56,12 +56,8 @@ class ShowWorkoutPresenter(
 
     }
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
+    override fun finish() = compositeDisposable.clear()
 
-    override fun onWorkoutClicked(workoutId: Long) {
-        view.showRoutines(workoutId)
-    }
+    override fun onWorkoutClicked(workoutId: Long) = view.showRoutines(workoutId)
 
 }

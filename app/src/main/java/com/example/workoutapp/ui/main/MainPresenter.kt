@@ -19,12 +19,10 @@ class MainPresenter(
     override fun start() {
         chuckNorrisQuoteRepository.getRandomQuote()
             .doOnIoObserveOnMain()
-            .subscribe { quotes -> view.displayChuckNorrisQuote(quotes)  }
+            .subscribe { quotes -> view.displayChuckNorrisQuote(quotes) }
             .addTo(compositeDisposable)
     }
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
+    override fun finish() = compositeDisposable.clear()
 
 }

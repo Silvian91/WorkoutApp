@@ -11,5 +11,4 @@ interface MainContract {
     }
 
     interface Presenter : BasePresenter<View>
-
 }

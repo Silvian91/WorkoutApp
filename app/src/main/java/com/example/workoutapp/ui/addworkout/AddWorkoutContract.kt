@@ -6,7 +6,6 @@ import com.example.workoutapp.ui.common.BaseView
 interface AddWorkoutContract {
     interface View : BaseView<Presenter> {
         fun showError()
-
         fun showAddRoutine(workoutId: Long)
     }
 

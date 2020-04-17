@@ -20,8 +20,7 @@ class AddWorkoutPresenter
         this.view = view
     }
 
-    override fun start() {
-    }
+    override fun start() {}
 
     private fun saveWorkout(workoutModel: WorkoutModel) {
         workoutRepository.insertWorkout(workoutModel)
@@ -40,8 +39,6 @@ class AddWorkoutPresenter
         }
     }
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
+    override fun finish() = compositeDisposable.clear()
 
 }

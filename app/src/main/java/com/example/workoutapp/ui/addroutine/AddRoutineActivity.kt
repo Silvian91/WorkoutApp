@@ -14,14 +14,12 @@ import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_routine.*
-import kotlinx.android.synthetic.main.activity_show_routine.*
 import javax.inject.Inject
 
 class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
 
     @Inject
     lateinit var presenter: AddRoutineContract.Presenter
-    val DROPDOWNLIST = arrayOf("kg", "lbs")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +32,8 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
         presenter.setWorkoutId(workoutId)
         setOnClickListenerEvent()
-        val adapter = ArrayAdapter(this, R.layout.component_dropdown_list_item, DROPDOWNLIST)
+
+        val adapter = ArrayAdapter(this, R.layout.component_dropdown_list_item, DROP_DOWN_LIST)
         weight_measurement.setAdapter(adapter)
         weight_measurement.onItemSelectedListener
     }
@@ -160,6 +159,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
 
     companion object {
         const val workoutIdExtra = "workoutId"
+        private val DROP_DOWN_LIST = arrayOf("kg", "lbs")
 
         fun newIntent(context: Context, workoutId: Long) =
             Intent(context, AddRoutineActivity::class.java).apply {

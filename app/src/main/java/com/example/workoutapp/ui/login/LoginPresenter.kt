@@ -19,12 +19,9 @@ class LoginPresenter(
         this.view = view
     }
 
-    override fun start() {
-    }
+    override fun start() {}
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
+    override fun finish() = compositeDisposable.clear()
 
     override fun onLoginClicked(username: String, password: String) {
         loginUseCase.execute(LoginUseCase.Input(username, password))

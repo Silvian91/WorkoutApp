@@ -21,9 +21,7 @@ class RegisterPresenter(
 
     override fun start() {}
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
+    override fun finish() = compositeDisposable.clear()
 
     override fun onContinueClicked(username: String, password: String) {
         registerUseCase.execute(Input(UserModel(username, password)))

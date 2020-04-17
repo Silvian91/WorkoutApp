@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun openShowWorkoutActivity() {
-
         startActivity(ShowWorkoutActivity.newIntent(this))
     }
 

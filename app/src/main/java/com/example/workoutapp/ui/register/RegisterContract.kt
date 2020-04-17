@@ -11,7 +11,6 @@ interface RegisterContract {
     }
 
     interface Presenter : BasePresenter<View> {
-
         fun onContinueClicked(
             username: String,
             password: String
