@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_error_registration_failed
 import com.example.workoutapp.ui.WorkoutApplication
-import com.example.workoutapp.ui.main.MainActivity
+import com.example.workoutapp.ui.main.HomeActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
@@ -63,7 +63,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun showMain() {
-        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        startActivity(HomeActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
     override fun showError() {

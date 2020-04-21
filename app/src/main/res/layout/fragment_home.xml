@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.HomeActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/chuck_norris_quote_api"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="12dp"
+        style="@style/subheadingStyle"
+        android:gravity="center"
+        android:text="" />
+
+    <Button
+        android:id="@+id/add_workout"
+        style="@style/buttonColorAndBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="@string/text_add_workout" />
+
+    <Button
+        android:id="@+id/show_workout"
+        style="@style/buttonColorAndBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="@string/text_show_workout" />
+
+
+</LinearLayout>

@@ -11,7 +11,7 @@ import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
-import com.example.workoutapp.ui.main.MainActivity
+import com.example.workoutapp.ui.main.HomeActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_routine.*
 import javax.inject.Inject
@@ -85,7 +85,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
     }
 
     override fun nextActivity() {
-        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        startActivity(HomeActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
     override fun errorFieldEmpty(): String {

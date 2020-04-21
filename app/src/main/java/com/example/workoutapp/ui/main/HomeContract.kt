@@ -4,7 +4,7 @@ import com.example.workoutapp.domain.chucknorrisquote.model.ChuckNorrisQuoteMode
 import com.example.workoutapp.ui.common.BasePresenter
 import com.example.workoutapp.ui.common.BaseView
 
-interface MainContract {
+interface HomeContract {
 
     interface View : BaseView<Presenter> {
         fun displayChuckNorrisQuote(quotes: ChuckNorrisQuoteModel)

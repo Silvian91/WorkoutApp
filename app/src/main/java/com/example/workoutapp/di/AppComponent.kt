@@ -8,8 +8,8 @@ import com.example.workoutapp.di.addworkout.AddWorkoutModule
 import com.example.workoutapp.di.api.ApiModule
 import com.example.workoutapp.di.login.LoginComponent
 import com.example.workoutapp.di.login.LoginModule
-import com.example.workoutapp.di.main.MainComponent
-import com.example.workoutapp.di.main.MainModule
+import com.example.workoutapp.di.home.HomeComponent
+import com.example.workoutapp.di.home.HomeModule
 import com.example.workoutapp.di.register.RegisterComponent
 import com.example.workoutapp.di.register.RegisterModule
 import com.example.workoutapp.di.showroutine.ShowRoutineComponent
@@ -43,7 +43,7 @@ interface AppComponent {
     fun plus(showWorkoutModule: ShowWorkoutModule): ShowWorkoutComponent
     fun plus(addRoutineModule: AddRoutineModule): AddRoutineComponent
     fun plus(showRoutineModule: ShowRoutineModule): ShowRoutineComponent
-    fun plus(mainModule: MainModule): MainComponent
+    fun plus(homeModule: HomeModule): HomeComponent
     fun plus(singupModule: SignupModule): SignupComponent
     fun plus(loginModule: LoginModule): LoginComponent
     fun plus(registerModule: RegisterModule): RegisterComponent

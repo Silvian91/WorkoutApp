@@ -1,25 +1,25 @@
-package com.example.workoutapp.di.main
+package com.example.workoutapp.di.home
 
 import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRemoteDataSource
 import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRemoteDataSourceImpl
 import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRepositoryImpl
 import com.example.workoutapp.domain.chucknorrisquote.ChuckNorrisQuoteRepository
 import com.example.workoutapp.http.chucknorris.ChuckNorrisApiService
-import com.example.workoutapp.ui.main.MainContract
-import com.example.workoutapp.ui.main.MainPresenter
+import com.example.workoutapp.ui.main.HomeContract
+import com.example.workoutapp.ui.main.HomePresenter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 
 @Module
-class MainModule {
+class HomeModule {
 
     @Provides
     fun providesMainPresenter(
         compositeDisposable: CompositeDisposable,
         chuckNorrisQuoteRepository: ChuckNorrisQuoteRepository
-    ): MainContract.Presenter {
-        return MainPresenter(compositeDisposable, chuckNorrisQuoteRepository)
+    ): HomeContract.Presenter {
+        return HomePresenter(compositeDisposable, chuckNorrisQuoteRepository)
     }
 
     @Provides

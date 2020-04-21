@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
-import com.example.workoutapp.ui.main.MainActivity
+import com.example.workoutapp.ui.main.HomeActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutRecyclerAdapter
@@ -62,7 +62,7 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
         finish()
-        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        startActivity(HomeActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         return true
     }
 
