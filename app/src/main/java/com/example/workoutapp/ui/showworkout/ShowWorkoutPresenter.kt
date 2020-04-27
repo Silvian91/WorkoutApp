@@ -1,6 +1,7 @@
 package com.example.workoutapp.ui.showworkout
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Input
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success
@@ -14,6 +15,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 
 class ShowWorkoutPresenter(
+    private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
     private val getWorkoutUseCase: GetWorkoutUseCase,
     private val compositeDisposable: CompositeDisposable
 ) : ShowWorkoutContract.Presenter {
@@ -54,11 +56,32 @@ class ShowWorkoutPresenter(
             itemWrappers.add(WorkoutNoData)
             itemWrappers
         }
+    }
 
+    override fun onDeleteClicked(
+        workoutId: Long,
+        workoutsList: List<ShowWorkoutItemWrapper>
+    ) {
+        deleteWorkoutUseCase.execute(DeleteWorkoutUseCase.Input(workoutId))
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                   is DeleteWorkoutUseCase.Output.Success -> view.showWorkoutsListData(workoutsList)
+                    else -> view.showError()
+                }
+            }
+            .addTo(compositeDisposable)
     }
 
     override fun finish() = compositeDisposable.clear()
 
     override fun onWorkoutClicked(workoutId: Long) = view.showRoutines(workoutId)
+
+    override fun onSwipeToDelete(
+        workoutId: Long,
+        workoutsList: List<ShowWorkoutItemWrapper>
+    ) {
+        view.alertDialog(workoutId, workoutsList)
+    }
 
 }

@@ -10,5 +10,5 @@ interface WorkoutRepository {
 
     fun getAllWorkouts(): Single<List<WorkoutModel>>
 
-    fun deleteRoutine(workoutId: Long): Completable
+    fun deleteWorkout(workoutId: Long): Completable
 }

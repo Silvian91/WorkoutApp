@@ -1,4 +1,4 @@
 package com.example.workoutapp.ui.profile
 
-class ProfilePresenter {
+class ProfilePresenter : ProfileContract.Presenter {
 }

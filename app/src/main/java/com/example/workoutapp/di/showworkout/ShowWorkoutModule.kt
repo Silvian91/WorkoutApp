@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.workoutapp.data.workout.WorkoutLocalDataSource
 import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
 import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCaseImpl
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCaseImpl
 import com.example.workoutapp.domain.workout.WorkoutRepository
@@ -17,10 +19,15 @@ import io.reactivex.disposables.CompositeDisposable
 class ShowWorkoutModule {
     @Provides
     fun providesShowWorkoutPresenter(
+        deleteWorkoutUseCase: DeleteWorkoutUseCase,
         workoutUseCase: GetWorkoutUseCase,
         compositeDisposable: CompositeDisposable
     ): ShowWorkoutContract.Presenter {
-        return ShowWorkoutPresenter(workoutUseCase, compositeDisposable)
+        return ShowWorkoutPresenter(
+            deleteWorkoutUseCase,
+            workoutUseCase,
+            compositeDisposable
+        )
     }
 
     @Provides
@@ -34,7 +41,13 @@ class ShowWorkoutModule {
     }
 
     @Provides
-    fun providesGetWorkoutsUseCase(workoutsRepository: WorkoutRepository): GetWorkoutUseCase{
+    fun providesGetWorkoutsUseCase(workoutsRepository: WorkoutRepository): GetWorkoutUseCase {
         return GetWorkoutUseCaseImpl(workoutsRepository)
     }
+
+    @Provides
+    fun providesDeleteWorkoutFromRoutineUseCase(workoutRepository: WorkoutRepository): DeleteWorkoutUseCase {
+        return DeleteWorkoutUseCaseImpl(workoutRepository)
+    }
+
 }

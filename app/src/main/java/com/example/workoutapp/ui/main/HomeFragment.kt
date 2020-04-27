@@ -27,8 +27,9 @@ class HomeFragment : Fragment(), HomeContract.View {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         WorkoutApplication.get().components.createMainComponent().inject(this)
 
         presenter.setView(this)
@@ -57,11 +58,11 @@ class HomeFragment : Fragment(), HomeContract.View {
         toolbar.title = "Workout App"
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         add_workout.setOnClickListener(null)
         show_workout.setOnClickListener(null)
 
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     override fun displayChuckNorrisQuote(quotes: ChuckNorrisQuoteModel) {

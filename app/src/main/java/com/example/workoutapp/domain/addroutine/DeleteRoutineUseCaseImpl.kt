@@ -11,7 +11,7 @@ class DeleteRoutineUseCaseImpl(
     private val workoutRepository: WorkoutRepository
 ) : DeleteRoutineUseCase {
     override fun execute(input: Input): Single<Output> {
-        return workoutRepository.deleteRoutine(input.workoutId)
+        return workoutRepository.deleteWorkout(input.workoutId)
             .andThen(Single.just(Success as Output))
             .onErrorReturn { ErrorUnknown }
     }

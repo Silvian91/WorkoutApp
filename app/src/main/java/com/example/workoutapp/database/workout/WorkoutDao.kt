@@ -1,6 +1,7 @@
 package com.example.workoutapp.database.workout
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
@@ -14,5 +15,9 @@ interface WorkoutDao {
     val getAllWorkouts: List<WorkoutEntity>
 
     @Query("DELETE FROM workout WHERE id = :currentWorkoutId")
-    fun deleteWorkoutRoutine(currentWorkoutId: Long)
+    fun deleteWorkoutFromRoutine(currentWorkoutId: Long)
+
+    @Delete
+    fun deleteWorkout(workout: WorkoutEntity)
+
 }

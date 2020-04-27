@@ -10,5 +10,5 @@ interface WorkoutLocalDataSource {
 
     fun getAllWorkouts(): Single<List<WorkoutModel>>
 
-    fun deleteRoutines(workoutId: Long): Completable
+    fun deleteWorkout(workoutId: Long): Completable
 }

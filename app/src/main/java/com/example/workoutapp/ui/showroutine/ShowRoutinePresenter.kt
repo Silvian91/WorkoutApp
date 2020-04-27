@@ -68,7 +68,6 @@ class ShowRoutinePresenter(
                 when (it) {
                     is Success -> view.nextActivity()
                     else -> view.errorUnknown()
-
                 }
             }
             .addTo(compositeDisposable)

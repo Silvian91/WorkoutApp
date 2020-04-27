@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/workouts_view_holder">
+
+<!--    <com.example.workoutapp.ui.custom.DraggableCoordinatorLayout-->
+<!--        android:id="@+id/draggable_workout_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" >-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/show_workout_name_card"
@@ -31,4 +37,6 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+<!--    </com.example.workoutapp.ui.custom.DraggableCoordinatorLayout>-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

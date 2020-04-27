@@ -3,8 +3,12 @@
     package="com.example.workoutapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
-    <application android:name=".ui.WorkoutApplication"
+    <application
+        android:name=".ui.WorkoutApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,8 +27,9 @@
         <activity android:name="com.example.workoutapp.ui.addroutine.AddRoutineActivity" />
         <activity android:name="com.example.workoutapp.ui.showroutine.ShowRoutineActivity" />
         <activity android:name="com.example.workoutapp.ui.main.HomeActivity" />
-        <activity android:name="com.example.workoutapp.ui.login.LoginActivity"
-                  android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name="com.example.workoutapp.ui.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.example.workoutapp.ui.register.RegisterActivity" />
     </application>
 

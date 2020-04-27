@@ -16,8 +16,8 @@ class WorkoutRepositoryImpl(private val workoutLocalDataSource: WorkoutLocalData
         return workoutLocalDataSource.getAllWorkouts()
     }
 
-    override fun deleteRoutine(workoutId: Long): Completable {
-        return workoutLocalDataSource.deleteRoutines(workoutId)
+    override fun deleteWorkout(workoutId: Long): Completable {
+        return workoutLocalDataSource.deleteWorkout(workoutId)
     }
 
 }

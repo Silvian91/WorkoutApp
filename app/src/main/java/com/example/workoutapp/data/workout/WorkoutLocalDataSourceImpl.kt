@@ -28,9 +28,9 @@ class WorkoutLocalDataSourceImpl(val context: Context) : WorkoutLocalDataSource 
             }
     }
 
-    override fun deleteRoutines(workoutId: Long): Completable {
+    override fun deleteWorkout(workoutId: Long): Completable {
         return Completable.fromCallable {
-            WorkoutAppDatabase.getInstance(context).workoutDao().deleteWorkoutRoutine(workoutId)
+            WorkoutAppDatabase.getInstance(context).workoutDao().deleteWorkoutFromRoutine(workoutId)
         }
     }
 
