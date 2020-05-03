@@ -43,7 +43,6 @@
     <string name="text_unknown_error">An unexpected error has occurred</string>
     <string name="text_error_registration_failed">Registration failed</string>
     <string name="text_profile_username">Username</string>
-    <string name="text_open_camera">CAMERA</string>
-    <string name="text_open_gallery">GALLERY</string>
+    <string name="text_choose_profile_pic">Add profile picture</string>
 
 </resources>

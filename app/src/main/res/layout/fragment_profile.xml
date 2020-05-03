@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_layout" >
 
     <include layout="@layout/toolbar" />
 
@@ -32,25 +34,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="12dp"
-        android:id="@+id/button_open_camera"
+        android:id="@+id/button_add_profile_picture"
         app:layout_constraintTop_toBottomOf="@+id/profile_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button_open_gallery"
-        style="@style/buttonColorAndBackground"
-        android:text="@string/text_open_camera" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="12dp"
-        android:id="@+id/button_open_gallery"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        app:layout_constraintStart_toEndOf="@id/button_open_camera"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/buttonColorAndBackground"
-        android:text="@string/text_open_gallery"/>
+        android:text="@string/text_choose_profile_pic" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
