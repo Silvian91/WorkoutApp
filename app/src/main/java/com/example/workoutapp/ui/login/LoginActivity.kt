@@ -40,8 +40,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             Intent(context, LoginActivity::class.java)
     }
 
-    override fun showMain() {
-        startActivity(HomeActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+    override fun showHome() {
+        startActivity(
+            HomeActivity.newIntent(this)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
     }
 
     override fun showError(errorType: ErrorType) {

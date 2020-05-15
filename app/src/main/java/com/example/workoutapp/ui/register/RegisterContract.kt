@@ -6,14 +6,15 @@ import com.example.workoutapp.ui.common.BaseView
 interface RegisterContract {
 
     interface View : BaseView<Presenter> {
-        fun showMain()
+        fun showHome()
         fun showError()
     }
 
     interface Presenter : BasePresenter<View> {
         fun onContinueClicked(
             username: String,
-            password: String
+            password: String,
+            id: Long
         )
     }
 }

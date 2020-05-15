@@ -1,4 +1,4 @@
-package com.example.workoutapp.di.login
+package com.example.workoutapp.di.profile
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,30 +8,33 @@ import com.example.workoutapp.data.session.SessionManagerImpl
 import com.example.workoutapp.data.user.UserLocalDataSource
 import com.example.workoutapp.data.user.UserLocalDataSourceImpl
 import com.example.workoutapp.data.user.UserRepositoryImpl
-import com.example.workoutapp.domain.login.LoginUseCase
-import com.example.workoutapp.domain.login.LoginUseCaseImpl
 import com.example.workoutapp.domain.session.SessionManager
+import com.example.workoutapp.domain.user.GetCurrentUserUseCase
+import com.example.workoutapp.domain.user.GetCurrentUserUseCaseImpl
 import com.example.workoutapp.domain.user.UserRepository
-import com.example.workoutapp.ui.login.LoginContract
-import com.example.workoutapp.ui.login.LoginPresenter
+import com.example.workoutapp.ui.profile.ProfileContract
+import com.example.workoutapp.ui.profile.ProfilePresenter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 
 @Module
-class LoginModule {
+class ProfileModule {
 
     @Provides
-    fun providesLoginPresenter(
-        loginUseCase: LoginUseCase,
+    fun providesProfilePresenter(
+        getCurrentUserUseCase: GetCurrentUserUseCase,
         compositeDisposable: CompositeDisposable
-    ): LoginContract.Presenter {
-        return LoginPresenter(loginUseCase, compositeDisposable)
+    ): ProfileContract.Presenter {
+        return ProfilePresenter(getCurrentUserUseCase, compositeDisposable)
     }
 
     @Provides
-    fun providesLoginUseCase(userRepository: UserRepository, sessionManager: SessionManager): LoginUseCase{
-        return LoginUseCaseImpl(userRepository, sessionManager)
+    fun providesGetCurrentUserUseCase(
+        sessionManager: SessionManager,
+        userRepository: UserRepository
+    ): GetCurrentUserUseCase {
+        return GetCurrentUserUseCaseImpl(sessionManager, userRepository)
     }
 
     @Provides
@@ -40,7 +43,7 @@ class LoginModule {
     }
 
     @Provides
-    fun providesSessionKeyValueDataSource(sharedPreferences: SharedPreferences): SessionKeyValueDataSource{
+    fun providesSessionKeyValueDataSource(sharedPreferences: SharedPreferences): SessionKeyValueDataSource {
         return SessionKeyValueDataSourceImpl(sharedPreferences)
     }
 

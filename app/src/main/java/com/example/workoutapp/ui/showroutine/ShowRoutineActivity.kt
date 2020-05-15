@@ -104,7 +104,6 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         fun newIntent(context: Context, workoutId: Long) =
             Intent(context, ShowRoutineActivity::class.java).apply {
                 putExtra(workoutIdExtra, workoutId)
-
             }
     }
 

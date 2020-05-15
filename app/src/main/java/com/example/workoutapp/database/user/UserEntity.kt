@@ -12,7 +12,8 @@ data class UserEntity(val username: String, val password: String) {
     fun toModel(): UserModel {
         return UserModel(
             username,
-            password
+            password,
+            id
         )
     }
 

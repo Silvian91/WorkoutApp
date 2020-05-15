@@ -6,10 +6,12 @@ import com.example.workoutapp.di.addroutine.AddRoutineModule
 import com.example.workoutapp.di.addworkout.AddWorkoutComponent
 import com.example.workoutapp.di.addworkout.AddWorkoutModule
 import com.example.workoutapp.di.api.ApiModule
-import com.example.workoutapp.di.login.LoginComponent
-import com.example.workoutapp.di.login.LoginModule
 import com.example.workoutapp.di.home.HomeComponent
 import com.example.workoutapp.di.home.HomeModule
+import com.example.workoutapp.di.login.LoginComponent
+import com.example.workoutapp.di.login.LoginModule
+import com.example.workoutapp.di.profile.ProfileComponent
+import com.example.workoutapp.di.profile.ProfileModule
 import com.example.workoutapp.di.register.RegisterComponent
 import com.example.workoutapp.di.register.RegisterModule
 import com.example.workoutapp.di.showroutine.ShowRoutineComponent
@@ -47,6 +49,7 @@ interface AppComponent {
     fun plus(singupModule: SignupModule): SignupComponent
     fun plus(loginModule: LoginModule): LoginComponent
     fun plus(registerModule: RegisterModule): RegisterComponent
+    fun plus(profileModule: ProfileModule): ProfileComponent
 
     @Component.Builder
     interface Builder {

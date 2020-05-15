@@ -4,10 +4,12 @@ import com.example.workoutapp.di.addroutine.AddRoutineComponent
 import com.example.workoutapp.di.addroutine.AddRoutineModule
 import com.example.workoutapp.di.addworkout.AddWorkoutComponent
 import com.example.workoutapp.di.addworkout.AddWorkoutModule
-import com.example.workoutapp.di.login.LoginComponent
-import com.example.workoutapp.di.login.LoginModule
 import com.example.workoutapp.di.home.HomeComponent
 import com.example.workoutapp.di.home.HomeModule
+import com.example.workoutapp.di.login.LoginComponent
+import com.example.workoutapp.di.login.LoginModule
+import com.example.workoutapp.di.profile.ProfileComponent
+import com.example.workoutapp.di.profile.ProfileModule
 import com.example.workoutapp.di.register.RegisterComponent
 import com.example.workoutapp.di.register.RegisterModule
 import com.example.workoutapp.di.showroutine.ShowRoutineComponent
@@ -49,6 +51,10 @@ class WorkoutComponentProvider(private val appComponent: AppComponent) {
 
     fun createRegisterComponent(): RegisterComponent{
         return appComponent.plus(RegisterModule())
+    }
+
+    fun createProfileComponent(): ProfileComponent{
+        return appComponent.plus(ProfileModule())
     }
 
 }

@@ -3,11 +3,13 @@ package com.example.workoutapp.domain.login
 import com.example.workoutapp.domain.login.LoginUseCase.Input
 import com.example.workoutapp.domain.login.LoginUseCase.Output
 import com.example.workoutapp.domain.login.LoginUseCase.Output.*
+import com.example.workoutapp.domain.session.SessionManager
 import com.example.workoutapp.domain.user.UserRepository
 import io.reactivex.Single
 
 class LoginUseCaseImpl(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val sessionManager: SessionManager
 ) : LoginUseCase {
     override fun execute(input: Input): Single<Output> {
         // GET THE USER BASED ON THE USERNAME PROVIDED BY THE INPUT
@@ -15,8 +17,10 @@ class LoginUseCaseImpl(
             // CHECK IF THE PASSWORD PROVIDED BY THE USER INSIDE THE INPUT OBJECT IS THE SAME AS THE PASSWORD RETRIEVED FROM THE DB
             .map {
                 // YES -> RETURN SUCCESS / NOT -> INVALID CREDENTIALS
-                if (input.password == it.password)
+                if (input.password == it.password) {
+                    sessionManager.setCurrentUserId(it.id!!).blockingGet()
                     Success
+                }
                 else
                     ErrorInvalidCredentials
             }

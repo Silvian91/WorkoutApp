@@ -25,4 +25,11 @@ class UserLocalDataSourceImpl(val context: Context) : UserLocalDataSource {
             .map { it.toModel() }
     }
 
+    override fun getUser(id: Long): Single<UserModel> {
+        return Single.fromCallable {
+            WorkoutAppDatabase.getInstance(context).userDao().getUser(id)
+        }
+            .map { it.toModel() }
+    }
+
 }

@@ -37,6 +37,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     companion object {
         fun newIntent(context: Context) =
             Intent(context, RegisterActivity::class.java)
+
         private const val MINIMUM_PASSWORD_LENGTH = 7
     }
 
@@ -57,13 +58,17 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         button_confirm_register.setOnClickListener {
             presenter.onContinueClicked(
                 register_username_field.text.toString().toLowerCase(Locale.ENGLISH),
-                register_password_field.text.toString()
+                register_password_field.text.toString(),
+                id = 0
             )
         }
     }
 
-    override fun showMain() {
-        startActivity(HomeActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+    override fun showHome() {
+        startActivity(
+            HomeActivity.newIntent(this)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
     }
 
     override fun showError() {

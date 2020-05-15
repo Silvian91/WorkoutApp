@@ -17,14 +17,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_error_registration_failed
 import com.example.workoutapp.R.string.text_unknown_error
+import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.login.LoginActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
+import javax.inject.Inject
 
 class ProfileFragment : Fragment(), ProfileContract.View {
+
+    @Inject
+    lateinit var presenter : ProfileContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +44,11 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        WorkoutApplication.get().components.createProfileComponent().inject(this)
+
+        presenter.setView(this)
+        presenter.start()
+
         setToolbar()
         bottomSheetDialogOnClickListener()
     }
@@ -44,6 +57,25 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         (activity as AppCompatActivity)
             .setSupportActionBar(toolbar)
         toolbar.title = "Workout App"
+    }
+
+    override fun showUsername(username: String) {
+        profile_username.text = username
+    }
+
+    override fun showLogin() {
+        startActivity(
+            LoginActivity.newIntent(requireContext())
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
+    }
+
+    override fun showError() {
+        Snackbar.make(
+            profile_layout,
+            text_error_registration_failed,
+            LENGTH_SHORT
+        ).show()
     }
 
     private fun bottomSheetDialogOnClickListener() {
@@ -164,7 +196,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             else -> {
                 Snackbar.make(
                     bottom_layout, text_unknown_error,
-                    Snackbar.LENGTH_SHORT
+                    LENGTH_SHORT
                 ).show()
             }
         }
@@ -174,4 +206,5 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         super.onDestroyView()
     }
+
 }

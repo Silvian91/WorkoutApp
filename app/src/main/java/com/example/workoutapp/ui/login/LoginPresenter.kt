@@ -1,13 +1,13 @@
 package com.example.workoutapp.ui.login
 
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.login.LoginUseCase
 import com.example.workoutapp.domain.login.LoginUseCase.Input
 import com.example.workoutapp.domain.login.LoginUseCase.Output.*
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.subscribeBy
 
 class LoginPresenter(
     private val loginUseCase: LoginUseCase,
@@ -26,11 +26,10 @@ class LoginPresenter(
 
     override fun onLoginClicked(username: String, password: String) {
         loginUseCase.execute(Input(username, password))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { it ->
+            .doOnIoObserveOnMain()
+            .subscribeBy {
                 when (it) {
-                    is Success -> view.showMain()
+                    is Success -> view.showHome()
                     is ErrorInvalidCredentials -> view.showError(
                         INVALID_CREDENTIALS
                     )

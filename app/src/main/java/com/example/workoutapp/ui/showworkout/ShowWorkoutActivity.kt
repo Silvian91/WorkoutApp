@@ -10,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
-import com.example.workoutapp.domain.workout.model.WorkoutModel
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.HomeActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity

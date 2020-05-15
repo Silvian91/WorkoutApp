@@ -10,8 +10,10 @@ interface UserDao {
     @Insert
     fun insertUser(userEntity: UserEntity)
 
-
     @Query("SELECT * FROM users WHERE username = :username LIMIT 1")
     fun getUser(username: String): UserEntity
+
+    @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
+    fun getUser(id: Long): UserEntity
 
 }

@@ -2,7 +2,6 @@ package com.example.workoutapp.ui.showworkout.adapter.viewholder
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.example.workoutapp.domain.workout.model.WorkoutModel
 import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle

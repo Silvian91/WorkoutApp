@@ -1,6 +1,5 @@
 package com.example.workoutapp.ui.showworkout
 
-import com.example.workoutapp.domain.workout.model.WorkoutModel
 import com.example.workoutapp.ui.common.BasePresenter
 import com.example.workoutapp.ui.common.BaseView
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper

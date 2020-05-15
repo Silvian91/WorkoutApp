@@ -6,7 +6,7 @@ import com.example.workoutapp.ui.common.BaseView
 interface LoginContract {
 
     interface View : BaseView<Presenter> {
-        fun showMain()
+        fun showHome()
         fun showError(errorType: ErrorType)
     }
 
