@@ -1,5 +1,7 @@
 package com.example.workoutapp.ui.signup
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.R
@@ -41,6 +43,11 @@ class SignupActivity : AppCompatActivity(), SignupContract.View {
 
     private fun openLoginActivity() {
         startActivity(LoginActivity.newIntent(this))
+    }
+
+    companion object {
+        fun newIntent(context: Context) =
+            Intent(context, SignupActivity::class.java)
     }
 
     override fun onDestroy() {

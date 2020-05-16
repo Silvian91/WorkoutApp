@@ -130,10 +130,10 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
         AlertDialog.Builder(this, R.style.AlertDialogTheme)
             .setMessage(R.string.text_dialog_delete_routines_back_button)
             .setNegativeButton(
-                R.string.text_dialog_delete_routines_cancel
+                R.string.text_dialog_alert_cancel
             ) { _, _ -> }
             .setPositiveButton(
-                R.string.text_dialog_delete_routines_confirm
+                R.string.text_dialog_alert_confirm
             ) { _, _ ->
                 finish()
                 presenter.onBackClicked(

@@ -9,7 +9,10 @@ interface ProfileContract {
         fun showUsername(username: String)
         fun showLogin()
         fun showError()
+        fun nextActivity()
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View> {
+        fun onWorkoutClicked()
+    }
 }

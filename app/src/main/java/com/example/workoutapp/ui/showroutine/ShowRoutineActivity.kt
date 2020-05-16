@@ -8,7 +8,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_dialog_alert_confirm
 import com.example.workoutapp.R.string.text_unknown_error
+import com.example.workoutapp.R.style.AlertDialogTheme
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.HomeActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
@@ -44,13 +46,13 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         presenter.start()
 
         button_delete_workout.setOnClickListener {
-            AlertDialog.Builder(this, R.style.AlertDialogTheme)
+            AlertDialog.Builder(this, AlertDialogTheme)
                 .setMessage(R.string.text_dialog_delete_routines)
                 .setNegativeButton(
-                    R.string.text_dialog_delete_routines_cancel
+                    R.string.text_dialog_alert_cancel
                 ) { _, _ -> }
                 .setPositiveButton(
-                    R.string.text_dialog_delete_routines_confirm
+                    text_dialog_alert_confirm
                 ) { _, _ -> presenter.onDeleteClicked(workoutId) }
                 .show()
         }
@@ -67,7 +69,6 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
-//        if (item.itemId == )
         startActivity(
             HomeActivity.newIntent(this)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

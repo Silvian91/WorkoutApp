@@ -28,8 +28,8 @@
     <string name="text_field_cannotEmpty">Field cannot be empty</string>
     <string name="text_delete_workout">Delete Workout</string>
     <string name="text_dialog_delete_routines">Delete Routines?</string>
-    <string name="text_dialog_delete_routines_cancel">Cancel</string>
-    <string name="text_dialog_delete_routines_confirm">Confirm</string>
+    <string name="text_dialog_alert_cancel">Cancel</string>
+    <string name="text_dialog_alert_confirm">Confirm</string>
     <string name="text_dialog_delete_routines_back_button">Are you sure you want to quit? Progress might be lost</string>
     <string name="text_register_button">Register</string>
     <string name="text_login_button">Login</string>
@@ -44,5 +44,7 @@
     <string name="text_error_registration_failed">Registration failed</string>
     <string name="text_profile_username">Username</string>
     <string name="text_choose_profile_pic">Add profile picture</string>
+    <string name="text_log_out">Log Out</string>
+    <string name="text_alert_log_out">Are you sure you want to log out?</string>
 
 </resources>

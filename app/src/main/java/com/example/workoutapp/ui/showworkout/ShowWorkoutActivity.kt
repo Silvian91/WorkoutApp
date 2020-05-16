@@ -82,10 +82,10 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
         AlertDialog.Builder(this, R.style.AlertDialogTheme)
             .setMessage(R.string.text_dialog_delete_routines)
             .setNegativeButton(
-                R.string.text_dialog_delete_routines_cancel
+                R.string.text_dialog_alert_cancel
             ) { _, _ -> }
             .setPositiveButton(
-                R.string.text_dialog_delete_routines_confirm
+                R.string.text_dialog_alert_confirm
             ) { _, _ -> deleteSnackbar(workoutId, workoutsList) }
             .show()
     }

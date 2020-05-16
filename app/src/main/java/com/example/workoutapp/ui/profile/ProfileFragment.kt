@@ -2,6 +2,7 @@ package com.example.workoutapp.ui.profile
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -17,10 +18,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.example.workoutapp.R
-import com.example.workoutapp.R.string.text_error_registration_failed
-import com.example.workoutapp.R.string.text_unknown_error
+import com.example.workoutapp.R.string.*
+import com.example.workoutapp.R.style.AlertDialogTheme
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
+import com.example.workoutapp.ui.signup.SignupActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
@@ -32,7 +34,7 @@ import javax.inject.Inject
 class ProfileFragment : Fragment(), ProfileContract.View {
 
     @Inject
-    lateinit var presenter : ProfileContract.Presenter
+    lateinit var presenter: ProfileContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +53,18 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         setToolbar()
         bottomSheetDialogOnClickListener()
+
+        button_log_out.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setMessage(text_alert_log_out)
+                .setNegativeButton(
+                    text_dialog_alert_cancel
+                ) { _, _ -> }
+                .setPositiveButton(
+                    text_dialog_alert_confirm
+                ) { _, _ -> presenter.onWorkoutClicked() }
+                .show()
+        }
     }
 
     private fun setToolbar() {
@@ -76,6 +90,12 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             text_error_registration_failed,
             LENGTH_SHORT
         ).show()
+    }
+
+    override fun nextActivity() {
+        startActivity(
+            SignupActivity.newIntent(requireContext()).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
     }
 
     private fun bottomSheetDialogOnClickListener() {

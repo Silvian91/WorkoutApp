@@ -34,5 +34,9 @@ class ProfilePresenter(
             .addTo(compositeDisposable)
     }
 
+    override fun onWorkoutClicked() {
+        view.nextActivity()
+    }
+
     override fun finish() = compositeDisposable.clear()
 }
