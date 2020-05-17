@@ -20,5 +20,5 @@ data class OpenWeatherMapResponse(
     @SerializedName("weather") val weather: List<Weather> = listOf(),
     @SerializedName("wind") val wind: Wind = Wind()
 ) {
-    fun toModel() = WeatherModel(base, name)
+    fun toModel() = WeatherModel(main!!.temp, name)
 }

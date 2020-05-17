@@ -1,3 +1,3 @@
 package com.example.workoutapp.domain.openweathermap.model
 
-data class WeatherModel(val base: String, val name: String)
+data class WeatherModel(val temp: Double, val name: String)

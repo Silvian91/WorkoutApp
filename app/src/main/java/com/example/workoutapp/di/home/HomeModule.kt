@@ -1,10 +1,15 @@
 package com.example.workoutapp.di.home
 
-import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRemoteDataSource
-import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRemoteDataSourceImpl
-import com.example.workoutapp.data.chucknorrisquote.ChuckNorrisQuoteRepositoryImpl
-import com.example.workoutapp.domain.chucknorrisquote.ChuckNorrisQuoteRepository
-import com.example.workoutapp.http.chucknorris.ChuckNorrisApiService
+import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRemoteDataSource
+import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRemoteDataSourceImpl
+import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRepositoryImpl
+import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSource
+import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSourceImpl
+import com.example.workoutapp.data.openweathermap.OpenWeatherMapRepositoryImpl
+import com.example.workoutapp.domain.inspirationalquote.InspirationalQuoteRepository
+import com.example.workoutapp.domain.openweathermap.OpenWeatherMapRepository
+import com.example.workoutapp.http.inspirationalquote.InspirationalApiService
+import com.example.workoutapp.http.openweathermap.OpenWeatherMapApiService
 import com.example.workoutapp.ui.main.HomeContract
 import com.example.workoutapp.ui.main.HomePresenter
 import dagger.Module
@@ -17,23 +22,42 @@ class HomeModule {
     @Provides
     fun providesMainPresenter(
         compositeDisposable: CompositeDisposable,
-        chuckNorrisQuoteRepository: ChuckNorrisQuoteRepository
+        openWeatherMapRepository: OpenWeatherMapRepository,
+        inspirationalQuoteRepository: InspirationalQuoteRepository
     ): HomeContract.Presenter {
-        return HomePresenter(compositeDisposable, chuckNorrisQuoteRepository)
+        return HomePresenter(
+            compositeDisposable,
+            openWeatherMapRepository,
+            inspirationalQuoteRepository
+        )
     }
 
     @Provides
-    fun providesChuckNorrisRepository(
-        chuckNorrisQuoteRemoteDataSource: ChuckNorrisQuoteRemoteDataSource
-    ): ChuckNorrisQuoteRepository {
-        return ChuckNorrisQuoteRepositoryImpl(chuckNorrisQuoteRemoteDataSource)
+    fun providesInspirationalQuoteRepository(
+        inspirationalQuoteRemoteDataSource: InspirationalQuoteRemoteDataSource
+    ): InspirationalQuoteRepository {
+        return InspirationalQuoteRepositoryImpl(inspirationalQuoteRemoteDataSource)
     }
 
     @Provides
-    fun providesChuckNorrisDataSource(
-        chuckNorrisApiService: ChuckNorrisApiService
-    ): ChuckNorrisQuoteRemoteDataSource {
-        return ChuckNorrisQuoteRemoteDataSourceImpl(chuckNorrisApiService)
+    fun providesInspirationalQuoteRemoteDataSource(
+        inspirationalApiService: InspirationalApiService
+    ): InspirationalQuoteRemoteDataSource {
+        return InspirationalQuoteRemoteDataSourceImpl(inspirationalApiService)
+    }
+
+    @Provides
+    fun providesOpenWeatherMapRepository(
+        openWeatherMapRemoteDataSource: OpenWeatherMapRemoteDataSource
+    ): OpenWeatherMapRepository {
+        return OpenWeatherMapRepositoryImpl(openWeatherMapRemoteDataSource)
+    }
+
+    @Provides
+    fun providesOpenWeatherMapRemoteDataSource(
+        openWeatherMapApiService: OpenWeatherMapApiService
+    ): OpenWeatherMapRemoteDataSource {
+        return OpenWeatherMapRemoteDataSourceImpl(openWeatherMapApiService)
     }
 
 }

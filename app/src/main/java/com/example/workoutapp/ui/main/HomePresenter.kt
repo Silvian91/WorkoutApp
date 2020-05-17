@@ -1,13 +1,15 @@
 package com.example.workoutapp.ui.main
 
-import com.example.workoutapp.domain.chucknorrisquote.ChuckNorrisQuoteRepository
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.inspirationalquote.InspirationalQuoteRepository
+import com.example.workoutapp.domain.openweathermap.OpenWeatherMapRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
 class HomePresenter(
     private val compositeDisposable: CompositeDisposable,
-    private val chuckNorrisQuoteRepository: ChuckNorrisQuoteRepository
+    private val openWeatherMapRepository: OpenWeatherMapRepository,
+    private val inspirationalQuoteRepository: InspirationalQuoteRepository
 ) : HomeContract.Presenter {
 
     private lateinit var view: HomeContract.View
@@ -17,9 +19,21 @@ class HomePresenter(
     }
 
     override fun start() {
-        chuckNorrisQuoteRepository.getRandomQuote()
+        showOpenWeatherAPI()
+        showInspirationalQuote()
+    }
+
+    private fun showOpenWeatherAPI() {
+        openWeatherMapRepository.getCurrentWeather()
             .doOnIoObserveOnMain()
-            .subscribe { quotes -> view.displayChuckNorrisQuote(quotes) }
+            .subscribe { weather -> view.displayCurrentWeather(weather) }
+            .addTo(compositeDisposable)
+    }
+
+    private fun showInspirationalQuote() {
+        inspirationalQuoteRepository.getRandomQuote()
+            .doOnIoObserveOnMain()
+            .subscribe { quote -> view.displayQuote(quote) }
             .addTo(compositeDisposable)
     }
 

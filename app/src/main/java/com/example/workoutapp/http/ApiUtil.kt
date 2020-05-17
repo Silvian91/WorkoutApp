@@ -32,12 +32,12 @@ object ApiUtil {
             .build()
     }
 
-    fun buildChuckNorrisOkHttpClient(context: Context): OkHttpClient {
+    fun buildInspirationalQuotesOkHttpClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val request = chain.request()
                 val headerBuilder = request.newBuilder()
-                    .header("x-rapidapi-host", "matchilling-chuck-norris-jokes-v1.p.rapidapi.com")
+                    .header("x-rapidapi-host", "quotable-quotes.p.rapidapi.com")
                     .header("x-rapidapi-key", "9fc5dc8d71msh5cfb93a2eb45d4ep1726e8jsn4423db34d1ba")
                     .header("accept", "application/json")
                 chain.proceed(headerBuilder.build())

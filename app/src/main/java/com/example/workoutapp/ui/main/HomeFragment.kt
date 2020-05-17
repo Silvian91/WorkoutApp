@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.workoutapp.R
-import com.example.workoutapp.domain.chucknorrisquote.model.ChuckNorrisQuoteModel
+import com.example.workoutapp.domain.inspirationalquote.model.InspirationalQuoteModel
+import com.example.workoutapp.domain.openweathermap.model.WeatherModel
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
@@ -65,8 +66,26 @@ class HomeFragment : Fragment(), HomeContract.View {
         super.onDestroyView()
     }
 
-    override fun displayChuckNorrisQuote(quotes: ChuckNorrisQuoteModel) {
-        chuck_norris_quote_api.text = quotes.value
+    override fun displayCurrentWeather(weather: WeatherModel) {
+        val weatherValue = StringBuilder()
+        weatherValue.append("The weather in ")
+            .append(weather.name)
+            .append(" is ")
+            .append(weather.temp.toInt().toString())
+            .append(" degrees.")
+
+        open_weather_api.text = weatherValue
+    }
+
+    override fun displayQuote(quote: InspirationalQuoteModel) {
+        val inspirationalQuote = StringBuilder()
+        inspirationalQuote.append("''")
+            .append(quote.quote)
+            .append("''")
+            .append(" - ")
+            .append(quote.author)
+
+        quotes_api.text = inspirationalQuote
     }
 
 }

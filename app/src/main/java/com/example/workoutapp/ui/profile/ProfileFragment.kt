@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
-import com.example.workoutapp.R.style.AlertDialogTheme
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.signup.SignupActivity
@@ -55,6 +54,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         bottomSheetDialogOnClickListener()
 
         button_log_out.setOnClickListener {
+            //TODO: fix style issue
             AlertDialog.Builder(requireContext())
                 .setMessage(text_alert_log_out)
                 .setNegativeButton(
