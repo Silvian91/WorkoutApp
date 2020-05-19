@@ -93,7 +93,7 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     override fun deleteSnackbar(workoutId: Long, workoutsList: List<ShowWorkoutItemWrapper>) {
         Snackbar.make(
             workouts_view_holder, "CARD DELETED",
-            Snackbar.LENGTH_LONG
+            Snackbar.LENGTH_SHORT
         ).setAction("UNDO", View.OnClickListener {})
             .addCallback(object : Snackbar.Callback() {
                 override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
