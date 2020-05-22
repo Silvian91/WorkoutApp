@@ -56,8 +56,8 @@ class ShowWorkoutRecyclerAdapter(private val listener: WorkoutViewHolderListener
     }
 
     class WorkoutListDiffCallback(
-        var oldWorkoutList: List<ShowWorkoutItemWrapper>,
-        var newWorkoutList: List<ShowWorkoutItemWrapper>
+        private var oldWorkoutList: List<ShowWorkoutItemWrapper>,
+        private var newWorkoutList: List<ShowWorkoutItemWrapper>
     ) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return (oldWorkoutList[oldItemPosition].type.ordinal == newWorkoutList[newItemPosition].type.ordinal)

@@ -79,10 +79,9 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun displayQuote(quote: InspirationalQuoteModel) {
         val inspirationalQuote = StringBuilder()
-        inspirationalQuote.append("''")
+        inspirationalQuote.append("\"")
             .append(quote.quote)
-            .append("''")
-            .append(" - ")
+            .append("\" - ")
             .append(quote.author)
 
         quotes_api.text = inspirationalQuote

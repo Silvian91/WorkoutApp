@@ -9,6 +9,7 @@ import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineActivity
+import com.example.workoutapp.ui.login.LoginActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_workout.*
 import javax.inject.Inject
@@ -25,6 +26,7 @@ class AddWorkoutActivity : AppCompatActivity(), AddWorkoutContract.View {
         WorkoutApplication.get().components.createAddWorkoutComponent().inject(this)
 
         setToolbar()
+        presenter.start()
         presenter.setView(this)
         button_confirm_workout.setOnClickListener {
             presenter.onConfirmClicked(workout_title_field.text.toString())
@@ -51,6 +53,13 @@ class AddWorkoutActivity : AppCompatActivity(), AddWorkoutContract.View {
 
     override fun errorUnknown() {
         Snackbar.make(add_workout_activity, text_unknown_error, Snackbar.LENGTH_SHORT)
+    }
+
+    override fun showLogin() {
+        startActivity(
+            LoginActivity.newIntent(this)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
     }
 
     override fun showError() {

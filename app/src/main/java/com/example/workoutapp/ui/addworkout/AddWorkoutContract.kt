@@ -8,6 +8,7 @@ interface AddWorkoutContract {
         fun showError()
         fun showAddRoutine(workoutId: Long)
         fun errorUnknown()
+        fun showLogin()
     }
 
     interface Presenter : BasePresenter<View> {

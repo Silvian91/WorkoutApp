@@ -22,7 +22,7 @@ abstract class WorkoutAppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        const val DB_NAME = "workout_db"
+        private const val DB_NAME = "workout_db"
         var instance: WorkoutAppDatabase? = null
         @Synchronized
         fun getInstance(context: Context): WorkoutAppDatabase {

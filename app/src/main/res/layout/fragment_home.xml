@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,28 +11,34 @@
 
     <TextView
         android:id="@+id/open_weather_api"
+        style="@style/subheadingStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
-        style="@style/subheadingStyle"
         android:gravity="center"
-        android:text="" />
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/quotes_api"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/quotes_api"
+        style="@style/subheadingStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
-        style="@style/subheadingStyle"
         android:gravity="center"
-        android:text="sdc" />
-
+        app:layout_constraintBottom_toTopOf="@+id/add_workout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/open_weather_api" />
 
     <Button
         android:id="@+id/add_workout"
@@ -39,7 +46,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:text="@string/text_add_workout" />
+        android:text="@string/text_add_workout"
+        app:layout_constraintBottom_toTopOf="@+id/show_workout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quotes_api" />
 
     <Button
         android:id="@+id/show_workout"
@@ -47,7 +58,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:text="@string/text_show_workout" />
+        android:text="@string/text_show_workout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_workout" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
