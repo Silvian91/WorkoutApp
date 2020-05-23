@@ -10,8 +10,8 @@ interface WorkoutDao {
     @Insert
     fun insertWorkout(workoutEntity: WorkoutEntity): Long
 
-    @get:Query("SELECT * FROM workout")
-    val getAllWorkouts: List<WorkoutEntity>
+    @Query("SELECT * FROM workout WHERE userId = :currentUserId")
+    fun getAllWorkouts(currentUserId: Long): List<WorkoutEntity>
 
     @Query("DELETE FROM workout WHERE id = :currentWorkoutId")
     fun deleteWorkoutFromRoutine(currentWorkoutId: Long)

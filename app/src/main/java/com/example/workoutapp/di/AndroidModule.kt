@@ -13,6 +13,7 @@ class AndroidModule {
     fun providesContext(application: Application): Context {
         return application
     }
+
     @Provides
     fun providesSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(WORKOUT_APP_SHARED_PREFERENCES, MODE_PRIVATE)

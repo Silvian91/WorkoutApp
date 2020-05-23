@@ -50,7 +50,6 @@ class AddWorkoutModule {
         return AddWorkoutUseCaseImpl(workoutRepository)
     }
 
-
     @Provides
     fun providesGetCurrentUserUseCase(
         sessionManager: SessionManager,
@@ -70,12 +69,12 @@ class AddWorkoutModule {
     }
 
     @Provides
-    fun providesSessionManager(sessionKeyValueDataSource: SessionKeyValueDataSource): SessionManager{
+    fun providesSessionManager(sessionKeyValueDataSource: SessionKeyValueDataSource): SessionManager {
         return SessionManagerImpl(sessionKeyValueDataSource)
     }
 
     @Provides
-    fun providesSessionKeyValueDataSource(sharedPreferences: SharedPreferences): SessionKeyValueDataSource{
+    fun providesSessionKeyValueDataSource(sharedPreferences: SharedPreferences): SessionKeyValueDataSource {
         return SessionKeyValueDataSourceImpl(sharedPreferences)
     }
 

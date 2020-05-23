@@ -10,7 +10,7 @@ class GetWorkoutUseCaseImpl(
     private val workoutRepository: WorkoutRepository
 ) : GetWorkoutUseCase {
     override fun execute(input: Input): Single<Output> {
-        return workoutRepository.getAllWorkouts()
+        return workoutRepository.getAllWorkouts(input.userId)
             .map { workouts ->
                 if (workouts.isEmpty()) {
                     SuccessNoData(workouts)

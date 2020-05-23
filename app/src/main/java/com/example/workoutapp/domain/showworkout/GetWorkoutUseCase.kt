@@ -8,7 +8,7 @@ import com.example.workoutapp.domain.workout.model.WorkoutModel
 
 interface GetWorkoutUseCase : BaseSingleUseCase<Input, Output> {
 
-    object Input : BaseUseCase.Input
+    data class Input(val userId: Long) : BaseUseCase.Input
 
     sealed class Output : BaseUseCase.Output {
 

@@ -8,11 +8,11 @@ import com.example.workoutapp.domain.workout.model.WorkoutModel
 
 interface AddWorkoutUseCase : BaseSingleUseCase<Input, Output> {
 
-    data class Input(val workout : WorkoutModel) : BaseUseCase.Input
+    data class Input(val workout: WorkoutModel) : BaseUseCase.Input
 
     sealed class Output : BaseUseCase.Output {
 
-        data class Success(val workoutId : Long) : Output()
+        data class Success(val workoutId: Long) : Output()
         object ErrorUnknown : Output()
     }
 }

@@ -20,8 +20,7 @@ class LoginUseCaseImpl(
                 if (input.password == it.password) {
                     sessionManager.setCurrentUserId(it.id!!).blockingGet()
                     Success
-                }
-                else
+                } else
                     ErrorInvalidCredentials
             }
             // IF THE USER DOESN'T EXIST -> THE MAYBE RETUrNS EMPTY AND THEREFORE NEEDS TO BE SWITCHED OUT

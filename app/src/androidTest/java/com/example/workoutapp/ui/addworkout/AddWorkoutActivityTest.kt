@@ -14,10 +14,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
-class AddWorkoutActivityTest{
+class AddWorkoutActivityTest {
 
     @get: Rule
-    val activityRule:ActivityScenarioRule<AddWorkoutActivity> = ActivityScenarioRule(AddWorkoutActivity::class.java)
+    val activityRule: ActivityScenarioRule<AddWorkoutActivity> =
+        ActivityScenarioRule(AddWorkoutActivity::class.java)
 
     @Test
     fun test_isActivityInView() {
@@ -26,7 +27,7 @@ class AddWorkoutActivityTest{
     }
 
     @Test
-    fun test_visibility_title_inputField_continueButton(){
+    fun test_visibility_title_inputField_continueButton() {
         onView(withId(R.id.add_workout_title))
             .check(matches(isDisplayed()))
 

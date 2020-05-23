@@ -12,8 +12,8 @@ class WorkoutRepositoryImpl(private val workoutLocalDataSource: WorkoutLocalData
         return workoutLocalDataSource.insertWorkout(workoutModel)
     }
 
-    override fun getAllWorkouts(): Single<List<WorkoutModel>> {
-        return workoutLocalDataSource.getAllWorkouts()
+    override fun getAllWorkouts(userId: Long): Single<List<WorkoutModel>> {
+        return workoutLocalDataSource.getAllWorkouts(userId)
     }
 
     override fun deleteWorkout(workoutId: Long): Completable {

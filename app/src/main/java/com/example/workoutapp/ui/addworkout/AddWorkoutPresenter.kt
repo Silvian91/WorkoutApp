@@ -21,7 +21,7 @@ class AddWorkoutPresenter
 
     private lateinit var view: AddWorkoutContract.View
 
-    var userId : Long = 0
+    private var userId: Long = 0
 
     override fun setView(view: AddWorkoutContract.View) {
         this.view = view

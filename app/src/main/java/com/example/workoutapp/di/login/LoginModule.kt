@@ -30,17 +30,20 @@ class LoginModule {
     }
 
     @Provides
-    fun providesLoginUseCase(userRepository: UserRepository, sessionManager: SessionManager): LoginUseCase{
+    fun providesLoginUseCase(
+        userRepository: UserRepository,
+        sessionManager: SessionManager
+    ): LoginUseCase {
         return LoginUseCaseImpl(userRepository, sessionManager)
     }
 
     @Provides
-    fun providesSessionManager(sessionKeyValueDataSource: SessionKeyValueDataSource): SessionManager{
+    fun providesSessionManager(sessionKeyValueDataSource: SessionKeyValueDataSource): SessionManager {
         return SessionManagerImpl(sessionKeyValueDataSource)
     }
 
     @Provides
-    fun providesSessionKeyValueDataSource(sharedPreferences: SharedPreferences): SessionKeyValueDataSource{
+    fun providesSessionKeyValueDataSource(sharedPreferences: SharedPreferences): SessionKeyValueDataSource {
         return SessionKeyValueDataSourceImpl(sharedPreferences)
     }
 

@@ -14,6 +14,7 @@ interface ShowWorkoutContract {
         fun showError()
         fun alertDialog(workoutId: Long, workoutsList: List<ShowWorkoutItemWrapper>)
         fun deleteSnackbar(workoutId: Long, workoutsList: List<ShowWorkoutItemWrapper>)
+        fun showLogin()
     }
 
     interface Presenter : BasePresenter<View>,

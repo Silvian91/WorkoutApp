@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.main.HomeActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
@@ -103,6 +104,13 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
                 }
             })
             .show()
+    }
+
+    override fun showLogin() {
+        startActivity(
+            LoginActivity.newIntent(this)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
     }
 
     override fun onDestroy() {

@@ -13,6 +13,6 @@ class SaveRoutineUseCaseImpl(
     override fun execute(input: Input): Single<Output> {
         return routineRepository.insertRoutine(input.routine)
             .andThen(Single.just(Success as Output))
-            .onErrorReturn{ ErrorUnknown }
+            .onErrorReturn { ErrorUnknown }
     }
 }

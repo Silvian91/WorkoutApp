@@ -7,14 +7,15 @@
     android:paddingBottom="8dp"
     android:paddingTop="8dp">
 
-    <View android:id="@+id/title_divider"
+    <View
+        android:id="@+id/title_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/Gray"
         android:layout_marginStart="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -21,39 +21,39 @@ import com.example.workoutapp.di.signup.SignupModule
 
 class WorkoutComponentProvider(private val appComponent: AppComponent) {
 
-    fun createAddRoutineComponent(): AddRoutineComponent{
+    fun createAddRoutineComponent(): AddRoutineComponent {
         return appComponent.plus(AddRoutineModule())
     }
 
-    fun createAddWorkoutComponent(): AddWorkoutComponent{
+    fun createAddWorkoutComponent(): AddWorkoutComponent {
         return appComponent.plus(AddWorkoutModule())
     }
 
-    fun createShowWorkoutComponent(): ShowWorkoutComponent{
+    fun createShowWorkoutComponent(): ShowWorkoutComponent {
         return appComponent.plus(ShowWorkoutModule())
     }
 
-    fun createShowRoutineComponent(): ShowRoutineComponent{
+    fun createShowRoutineComponent(): ShowRoutineComponent {
         return appComponent.plus(ShowRoutineModule())
     }
 
-    fun createMainComponent(): HomeComponent{
+    fun createMainComponent(): HomeComponent {
         return appComponent.plus(HomeModule())
     }
 
-    fun createSignupComponent(): SignupComponent{
+    fun createSignupComponent(): SignupComponent {
         return appComponent.plus(SignupModule())
     }
 
-    fun createLoginComponent(): LoginComponent{
+    fun createLoginComponent(): LoginComponent {
         return appComponent.plus(LoginModule())
     }
 
-    fun createRegisterComponent(): RegisterComponent{
+    fun createRegisterComponent(): RegisterComponent {
         return appComponent.plus(RegisterModule())
     }
 
-    fun createProfileComponent(): ProfileComponent{
+    fun createProfileComponent(): ProfileComponent {
         return appComponent.plus(ProfileModule())
     }
 

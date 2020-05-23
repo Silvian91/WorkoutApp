@@ -35,7 +35,7 @@ class RegisterModule {
     }
 
     @Provides
-    fun providesRegisterUseCase(userRepository: UserRepository): RegisterUseCase{
+    fun providesRegisterUseCase(userRepository: UserRepository): RegisterUseCase {
         return RegisterUseCaseImpl(userRepository)
     }
 

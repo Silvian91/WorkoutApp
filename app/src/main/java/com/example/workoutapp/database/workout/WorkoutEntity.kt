@@ -22,7 +22,8 @@ data class WorkoutEntity(val title: String, val userId: Long) {
     fun toModel() = WorkoutModel(id, title, userId)
 
     companion object {
-        fun fromModel(workoutModel: WorkoutModel) = WorkoutEntity(workoutModel.title, workoutModel.userId)
+        fun fromModel(workoutModel: WorkoutModel) =
+            WorkoutEntity(workoutModel.title, workoutModel.userId)
     }
 
 }

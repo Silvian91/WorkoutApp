@@ -38,7 +38,7 @@ class ProfileModule {
     }
 
     @Provides
-    fun providesSessionManager(sessionKeyValueDataSource: SessionKeyValueDataSource): SessionManager{
+    fun providesSessionManager(sessionKeyValueDataSource: SessionKeyValueDataSource): SessionManager {
         return SessionManagerImpl(sessionKeyValueDataSource)
     }
 

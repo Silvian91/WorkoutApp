@@ -45,7 +45,7 @@ class ShowWorkoutRecyclerAdapter(private val listener: WorkoutViewHolderListener
 
     fun setData(workoutsList: List<ShowWorkoutItemWrapper>) {
         val oldWorkoutList = items
-        val diffResult : DiffResult = DiffUtil.calculateDiff(
+        val diffResult: DiffResult = DiffUtil.calculateDiff(
             WorkoutListDiffCallback(
                 oldWorkoutList,
                 workoutsList

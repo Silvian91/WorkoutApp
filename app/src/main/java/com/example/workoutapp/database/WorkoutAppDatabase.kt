@@ -24,13 +24,14 @@ abstract class WorkoutAppDatabase : RoomDatabase() {
     companion object {
         private const val DB_NAME = "workout_db"
         var instance: WorkoutAppDatabase? = null
+
         @Synchronized
         fun getInstance(context: Context): WorkoutAppDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
                     WorkoutAppDatabase::class.java,
-                        DB_NAME
+                    DB_NAME
                 )
                     .fallbackToDestructiveMigration()
                     .build()

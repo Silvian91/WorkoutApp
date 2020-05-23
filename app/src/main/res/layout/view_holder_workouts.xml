@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/workouts_view_holder">
 
-<!--    <com.example.workoutapp.ui.custom.DraggableCoordinatorLayout-->
-<!--        android:id="@+id/draggable_workout_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" >-->
+    <!--    <com.example.workoutapp.ui.custom.DraggableCoordinatorLayout-->
+    <!--        android:id="@+id/draggable_workout_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content" >-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/show_workout_name_card"
@@ -21,7 +20,7 @@
         android:layout_marginBottom="@dimen/mtrl_card_spacing"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
-        android:focusable="true" >
+        android:focusable="true">
 
         <TextView
             android:id="@+id/button_show_workout_name"
@@ -37,6 +36,6 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-<!--    </com.example.workoutapp.ui.custom.DraggableCoordinatorLayout>-->
+    <!--    </com.example.workoutapp.ui.custom.DraggableCoordinatorLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

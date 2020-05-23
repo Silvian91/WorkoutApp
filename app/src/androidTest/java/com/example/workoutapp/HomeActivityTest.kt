@@ -17,7 +17,8 @@ class HomeActivityTest {
 
     @get: Rule
     val activityRule: ActivityScenarioRule<HomeActivity> = ActivityScenarioRule(
-        HomeActivity::class.java)
+        HomeActivity::class.java
+    )
 
     @Test
     fun test_visibility_title_addWorkout() {

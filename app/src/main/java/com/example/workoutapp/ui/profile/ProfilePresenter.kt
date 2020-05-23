@@ -25,7 +25,6 @@ class ProfilePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    //TODO: Dependency injection
                     is Success -> view.showUsername(it.user.username)
                     is ErrorUnauthorized -> view.showLogin()
                     else -> view.showError()

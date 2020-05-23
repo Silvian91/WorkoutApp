@@ -24,6 +24,7 @@ interface AddRoutineContract {
             routine_weight_measurement: String,
             routine_rest: String
         )
+
         fun onFinishClicked(
             routine_name: String,
             routine_sets: String,
@@ -32,6 +33,7 @@ interface AddRoutineContract {
             routine_weight_measurement: String,
             routine_rest: String
         )
+
         fun onBackClicked(
             routine_name: String,
             routine_sets: String,

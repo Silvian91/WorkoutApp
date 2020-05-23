@@ -9,7 +9,7 @@ import dagger.Provides
 class SignupModule {
 
     @Provides
-    fun providesSignupPresenter(): SignupContract.Presenter{
+    fun providesSignupPresenter(): SignupContract.Presenter {
         return SignupPresenter()
     }
 }

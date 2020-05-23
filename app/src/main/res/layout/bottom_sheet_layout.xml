@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/bottom_layout" >
+    android:id="@+id/bottom_layout">
 
     <ImageView
         android:id="@+id/profile_open_camera"
