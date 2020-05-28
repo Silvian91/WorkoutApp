@@ -127,7 +127,7 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
-        AlertDialog.Builder(this, R.style.AlertDialogTheme)
+        AlertDialog.Builder(this)
             .setMessage(R.string.text_dialog_delete_routines_back_button)
             .setNegativeButton(
                 R.string.text_dialog_alert_cancel

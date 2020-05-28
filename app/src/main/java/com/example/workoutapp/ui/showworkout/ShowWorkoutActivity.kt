@@ -80,7 +80,7 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     }
 
     override fun alertDialog(workoutId: Long, workoutsList: List<ShowWorkoutItemWrapper>) {
-        AlertDialog.Builder(this, R.style.AlertDialogTheme)
+        AlertDialog.Builder(this)
             .setMessage(R.string.text_dialog_delete_routines)
             .setNegativeButton(
                 R.string.text_dialog_alert_cancel

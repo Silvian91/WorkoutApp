@@ -46,7 +46,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         presenter.start()
 
         button_delete_workout.setOnClickListener {
-            AlertDialog.Builder(this, AlertDialogTheme)
+            AlertDialog.Builder(this)
                 .setMessage(R.string.text_dialog_delete_routines)
                 .setNegativeButton(
                     R.string.text_dialog_alert_cancel
