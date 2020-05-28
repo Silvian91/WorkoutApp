@@ -61,7 +61,7 @@ class ShowRoutinePresenter(
         this.workoutId = workoutId
     }
 
-    override fun onDeleteClicked(workoutId: Long) {
+    override fun onDeleteConfirmed(workoutId: Long) {
         deleteWorkoutUseCase.execute(DeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
@@ -71,6 +71,10 @@ class ShowRoutinePresenter(
                 }
             }
             .addTo(compositeDisposable)
+    }
+
+    override fun onDeleteClicked() {
+        view.showDeleteAlertDialog(workoutId)
     }
 
 }

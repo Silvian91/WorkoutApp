@@ -10,11 +10,13 @@ interface ShowRoutineContract {
         fun showRoutineData(routineData: List<ShowRoutineItemWrapper>)
         fun nextActivity()
         fun errorUnknown()
+        fun showDeleteAlertDialog(workoutId: Long)
     }
 
     interface Presenter : BasePresenter<View> {
         fun setWorkoutId(workoutId: Long)
-        fun onDeleteClicked(workoutId: Long)
+        fun onDeleteConfirmed(workoutId: Long)
+        fun onDeleteClicked()
     }
 
 }

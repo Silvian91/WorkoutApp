@@ -8,9 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
-import com.example.workoutapp.R.string.text_dialog_alert_confirm
 import com.example.workoutapp.R.string.text_unknown_error
-import com.example.workoutapp.R.style.AlertDialogTheme
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.HomeActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
@@ -46,15 +44,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         presenter.start()
 
         button_delete_workout.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setMessage(R.string.text_dialog_delete_routines)
-                .setNegativeButton(
-                    R.string.text_dialog_alert_cancel
-                ) { _, _ -> }
-                .setPositiveButton(
-                    text_dialog_alert_confirm
-                ) { _, _ -> presenter.onDeleteClicked(workoutId) }
-                .show()
+            presenter.onDeleteClicked()
         }
     }
 
@@ -91,6 +81,18 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     override fun errorUnknown() {
         Snackbar.make(upper_layout, text_unknown_error, LENGTH_SHORT).show()
+    }
+
+    override fun showDeleteAlertDialog(workoutId: Long) {
+        AlertDialog.Builder(this)
+            .setMessage(R.string.text_dialog_delete_routines)
+            .setNegativeButton(
+                R.string.text_dialog_alert_cancel
+            ) { _, _ -> }
+            .setPositiveButton(
+                R.string.text_dialog_alert_confirm
+            ) { _, _ -> presenter.onDeleteConfirmed(workoutId) }
+            .show()
     }
 
     override fun onDestroy() {
