@@ -55,8 +55,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     private fun setToolbar() {
         (activity as AppCompatActivity)
-            .setSupportActionBar(toolbar)
-        toolbar.title = "Workout App"
+            .setSupportActionBar(home_toolbar)
     }
 
     override fun onDestroyView() {
