@@ -33,8 +33,12 @@ class ProfilePresenter(
             .addTo(compositeDisposable)
     }
 
-    override fun onWorkoutClicked() {
-        view.nextActivity()
+    override fun onLogOutConfirmed() {
+        view.showLoginActivity()
+    }
+
+    override fun logOutClicked() {
+        view.showLogOutConfirmationDialog()
     }
 
     override fun finish() = compositeDisposable.clear()

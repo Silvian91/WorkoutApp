@@ -9,10 +9,12 @@ interface ProfileContract {
         fun showUsername(username: String)
         fun showLogin()
         fun showError()
-        fun nextActivity()
+        fun showLoginActivity()
+        fun showLogOutConfirmationDialog()
     }
 
     interface Presenter : BasePresenter<View> {
-        fun onWorkoutClicked()
+        fun onLogOutConfirmed()
+        fun logOutClicked()
     }
 }

@@ -54,16 +54,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         bottomSheetDialogOnClickListener()
 
         button_log_out.setOnClickListener {
-            //TODO: fix style issue
-            AlertDialog.Builder(requireContext())
-                .setMessage(text_alert_log_out)
-                .setNegativeButton(
-                    text_dialog_alert_cancel
-                ) { _, _ -> }
-                .setPositiveButton(
-                    text_dialog_alert_confirm
-                ) { _, _ -> presenter.onWorkoutClicked() }
-                .show()
+            presenter.logOutClicked()
         }
     }
 
@@ -92,10 +83,23 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         ).show()
     }
 
-    override fun nextActivity() {
+    override fun showLoginActivity() {
         startActivity(
             SignupActivity.newIntent(requireContext()).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
+    }
+
+    override fun showLogOutConfirmationDialog() {
+        //TODO: fix style issue
+        AlertDialog.Builder(requireContext())
+            .setMessage(text_alert_log_out)
+            .setNegativeButton(
+                text_dialog_alert_cancel
+            ) { _, _ -> }
+            .setPositiveButton(
+                text_dialog_alert_confirm
+            ) { _, _ -> presenter.onLogOutConfirmed() }
+            .show()
     }
 
     private fun bottomSheetDialogOnClickListener() {
@@ -223,6 +227,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun onDestroyView() {
+        button_log_out.setOnClickListener(null)
+        button_add_profile_picture.setOnClickListener(null)
 
         super.onDestroyView()
     }
