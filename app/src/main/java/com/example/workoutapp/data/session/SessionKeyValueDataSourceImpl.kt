@@ -24,10 +24,12 @@ class SessionKeyValueDataSourceImpl(
     }
 
     @SuppressLint("ApplySharedPref")
-    override fun setCurrentUserId(id: Long): Completable {
+    override fun setCurrentUserId(id: Long?): Completable {
         return Completable.fromCallable {
-            sharedPreferences.edit().putLong(CURRENT_USER_ID, id)
-                .commit()
+            id?.let {
+                sharedPreferences.edit().putLong(CURRENT_USER_ID, it)
+                    .commit()
+            }
         }
     }
 

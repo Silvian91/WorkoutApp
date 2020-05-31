@@ -11,7 +11,7 @@ class SessionManagerImpl(
         return sessionKeyValueDataSource.getCurrentUserId()
     }
 
-    override fun setCurrentUserId(id: Long): Completable {
+    override fun setCurrentUserId(id: Long?): Completable {
         return sessionKeyValueDataSource.setCurrentUserId(id)
     }
 

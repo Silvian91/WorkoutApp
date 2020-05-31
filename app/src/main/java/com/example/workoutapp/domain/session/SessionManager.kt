@@ -7,6 +7,6 @@ interface SessionManager {
 
     fun getCurrentUserId(): Single<Long>
 
-    fun setCurrentUserId(id: Long): Completable
+    fun setCurrentUserId(id: Long?): Completable
 
 }
