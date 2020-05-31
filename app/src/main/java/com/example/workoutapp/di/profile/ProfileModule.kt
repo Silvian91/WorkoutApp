@@ -8,6 +8,8 @@ import com.example.workoutapp.data.session.SessionManagerImpl
 import com.example.workoutapp.data.user.UserLocalDataSource
 import com.example.workoutapp.data.user.UserLocalDataSourceImpl
 import com.example.workoutapp.data.user.UserRepositoryImpl
+import com.example.workoutapp.domain.logout.LogoutUseCase
+import com.example.workoutapp.domain.logout.LogoutUseCaseImpl
 import com.example.workoutapp.domain.session.SessionManager
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCaseImpl
@@ -24,9 +26,10 @@ class ProfileModule {
     @Provides
     fun providesProfilePresenter(
         getCurrentUserUseCase: GetCurrentUserUseCase,
+        logoutUseCase: LogoutUseCase,
         compositeDisposable: CompositeDisposable
     ): ProfileContract.Presenter {
-        return ProfilePresenter(getCurrentUserUseCase, compositeDisposable)
+        return ProfilePresenter(getCurrentUserUseCase, logoutUseCase, compositeDisposable)
     }
 
     @Provides
@@ -55,6 +58,11 @@ class ProfileModule {
     @Provides
     fun providesUserLocalDataSource(context: Context): UserLocalDataSource {
         return UserLocalDataSourceImpl(context)
+    }
+
+    @Provides
+    fun providesLogoutUseCase(sessionManager: SessionManager): LogoutUseCase {
+        return LogoutUseCaseImpl(sessionManager)
     }
 
 }
