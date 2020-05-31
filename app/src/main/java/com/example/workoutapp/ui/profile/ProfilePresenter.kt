@@ -1,6 +1,8 @@
 package com.example.workoutapp.ui.profile
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.logout.LogoutUseCase
+import com.example.workoutapp.domain.logout.LogoutUseCase.Output.ErrorUnknown
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Input
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
@@ -11,6 +13,7 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class ProfilePresenter(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val logoutUseCase: LogoutUseCase,
     private val compositeDisposable: CompositeDisposable
 ) : ProfileContract.Presenter {
 
@@ -34,7 +37,16 @@ class ProfilePresenter(
     }
 
     override fun onLogOutConfirmed() {
-        view.showLoginActivity()
+        logoutUseCase.execute(LogoutUseCase.Input)
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    is LogoutUseCase.Output.Success -> view.showLoginActivity()
+                    is ErrorUnknown -> view.showError()
+                }
+            }
+            .addTo(compositeDisposable)
+
     }
 
     override fun logOutClicked() {
