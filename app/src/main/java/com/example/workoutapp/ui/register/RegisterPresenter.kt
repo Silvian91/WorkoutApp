@@ -1,6 +1,7 @@
 package com.example.workoutapp.ui.register
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.login.LoginUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase.Input
 import com.example.workoutapp.domain.register.RegisterUseCase.Output.Success
@@ -11,6 +12,7 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class RegisterPresenter(
     private val registerUseCase: RegisterUseCase,
+    private val loginUseCase: LoginUseCase,
     private val compositeDisposable: CompositeDisposable
 ) : RegisterContract.Presenter {
 
@@ -29,7 +31,19 @@ class RegisterPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is Success -> view.showHome()
+                    is Success -> setCurrentUserId(username, password)
+                    else -> view.showError()
+                }
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun setCurrentUserId(username: String, password: String) {
+        loginUseCase.execute(LoginUseCase.Input(username, password))
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    is LoginUseCase.Output.Success -> view.showHome()
                     else -> view.showError()
                 }
             }
