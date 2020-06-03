@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_show_workout_error_empty_screen
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.main.HomeActivity
@@ -37,11 +38,11 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     }
 
     override fun showEmptyScreen() {
-        Toast.makeText(this, "Show Empty Screen", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, text_show_workout_error_empty_screen, Toast.LENGTH_SHORT).show()
     }
 
     override fun showError() {
-        Toast.makeText(this, "Show Error", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Show ErrorUnknown", Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

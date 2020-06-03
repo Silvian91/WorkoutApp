@@ -46,5 +46,7 @@
     <string name="text_choose_profile_pic">Add profile picture</string>
     <string name="text_log_out">Log Out</string>
     <string name="text_alert_log_out">Are you sure you want to log out?</string>
+    <string name="text_show_workout_error_empty_screen">Show Empty Screen</string>
+    <string name="text_network_error">Could not display quote, check network connection</string>
 
 </resources>
