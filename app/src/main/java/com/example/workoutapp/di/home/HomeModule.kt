@@ -6,7 +6,11 @@ import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteReposito
 import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSource
 import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSourceImpl
 import com.example.workoutapp.data.openweathermap.OpenWeatherMapRepositoryImpl
+import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase
+import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCaseImpl
 import com.example.workoutapp.domain.inspirationalquote.InspirationalQuoteRepository
+import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase
+import com.example.workoutapp.domain.openweathermap.GetWeatherUseCaseImpl
 import com.example.workoutapp.domain.openweathermap.OpenWeatherMapRepository
 import com.example.workoutapp.http.inspirationalquote.InspirationalApiService
 import com.example.workoutapp.http.openweathermap.OpenWeatherMapApiService
@@ -22,14 +26,26 @@ class HomeModule {
     @Provides
     fun providesMainPresenter(
         compositeDisposable: CompositeDisposable,
-        openWeatherMapRepository: OpenWeatherMapRepository,
-        inspirationalQuoteRepository: InspirationalQuoteRepository
+        getWeatherUseCase: GetWeatherUseCase,
+        getQuoteUseCase: GetQuoteUseCase
     ): HomeContract.Presenter {
         return HomePresenter(
             compositeDisposable,
-            openWeatherMapRepository,
-            inspirationalQuoteRepository
+            getWeatherUseCase,
+            getQuoteUseCase
         )
+    }
+
+    @Provides
+    fun providesGetQuoteUseCase(inspirationalQuoteRepository: InspirationalQuoteRepository): GetQuoteUseCase {
+        return GetQuoteUseCaseImpl(inspirationalQuoteRepository)
+    }
+
+    @Provides
+    fun providesGetWeatherUseCase(
+        openWeatherMapRepository: OpenWeatherMapRepository
+    ) : GetWeatherUseCase {
+        return GetWeatherUseCaseImpl(openWeatherMapRepository)
     }
 
     @Provides

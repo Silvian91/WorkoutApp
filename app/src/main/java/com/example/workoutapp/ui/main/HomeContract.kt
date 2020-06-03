@@ -10,6 +10,7 @@ interface HomeContract {
     interface View : BaseView<Presenter> {
         fun displayCurrentWeather(weather: WeatherModel)
         fun displayQuote(quote: InspirationalQuoteModel)
+        fun showNetworkError()
     }
 
     interface Presenter : BasePresenter<View>
