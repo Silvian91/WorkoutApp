@@ -42,15 +42,15 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     private fun setOnClickListeners() {
-        add_workout.setOnClickListener { openAddWorkoutActivity() }
-        show_workout.setOnClickListener { openShowWorkoutActivity() }
+        add_workout.setOnClickListener { presenter.addWorkoutClicked() }
+        show_workout.setOnClickListener { presenter.showWorkoutClicked() }
     }
 
-    private fun openAddWorkoutActivity() {
+    override fun openAddWorkoutActivity() {
         startActivity(AddWorkoutActivity.newIntent(requireContext()))
     }
 
-    private fun openShowWorkoutActivity() {
+    override fun openShowWorkoutActivity() {
         startActivity(ShowWorkoutActivity.newIntent(requireContext()))
     }
 

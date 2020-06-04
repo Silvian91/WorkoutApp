@@ -11,7 +11,12 @@ interface HomeContract {
         fun displayCurrentWeather(weather: WeatherModel)
         fun displayQuote(quote: InspirationalQuoteModel)
         fun showNetworkError()
+        fun openAddWorkoutActivity()
+        fun openShowWorkoutActivity()
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View> {
+        fun addWorkoutClicked()
+        fun showWorkoutClicked()
+    }
 }

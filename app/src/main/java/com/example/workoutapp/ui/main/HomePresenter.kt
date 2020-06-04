@@ -51,6 +51,15 @@ class HomePresenter(
 
     }
 
+    override fun addWorkoutClicked() {
+        view.openAddWorkoutActivity()
+    }
+
+    override fun showWorkoutClicked() {
+        view.openShowWorkoutActivity()
+    }
+
+
     override fun finish() = compositeDisposable.clear()
 
 }
