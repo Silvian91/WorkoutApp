@@ -28,8 +28,8 @@ class SignupActivity : AppCompatActivity(), SignupContract.View {
     }
 
     private fun setOnClickListeners() {
-        button_register.setOnClickListener { openRegisterActivity() }
-        button_login.setOnClickListener { openLoginActivity() }
+        button_register.setOnClickListener { presenter.registerClicked() }
+        button_login.setOnClickListener { presenter.loginClicked() }
     }
 
     private fun setToolbar() {
@@ -37,11 +37,11 @@ class SignupActivity : AppCompatActivity(), SignupContract.View {
         supportActionBar?.title = "Workout App"
     }
 
-    private fun openRegisterActivity() {
+    override fun openRegisterActivity() {
         startActivity(RegisterActivity.newIntent(this))
     }
 
-    private fun openLoginActivity() {
+    override fun openLoginActivity() {
         startActivity(LoginActivity.newIntent(this))
     }
 

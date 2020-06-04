@@ -10,6 +10,14 @@ class SignupPresenter : SignupContract.Presenter {
 
     override fun start() {}
 
+    override fun registerClicked() {
+
+    }
+
+    override fun loginClicked() {
+
+    }
+
     override fun finish() {}
 
 }
