@@ -53,5 +53,17 @@ class ProfilePresenter(
         view.showLogOutConfirmationDialog()
     }
 
+    override fun onGalleryClicked() {
+        view.checkPermissionForImage()
+    }
+
+    override fun onCameraClicked() {
+        view.openCamera()
+    }
+
+    override fun onImageSelected() {
+
+    }
+
     override fun finish() = compositeDisposable.clear()
 }

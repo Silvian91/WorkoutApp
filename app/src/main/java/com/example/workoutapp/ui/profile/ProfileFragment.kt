@@ -119,22 +119,31 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     private fun galleryOnClickListener(bottomSheetView: View) {
         val gallery = bottomSheetView.findViewById<ImageView>(R.id.profile_open_gallery)
         gallery.setOnClickListener {
-            checkPermissionForImage()
+            presenter.onGalleryClicked()
         }
     }
+
 
     private fun cameraOnClickListener(bottomSheetView: View) {
         val camera = bottomSheetView.findViewById<ImageView>(R.id.profile_open_camera)
         camera.setOnClickListener {
-            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val packageManager = activity!!.packageManager
-            if (callCameraIntent.resolveActivity(packageManager) != null) {
-                startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
-            }
+            presenter.onCameraClicked()
+        }
+    }
+
+    override fun openCamera() {
+        val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val packageManager = activity!!.packageManager
+        if (callCameraIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
         }
     }
 
     private fun pickImageFromGallery() {
+        presenter.onImageSelected()
+    }
+
+    override fun startIntent() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(
@@ -143,7 +152,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         ) // GIVE AN INTEGER VALUE FOR IMAGE_PICK_CODE LIKE 1000
     }
 
-    private fun checkPermissionForImage() {
+    override fun checkPermissionForImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if ((checkSelfPermission(
                     requireContext(),

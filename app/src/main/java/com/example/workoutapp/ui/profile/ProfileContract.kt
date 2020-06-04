@@ -11,10 +11,16 @@ interface ProfileContract {
         fun showError()
         fun showLoginActivity()
         fun showLogOutConfirmationDialog()
+        fun checkPermissionForImage()
+        fun openCamera()
+        fun startIntent()
     }
 
     interface Presenter : BasePresenter<View> {
         fun onLogOutConfirmed()
         fun logOutClicked()
+        fun onGalleryClicked()
+        fun onCameraClicked()
+        fun onImageSelected()
     }
 }
