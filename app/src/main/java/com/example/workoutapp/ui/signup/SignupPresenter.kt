@@ -11,11 +11,11 @@ class SignupPresenter : SignupContract.Presenter {
     override fun start() {}
 
     override fun registerClicked() {
-
+        view.openRegisterActivity()
     }
 
     override fun loginClicked() {
-
+        view.openLoginActivity()
     }
 
     override fun finish() {}
