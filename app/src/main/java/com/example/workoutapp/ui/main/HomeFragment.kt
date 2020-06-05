@@ -75,6 +75,8 @@ class HomeFragment : Fragment(), HomeContract.View {
             .append(" degrees.")
 
         open_weather_api.text = weatherValue
+        progress_circular_weather.visibility = View.GONE
+
     }
 
     override fun displayQuote(quote: InspirationalQuoteModel) {
@@ -85,6 +87,7 @@ class HomeFragment : Fragment(), HomeContract.View {
             .append(quote.author)
 
         quotes_api.text = inspirationalQuote
+        progress_circular_quote.visibility = View.GONE
     }
 
     override fun showNetworkError() {

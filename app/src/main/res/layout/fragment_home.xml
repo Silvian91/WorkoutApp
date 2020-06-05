@@ -2,10 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.HomeActivity"
-    android:id="@+id/home_fragment">
+    tools:context=".ui.main.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,9 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:title="Workout App"
             app:expandedTitleGravity="bottom"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:title="Workout App">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -42,37 +42,58 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/open_weather_api"
-                style="@style/subheadingStyle"
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="12dp"
-                android:gravity="center"
-                android:text=""
-                app:layout_constraintBottom_toTopOf="@+id/quotes_api"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                android:layout_gravity="center">
 
-            <TextView
-                android:id="@+id/quotes_api"
-                style="@style/subheadingStyle"
-                android:layout_width="match_parent"
+                <ProgressBar
+                    android:id="@+id/progress_circular_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/DarkSlateGray"
+                    android:indeterminateTintMode="src_atop" />
+
+                <TextView
+                    android:id="@+id/open_weather_api"
+                    style="@style/subheadingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center"
+                    android:text="" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="12dp"
-                android:gravity="center"
-                app:layout_constraintBottom_toTopOf="@+id/add_workout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/open_weather_api" />
+                android:layout_gravity="center">
+
+                <ProgressBar
+                    android:id="@+id/progress_circular_quote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/DarkSlateGray"
+                    android:indeterminateTintMode="src_atop" />
+
+                <TextView
+                    android:id="@+id/quotes_api"
+                    style="@style/subheadingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center" />
+
+            </FrameLayout>
 
             <Button
                 android:id="@+id/add_workout"
