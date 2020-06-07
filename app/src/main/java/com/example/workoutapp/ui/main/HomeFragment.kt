@@ -76,7 +76,6 @@ class HomeFragment : Fragment(), HomeContract.View {
 
         open_weather_api.text = weatherValue
         progress_circular_weather.visibility = View.GONE
-
     }
 
     override fun displayQuote(quote: InspirationalQuoteModel) {

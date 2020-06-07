@@ -4,39 +4,44 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
+import com.example.workoutapp.ui.main.adapter.ViewPagerFragmentAdapter
 import com.example.workoutapp.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var viewPager: ViewPager2
+    private lateinit var fragmentAdapter: ViewPagerFragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
-        loadFragment(HomeFragment())
+       loadFragment()
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    loadFragment(HomeFragment())
+                    viewPager.currentItem = 0
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {
-                    loadFragment(ProfileFragment())
+                    viewPager.currentItem = 1
                     return@setOnNavigationItemSelectedListener true
                 }
             }
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+    private fun loadFragment() {
+        viewPager = findViewById(R.id.view_pager)
+        fragmentAdapter = ViewPagerFragmentAdapter(this)
+        fragmentAdapter.addFragment(HomeFragment())
+        fragmentAdapter.addFragment(ProfileFragment())
+        viewPager.adapter = fragmentAdapter
     }
 
     companion object {
