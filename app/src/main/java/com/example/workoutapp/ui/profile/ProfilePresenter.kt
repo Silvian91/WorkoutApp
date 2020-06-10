@@ -6,10 +6,11 @@ import com.example.workoutapp.domain.logout.LogoutUseCase.Output.ErrorUnknown
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Input
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
-import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import com.example.workoutapp.domain.logout.LogoutUseCase.Output.Success as LogoutSuccess
+import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetUserSuccess
 
 class ProfilePresenter(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
@@ -28,7 +29,7 @@ class ProfilePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is Success -> view.showUsername(it.user.username)
+                    is GetUserSuccess -> view.showUsername(it.user.username)
                     is ErrorUnauthorized -> view.showLogin()
                     else -> view.showError()
                 }
@@ -41,7 +42,7 @@ class ProfilePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is LogoutUseCase.Output.Success -> view.showLoginActivity()
+                    is LogoutSuccess -> view.showLoginActivity()
                     is ErrorUnknown -> view.showError()
                 }
             }

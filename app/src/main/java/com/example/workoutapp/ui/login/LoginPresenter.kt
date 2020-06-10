@@ -8,6 +8,7 @@ import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import com.example.workoutapp.domain.login.LoginUseCase.Output.Success as LoginSuccess
 
 class LoginPresenter(
     private val loginUseCase: LoginUseCase,
@@ -29,7 +30,7 @@ class LoginPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is Success -> view.showHome()
+                    is LoginSuccess -> view.showHome()
                     is ErrorInvalidCredentials -> view.showError(
                         INVALID_CREDENTIALS
                     )

@@ -4,7 +4,6 @@ import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Input
-import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.SuccessNoData
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
@@ -15,7 +14,9 @@ import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.Work
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetCurrentUserSuccess
+import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.Success as DeleteWorkoutSuccess
+import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success as GetWorkoutSuccess
+import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetUserSuccess
 
 class ShowWorkoutPresenter(
     private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
@@ -35,7 +36,7 @@ class ShowWorkoutPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetCurrentUserSuccess -> getWorkoutsForUser(it.user.id!!)
+                    is GetUserSuccess -> getWorkoutsForUser(it.user.id!!)
                     is ErrorUnauthorized -> view.showLogin()
                     else -> view.showError()
                 }
@@ -52,7 +53,7 @@ class ShowWorkoutPresenter(
                         val items = convertToItemWrapper()
                         view.showWorkoutsListData(items)
                     }
-                    is Success -> {
+                    is GetWorkoutSuccess -> {
                         val items = convertToItemWrapper(output.workouts)
                         view.showWorkoutsListData(items)
                     }
@@ -82,7 +83,7 @@ class ShowWorkoutPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is DeleteWorkoutUseCase.Output.Success -> view.showWorkoutsListData(workoutsList)
+                    is DeleteWorkoutSuccess -> view.showWorkoutsListData(workoutsList)
                     else -> view.showError()
                 }
             }

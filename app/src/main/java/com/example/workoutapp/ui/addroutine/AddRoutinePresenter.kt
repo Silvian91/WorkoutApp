@@ -4,13 +4,14 @@ import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase
 import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Input
 import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Output
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
-import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase.Output.Success
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Output.Success as DeleteRoutineSuccess
+import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase.Output.Success as SaveRoutineSuccess
 
 class AddRoutinePresenter(
     private val saveRoutineUseCase: SaveRoutineUseCase,
@@ -62,7 +63,7 @@ class AddRoutinePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is Success -> view.nextActivity()
+                    is SaveRoutineSuccess -> view.nextActivity()
                     else -> view.errorUnknown()
                 }
             }
@@ -161,7 +162,7 @@ class AddRoutinePresenter(
                 .doOnIoObserveOnMain()
                 .subscribeBy {
                     when (it) {
-                        is Output.Success -> view.nextActivity()
+                        is DeleteRoutineSuccess -> view.nextActivity()
                         else -> view.errorUnknown()
                     }
                 }
