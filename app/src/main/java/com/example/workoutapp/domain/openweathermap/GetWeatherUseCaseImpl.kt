@@ -7,10 +7,10 @@ import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase.Output.Suc
 import io.reactivex.Single
 
 class GetWeatherUseCaseImpl(
-    private val openWeatherMapRepository: OpenWeatherMapRepository
+    private val weatherRepository: WeatherRepository
 ) : GetWeatherUseCase {
     override fun execute(input: Input): Single<Output> {
-        return openWeatherMapRepository.getCurrentWeather()
+        return weatherRepository.getCurrentWeather()
             .map { Success(it) as Output}
             .onErrorReturn { NetworkError }
     }

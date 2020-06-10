@@ -4,10 +4,11 @@ import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase.Input
 import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase
-import com.example.workoutapp.domain.openweathermap.OpenWeatherMapRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase.Output.Success as QuoteSuccess
+import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase.Output.Success as WeatherSuccess
 
 class HomePresenter(
     private val compositeDisposable: CompositeDisposable,
@@ -31,7 +32,10 @@ class HomePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetWeatherUseCase.Output.Success -> view.displayCurrentWeather(it.weather)
+                    is WeatherSuccess -> view.displayCurrentWeather(
+                        it.weather.name,
+                        it.weather.temp.toInt().toString()
+                    )
                     else -> view.showNetworkError()
                 }
             }
@@ -43,7 +47,7 @@ class HomePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetQuoteUseCase.Output.Success -> view.displayQuote(it.quote)
+                    is QuoteSuccess -> view.displayQuote(it.quote)
                     else -> view.showNetworkError()
                 }
             }

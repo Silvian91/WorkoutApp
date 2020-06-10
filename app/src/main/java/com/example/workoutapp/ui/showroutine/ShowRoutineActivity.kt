@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
-import com.example.workoutapp.ui.main.HomeActivity
+import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineRecyclerAdapter
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
@@ -60,7 +60,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
         startActivity(
-            HomeActivity.newIntent(this)
+            MainActivity.newIntent(this)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
 

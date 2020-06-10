@@ -4,11 +4,12 @@ import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.login.LoginUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase.Input
-import com.example.workoutapp.domain.register.RegisterUseCase.Output.Success
 import com.example.workoutapp.domain.user.model.UserModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import com.example.workoutapp.domain.login.LoginUseCase.Output.Success as LoginSuccess
+import com.example.workoutapp.domain.register.RegisterUseCase.Output.Success as RegistrationSuccess
 
 class RegisterPresenter(
     private val registerUseCase: RegisterUseCase,
@@ -31,7 +32,7 @@ class RegisterPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is Success -> setCurrentUserId(username, password)
+                    is RegistrationSuccess -> setCurrentUserId(username, password)
                     else -> view.showError()
                 }
             }
@@ -43,7 +44,7 @@ class RegisterPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is LoginUseCase.Output.Success -> view.showHome()
+                    is LoginSuccess -> view.showHome()
                     else -> view.showError()
                 }
             }

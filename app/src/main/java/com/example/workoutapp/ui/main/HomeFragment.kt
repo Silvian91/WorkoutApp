@@ -66,19 +66,16 @@ class HomeFragment : Fragment(), HomeContract.View {
         super.onDestroyView()
     }
 
-    override fun displayCurrentWeather(weather: WeatherModel) {
-        val weatherValue = StringBuilder()
-        weatherValue.append("The weather in ")
-            .append(weather.name)
-            .append(" is ")
-            .append(weather.temp.toInt().toString())
-            .append(" degrees.")
-
-        open_weather_api.text = weatherValue
+    override fun displayCurrentWeather(name: String, temp: String) {
+        // String interpolation: "The weather in ${weather.name} is ${weather.temp.toInt()} degrees."
+        open_weather_api.text =
+            getString(R.string.text_home_weather, name, temp)
         progress_circular_weather.visibility = View.GONE
     }
 
+    //TODO: Refactor parameter
     override fun displayQuote(quote: InspirationalQuoteModel) {
+        //TODO: Refactor
         val inspirationalQuote = StringBuilder()
         inspirationalQuote.append("\"")
             .append(quote.quote)

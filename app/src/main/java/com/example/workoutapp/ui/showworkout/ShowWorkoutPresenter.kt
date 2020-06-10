@@ -15,6 +15,7 @@ import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.Work
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetCurrentUserSuccess
 
 class ShowWorkoutPresenter(
     private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
@@ -34,24 +35,27 @@ class ShowWorkoutPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetCurrentUserUseCase.Output.Success ->
-                        getWorkoutUseCase.execute(Input(it.user.id!!))
-                            .doOnIoObserveOnMain()
-                            .subscribeBy { output ->
-                                when (output) {
-                                    is SuccessNoData -> {
-                                        val items = convertToItemWrapper()
-                                        view.showWorkoutsListData(items)
-                                    }
-                                    is Success -> {
-                                        val items = convertToItemWrapper(output.workouts)
-                                        view.showWorkoutsListData(items)
-                                    }
-                                    else -> view.showError()
-                                }
-                            }
-                            .addTo(compositeDisposable)
+                    is GetCurrentUserSuccess -> getWorkoutsForUser(it.user.id!!)
                     is ErrorUnauthorized -> view.showLogin()
+                    else -> view.showError()
+                }
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun getWorkoutsForUser(userId: Long) {
+        getWorkoutUseCase.execute(Input(userId))
+            .doOnIoObserveOnMain()
+            .subscribeBy { output ->
+                when (output) {
+                    is SuccessNoData -> {
+                        val items = convertToItemWrapper()
+                        view.showWorkoutsListData(items)
+                    }
+                    is Success -> {
+                        val items = convertToItemWrapper(output.workouts)
+                        view.showWorkoutsListData(items)
+                    }
                     else -> view.showError()
                 }
             }
@@ -60,15 +64,14 @@ class ShowWorkoutPresenter(
 
     private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<ShowWorkoutItemWrapper> {
         val itemWrappers = ArrayList<ShowWorkoutItemWrapper>()
-        return if (models.isNotEmpty()) {
+        if (models.isNotEmpty()) {
             models.forEach {
                 itemWrappers.add(WorkoutTitle(it))
             }
-            itemWrappers
         } else {
             itemWrappers.add(WorkoutNoData)
-            itemWrappers
         }
+        return itemWrappers
     }
 
     override fun onDeleteClicked(

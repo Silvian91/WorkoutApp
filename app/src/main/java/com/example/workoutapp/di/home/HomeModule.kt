@@ -2,16 +2,16 @@ package com.example.workoutapp.di.home
 
 import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRemoteDataSource
 import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRemoteDataSourceImpl
-import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRepositoryImpl
+import com.example.workoutapp.data.inspirationalquote.QuoteRepositoryImpl
 import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSource
 import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSourceImpl
-import com.example.workoutapp.data.openweathermap.OpenWeatherMapRepositoryImpl
+import com.example.workoutapp.data.openweathermap.WeatherRepositoryImpl
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCaseImpl
-import com.example.workoutapp.domain.inspirationalquote.InspirationalQuoteRepository
+import com.example.workoutapp.domain.inspirationalquote.QuoteRepository
 import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase
 import com.example.workoutapp.domain.openweathermap.GetWeatherUseCaseImpl
-import com.example.workoutapp.domain.openweathermap.OpenWeatherMapRepository
+import com.example.workoutapp.domain.openweathermap.WeatherRepository
 import com.example.workoutapp.http.inspirationalquote.InspirationalApiService
 import com.example.workoutapp.http.openweathermap.OpenWeatherMapApiService
 import com.example.workoutapp.ui.main.HomeContract
@@ -37,22 +37,22 @@ class HomeModule {
     }
 
     @Provides
-    fun providesGetQuoteUseCase(inspirationalQuoteRepository: InspirationalQuoteRepository): GetQuoteUseCase {
-        return GetQuoteUseCaseImpl(inspirationalQuoteRepository)
+    fun providesGetQuoteUseCase(quoteRepository: QuoteRepository): GetQuoteUseCase {
+        return GetQuoteUseCaseImpl(quoteRepository)
     }
 
     @Provides
     fun providesGetWeatherUseCase(
-        openWeatherMapRepository: OpenWeatherMapRepository
+        weatherRepository: WeatherRepository
     ) : GetWeatherUseCase {
-        return GetWeatherUseCaseImpl(openWeatherMapRepository)
+        return GetWeatherUseCaseImpl(weatherRepository)
     }
 
     @Provides
     fun providesInspirationalQuoteRepository(
         inspirationalQuoteRemoteDataSource: InspirationalQuoteRemoteDataSource
-    ): InspirationalQuoteRepository {
-        return InspirationalQuoteRepositoryImpl(inspirationalQuoteRemoteDataSource)
+    ): QuoteRepository {
+        return QuoteRepositoryImpl(inspirationalQuoteRemoteDataSource)
     }
 
     @Provides
@@ -65,8 +65,8 @@ class HomeModule {
     @Provides
     fun providesOpenWeatherMapRepository(
         openWeatherMapRemoteDataSource: OpenWeatherMapRemoteDataSource
-    ): OpenWeatherMapRepository {
-        return OpenWeatherMapRepositoryImpl(openWeatherMapRemoteDataSource)
+    ): WeatherRepository {
+        return WeatherRepositoryImpl(openWeatherMapRemoteDataSource)
     }
 
     @Provides

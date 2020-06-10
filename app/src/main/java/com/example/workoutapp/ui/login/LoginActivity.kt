@@ -8,7 +8,7 @@ import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
-import com.example.workoutapp.ui.main.HomeActivity
+import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_login.*
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun showHome() {
         startActivity(
-            HomeActivity.newIntent(this)
+            MainActivity.newIntent(this)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
     }

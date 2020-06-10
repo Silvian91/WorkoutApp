@@ -8,7 +8,7 @@ import com.example.workoutapp.ui.common.BaseView
 interface HomeContract {
 
     interface View : BaseView<Presenter> {
-        fun displayCurrentWeather(weather: WeatherModel)
+        fun displayCurrentWeather(name: String, temp: String)
         fun displayQuote(quote: InspirationalQuoteModel)
         fun showNetworkError()
         fun openAddWorkoutActivity()

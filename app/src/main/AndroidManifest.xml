@@ -35,7 +35,7 @@
         <activity android:name="com.example.workoutapp.ui.showworkout.ShowWorkoutActivity" />
         <activity android:name="com.example.workoutapp.ui.addroutine.AddRoutineActivity" />
         <activity android:name="com.example.workoutapp.ui.showroutine.ShowRoutineActivity" />
-        <activity android:name="com.example.workoutapp.ui.main.HomeActivity" />
+        <activity android:name="com.example.workoutapp.ui.main.MainActivity" />
         <activity
             android:name="com.example.workoutapp.ui.login.LoginActivity"
             android:windowSoftInputMode="adjustResize" />

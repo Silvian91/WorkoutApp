@@ -48,5 +48,6 @@
     <string name="text_alert_log_out">Are you sure you want to log out?</string>
     <string name="text_show_workout_error_empty_screen">Show Empty Screen</string>
     <string name="text_network_error">Could not display quote, check network connection</string>
+    <string name="text_home_weather">The weather in %1$s is %2$s degrees.</string>
 
 </resources>

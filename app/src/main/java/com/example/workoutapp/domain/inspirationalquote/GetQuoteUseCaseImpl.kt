@@ -7,13 +7,11 @@ import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase.Output.S
 import io.reactivex.Single
 
 class GetQuoteUseCaseImpl(
-    private val inspirationalQuoteRepository: InspirationalQuoteRepository
+    private val quoteRepository: QuoteRepository
 ) : GetQuoteUseCase {
     override fun execute(input: Input): Single<Output> {
-        return inspirationalQuoteRepository.getRandomQuote()
-            .map { Success(it) as Output
-            }
+        return quoteRepository.getRandomQuote()
+            .map { Success(it) as Output }
             .onErrorReturn { NetworkError }
     }
-
 }
