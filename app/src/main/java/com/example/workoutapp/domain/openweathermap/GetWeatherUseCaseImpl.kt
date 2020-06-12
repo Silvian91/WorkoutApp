@@ -11,7 +11,7 @@ class GetWeatherUseCaseImpl(
 ) : GetWeatherUseCase {
     override fun execute(input: Input): Single<Output> {
         return weatherRepository.getCurrentWeather()
-            .map { Success(it) as Output}
+            .map { Success(it) as Output }
             .onErrorReturn { NetworkError }
     }
 

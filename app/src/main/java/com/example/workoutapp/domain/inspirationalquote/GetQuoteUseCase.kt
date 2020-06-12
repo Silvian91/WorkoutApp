@@ -12,7 +12,7 @@ interface GetQuoteUseCase : BaseSingleUseCase<Input, Output> {
 
     sealed class Output : BaseUseCase.Output {
 
-        data class Success(val quote : InspirationalQuoteModel) : Output()
+        data class Success(val quote: InspirationalQuoteModel) : Output()
         object NetworkError : Output()
     }
 }

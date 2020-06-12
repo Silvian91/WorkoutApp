@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginActivity"
-    android:id="@+id/login_layout">
+    android:orientation="vertical"
+    tools:context=".ui.login.LoginActivity">
 
     <TextView
         android:id="@+id/login_title"
+        style="@style/headingStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
-        style="@style/headingStyle"
         android:gravity="center"
         android:text="@string/text_login_title" />
 
@@ -27,11 +27,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_username_field"
+            style="@style/textBodyStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            style="@style/textBodyStyle"
             android:hint="@string/text_username"
             android:inputType="textPersonName" />
 
@@ -45,11 +45,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_password_field"
+            style="@style/textBodyStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            style="@style/textBodyStyle"
             android:hint="@string/text_password"
             android:inputType="textPassword" />
 

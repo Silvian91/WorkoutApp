@@ -44,7 +44,7 @@ class HomeModule {
     @Provides
     fun providesGetWeatherUseCase(
         weatherRepository: WeatherRepository
-    ) : GetWeatherUseCase {
+    ): GetWeatherUseCase {
         return GetWeatherUseCaseImpl(weatherRepository)
     }
 

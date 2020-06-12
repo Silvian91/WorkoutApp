@@ -48,7 +48,10 @@ class RegisterModule {
     }
 
     @Provides
-    fun providesLoginUseCase(userRepository: UserRepository, sessionManager: SessionManager): LoginUseCase {
+    fun providesLoginUseCase(
+        userRepository: UserRepository,
+        sessionManager: SessionManager
+    ): LoginUseCase {
         return LoginUseCaseImpl(userRepository, sessionManager)
     }
 

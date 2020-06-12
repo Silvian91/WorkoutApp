@@ -19,14 +19,14 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
-<!--    TODO choose different scaLE TYPEs-->
+    <!--    TODO choose different scaLE TYPEs-->
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="28sp"
-        android:src="@drawable/ic_person_black_24dp"
         android:scaleType="fitCenter"
+        android:src="@drawable/ic_person_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_username" />

@@ -18,6 +18,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            applicationIdSuffix '.debug'
+            debuggable true
+        }
     }
     androidExtensions {
         experimental = true
@@ -25,6 +29,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -55,8 +62,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.2'
-    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
-    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
@@ -73,9 +78,25 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.3.2"
 
     // ... more entries
+    //TODO migrate to Junit 5
     testImplementation 'junit:junit:4.12'
     // required if you want to use Mockito for unit tests
     testImplementation 'org.mockito:mockito-core:2.7.22'
     // required if you want to use Mockito for Android tests
     androidTestImplementation 'org.mockito:mockito-android:2.7.22'
+
+    //Chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:3.2.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.2.0"
+
+    //LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+
+    //RxBinding
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+
+    //AutoDispose
+    implementation "com.uber.autodispose:autodispose:1.4.0"
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.4.0'
+
 }

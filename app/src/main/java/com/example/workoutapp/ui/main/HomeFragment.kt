@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_network_error
 import com.example.workoutapp.domain.inspirationalquote.model.InspirationalQuoteModel
-import com.example.workoutapp.domain.openweathermap.model.WeatherModel
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -42,8 +45,15 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     private fun setOnClickListeners() {
-        add_workout.setOnClickListener { presenter.addWorkoutClicked() }
-        show_workout.setOnClickListener { presenter.showWorkoutClicked() }
+        add_workout
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
+            .subscribe { presenter.addWorkoutClicked() }
+
+        show_workout
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
+            .subscribe { presenter.showWorkoutClicked() }
     }
 
     override fun openAddWorkoutActivity() {
@@ -57,13 +67,6 @@ class HomeFragment : Fragment(), HomeContract.View {
     private fun setToolbar() {
         (activity as AppCompatActivity)
             .setSupportActionBar(home_toolbar)
-    }
-
-    override fun onDestroyView() {
-        add_workout.setOnClickListener(null)
-        show_workout.setOnClickListener(null)
-
-        super.onDestroyView()
     }
 
     override fun displayCurrentWeather(name: String, temp: String) {

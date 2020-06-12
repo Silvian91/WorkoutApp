@@ -12,7 +12,7 @@ interface GetWeatherUseCase : BaseSingleUseCase<Input, Output> {
 
     sealed class Output : BaseUseCase.Output {
 
-        data class Success(val weather : WeatherModel) : Output()
+        data class Success(val weather: WeatherModel) : Output()
         object NetworkError : Output()
     }
 }

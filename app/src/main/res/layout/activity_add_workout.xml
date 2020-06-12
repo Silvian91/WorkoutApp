@@ -25,13 +25,13 @@
 
             <TextView
                 android:id="@+id/add_workout_title"
+                style="@style/headingStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="12dp"
-                style="@style/headingStyle"
                 android:gravity="center"
                 android:text="@string/text_add_workout_title" />
 
@@ -42,11 +42,11 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/workout_title_field"
+                    style="@style/textBodyStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    style="@style/textBodyStyle"
                     android:hint="@string/text_add_workout_title_field"
                     android:inputType="textPersonName" />
 
