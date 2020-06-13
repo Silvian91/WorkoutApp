@@ -8,8 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
-import com.example.workoutapp.R.string.text_network_error
-import com.example.workoutapp.domain.inspirationalquote.model.InspirationalQuoteModel
+import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
@@ -69,23 +68,16 @@ class HomeFragment : Fragment(), HomeContract.View {
             .setSupportActionBar(home_toolbar)
     }
 
-    override fun displayCurrentWeather(name: String, temp: String) {
+    override fun displayWeather(name: String, temp: String) {
         // String interpolation: "The weather in ${weather.name} is ${weather.temp.toInt()} degrees."
         open_weather_api.text =
-            getString(R.string.text_home_weather, name, temp)
+            getString(text_home_weather, name, temp)
         progress_circular_weather.visibility = View.GONE
     }
 
-    //TODO: Refactor parameter
-    override fun displayQuote(quote: InspirationalQuoteModel) {
-        //TODO: Refactor
-        val inspirationalQuote = StringBuilder()
-        inspirationalQuote.append("\"")
-            .append(quote.quote)
-            .append("\" - ")
-            .append(quote.author)
-
-        quotes_api.text = inspirationalQuote
+    override fun displayQuote(quote: String, author: String) {
+        quotes_api.text =
+            getString(text_home_quote, quote, author)
         progress_circular_quote.visibility = View.GONE
     }
 

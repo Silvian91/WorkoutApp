@@ -23,16 +23,16 @@ class HomePresenter(
     }
 
     override fun start() {
-        showOpenWeatherAPI()
-        showInspirationalQuote()
+        showWeather()
+        showQuote()
     }
 
-    private fun showOpenWeatherAPI() {
+    private fun showWeather() {
         getWeatherUseCase.execute(GetWeatherUseCase.Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is WeatherSuccess -> view.displayCurrentWeather(
+                    is WeatherSuccess -> view.displayWeather(
                         it.weather.name,
                         it.weather.temp.toInt().toString()
                     )
@@ -42,12 +42,15 @@ class HomePresenter(
             .addTo(compositeDisposable)
     }
 
-    private fun showInspirationalQuote() {
+    private fun showQuote() {
         getQuoteUseCase.execute(Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is QuoteSuccess -> view.displayQuote(it.quote)
+                    is QuoteSuccess -> view.displayQuote(
+                        it.quote.quote,
+                        it.quote.author
+                    )
                     else -> view.showNetworkError()
                 }
             }
