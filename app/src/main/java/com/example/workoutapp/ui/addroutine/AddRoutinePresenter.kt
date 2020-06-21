@@ -2,7 +2,6 @@ package com.example.workoutapp.ui.addroutine
 
 import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase
 import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Input
-import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Output
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel

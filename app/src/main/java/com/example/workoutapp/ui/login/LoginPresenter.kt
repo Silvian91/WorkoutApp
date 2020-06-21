@@ -3,7 +3,8 @@ package com.example.workoutapp.ui.login
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.login.LoginUseCase
 import com.example.workoutapp.domain.login.LoginUseCase.Input
-import com.example.workoutapp.domain.login.LoginUseCase.Output.*
+import com.example.workoutapp.domain.login.LoginUseCase.Output.ErrorInvalidCredentials
+import com.example.workoutapp.domain.login.LoginUseCase.Output.ErrorUserDoesNotExist
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

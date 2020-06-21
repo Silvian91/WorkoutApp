@@ -4,7 +4,6 @@ import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase
 import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase.Input
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
-import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
 import com.example.workoutapp.domain.workout.model.WorkoutModel
 import io.reactivex.disposables.CompositeDisposable
