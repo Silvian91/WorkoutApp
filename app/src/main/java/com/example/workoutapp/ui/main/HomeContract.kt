@@ -2,19 +2,19 @@ package com.example.workoutapp.ui.main
 
 import com.example.workoutapp.ui.common.BasePresenter
 import com.example.workoutapp.ui.common.BaseView
+import com.example.workoutapp.ui.main.recyclerviewadapter.HomeAdapter
+import com.example.workoutapp.ui.main.recyclerviewadapter.HomeItemsWrapper
 
 interface HomeContract {
 
     interface View : BaseView<Presenter> {
-        fun displayWeather(name: String, temp: String)
-        fun displayQuote(quote: String, author: String)
         fun showNetworkError()
-        fun openAddWorkoutActivity()
-        fun openShowWorkoutActivity()
+        fun handleAddWorkoutClick()
+        fun handleShowWorkoutClick()
+        fun showData(items: List<HomeItemsWrapper>)
     }
 
-    interface Presenter : BasePresenter<View> {
-        fun addWorkoutClicked()
-        fun showWorkoutClicked()
+    interface Presenter : BasePresenter<View>,
+        HomeAdapter.ButtonHolderViewListener {
     }
 }

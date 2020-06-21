@@ -1,7 +1,7 @@
 package com.example.workoutapp.http.inspirationalquote
 
 
-import com.example.workoutapp.domain.inspirationalquote.model.InspirationalQuoteModel
+import com.example.workoutapp.domain.inspirationalquote.model.QuoteModel
 import com.google.gson.annotations.SerializedName
 
 data class InspirationalQuoteResponse(
@@ -12,8 +12,8 @@ data class InspirationalQuoteResponse(
     @SerializedName("quote") val quote: String = ""
 
 ) {
-    fun toModel(): InspirationalQuoteModel {
-        return InspirationalQuoteModel(
+    fun toModel(): QuoteModel {
+        return QuoteModel(
             quote, author
         )
     }

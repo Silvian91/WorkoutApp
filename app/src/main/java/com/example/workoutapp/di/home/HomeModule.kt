@@ -1,7 +1,7 @@
 package com.example.workoutapp.di.home
 
-import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRemoteDataSource
-import com.example.workoutapp.data.inspirationalquote.InspirationalQuoteRemoteDataSourceImpl
+import com.example.workoutapp.data.inspirationalquote.QuoteRemoteDataSource
+import com.example.workoutapp.data.inspirationalquote.QuoteRemoteDataSourceImpl
 import com.example.workoutapp.data.inspirationalquote.QuoteRepositoryImpl
 import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSource
 import com.example.workoutapp.data.openweathermap.OpenWeatherMapRemoteDataSourceImpl
@@ -50,16 +50,16 @@ class HomeModule {
 
     @Provides
     fun providesInspirationalQuoteRepository(
-        inspirationalQuoteRemoteDataSource: InspirationalQuoteRemoteDataSource
+        quoteRemoteDataSource: QuoteRemoteDataSource
     ): QuoteRepository {
-        return QuoteRepositoryImpl(inspirationalQuoteRemoteDataSource)
+        return QuoteRepositoryImpl(quoteRemoteDataSource)
     }
 
     @Provides
     fun providesInspirationalQuoteRemoteDataSource(
         inspirationalApiService: InspirationalApiService
-    ): InspirationalQuoteRemoteDataSource {
-        return InspirationalQuoteRemoteDataSourceImpl(inspirationalApiService)
+    ): QuoteRemoteDataSource {
+        return QuoteRemoteDataSourceImpl(inspirationalApiService)
     }
 
     @Provides

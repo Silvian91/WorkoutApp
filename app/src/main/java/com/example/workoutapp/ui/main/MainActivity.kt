@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
-import com.example.workoutapp.ui.main.adapter.ViewPagerFragmentAdapter
+import com.example.workoutapp.ui.main.viewpageradapter.ViewPagerFragmentAdapter
 import com.example.workoutapp.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 

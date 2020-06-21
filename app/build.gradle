@@ -94,6 +94,7 @@ dependencies {
 
     //RxBinding
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.1.0'
 
     //AutoDispose
     implementation "com.uber.autodispose:autodispose:1.4.0"

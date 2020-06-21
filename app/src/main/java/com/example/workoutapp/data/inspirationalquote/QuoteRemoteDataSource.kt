@@ -1,9 +1,9 @@
-package com.example.workoutapp.domain.inspirationalquote
+package com.example.workoutapp.data.inspirationalquote
 
 import com.example.workoutapp.domain.inspirationalquote.model.QuoteModel
 import io.reactivex.Single
 
-interface QuoteRepository {
+interface QuoteRemoteDataSource {
 
     fun getRandomQuote(): Single<QuoteModel>
 }

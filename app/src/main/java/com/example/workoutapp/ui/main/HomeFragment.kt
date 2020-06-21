@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
-import com.example.workoutapp.R.string.*
+import com.example.workoutapp.R.string.text_network_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
+import com.example.workoutapp.ui.main.recyclerviewadapter.HomeAdapter
+import com.example.workoutapp.ui.main.recyclerviewadapter.HomeItemsWrapper
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
 import com.google.android.material.snackbar.Snackbar
-import com.jakewharton.rxbinding3.view.clicks
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
-import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -23,6 +22,12 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
+
+    private lateinit var homeAdapter: HomeAdapter
+
+    override fun showData(items: List<HomeItemsWrapper>) {
+        homeAdapter.setData(items)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,48 +42,31 @@ class HomeFragment : Fragment(), HomeContract.View {
         WorkoutApplication.get().components.createMainComponent().inject(this)
 
         presenter.setView(this)
+        initHomeRecyclerView()
         presenter.start()
 
-        setOnClickListeners()
         setToolbar()
     }
 
-    private fun setOnClickListeners() {
-        add_workout
-            .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
-            .subscribe { presenter.addWorkoutClicked() }
-
-        show_workout
-            .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
-            .subscribe { presenter.showWorkoutClicked() }
+    private fun initHomeRecyclerView() {
+        recycler_view_home_fragment.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            homeAdapter = HomeAdapter(presenter, this@HomeFragment.lifecycle)
+            adapter = homeAdapter
+        }
     }
 
-    override fun openAddWorkoutActivity() {
+    override fun handleAddWorkoutClick() {
         startActivity(AddWorkoutActivity.newIntent(requireContext()))
     }
 
-    override fun openShowWorkoutActivity() {
+    override fun handleShowWorkoutClick() {
         startActivity(ShowWorkoutActivity.newIntent(requireContext()))
     }
 
     private fun setToolbar() {
         (activity as AppCompatActivity)
             .setSupportActionBar(home_toolbar)
-    }
-
-    override fun displayWeather(name: String, temp: String) {
-        // String interpolation: "The weather in ${weather.name} is ${weather.temp.toInt()} degrees."
-        open_weather_api.text =
-            getString(text_home_weather, name, temp)
-        progress_circular_weather.visibility = View.GONE
-    }
-
-    override fun displayQuote(quote: String, author: String) {
-        quotes_api.text =
-            getString(text_home_quote, quote, author)
-        progress_circular_quote.visibility = View.GONE
     }
 
     override fun showNetworkError() {

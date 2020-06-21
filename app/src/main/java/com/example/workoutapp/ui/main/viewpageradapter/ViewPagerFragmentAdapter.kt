@@ -1,8 +1,9 @@
-package com.example.workoutapp.ui.main.adapter
+package com.example.workoutapp.ui.main.viewpageradapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import kotlin.collections.ArrayList
 
 class ViewPagerFragmentAdapter(
     fragmentActivity: FragmentActivity
@@ -14,7 +15,7 @@ class ViewPagerFragmentAdapter(
         return fragments.size
     }
 
-    fun addFragment(fragment: Fragment) {
+    fun addFragment(fragment: Fragment){
         fragments.add(fragment)
     }
 
