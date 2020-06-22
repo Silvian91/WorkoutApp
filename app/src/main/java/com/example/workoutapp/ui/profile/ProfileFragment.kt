@@ -251,4 +251,9 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         }
     }
 
+    override fun onDestroyView() {
+        presenter.finish()
+
+        super.onDestroyView()
+    }
 }

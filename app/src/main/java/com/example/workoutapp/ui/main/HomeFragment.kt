@@ -78,6 +78,11 @@ class HomeFragment : Fragment(), HomeContract.View {
             .show()
     }
 
+    override fun onDestroyView() {
+        presenter.finish()
+
+        super.onDestroyView()
+    }
 }
 
 // THE QUESTION MARK MEANS THAT THE TYPE THE QUESTION MARK IS ASSOCIATED WITH CAN BE NULL
