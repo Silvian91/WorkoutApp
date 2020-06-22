@@ -75,7 +75,8 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     private fun initWorkoutRecyclerView() {
         recyclerViewWorkout.apply {
             layoutManager = LinearLayoutManager(this@ShowWorkoutActivity)
-            showWorkoutAdapter = ShowWorkoutRecyclerAdapter(presenter)
+            showWorkoutAdapter =
+                ShowWorkoutRecyclerAdapter(presenter, this@ShowWorkoutActivity.lifecycle)
             adapter = showWorkoutAdapter
         }
     }

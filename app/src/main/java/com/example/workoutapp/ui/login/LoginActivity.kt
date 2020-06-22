@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
@@ -11,6 +12,9 @@ import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 import javax.inject.Inject
@@ -27,12 +31,15 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         setContentView(R.layout.activity_login)
 
         presenter.setView(this)
-        button_confirm_login.setOnClickListener {
-            presenter.onLoginClicked(
-                login_username_field.text.toString().toLowerCase(Locale.ENGLISH),
-                login_password_field.text.toString()
-            )
-        }
+        button_confirm_login
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                presenter.onLoginClicked(
+                    login_username_field.text.toString().toLowerCase(Locale.ENGLISH),
+                    login_password_field.text.toString()
+                )
+            }
     }
 
     companion object {

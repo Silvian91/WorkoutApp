@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_error_registration_failed
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 import javax.inject.Inject
@@ -55,13 +59,16 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     private fun setOnClickListenerEvent() {
-        button_confirm_register.setOnClickListener {
-            presenter.onContinueClicked(
-                register_username_field.text.toString().toLowerCase(Locale.ENGLISH),
-                register_password_field.text.toString(),
-                id = 0
-            )
-        }
+        button_confirm_register
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                presenter.onContinueClicked(
+                    register_username_field.text.toString().toLowerCase(Locale.ENGLISH),
+                    register_password_field.text.toString(),
+                    id = 0
+                )
+            }
     }
 
     override fun showHome() {

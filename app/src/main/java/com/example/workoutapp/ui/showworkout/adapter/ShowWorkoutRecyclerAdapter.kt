@@ -2,6 +2,7 @@ package com.example.workoutapp.ui.showworkout.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DiffUtil.DiffResult
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,10 @@ import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.Item
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutNoDataViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutViewHolder
 
-class ShowWorkoutRecyclerAdapter(private val listener: WorkoutViewHolderListener) :
+class ShowWorkoutRecyclerAdapter(
+    private val listener: WorkoutViewHolderListener,
+    private val parentLifecycle: Lifecycle
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<ShowWorkoutItemWrapper> = ArrayList()
 
@@ -25,7 +29,7 @@ class ShowWorkoutRecyclerAdapter(private val listener: WorkoutViewHolderListener
         return if (viewType == view_holder_workouts_no_data) {
             ShowWorkoutNoDataViewHolder(view)
         } else {
-            ShowWorkoutViewHolder(view, listener)
+            ShowWorkoutViewHolder(view, parentLifecycle, listener)
         }
     }
 

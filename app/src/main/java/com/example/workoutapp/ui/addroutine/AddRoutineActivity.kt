@@ -7,12 +7,16 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_add_routine.*
 import javax.inject.Inject
 
@@ -48,26 +52,32 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
     }
 
     private fun setOnClickListenerEvent() {
-        button_confirm_routine.setOnClickListener {
-            presenter.onContinueClicked(
-                routine_name.text.toString(),
-                routine_sets.text.toString(),
-                routine_reps.text.toString(),
-                routine_weight.text.toString(),
-                weight_measurement.text.toString(),
-                routine_rest.text.toString()
-            )
-        }
-        button_save_routine.setOnClickListener {
-            presenter.onFinishClicked(
-                routine_name.text.toString(),
-                routine_sets.text.toString(),
-                routine_reps.text.toString(),
-                routine_weight.text.toString(),
-                weight_measurement.text.toString(),
-                routine_rest.text.toString()
-            )
-        }
+        button_confirm_routine
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
+            .subscribe {
+                presenter.onContinueClicked(
+                    routine_name.text.toString(),
+                    routine_sets.text.toString(),
+                    routine_reps.text.toString(),
+                    routine_weight.text.toString(),
+                    weight_measurement.text.toString(),
+                    routine_rest.text.toString()
+                )
+            }
+        button_save_routine
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
+            .subscribe {
+                presenter.onFinishClicked(
+                    routine_name.text.toString(),
+                    routine_sets.text.toString(),
+                    routine_reps.text.toString(),
+                    routine_weight.text.toString(),
+                    weight_measurement.text.toString(),
+                    routine_rest.text.toString()
+                )
+            }
 
     }
 
@@ -150,8 +160,6 @@ class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
     }
 
     override fun onDestroy() {
-        button_confirm_routine.setOnClickListener(null)
-        button_save_routine.setOnClickListener(null)
         presenter.finish()
 
         super.onDestroy()

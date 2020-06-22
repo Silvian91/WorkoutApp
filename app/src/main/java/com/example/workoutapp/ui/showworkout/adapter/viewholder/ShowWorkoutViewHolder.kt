@@ -2,25 +2,33 @@ package com.example.workoutapp.ui.showworkout.adapter.viewholder
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutRecyclerAdapter
 import com.google.android.material.behavior.SwipeDismissBehavior
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_holder_workouts.*
 
 class ShowWorkoutViewHolder(
     override val containerView: View,
+    private val parent: Lifecycle,
     private val listener: ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener
 ) : BaseViewHolder<ShowWorkoutItemWrapper>(containerView), LayoutContainer {
 
     override fun bind(model: ShowWorkoutItemWrapper) {
         model as WorkoutTitle
         button_show_workout_name.text = model.workoutTitle.title
-        show_workout_name_card.setOnClickListener {
-            listener.onWorkoutClicked(model.workoutTitle.id!!)
-        }
+        show_workout_name_card
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(parent, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                listener.onWorkoutClicked(model.workoutTitle.id!!)
+            }
         val behavior = SwipeDismissBehavior<View>()
         behavior.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_START_TO_END)
         val coordinatorParameters =

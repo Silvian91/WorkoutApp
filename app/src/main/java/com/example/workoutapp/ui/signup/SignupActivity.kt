@@ -4,10 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.register.RegisterActivity
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_signup.*
 import javax.inject.Inject
 
@@ -28,8 +32,14 @@ class SignupActivity : AppCompatActivity(), SignupContract.View {
     }
 
     private fun setOnClickListeners() {
-        button_register.setOnClickListener { presenter.registerClicked() }
-        button_login.setOnClickListener { presenter.loginClicked() }
+        button_register
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe { presenter.registerClicked() }
+        button_login
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe { presenter.loginClicked() }
     }
 
     private fun setToolbar() {

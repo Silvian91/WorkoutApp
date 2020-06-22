@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_unknown_error
@@ -16,6 +17,9 @@ import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineRecyclerAdapter
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_show_routine.*
 import javax.inject.Inject
 
@@ -43,9 +47,12 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         initRoutineRecyclerView()
         presenter.start()
 
-        button_delete_workout.setOnClickListener {
-            presenter.onDeleteClicked()
-        }
+        button_delete_workout
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                presenter.onDeleteClicked()
+            }
     }
 
     private fun setToolbar() {

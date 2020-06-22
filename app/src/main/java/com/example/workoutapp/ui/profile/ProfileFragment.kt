@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.WorkoutApplication
@@ -25,6 +26,9 @@ import com.example.workoutapp.ui.signup.SignupActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -53,9 +57,12 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         setToolbar()
         bottomSheetDialogOnClickListener()
 
-        button_log_out.setOnClickListener {
-            presenter.logOutClicked()
-        }
+        button_log_out
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                presenter.logOutClicked()
+            }
     }
 
     private fun setToolbar() {
@@ -103,30 +110,39 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     private fun bottomSheetDialogOnClickListener() {
-        button_add_profile_picture.setOnClickListener {
-            val bottomSheetDialog = BottomSheetDialog(requireContext())
-            val bottomSheetView = layoutInflater.inflate(
-                R.layout.bottom_sheet_layout,
-                null
-            )
-            galleryOnClickListener(bottomSheetView)
-            cameraOnClickListener(bottomSheetView)
-            bottomSheetDialog.setContentView(bottomSheetView)
-            bottomSheetDialog.show()
-        }
+        button_add_profile_picture
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                val bottomSheetDialog = BottomSheetDialog(requireContext())
+                val bottomSheetView = layoutInflater.inflate(
+                    R.layout.bottom_sheet_layout,
+                    null
+                )
+                galleryOnClickListener(bottomSheetView)
+                cameraOnClickListener(bottomSheetView)
+                bottomSheetDialog.setContentView(bottomSheetView)
+                bottomSheetDialog.show()
+            }
     }
 
     private fun galleryOnClickListener(bottomSheetView: View) {
         val gallery = bottomSheetView.findViewById<ImageView>(R.id.profile_open_gallery)
-        gallery.setOnClickListener {
-            presenter.onGalleryClicked()
-        }
+        gallery
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                presenter.onGalleryClicked()
+            }
     }
 
 
     private fun cameraOnClickListener(bottomSheetView: View) {
         val camera = bottomSheetView.findViewById<ImageView>(R.id.profile_open_camera)
-        camera.setOnClickListener {
+        camera
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
             presenter.onCameraClicked()
         }
     }
