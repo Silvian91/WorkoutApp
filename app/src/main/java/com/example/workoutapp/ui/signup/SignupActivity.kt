@@ -60,10 +60,4 @@ class SignupActivity : AppCompatActivity(), SignupContract.View {
             Intent(context, SignupActivity::class.java)
     }
 
-    override fun onDestroy() {
-        button_register.setOnClickListener(null)
-        button_login.setOnClickListener(null)
-
-        super.onDestroy()
-    }
 }

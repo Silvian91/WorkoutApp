@@ -87,7 +87,6 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun onDestroy() {
-        button_confirm_register.setOnClickListener(null)
         presenter.finish()
 
         super.onDestroy()

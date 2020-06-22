@@ -251,11 +251,4 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         }
     }
 
-    override fun onDestroyView() {
-        button_log_out.setOnClickListener(null)
-        button_add_profile_picture.setOnClickListener(null)
-
-        super.onDestroyView()
-    }
-
 }
