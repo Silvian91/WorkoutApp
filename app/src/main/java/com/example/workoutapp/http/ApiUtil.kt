@@ -2,6 +2,13 @@ package com.example.workoutapp.http
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.workoutapp.http.Constants.ACCEPT_VALUE
+import com.example.workoutapp.http.Constants.HEADER_ACCEPT
+import com.example.workoutapp.http.Constants.HEADER_HOST
+import com.example.workoutapp.http.Constants.HEADER_KEY
+import com.example.workoutapp.http.Constants.HOST_QUOTE_VALUE
+import com.example.workoutapp.http.Constants.HOST_WEATHER_VALUE
+import com.example.workoutapp.http.Constants.KEY_VALUE
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -23,11 +30,9 @@ object ApiUtil {
             .addInterceptor { chain ->
                 val request = chain.request()
                 val headerBuilder = request.newBuilder()
-                    //TODO extract the strings into a separate constants file (same folder as ApiUtil)
-                    // make it an object class, not a normal one, so it's static
-                    .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com/weather")
-                    .header("x-rapidapi-key", "9fc5dc8d71msh5cfb93a2eb45d4ep1726e8jsn4423db34d1ba")
-                    .header("accept", "application/json")
+                    .header(HEADER_HOST, HOST_WEATHER_VALUE)
+                    .header(HEADER_KEY, KEY_VALUE)
+                    .header(HEADER_ACCEPT, ACCEPT_VALUE)
                 chain.proceed(headerBuilder.build())
             }
             .addInterceptor(ChuckerInterceptor(context))
@@ -39,9 +44,9 @@ object ApiUtil {
             .addInterceptor { chain ->
                 val request = chain.request()
                 val headerBuilder = request.newBuilder()
-                    .header("x-rapidapi-host", "quotable-quotes.p.rapidapi.com")
-                    .header("x-rapidapi-key", "9fc5dc8d71msh5cfb93a2eb45d4ep1726e8jsn4423db34d1ba")
-                    .header("accept", "application/json")
+                    .header(HEADER_HOST, HOST_QUOTE_VALUE)
+                    .header(HEADER_KEY, KEY_VALUE)
+                    .header(HEADER_ACCEPT, ACCEPT_VALUE)
                 chain.proceed(headerBuilder.build())
             }
             .addInterceptor(ChuckerInterceptor(context))
