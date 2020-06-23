@@ -18,6 +18,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="bottom"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:expandedTitleTextAppearance="@style/expandedToolbarText"
+            app:collapsedTitleTextAppearance="@style/collapsedToolbarText"
             app:title="Workout App">
 
             <ImageView
