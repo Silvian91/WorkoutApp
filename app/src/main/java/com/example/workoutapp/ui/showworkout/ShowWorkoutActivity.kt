@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
-import com.example.workoutapp.R.string.text_show_workout_toolbar
+import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
@@ -35,9 +35,14 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
         startActivity(ShowRoutineActivity.newIntent(this, workoutId))
     }
 
-    //TODO: change to infinite snackbar and retry
+    //TODO:  retry
     override fun showError() {
-        Toast.makeText(this, "Show ErrorUnknown", Toast.LENGTH_SHORT).show()
+        Snackbar.make(
+            workouts_view_holder,
+            text_unknown_error,
+            Snackbar.LENGTH_INDEFINITE
+        )
+            .show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -89,9 +94,9 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
 
     override fun showUndoOption(workoutId: Long) {
         Snackbar.make(
-            workouts_view_holder, "CARD DELETED",
+            workouts_view_holder, getString(text_snack_deletion_confirmed),
             Snackbar.LENGTH_SHORT
-        ).setAction("UNDO") {}
+        ).setAction(getString(R.string.text_snackbar_undo)) {}
             .addCallback(object : Snackbar.Callback() {
                 override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                     if (event == DISMISS_EVENT_TIMEOUT) {

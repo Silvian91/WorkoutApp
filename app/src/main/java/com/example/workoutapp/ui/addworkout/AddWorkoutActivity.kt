@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_add_workout_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineActivity
@@ -43,7 +44,7 @@ class AddWorkoutActivity : AppCompatActivity(), AddWorkoutContract.View {
     private fun setToolbar() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.run {
-            title = "Add Workout"
+            title = getString(text_add_workout_toolbar)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back_arrow)
         }

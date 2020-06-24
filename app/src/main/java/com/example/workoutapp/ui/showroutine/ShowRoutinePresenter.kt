@@ -42,7 +42,7 @@ class ShowRoutinePresenter(
 
     private fun convertToItemWrappers(models: List<RoutineModel>): List<ShowRoutineItemWrapper> {
         val itemWrappers = ArrayList<ShowRoutineItemWrapper>()
-        itemWrappers.add(ShowRoutineItemWrapper.Title("Routines"))
+        itemWrappers.add(ShowRoutineItemWrapper.Title(ROUTINES))
 
         models.forEach {
             itemWrappers.add(ShowRoutineItemWrapper.Entry(it))
@@ -77,6 +77,10 @@ class ShowRoutinePresenter(
 
     override fun onDeleteClicked() {
         view.showDeleteAlertDialog(workoutId)
+    }
+
+    companion object {
+        const val ROUTINES = "Routines"
     }
 
 }

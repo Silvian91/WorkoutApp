@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_workout_app
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.register.RegisterActivity
@@ -44,7 +45,7 @@ class SignupActivity : AppCompatActivity(), SignupContract.View {
 
     private fun setToolbar() {
         setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar?.title = "Workout App"
+        supportActionBar?.title = getString(text_workout_app)
     }
 
     override fun openRegisterActivity() {

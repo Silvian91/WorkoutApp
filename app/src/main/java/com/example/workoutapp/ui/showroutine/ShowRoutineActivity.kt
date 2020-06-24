@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
+import com.example.workoutapp.R.string.text_show_routines_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.MainActivity
@@ -58,7 +59,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     private fun setToolbar() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.run {
-            title = "Routines"
+            title = getString(text_show_routines_toolbar)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back_arrow)
         }
@@ -110,6 +111,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     companion object {
         const val workoutIdExtra = "workoutId"
+        const val ROUTINES = "Routines"
 
         fun newIntent(context: Context, workoutId: Long) =
             Intent(context, ShowRoutineActivity::class.java).apply {
