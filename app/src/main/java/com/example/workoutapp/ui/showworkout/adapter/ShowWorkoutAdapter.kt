@@ -13,7 +13,7 @@ import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.Item
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutNoDataViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutViewHolder
 
-class ShowWorkoutRecyclerAdapter(
+class ShowWorkoutAdapter(
     private val listener: WorkoutViewHolderListener,
     private val parentLifecycle: Lifecycle
 ) :
@@ -41,8 +41,7 @@ class ShowWorkoutRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder as BaseViewHolder<ShowWorkoutItemWrapper>
-        holder.bind(items[position])
+        (holder as BaseViewHolder<ShowWorkoutItemWrapper>).bind(items[position])
     }
 
     override fun getItemCount() = items.size
@@ -79,7 +78,7 @@ class ShowWorkoutRecyclerAdapter(
 
     interface WorkoutViewHolderListener {
         fun onWorkoutClicked(workoutId: Long)
-        fun onSwipeToDelete(workoutId: Long, workoutsList: List<ShowWorkoutItemWrapper>)
+        fun onDeleteWorkout(workoutId: Long)
     }
 
 }

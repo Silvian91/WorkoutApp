@@ -4,19 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
-import com.example.workoutapp.R.string.text_show_workout_error_empty_screen
+import com.example.workoutapp.R.string.text_show_workout_toolbar
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
-import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
-import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutRecyclerAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_show_workout.*
 import kotlinx.android.synthetic.main.view_holder_workouts.*
@@ -27,20 +25,17 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     @Inject
     lateinit var presenter: ShowWorkoutContract.Presenter
 
-    private lateinit var showWorkoutAdapter: ShowWorkoutRecyclerAdapter
+    private lateinit var workoutAdapter: ShowWorkoutAdapter
 
-    override fun showWorkoutsListData(workoutsList: List<ShowWorkoutItemWrapper>) {
-        showWorkoutAdapter.setData(workoutsList)
+    override fun showWorkouts(workoutsList: List<ShowWorkoutItemWrapper>) {
+        workoutAdapter.setData(workoutsList)
     }
 
     override fun showRoutines(workoutId: Long) {
         startActivity(ShowRoutineActivity.newIntent(this, workoutId))
     }
 
-    override fun showEmptyScreen() {
-        Toast.makeText(this, text_show_workout_error_empty_screen, Toast.LENGTH_SHORT).show()
-    }
-
+    //TODO: change to infinite snackbar and retry
     override fun showError() {
         Toast.makeText(this, "Show ErrorUnknown", Toast.LENGTH_SHORT).show()
     }
@@ -48,7 +43,6 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
         finish()
-        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         return true
     }
 
@@ -66,7 +60,7 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     private fun setToolbar() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.run {
-            title = "Workouts"
+            title = getString(text_show_workout_toolbar)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back_arrow)
         }
@@ -75,13 +69,13 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     private fun initWorkoutRecyclerView() {
         recyclerViewWorkout.apply {
             layoutManager = LinearLayoutManager(this@ShowWorkoutActivity)
-            showWorkoutAdapter =
-                ShowWorkoutRecyclerAdapter(presenter, this@ShowWorkoutActivity.lifecycle)
-            adapter = showWorkoutAdapter
+            workoutAdapter =
+                ShowWorkoutAdapter(presenter, this@ShowWorkoutActivity.lifecycle)
+            adapter = workoutAdapter
         }
     }
 
-    override fun alertDialog(workoutId: Long, workoutsList: List<ShowWorkoutItemWrapper>) {
+    override fun showDeleteConfirmation(workoutId: Long) {
         AlertDialog.Builder(this)
             .setMessage(R.string.text_dialog_delete_routines)
             .setNegativeButton(
@@ -89,19 +83,19 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
             ) { _, _ -> }
             .setPositiveButton(
                 R.string.text_dialog_alert_confirm
-            ) { _, _ -> deleteSnackbar(workoutId, workoutsList) }
+            ) { _, _ -> presenter.onUndoDeletion(workoutId) }
             .show()
     }
 
-    override fun deleteSnackbar(workoutId: Long, workoutsList: List<ShowWorkoutItemWrapper>) {
+    override fun showUndoOption(workoutId: Long) {
         Snackbar.make(
             workouts_view_holder, "CARD DELETED",
             Snackbar.LENGTH_SHORT
-        ).setAction("UNDO", View.OnClickListener {})
+        ).setAction("UNDO") {}
             .addCallback(object : Snackbar.Callback() {
                 override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                     if (event == DISMISS_EVENT_TIMEOUT) {
-                        presenter.onDeleteClicked(workoutId, workoutsList)
+                        presenter.onDeleteClicked(workoutId)
                     }
                 }
             })
@@ -124,6 +118,5 @@ class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
     companion object {
         fun newIntent(context: Context) = Intent(context, ShowWorkoutActivity::class.java)
     }
-
 
 }

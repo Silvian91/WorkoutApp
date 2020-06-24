@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
-import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutRecyclerAdapter
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter
 import com.google.android.material.behavior.SwipeDismissBehavior
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.view_holder_workouts.*
 class ShowWorkoutViewHolder(
     override val containerView: View,
     private val parent: Lifecycle,
-    private val listener: ShowWorkoutRecyclerAdapter.WorkoutViewHolderListener
+    private val listener: ShowWorkoutAdapter.WorkoutViewHolderListener
 ) : BaseViewHolder<ShowWorkoutItemWrapper>(containerView), LayoutContainer {
 
     override fun bind(model: ShowWorkoutItemWrapper) {
@@ -46,7 +46,7 @@ class ShowWorkoutViewHolder(
                 // SHOULD SET THE DATA OF THE ADAPTER NEW (CALL THE SETDATA FUNCTION AGAIN)
                 // USE DIFFUTIL WITH RECYCLERVIEW SO IT ONLY REDRAWS THE ITEM CHANGED
                 val workoutsList = ArrayList<ShowWorkoutItemWrapper>()
-                listener.onSwipeToDelete(model.workoutTitle.id!!, workoutsList)
+                listener.onDeleteWorkout(model.workoutTitle.id!!)
             }
 
             override fun onDragStateChanged(state: Int) {

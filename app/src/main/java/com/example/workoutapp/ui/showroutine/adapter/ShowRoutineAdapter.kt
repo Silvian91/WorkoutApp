@@ -8,7 +8,7 @@ import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper.Item
 import com.example.workoutapp.ui.showroutine.adapter.viewholder.ShowRoutineEntryViewHolder
 import com.example.workoutapp.ui.showroutine.adapter.viewholder.ShowRoutineTitleViewHolder
 
-class ShowRoutineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ShowRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<ShowRoutineItemWrapper> = ArrayList()
 

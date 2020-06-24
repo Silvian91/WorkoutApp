@@ -27,6 +27,8 @@ class ShowWorkoutPresenter(
 
     private lateinit var view: ShowWorkoutContract.View
 
+    private var userId: Long = 0
+
     override fun setView(view: ShowWorkoutContract.View) {
         this.view = view
     }
@@ -36,7 +38,10 @@ class ShowWorkoutPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetUserSuccess -> getWorkoutsForUser(it.user.id!!)
+                    is GetUserSuccess -> {
+                        userId = it.user.id!!
+                        getWorkoutsForUser(userId)
+                    }
                     is ErrorUnauthorized -> view.showLogin()
                     else -> view.showError()
                 }
@@ -51,11 +56,11 @@ class ShowWorkoutPresenter(
                 when (output) {
                     is SuccessNoData -> {
                         val items = convertToItemWrapper()
-                        view.showWorkoutsListData(items)
+                        view.showWorkouts(items)
                     }
                     is GetWorkoutSuccess -> {
                         val items = convertToItemWrapper(output.workouts)
-                        view.showWorkoutsListData(items)
+                        view.showWorkouts(items)
                     }
                     else -> view.showError()
                 }
@@ -75,30 +80,31 @@ class ShowWorkoutPresenter(
         return itemWrappers
     }
 
-    override fun onDeleteClicked(
-        workoutId: Long,
-        workoutsList: List<ShowWorkoutItemWrapper>
-    ) {
+    override fun onDeleteClicked(workoutId: Long) {
         deleteWorkoutUseCase.execute(DeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is DeleteWorkoutSuccess -> view.showWorkoutsListData(workoutsList)
+                    is DeleteWorkoutSuccess -> {
+                        getWorkoutsForUser(userId)
+                        view.showUndoOption(workoutId)
+                    }
                     else -> view.showError()
                 }
             }
             .addTo(compositeDisposable)
     }
 
+    override fun onUndoDeletion(workoutId: Long) {
+        //TODO: Undo deletion
+    }
+
     override fun finish() = compositeDisposable.clear()
 
     override fun onWorkoutClicked(workoutId: Long) = view.showRoutines(workoutId)
 
-    override fun onSwipeToDelete(
-        workoutId: Long,
-        workoutsList: List<ShowWorkoutItemWrapper>
-    ) {
-        view.alertDialog(workoutId, workoutsList)
+    override fun onDeleteWorkout(workoutId: Long) {
+        view.showDeleteConfirmation(workoutId)
     }
 
 }

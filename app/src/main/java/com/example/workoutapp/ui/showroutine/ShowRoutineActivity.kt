@@ -13,7 +13,7 @@ import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
-import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineRecyclerAdapter
+import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineAdapter
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
@@ -28,7 +28,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     @Inject
     lateinit var presenter: ShowRoutineContract.Presenter
 
-    private lateinit var showRoutineAdapter: ShowRoutineRecyclerAdapter
+    private lateinit var showRoutineAdapter: ShowRoutineAdapter
 
     override fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
         showRoutineAdapter.setData(routineData)
@@ -77,7 +77,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     private fun initRoutineRecyclerView() {
         recyclerViewRoutine.apply {
             layoutManager = LinearLayoutManager(this@ShowRoutineActivity)
-            showRoutineAdapter = ShowRoutineRecyclerAdapter()
+            showRoutineAdapter = ShowRoutineAdapter()
             adapter = showRoutineAdapter
         }
     }
