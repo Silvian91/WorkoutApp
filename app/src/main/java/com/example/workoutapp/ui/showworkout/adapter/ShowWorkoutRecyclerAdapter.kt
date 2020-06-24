@@ -67,13 +67,9 @@ class ShowWorkoutRecyclerAdapter(
             return (oldWorkoutList[oldItemPosition].type.ordinal == newWorkoutList[newItemPosition].type.ordinal)
         }
 
-        override fun getOldListSize(): Int {
-            return oldWorkoutList.size
-        }
+        override fun getOldListSize() = oldWorkoutList.size
 
-        override fun getNewListSize(): Int {
-            return newWorkoutList.size
-        }
+        override fun getNewListSize() = newWorkoutList.size
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldWorkoutList[oldItemPosition] == newWorkoutList[newItemPosition]

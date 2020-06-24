@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.main
+package com.example.workoutapp.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_network_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
-import com.example.workoutapp.ui.main.recyclerviewadapter.HomeAdapter
-import com.example.workoutapp.ui.main.recyclerviewadapter.HomeItemsWrapper
+import com.example.workoutapp.ui.home.adapter.HomeAdapter
+import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -25,7 +25,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     private lateinit var homeAdapter: HomeAdapter
 
-    override fun showData(items: List<HomeItemsWrapper>) {
+    override fun showData(items: List<HomeItemWrapper>) {
         homeAdapter.setData(items)
     }
 

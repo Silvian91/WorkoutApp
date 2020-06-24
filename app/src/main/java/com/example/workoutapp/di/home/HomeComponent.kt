@@ -1,6 +1,6 @@
 package com.example.workoutapp.di.home
 
-import com.example.workoutapp.ui.main.HomeFragment
+import com.example.workoutapp.ui.home.HomeFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [HomeModule::class])

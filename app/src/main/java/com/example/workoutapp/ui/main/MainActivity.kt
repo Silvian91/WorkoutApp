@@ -6,14 +6,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
-import com.example.workoutapp.ui.main.viewpageradapter.ViewPagerFragmentAdapter
+import com.example.workoutapp.ui.home.HomeFragment
+import com.example.workoutapp.ui.common.adapter.FragmentAdapter
 import com.example.workoutapp.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
-    private lateinit var fragmentAdapter: ViewPagerFragmentAdapter
+    private lateinit var fragmentAdapter: FragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadFragment() {
         viewPager = findViewById(R.id.view_pager)
-        fragmentAdapter = ViewPagerFragmentAdapter(this)
+        fragmentAdapter = FragmentAdapter(this)
         fragmentAdapter.addFragment(HomeFragment())
         fragmentAdapter.addFragment(ProfileFragment())
         viewPager.adapter = fragmentAdapter

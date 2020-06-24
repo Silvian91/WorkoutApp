@@ -35,9 +35,7 @@ class ShowRoutineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -54,9 +52,7 @@ class ShowRoutineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return items[position].type.ordinal
-    }
+    override fun getItemViewType(position: Int) = items[position].type.ordinal
 
     fun setData(items: List<ShowRoutineItemWrapper>) {
         this.items = items

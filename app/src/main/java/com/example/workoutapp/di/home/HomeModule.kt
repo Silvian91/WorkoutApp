@@ -14,8 +14,8 @@ import com.example.workoutapp.domain.openweathermap.GetWeatherUseCaseImpl
 import com.example.workoutapp.domain.openweathermap.WeatherRepository
 import com.example.workoutapp.http.inspirationalquote.InspirationalApiService
 import com.example.workoutapp.http.openweathermap.OpenWeatherMapApiService
-import com.example.workoutapp.ui.main.HomeContract
-import com.example.workoutapp.ui.main.HomePresenter
+import com.example.workoutapp.ui.home.HomeContract
+import com.example.workoutapp.ui.home.HomePresenter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable

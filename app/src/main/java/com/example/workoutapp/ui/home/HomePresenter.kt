@@ -1,10 +1,10 @@
-package com.example.workoutapp.ui.main
+package com.example.workoutapp.ui.home
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase.Input
 import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase
-import com.example.workoutapp.ui.main.recyclerviewadapter.HomeItemsWrapper
+import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
@@ -20,7 +20,7 @@ class HomePresenter(
 
     private lateinit var view: HomeContract.View
 
-    private val itemsWrapper = ArrayList<HomeItemsWrapper>()
+    private val itemsWrapper = ArrayList<HomeItemWrapper>()
 
     override fun setView(view: HomeContract.View) {
         this.view = view
@@ -39,14 +39,14 @@ class HomePresenter(
             .subscribeBy {
                 when (it.first) {
                     is WeatherSuccess -> {
-                        itemsWrapper.add(HomeItemsWrapper.Weather((it.first as WeatherSuccess).weather))
+                        itemsWrapper.add(HomeItemWrapper.Weather((it.first as WeatherSuccess).weather))
                     }
                     else -> view.showNetworkError()
                 }
                 when (it.second) {
                     is QuoteSuccess -> {
-                        itemsWrapper.add(HomeItemsWrapper.Quote((it.second as QuoteSuccess).quote))
-                        itemsWrapper.add(HomeItemsWrapper.Actions)
+                        itemsWrapper.add(HomeItemWrapper.Quote((it.second as QuoteSuccess).quote))
+                        itemsWrapper.add(HomeItemWrapper.Actions)
                         view.showData(itemsWrapper)
                     }
                     else -> view.showNetworkError()

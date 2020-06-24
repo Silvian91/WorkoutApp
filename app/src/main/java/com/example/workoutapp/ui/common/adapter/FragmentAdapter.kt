@@ -1,10 +1,10 @@
-package com.example.workoutapp.ui.main.viewpageradapter
+package com.example.workoutapp.ui.common.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerFragmentAdapter(
+class FragmentAdapter(
     fragmentActivity: FragmentActivity
 ) : FragmentStateAdapter(fragmentActivity) {
 
