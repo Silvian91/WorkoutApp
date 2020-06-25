@@ -1,5 +1,6 @@
 package com.example.workoutapp.ui.showworkout.adapter
 
+import ListDiffCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
@@ -10,6 +11,7 @@ import com.example.workoutapp.R.layout.view_holder_workouts
 import com.example.workoutapp.R.layout.view_holder_workouts_no_data
 import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.ItemType.WORKOUT_NO_DATA
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.ItemType.WORKOUT_TITLE
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutNoDataViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutViewHolder
 
@@ -26,17 +28,16 @@ class ShowWorkoutAdapter(
             parent,
             false
         )
-        return if (viewType == view_holder_workouts_no_data) {
-            ShowWorkoutNoDataViewHolder(view)
-        } else {
-            ShowWorkoutViewHolder(view, parentLifecycle, listener)
+        return when (viewType) {
+            view_holder_workouts_no_data -> ShowWorkoutNoDataViewHolder(view)
+            else -> ShowWorkoutViewHolder(view, parentLifecycle, listener)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position].type) {
             WORKOUT_NO_DATA -> view_holder_workouts_no_data
-            else -> view_holder_workouts
+            WORKOUT_TITLE -> view_holder_workouts
         }
     }
 
@@ -46,34 +47,16 @@ class ShowWorkoutAdapter(
 
     override fun getItemCount() = items.size
 
-    fun setData(workoutsList: List<ShowWorkoutItemWrapper>) {
-        val oldWorkoutList = items
+    fun setData(newList: List<ShowWorkoutItemWrapper>) {
+        val oldList = items
         val diffResult: DiffResult = DiffUtil.calculateDiff(
-            WorkoutListDiffCallback(
-                oldWorkoutList,
-                workoutsList
+            ListDiffCallback(
+                oldList,
+                newList
             )
         )
-        items = workoutsList
+        items = newList
         diffResult.dispatchUpdatesTo(this)
-    }
-
-    class WorkoutListDiffCallback(
-        private var oldWorkoutList: List<ShowWorkoutItemWrapper>,
-        private var newWorkoutList: List<ShowWorkoutItemWrapper>
-    ) : DiffUtil.Callback() {
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return (oldWorkoutList[oldItemPosition].type.ordinal == newWorkoutList[newItemPosition].type.ordinal)
-        }
-
-        override fun getOldListSize() = oldWorkoutList.size
-
-        override fun getNewListSize() = newWorkoutList.size
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldWorkoutList[oldItemPosition] == newWorkoutList[newItemPosition]
-        }
-
     }
 
     interface WorkoutViewHolderListener {
