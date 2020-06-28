@@ -32,4 +32,11 @@ class UserLocalDataSourceImpl(val context: Context) : UserLocalDataSource {
             .map { it.toModel() }
     }
 
+    override fun getUser(): Maybe<Long> {
+        return Maybe.fromCallable {
+            WorkoutAppDatabase.getInstance(context).userDao().getUser()
+        }
+            .map { it }
+    }
+
 }

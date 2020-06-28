@@ -20,4 +20,8 @@ class UserRepositoryImpl(private val userLocalDataSource: UserLocalDataSource) :
         return userLocalDataSource.getUser(id)
     }
 
+    override fun getUser(): Maybe<Long> {
+        return userLocalDataSource.getUser()
+    }
+
 }

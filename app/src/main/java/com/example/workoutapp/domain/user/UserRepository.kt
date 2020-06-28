@@ -13,4 +13,6 @@ interface UserRepository {
 
     fun getUser(id: Long): Single<UserModel>
 
+    fun getUser(): Maybe<Long>
+
 }
