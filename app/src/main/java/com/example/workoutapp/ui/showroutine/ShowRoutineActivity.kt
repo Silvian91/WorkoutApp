@@ -13,8 +13,8 @@ import com.example.workoutapp.R.string.text_show_routines_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.main.MainActivity
-import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineAdapter
+import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
@@ -48,6 +48,10 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         initRoutineRecyclerView()
         presenter.start()
 
+        deleteWorkout()
+    }
+
+    private fun deleteWorkout() {
         button_delete_workout
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
@@ -67,11 +71,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
-        startActivity(
-            MainActivity.newIntent(this)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
-
+        finish()
         return true
     }
 
@@ -83,7 +83,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         }
     }
 
-    override fun nextActivity() {
+    override fun startShowWorkout() {
         startActivity(ShowWorkoutActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
@@ -111,7 +111,6 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
 
     companion object {
         const val workoutIdExtra = "workoutId"
-        const val ROUTINES = "Routines"
 
         fun newIntent(context: Context, workoutId: Long) =
             Intent(context, ShowRoutineActivity::class.java).apply {

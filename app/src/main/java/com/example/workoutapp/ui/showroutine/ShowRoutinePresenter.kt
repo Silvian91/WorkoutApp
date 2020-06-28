@@ -23,6 +23,10 @@ class ShowRoutinePresenter(
 
     private var workoutId: Long = 0
 
+    override fun setView(view: ShowRoutineContract.View) {
+        this.view = view
+    }
+
     override fun start() {
         getRoutineUseCase.execute(Input(workoutId))
             .doOnIoObserveOnMain()
@@ -51,14 +55,6 @@ class ShowRoutinePresenter(
         return itemWrappers
     }
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
-
-    override fun setView(view: ShowRoutineContract.View) {
-        this.view = view
-    }
-
     override fun setWorkoutId(workoutId: Long) {
         this.workoutId = workoutId
     }
@@ -68,7 +64,7 @@ class ShowRoutinePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is DeleteWorkoutSuccess -> view.nextActivity()
+                    is DeleteWorkoutSuccess -> view.startShowWorkout()
                     else -> view.errorUnknown()
                 }
             }
@@ -77,6 +73,10 @@ class ShowRoutinePresenter(
 
     override fun onDeleteClicked() {
         view.showDeleteAlertDialog(workoutId)
+    }
+
+    override fun finish() {
+        compositeDisposable.clear()
     }
 
     companion object {
