@@ -20,6 +20,8 @@ import com.example.workoutapp.di.showworkout.ShowWorkoutComponent
 import com.example.workoutapp.di.showworkout.ShowWorkoutModule
 import com.example.workoutapp.di.signup.SignupComponent
 import com.example.workoutapp.di.signup.SignupModule
+import com.example.workoutapp.di.splash.SplashComponent
+import com.example.workoutapp.di.splash.SplashModule
 import com.example.workoutapp.ui.WorkoutApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -50,6 +52,7 @@ interface AppComponent {
     fun plus(loginModule: LoginModule): LoginComponent
     fun plus(registerModule: RegisterModule): RegisterComponent
     fun plus(profileModule: ProfileModule): ProfileComponent
+    fun plus(splashModule: SplashModule): SplashComponent
 
     @Component.Builder
     interface Builder {
