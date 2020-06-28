@@ -10,6 +10,11 @@
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
+    <!-- Splash Screen -->
+    <style name="splashScreenStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+
     <!-- Buttons -->
     <style name="buttonColorAndBackground" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:background">@color/DarkSlateGray</item>
