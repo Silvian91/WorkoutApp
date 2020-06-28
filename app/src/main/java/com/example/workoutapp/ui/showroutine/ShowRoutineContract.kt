@@ -8,7 +8,7 @@ interface ShowRoutineContract {
 
     interface View : BaseView<Presenter> {
         fun showRoutineData(routineData: List<ShowRoutineItemWrapper>)
-        fun startShowWorkout()
+        fun openShowWorkoutActivity()
         fun errorUnknown()
         fun showDeleteAlertDialog(workoutId: Long)
     }

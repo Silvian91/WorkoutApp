@@ -64,7 +64,7 @@ class ShowRoutinePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is DeleteWorkoutSuccess -> view.startShowWorkout()
+                    is DeleteWorkoutSuccess -> view.openShowWorkoutActivity()
                     else -> view.errorUnknown()
                 }
             }

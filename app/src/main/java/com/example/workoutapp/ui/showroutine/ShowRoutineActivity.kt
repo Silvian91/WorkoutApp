@@ -83,7 +83,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         }
     }
 
-    override fun startShowWorkout() {
+    override fun openShowWorkoutActivity() {
         startActivity(ShowWorkoutActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
