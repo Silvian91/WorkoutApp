@@ -18,8 +18,6 @@ import com.example.workoutapp.di.showroutine.ShowRoutineComponent
 import com.example.workoutapp.di.showroutine.ShowRoutineModule
 import com.example.workoutapp.di.showworkout.ShowWorkoutComponent
 import com.example.workoutapp.di.showworkout.ShowWorkoutModule
-import com.example.workoutapp.di.signup.SignupComponent
-import com.example.workoutapp.di.signup.SignupModule
 import com.example.workoutapp.di.splash.SplashComponent
 import com.example.workoutapp.di.splash.SplashModule
 import com.example.workoutapp.ui.WorkoutApplication
@@ -48,7 +46,6 @@ interface AppComponent {
     fun plus(addRoutineModule: AddRoutineModule): AddRoutineComponent
     fun plus(showRoutineModule: ShowRoutineModule): ShowRoutineComponent
     fun plus(homeModule: HomeModule): HomeComponent
-    fun plus(singupModule: SignupModule): SignupComponent
     fun plus(loginModule: LoginModule): LoginComponent
     fun plus(registerModule: RegisterModule): RegisterComponent
     fun plus(profileModule: ProfileModule): ProfileComponent

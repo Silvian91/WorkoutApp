@@ -22,7 +22,6 @@ import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
-import com.example.workoutapp.ui.signup.SignupActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
@@ -92,7 +91,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     override fun showLoginActivity() {
         startActivity(
-            SignupActivity.newIntent(requireContext()).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            LoginActivity.newIntent(requireContext()).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
     }
 

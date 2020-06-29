@@ -16,8 +16,6 @@ import com.example.workoutapp.di.showroutine.ShowRoutineComponent
 import com.example.workoutapp.di.showroutine.ShowRoutineModule
 import com.example.workoutapp.di.showworkout.ShowWorkoutComponent
 import com.example.workoutapp.di.showworkout.ShowWorkoutModule
-import com.example.workoutapp.di.signup.SignupComponent
-import com.example.workoutapp.di.signup.SignupModule
 import com.example.workoutapp.di.splash.SplashComponent
 import com.example.workoutapp.di.splash.SplashModule
 
@@ -41,10 +39,6 @@ class WorkoutComponentProvider(private val appComponent: AppComponent) {
 
     fun createMainComponent(): HomeComponent {
         return appComponent.plus(HomeModule())
-    }
-
-    fun createSignupComponent(): SignupComponent {
-        return appComponent.plus(SignupModule())
     }
 
     fun createLoginComponent(): LoginComponent {

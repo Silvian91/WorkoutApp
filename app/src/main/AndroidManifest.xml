@@ -32,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.workoutapp.ui.signup.SignupActivity"/>
         <activity android:name="com.example.workoutapp.ui.addworkout.AddWorkoutActivity" />
         <activity android:name="com.example.workoutapp.ui.showworkout.ShowWorkoutActivity" />
         <activity android:name="com.example.workoutapp.ui.addroutine.AddRoutineActivity" />
