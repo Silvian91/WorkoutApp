@@ -9,7 +9,7 @@
     tools:context=".ui.register.RegisterActivity">
 
     <TextView
-        android:id="@+id/login_title"
+        android:id="@+id/text_no_account"
         style="@style/headingStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/register_username_field"
-            style="@style/textBodyStyle"
+            style="@style/inputFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -45,7 +45,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/register_password_field"
-            style="@style/textBodyStyle"
+            style="@style/inputFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
