@@ -1,21 +1,21 @@
 package com.example.workoutapp.domain.user
 
-import com.example.workoutapp.domain.user.GetExistingUserUseCase.Input
-import com.example.workoutapp.domain.user.GetExistingUserUseCase.Output
-import com.example.workoutapp.domain.user.GetExistingUserUseCase.Output.*
+import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Input
+import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Output
+import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Output.*
 import io.reactivex.Single
 
-class GetExistingUserUseCaseImpl(
+class IsUserDBEmptyUseCaseImpl(
     private val userRepository: UserRepository
-) : GetExistingUserUseCase {
+) : IsUserDBEmptyUseCase {
     override fun execute(input: Input): Single<Output> {
         return userRepository.getUser()
             .flatMapSingle {
                 if (it > 0) {
-                    Single.just(Success as Output)
+                    Single.just(DBEmpty as Output)
                 }
                 else
-                    Single.just(NoUsers as Output)
+                    Single.just(DBNotEmpty as Output)
             }
             .onErrorReturn {
                 ErrorUnknown

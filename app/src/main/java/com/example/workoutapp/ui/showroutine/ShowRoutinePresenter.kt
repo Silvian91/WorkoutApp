@@ -72,7 +72,7 @@ class ShowRoutinePresenter(
     }
 
     override fun onDeleteClicked() {
-        view.showDeleteAlertDialog(workoutId)
+        view.showDeleteConfirmation(workoutId)
     }
 
     override fun finish() {

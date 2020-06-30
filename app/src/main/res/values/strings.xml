@@ -34,7 +34,7 @@
     <string name="text_register_button">Register</string>
     <string name="text_login_button">Login</string>
     <string name="text_sign_up_screen">Register a new account or log in with an existing one</string>
-    <string name="text_login_title">Enter your credentials to login</string>
+    <string name="text_login_no_account_yet">Don\'t have an account?&#160;</string>
     <string name="text_login_register">Enter a username and password to register</string>
     <string name="text_username">Username</string>
     <string name="text_password">Password</string>
@@ -57,5 +57,6 @@
     <string name="text_workout_app">Workout App</string>
     <string name="text_show_routines_toolbar">Routines</string>
     <string name="text_add_routine_toolbar">Add Routine</string>
+    <string name="text_sing_up">Singup</string>
 
 </resources>

@@ -1,16 +1,16 @@
 package com.example.workoutapp.ui.splash
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.domain.user.GetExistingUserUseCase
-import com.example.workoutapp.domain.user.GetExistingUserUseCase.Input
+import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase
+import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Input
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import com.example.workoutapp.domain.user.GetExistingUserUseCase.Output.NoUsers as NoExistingUsers
-import com.example.workoutapp.domain.user.GetExistingUserUseCase.Output.Success as SuccessExistingUser
+import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Output.DBNotEmpty
+import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Output.DBEmpty
 
 class SplashPresenter (
-    private val getExistingUserUseCase: GetExistingUserUseCase,
+    private val isUserDBEmptyUseCase: IsUserDBEmptyUseCase,
     private val compositeDisposable: CompositeDisposable
 ): SplashContract.Presenter {
 
@@ -21,13 +21,13 @@ class SplashPresenter (
     }
 
     override fun start() {
-        getExistingUserUseCase.execute(Input)
+        isUserDBEmptyUseCase.execute(Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is SuccessExistingUser -> view.openLoginActivity()
-                    is NoExistingUsers -> view.openRegisterActivity()
-                    else -> view.showError()
+                    is DBNotEmpty -> view.openLogin()
+                    is DBEmpty -> view.openRegister()
+                    else -> view.openLogin()
                 }
             }
             .addTo(compositeDisposable)

@@ -6,9 +6,8 @@ import com.example.workoutapp.ui.common.BaseView
 interface SplashContract {
 
     interface View: BaseView<Presenter>{
-        fun openLoginActivity()
-        fun openRegisterActivity()
-        fun showError()
+        fun openLogin()
+        fun openRegister()
     }
 
     interface Presenter: BasePresenter<View>

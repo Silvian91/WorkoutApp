@@ -26,7 +26,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     private lateinit var homeAdapter: HomeAdapter
 
     override fun showData(items: List<HomeItemWrapper>) {
-        homeAdapter.setData(items)
+        homeAdapter.items = items
     }
 
     override fun onCreateView(

@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import com.example.workoutapp.ui.main.MainActivity
+import com.example.workoutapp.ui.register.RegisterActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.jakewharton.rxbinding3.view.clicks
@@ -31,14 +32,29 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         setContentView(R.layout.activity_login)
 
         presenter.setView(this)
+
+        clickLogin()
+        clickSignUp()
+    }
+
+    private fun clickLogin() {
         button_confirm_login
             .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
                 presenter.onLoginClicked(
                     login_username_field.text.toString().toLowerCase(Locale.ENGLISH),
                     login_password_field.text.toString()
                 )
+            }
+    }
+
+    private fun clickSignUp() {
+        text_sign_up
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
+            .subscribe {
+                presenter.onSignUpClicked()
             }
     }
 
@@ -70,6 +86,13 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 Snackbar.make(login_layout, UNKNOWN.error, LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun openRegisterActivity() {
+        startActivity(
+            RegisterActivity.newIntent(this)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        )
     }
 
     override fun onDestroy() {

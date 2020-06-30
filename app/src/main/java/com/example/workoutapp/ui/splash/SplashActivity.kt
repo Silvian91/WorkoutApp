@@ -1,15 +1,11 @@
 package com.example.workoutapp.ui.splash
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.workoutapp.R
-import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.register.RegisterActivity
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
-import kotlinx.android.synthetic.main.activity_register.*
 import javax.inject.Inject
 
 class SplashActivity: AppCompatActivity(), SplashContract.View {
@@ -26,17 +22,14 @@ class SplashActivity: AppCompatActivity(), SplashContract.View {
         presenter.start()
     }
 
-    override fun openLoginActivity() {
+    override fun openLogin() {
         startActivity(LoginActivity.newIntent(this))
+        finish()
     }
 
-    override fun openRegisterActivity() {
+    override fun openRegister() {
         startActivity(RegisterActivity.newIntent(this))
+        finish()
     }
 
-    override fun showError() = Snackbar.make(
-        window.decorView.rootView,
-        text_unknown_error,
-        LENGTH_SHORT
-    ).show()
 }

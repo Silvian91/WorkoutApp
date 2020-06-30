@@ -13,7 +13,11 @@ import com.example.workoutapp.ui.showroutine.adapter.viewholder.ShowRoutineTitle
 
 class ShowRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<ShowRoutineItemWrapper> = ArrayList()
+    var items: List<ShowRoutineItemWrapper> = ArrayList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -39,11 +43,6 @@ class ShowRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             TITLE -> view_holder_routines_title
             ENTRY -> view_holder_routines_entry
         }
-    }
-
-    fun setData(items: List<ShowRoutineItemWrapper>) {
-        this.items = items
-        notifyDataSetChanged()
     }
 
 }

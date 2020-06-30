@@ -11,7 +11,7 @@
     </style>
 
     <!-- Splash Screen -->
-    <style name="splashScreenStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="splashScreenStyle" parent="BaseAppTheme">
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
@@ -26,6 +26,15 @@
 
     <!-- Body -->
     <style name="textBodyStyle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/DarkSlateGray</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Input Field -->
+    <style name="inputFields" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:background">@color/White</item>
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textStyle">normal</item>

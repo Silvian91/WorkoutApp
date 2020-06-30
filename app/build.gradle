@@ -99,4 +99,9 @@ dependencies {
     implementation "com.uber.autodispose:autodispose:1.4.0"
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.4.0'
 
+    //SDP & SSP
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+
 }

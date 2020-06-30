@@ -16,7 +16,11 @@ class HomeAdapter(
     private val parentLifecycle: Lifecycle
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<HomeItemWrapper> = ArrayList()
+    var items: List<HomeItemWrapper> = ArrayList()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -47,11 +51,6 @@ class HomeAdapter(
             QUOTE -> view_holder_home_quote
             ACTIONS -> view_holder_home_actions
         }
-    }
-
-    fun setData(items: List<HomeItemWrapper>) {
-        this.items = items
-        notifyDataSetChanged()
     }
 
     interface ButtonHolderViewListener {

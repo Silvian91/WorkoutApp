@@ -8,10 +8,12 @@ interface LoginContract {
     interface View : BaseView<Presenter> {
         fun showHome()
         fun showError(errorType: ErrorType)
+        fun openRegisterActivity()
     }
 
     interface Presenter : BasePresenter<View> {
         fun onLoginClicked(username: String, password: String)
+        fun onSignUpClicked()
     }
 
     enum class ErrorType(val error: String) {

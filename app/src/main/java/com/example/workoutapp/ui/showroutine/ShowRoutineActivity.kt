@@ -32,7 +32,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
     private lateinit var showRoutineAdapter: ShowRoutineAdapter
 
     override fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
-        showRoutineAdapter.setData(routineData)
+        showRoutineAdapter.items = routineData
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +91,7 @@ class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
         Snackbar.make(upper_layout, text_unknown_error, LENGTH_SHORT).show()
     }
 
-    override fun showDeleteAlertDialog(workoutId: Long) {
+    override fun showDeleteConfirmation(workoutId: Long) {
         AlertDialog.Builder(this)
             .setMessage(R.string.text_dialog_delete_routines)
             .setNegativeButton(

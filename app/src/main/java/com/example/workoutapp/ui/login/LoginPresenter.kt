@@ -44,4 +44,8 @@ class LoginPresenter(
             .addTo(compositeDisposable)
     }
 
+    override fun onSignUpClicked() {
+        view.openRegisterActivity()
+    }
+
 }
