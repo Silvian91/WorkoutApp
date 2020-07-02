@@ -3,10 +3,10 @@ package com.example.workoutapp.ui.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
 import com.example.workoutapp.ui.main.MainActivity
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity(), LoginContract.View {
+class LoginActivity : BaseActivity(), LoginContract.View {
 
     @Inject
     lateinit var presenter: LoginContract.Presenter

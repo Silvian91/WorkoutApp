@@ -5,11 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_error_registration_failed
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 import javax.inject.Inject
 
-class RegisterActivity : AppCompatActivity(), RegisterContract.View {
+class RegisterActivity : BaseActivity(), RegisterContract.View {
 
     @Inject
     lateinit var presenter: RegisterContract.Presenter

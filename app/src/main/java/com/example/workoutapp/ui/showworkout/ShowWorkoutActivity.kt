@@ -4,13 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_show_workout.*
 import kotlinx.android.synthetic.main.view_holder_workouts.*
 import javax.inject.Inject
 
-class ShowWorkoutActivity : AppCompatActivity(), ShowWorkoutContract.View {
+class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
 
     @Inject
     lateinit var presenter: ShowWorkoutContract.Presenter

@@ -5,14 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_show_routines_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
-import com.example.workoutapp.ui.main.MainActivity
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineAdapter
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
@@ -24,7 +23,7 @@ import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_show_routine.*
 import javax.inject.Inject
 
-class ShowRoutineActivity : AppCompatActivity(), ShowRoutineContract.View {
+class ShowRoutineActivity : BaseActivity(), ShowRoutineContract.View {
 
     @Inject
     lateinit var presenter: ShowRoutineContract.Presenter

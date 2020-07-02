@@ -1,14 +1,13 @@
 package com.example.workoutapp.ui.splash
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.register.RegisterActivity
 import javax.inject.Inject
 
-class SplashActivity: AppCompatActivity(), SplashContract.View {
+class SplashActivity: BaseActivity(), SplashContract.View {
 
     @Inject
     lateinit var presenter: SplashContract.Presenter

@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_add_workout_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineActivity
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
@@ -19,7 +19,7 @@ import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_add_workout.*
 import javax.inject.Inject
 
-class AddWorkoutActivity : AppCompatActivity(), AddWorkoutContract.View {
+class AddWorkoutActivity : BaseActivity(), AddWorkoutContract.View {
 
     @Inject
     lateinit var presenter: AddWorkoutContract.Presenter

@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_add_routine_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
@@ -21,7 +21,7 @@ import com.uber.autodispose.autoDispose
 import kotlinx.android.synthetic.main.activity_add_routine.*
 import javax.inject.Inject
 
-class AddRoutineActivity : AppCompatActivity(), AddRoutineContract.View {
+class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
 
     @Inject
     lateinit var presenter: AddRoutineContract.Presenter

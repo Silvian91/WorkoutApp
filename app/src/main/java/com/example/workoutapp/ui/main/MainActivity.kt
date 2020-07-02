@@ -3,15 +3,15 @@ package com.example.workoutapp.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
-import com.example.workoutapp.ui.home.HomeFragment
+import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.common.adapter.FragmentAdapter
+import com.example.workoutapp.ui.home.HomeFragment
 import com.example.workoutapp.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var fragmentAdapter: FragmentAdapter
