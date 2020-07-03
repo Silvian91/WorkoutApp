@@ -19,7 +19,7 @@
     <style name="buttonColorAndBackground" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:background">@color/DarkSlateGray</item>
         <item name="android:textColor">@color/AntiqueWhite</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/smallFont</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
@@ -29,7 +29,7 @@
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/mediumFont</item>
     </style>
 
     <!-- Input Field -->
@@ -38,7 +38,7 @@
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/mediumFont</item>
     </style>
 
     <!-- Heading -->
@@ -46,7 +46,7 @@
         <item name="fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/largeFont</item>
     </style>
 
     <!-- SubHeading -->
@@ -54,7 +54,7 @@
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/largeFont</item>
     </style>
 
     <!-- Toolbar -->

@@ -104,7 +104,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/text_sing_up"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
+        android:textSize="@dimen/mediumFont"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_no_account" />
 

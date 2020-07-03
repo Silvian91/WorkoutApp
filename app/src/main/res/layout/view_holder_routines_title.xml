@@ -11,7 +11,7 @@
         android:id="@+id/title_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="@dimen/increasedMargin"
         android:background="@color/Gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:paddingStart="40dp"
+        android:paddingStart="@dimen/increasedMargin"
         android:text="Title" />
 
 

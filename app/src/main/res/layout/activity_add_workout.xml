@@ -21,17 +21,17 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingBottom="40dp">
+            android:paddingBottom="@dimen/increasedMargin">
 
             <TextView
                 android:id="@+id/add_workout_title"
                 style="@style/headingStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginStart="@dimen/defaultMargin"
+                android:layout_marginTop="@dimen/defaultMargin"
+                android:layout_marginEnd="@dimen/defaultMargin"
+                android:layout_marginBottom="@dimen/defaultMargin"
                 android:gravity="center"
                 android:text="@string/text_add_workout_title" />
 
@@ -45,8 +45,8 @@
                     style="@style/inputFields"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="@dimen/defaultMargin"
+                    android:layout_marginEnd="@dimen/defaultMargin"
                     android:hint="@string/text_add_workout_title_field"
                     android:inputType="textPersonName" />
 
@@ -61,9 +61,9 @@
         style="@style/buttonColorAndBackground"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="@dimen/increasedMargin"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="@dimen/increasedMargin"
         android:layout_marginBottom="24dp"
         android:text="@string/text_continue"
         app:layout_constraintBottom_toBottomOf="parent"
