@@ -75,10 +75,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun showLogin() {
-        startActivity(
-            LoginActivity.newIntent(requireContext())
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
+        startActivity(LoginActivity.newIntent(requireContext()))
+        activity!!.finish()
     }
 
     override fun showError() {
@@ -142,8 +140,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-            presenter.onCameraClicked()
-        }
+                presenter.onCameraClicked()
+            }
     }
 
     override fun openCamera() {
