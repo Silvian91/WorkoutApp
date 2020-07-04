@@ -3,7 +3,7 @@
     <dimen name="loginLogoSize">160dp</dimen>
     <dimen name="defaultMargin">@dimen/_20sdp</dimen>
     <dimen name="increasedMargin">@dimen/_40sdp</dimen>
-    <dimen name="smallFont">@dimen/_12ssp</dimen>
-    <dimen name="mediumFont">@dimen/_16ssp</dimen>
-    <dimen name="largeFont">@dimen/_20ssp</dimen>
+    <dimen name="smallFont">@dimen/_10ssp</dimen>
+    <dimen name="mediumFont">@dimen/_12ssp</dimen>
+    <dimen name="largeFont">@dimen/_16ssp</dimen>
 </resources>
