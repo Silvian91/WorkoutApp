@@ -39,9 +39,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_username_field"
-                    style="@style/inputFields"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/inputFields"
                     android:hint="@string/text_username"
                     android:inputType="textPersonName" />
 
@@ -59,9 +59,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_password_field"
-                    style="@style/inputFields"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/inputFields"
                     android:hint="@string/text_password"
                     android:inputType="textPassword" />
 

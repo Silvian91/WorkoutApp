@@ -41,6 +41,18 @@
         <item name="android:textSize">@dimen/mediumFont</item>
     </style>
 
+<!--    <style name="inputLayout" parent="Widget.Design.TextInputLayout">-->
+<!--        <item name="editTextStyle">@style/inputText</item>-->
+<!--    </style>-->
+
+<!--    <style name="inputText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">-->
+<!--        <item name="fontFamily">sans-serif-medium</item>-->
+<!--        <item name="android:textSize">@dimen/smallFont</item>-->
+<!--        <item name="android:textColor">@color/DarkSlateGray</item>-->
+<!--        <item name="android:textStyle">normal</item>-->
+<!--        <item name="android:background">@color/White</item>-->
+<!--    </style>-->
+
     <!-- Heading -->
     <style name="headingStyle" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">sans-serif-light</item>

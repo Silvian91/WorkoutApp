@@ -42,9 +42,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/workout_title_field"
-                    style="@style/inputFields"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/inputFields"
                     android:layout_marginStart="@dimen/defaultMargin"
                     android:layout_marginEnd="@dimen/defaultMargin"
                     android:hint="@string/text_add_workout_title_field"
