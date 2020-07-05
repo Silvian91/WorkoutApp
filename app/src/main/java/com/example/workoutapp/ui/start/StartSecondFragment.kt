@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.onboarding
+package com.example.workoutapp.ui.start
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.workoutapp.R
 
-class OnboardingFragment2 : Fragment() {
+class StartSecondFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_onboarding_screen2, container, false)
+        return inflater.inflate(R.layout.fragment_start_screen2, container, false)
     }
 }
