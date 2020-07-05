@@ -7,7 +7,7 @@ interface SplashContract {
 
     interface View: BaseView<Presenter>{
         fun openLogin()
-        fun openRegister()
+        fun openStart()
     }
 
     interface Presenter: BasePresenter<View>

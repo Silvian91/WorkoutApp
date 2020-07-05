@@ -26,7 +26,7 @@ class SplashPresenter (
             .subscribeBy {
                 when (it) {
                     is DBNotEmpty -> view.openLogin()
-                    is DBEmpty -> view.openRegister()
+                    is DBEmpty -> view.openStart()
                     else -> view.openLogin()
                 }
             }
