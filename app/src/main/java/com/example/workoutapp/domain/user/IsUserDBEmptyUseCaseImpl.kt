@@ -12,10 +12,10 @@ class IsUserDBEmptyUseCaseImpl(
         return userRepository.getUser()
             .flatMapSingle {
                 if (it > 0) {
-                    Single.just(DBEmpty as Output)
+                    Single.just(DBNotEmpty as Output)
                 }
                 else
-                    Single.just(DBNotEmpty as Output)
+                    Single.just(DBEmpty as Output)
             }
             .onErrorReturn {
                 ErrorUnknown
