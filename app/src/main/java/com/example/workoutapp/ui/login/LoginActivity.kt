@@ -3,6 +3,13 @@ package com.example.workoutapp.ui.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.view.View
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.WorkoutApplication
@@ -34,7 +41,30 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         presenter.setView(this)
 
         clickLogin()
-        clickSignUp()
+        singUpAction()
+    }
+
+    private fun singUpAction() {
+        val singUpString = getString(R.string.text_login_no_account_yet)
+        val spannableString = SpannableString(singUpString)
+
+        val setColor = ForegroundColorSpan(resources.getColor(R.color.colorPrimary))
+
+        val clickAction = object : ClickableSpan() {
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = false
+            }
+
+            override fun onClick(widget: View) {
+                presenter.onSignUpClicked()
+            }
+        }
+
+        spannableString.setSpan(clickAction, 23, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(setColor, 23, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        text_sign_up.text = spannableString
+        text_sign_up.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun clickLogin() {
@@ -46,15 +76,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
                     login_username_field.text.toString().toLowerCase(Locale.ENGLISH),
                     login_password_field.text.toString()
                 )
-            }
-    }
-
-    private fun clickSignUp() {
-        text_sign_up
-            .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
-            .subscribe {
-                presenter.onSignUpClicked()
             }
     }
 
