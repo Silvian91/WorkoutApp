@@ -58,5 +58,9 @@
     <string name="text_show_routines_toolbar">Routines</string>
     <string name="text_add_routine_toolbar">Add Routine</string>
     <string name="text_sing_up">Singup</string>
+    <string name="text_start_header">Welcome to the Workout Notebook</string>
+    <string name="text_start_screen1">Hello new user!</string>
+    <string name="text_start_screen2">The Workout Notebook app is meant to replace your old and bulky gym notebook</string>
+    <string name="text_screen_screen3">We aim to make it easy for you to track old workout sessions and add new ones</string>
 
 </resources>
