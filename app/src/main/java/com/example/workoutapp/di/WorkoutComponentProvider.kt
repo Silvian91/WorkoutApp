@@ -18,6 +18,8 @@ import com.example.workoutapp.di.showworkout.ShowWorkoutComponent
 import com.example.workoutapp.di.showworkout.ShowWorkoutModule
 import com.example.workoutapp.di.splash.SplashComponent
 import com.example.workoutapp.di.splash.SplashModule
+import com.example.workoutapp.di.start.StartComponent
+import com.example.workoutapp.di.start.StartModule
 
 class WorkoutComponentProvider(private val appComponent: AppComponent) {
 
@@ -55,6 +57,10 @@ class WorkoutComponentProvider(private val appComponent: AppComponent) {
 
     fun createSplashComponent(): SplashComponent {
         return appComponent.plus(SplashModule())
+    }
+
+    fun createStartComponent(): StartComponent{
+        return appComponent.plus(StartModule())
     }
 
 }
