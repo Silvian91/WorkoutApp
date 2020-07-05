@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Image sizes -->
     <dimen name="loginLogoSize">160dp</dimen>
+    <dimen name="onboardingImageSize">280dp</dimen>
+
+    <!-- Margin sizes -->
     <dimen name="defaultMargin">@dimen/_20sdp</dimen>
     <dimen name="increasedMargin">@dimen/_40sdp</dimen>
+    <dimen name="largeMargin">@dimen/_60sdp</dimen>
+
+    <!-- Font sizes -->
     <dimen name="smallFont">@dimen/_10ssp</dimen>
     <dimen name="mediumFont">@dimen/_12ssp</dimen>
     <dimen name="largeFont">@dimen/_16ssp</dimen>
