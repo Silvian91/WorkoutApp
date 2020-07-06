@@ -34,7 +34,7 @@ class UserLocalDataSourceImpl(val context: Context) : UserLocalDataSource {
 
     override fun getUser(): Maybe<Long> {
         return Maybe.fromCallable {
-            WorkoutAppDatabase.getInstance(context).userDao().getUser()
+            WorkoutAppDatabase.getInstance(context).userDao().getUserCount()
         }
             .map { it }
     }

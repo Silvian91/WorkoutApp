@@ -13,7 +13,7 @@ class LoginUseCaseImpl(
 ) : LoginUseCase {
     override fun execute(input: Input): Single<Output> {
         // GET THE USER BASED ON THE USERNAME PROVIDED BY THE INPUT
-        return userRepository.getUser(input.username)
+        return userRepository.getUserCount(input.username)
             // CHECK IF THE PASSWORD PROVIDED BY THE USER INSIDE THE INPUT OBJECT IS THE SAME AS THE PASSWORD RETRIEVED FROM THE DB
             .map {
                 // YES -> RETURN SUCCESS / NOT -> INVALID CREDENTIALS

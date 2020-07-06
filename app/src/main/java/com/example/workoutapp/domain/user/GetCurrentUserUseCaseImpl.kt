@@ -14,7 +14,7 @@ class GetCurrentUserUseCaseImpl(
     override fun execute(input: Input): Single<Output> {
         return sessionManager.getCurrentUserId()
             .flatMap {
-                userRepository.getUser(it)
+                userRepository.getUserCount(it)
             }
             .map {
                 Success(it) as Output

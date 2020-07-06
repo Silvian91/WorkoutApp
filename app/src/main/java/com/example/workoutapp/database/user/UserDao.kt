@@ -17,6 +17,6 @@ interface UserDao {
     fun getUser(id: Long): UserEntity
 
     @Query("SELECT COUNT(*) from users")
-    fun getUser(): Long
+    fun getUserCount(): Long
 
 }

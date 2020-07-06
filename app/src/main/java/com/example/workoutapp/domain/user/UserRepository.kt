@@ -9,10 +9,10 @@ interface UserRepository {
 
     fun insertUser(user: UserModel): Completable
 
-    fun getUser(username: String): Maybe<UserModel>
+    fun getUserCount(username: String): Maybe<UserModel>
 
-    fun getUser(id: Long): Single<UserModel>
+    fun getUserCount(id: Long): Single<UserModel>
 
-    fun getUser(): Maybe<Long>
+    fun getUserCount(): Maybe<Long>
 
 }

@@ -12,15 +12,15 @@ class UserRepositoryImpl(private val userLocalDataSource: UserLocalDataSource) :
         return userLocalDataSource.insertUser(user)
     }
 
-    override fun getUser(username: String): Maybe<UserModel> {
+    override fun getUserCount(username: String): Maybe<UserModel> {
         return userLocalDataSource.getUser(username)
     }
 
-    override fun getUser(id: Long): Single<UserModel> {
+    override fun getUserCount(id: Long): Single<UserModel> {
         return userLocalDataSource.getUser(id)
     }
 
-    override fun getUser(): Maybe<Long> {
+    override fun getUserCount(): Maybe<Long> {
         return userLocalDataSource.getUser()
     }
 

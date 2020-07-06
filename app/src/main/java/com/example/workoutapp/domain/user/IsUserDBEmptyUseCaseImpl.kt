@@ -9,7 +9,7 @@ class IsUserDBEmptyUseCaseImpl(
     private val userRepository: UserRepository
 ) : IsUserDBEmptyUseCase {
     override fun execute(input: Input): Single<Output> {
-        return userRepository.getUser()
+        return userRepository.getUserCount()
             .flatMapSingle {
                 if (it > 0) {
                     Single.just(DBNotEmpty as Output)
