@@ -14,11 +14,13 @@ interface ShowWorkoutContract {
         fun showDeleteConfirmation(workoutId: Long)
         fun showUndoOption(workoutId: Long)
         fun showLogin()
+        fun retryView()
     }
 
     interface Presenter : BasePresenter<View>,
         ShowWorkoutAdapter.WorkoutViewHolderListener {
         fun onDeleteClicked(workoutId: Long)
         fun onUndoDeletion(workoutId: Long)
+        fun onRetryClicked()
     }
 }

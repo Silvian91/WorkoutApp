@@ -99,6 +99,10 @@ class ShowWorkoutPresenter(
         //TODO: Undo deletion
     }
 
+    override fun onRetryClicked() {
+        view.retryView()
+    }
+
     override fun finish() = compositeDisposable.clear()
 
     override fun onWorkoutClicked(workoutId: Long) = view.showRoutines(workoutId)

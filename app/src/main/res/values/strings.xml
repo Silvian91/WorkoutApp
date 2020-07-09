@@ -53,6 +53,7 @@
     <string name="text_show_workout_toolbar">Workouts</string>
     <string name="text_snack_deletion_confirmed">CARD DELETED</string>
     <string name="text_snackbar_undo">UNDO</string>
+    <string name="text_snackbar_retry">RETRY</string>
     <string name="text_add_workout_toolbar">Add Workout</string>
     <string name="text_workout_app">Workout App</string>
     <string name="text_show_routines_toolbar">Routines</string>

@@ -12,6 +12,7 @@ import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
+import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity.Companion.newIntent
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.google.android.material.snackbar.Snackbar
@@ -34,13 +35,19 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
         startActivity(ShowRoutineActivity.newIntent(this, workoutId))
     }
 
-    //TODO:  retry
     override fun showError() {
         Snackbar.make(
             workouts_view_holder,
             text_unknown_error,
             Snackbar.LENGTH_INDEFINITE
-        )
+        ).setAction(getString(text_snackbar_retry)) {}
+            .addCallback(object : Snackbar.Callback() {
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    if (event == DISMISS_EVENT_TIMEOUT) {
+                        presenter.onRetryClicked()
+                    }
+                }
+            })
             .show()
     }
 
@@ -111,6 +118,11 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
             LoginActivity.newIntent(this)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
+    }
+
+    override fun retryView() {
+        finish()
+        startActivity(newIntent(this@ShowWorkoutActivity))
     }
 
     override fun onDestroy() {
