@@ -100,7 +100,7 @@ class ShowWorkoutPresenter(
     }
 
     override fun onRetryClicked() {
-        view.retryView()
+        start()
     }
 
     override fun finish() = compositeDisposable.clear()

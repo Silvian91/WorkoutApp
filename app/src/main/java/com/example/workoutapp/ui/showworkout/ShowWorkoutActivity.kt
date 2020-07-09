@@ -12,7 +12,6 @@ import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
-import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity.Companion.newIntent
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.google.android.material.snackbar.Snackbar
@@ -118,11 +117,6 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
             LoginActivity.newIntent(this)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
-    }
-
-    override fun retryView() {
-        finish()
-        startActivity(newIntent(this@ShowWorkoutActivity))
     }
 
     override fun onDestroy() {

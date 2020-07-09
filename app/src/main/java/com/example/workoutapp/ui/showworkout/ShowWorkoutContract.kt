@@ -14,7 +14,6 @@ interface ShowWorkoutContract {
         fun showDeleteConfirmation(workoutId: Long)
         fun showUndoOption(workoutId: Long)
         fun showLogin()
-        fun retryView()
     }
 
     interface Presenter : BasePresenter<View>,
