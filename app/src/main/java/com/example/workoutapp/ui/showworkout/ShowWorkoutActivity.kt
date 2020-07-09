@@ -39,14 +39,7 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
             workouts_view_holder,
             text_unknown_error,
             Snackbar.LENGTH_INDEFINITE
-        ).setAction(getString(text_snackbar_retry)) {}
-            .addCallback(object : Snackbar.Callback() {
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    if (event == DISMISS_EVENT_TIMEOUT) {
-                        presenter.onRetryClicked()
-                    }
-                }
-            })
+        ).setAction(getString(text_snackbar_retry)) { presenter.onRetryClicked() }
             .show()
     }
 

@@ -12,6 +12,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
+import com.example.workoutapp.R.color.colorPrimary
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
@@ -41,18 +42,18 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         presenter.setView(this)
 
         clickLogin()
-        singUpAction()
+        setUpSignUpAction()
     }
 
-    private fun singUpAction() {
-        val singUpString = getString(R.string.text_login_no_account_yet)
-        val spannableString = SpannableString(singUpString)
+    private fun setUpSignUpAction() {
+        val signUpString = getString(R.string.text_login_no_account_yet)
+        val spannableString = SpannableString(signUpString)
 
-        val setColor = ForegroundColorSpan(resources.getColor(R.color.colorPrimary))
+        val setColor = ForegroundColorSpan(resources.getColor(colorPrimary, null))
 
         val clickAction = object : ClickableSpan() {
-            override fun updateDrawState(ds: TextPaint) {
-                ds.isUnderlineText = false
+            override fun updateDrawState(drawState: TextPaint) {
+                drawState.isUnderlineText = false
             }
 
             override fun onClick(widget: View) {
