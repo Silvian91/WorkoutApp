@@ -11,6 +11,7 @@ import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_network_error
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
+import com.example.workoutapp.ui.common.BaseFragment
 import com.example.workoutapp.ui.home.adapter.HomeAdapter
 import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
@@ -18,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), HomeContract.View {
+class HomeFragment : BaseFragment(), HomeContract.View {
 
     @Inject
     lateinit var presenter: HomeContract.Presenter

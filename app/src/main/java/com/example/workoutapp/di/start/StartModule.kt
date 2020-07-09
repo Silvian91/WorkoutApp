@@ -1,7 +1,7 @@
 package com.example.workoutapp.di.start
 
-import com.example.workoutapp.ui.start.StartContract
-import com.example.workoutapp.ui.start.StartPresenter
+import com.example.workoutapp.ui.onboarding.OnboardingContract
+import com.example.workoutapp.ui.onboarding.OnboardingPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +9,7 @@ import dagger.Provides
 class StartModule {
 
     @Provides
-    fun providesStartPresenter() : StartContract.Presenter{
-        return StartPresenter()
+    fun providesStartPresenter() : OnboardingContract.Presenter{
+        return OnboardingPresenter()
     }
 }

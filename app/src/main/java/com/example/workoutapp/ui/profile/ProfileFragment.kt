@@ -21,6 +21,7 @@ import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.WorkoutApplication
+import com.example.workoutapp.ui.common.BaseFragment
 import com.example.workoutapp.ui.login.LoginActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
-class ProfileFragment : Fragment(), ProfileContract.View {
+class ProfileFragment : BaseFragment(), ProfileContract.View {
 
     @Inject
     lateinit var presenter: ProfileContract.Presenter

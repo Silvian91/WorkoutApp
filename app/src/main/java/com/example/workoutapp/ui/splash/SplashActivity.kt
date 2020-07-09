@@ -4,8 +4,7 @@ import android.os.Bundle
 import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
-import com.example.workoutapp.ui.register.RegisterActivity
-import com.example.workoutapp.ui.start.StartActivity
+import com.example.workoutapp.ui.onboarding.OnboardingActivity
 import javax.inject.Inject
 
 class SplashActivity: BaseActivity(), SplashContract.View {
@@ -28,7 +27,7 @@ class SplashActivity: BaseActivity(), SplashContract.View {
     }
 
     override fun openStart() {
-        startActivity(StartActivity.newIntent(this))
+        startActivity(OnboardingActivity.newIntent(this))
         finish()
     }
 

@@ -1,9 +1,9 @@
-package com.example.workoutapp.ui.start
+package com.example.workoutapp.ui.onboarding
 
 import com.example.workoutapp.ui.common.BasePresenter
 import com.example.workoutapp.ui.common.BaseView
 
-interface StartContract {
+interface OnboardingContract {
 
     interface View : BaseView<Presenter>{
         fun openRegister()
