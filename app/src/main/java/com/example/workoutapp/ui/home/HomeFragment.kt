@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_network_error
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import com.example.workoutapp.ui.common.BaseFragment
 import com.example.workoutapp.ui.home.adapter.HomeAdapter
@@ -40,7 +38,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        WorkoutApplication.get().components.createMainComponent().inject(this)
 
         presenter.setView(this)
         initHomeRecyclerView()

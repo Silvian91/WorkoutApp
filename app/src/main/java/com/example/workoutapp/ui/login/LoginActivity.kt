@@ -13,7 +13,6 @@ import android.view.View
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.color.colorPrimary
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
@@ -36,7 +35,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WorkoutApplication.get().components.createLoginComponent().inject(this)
         setContentView(R.layout.activity_login)
 
         presenter.setView(this)

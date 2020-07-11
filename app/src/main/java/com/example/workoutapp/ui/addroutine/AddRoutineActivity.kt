@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_add_routine_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.main.MainActivity
@@ -30,7 +29,6 @@ class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_add_routine)
-        WorkoutApplication.get().components.createAddRoutineComponent().inject(this)
 
         setToolbar()
         presenter.setView(this)

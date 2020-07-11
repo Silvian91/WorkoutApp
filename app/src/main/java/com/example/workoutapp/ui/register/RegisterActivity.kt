@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_error_registration_failed
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
@@ -27,7 +26,6 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WorkoutApplication.get().components.createRegisterComponent().inject(this)
         setContentView(R.layout.activity_register)
 
         setOnClickListenerEvent()

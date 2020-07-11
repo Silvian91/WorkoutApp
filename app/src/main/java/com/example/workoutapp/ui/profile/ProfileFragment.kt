@@ -16,11 +16,9 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseFragment
 import com.example.workoutapp.ui.login.LoginActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -49,7 +47,6 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        WorkoutApplication.get().components.createProfileComponent().inject(this)
 
         presenter.setView(this)
         presenter.start()

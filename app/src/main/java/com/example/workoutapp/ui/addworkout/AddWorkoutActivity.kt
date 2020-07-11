@@ -8,7 +8,6 @@ import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_add_workout_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.addroutine.AddRoutineActivity
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
@@ -28,7 +27,6 @@ class AddWorkoutActivity : BaseActivity(), AddWorkoutContract.View {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_add_workout)
-        WorkoutApplication.get().components.createAddWorkoutComponent().inject(this)
 
         setToolbar()
         presenter.start()

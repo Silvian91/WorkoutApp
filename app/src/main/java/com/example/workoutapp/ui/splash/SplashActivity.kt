@@ -1,7 +1,6 @@
 package com.example.workoutapp.ui.splash
 
 import android.os.Bundle
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.onboarding.OnboardingActivity
@@ -15,7 +14,6 @@ class SplashActivity: BaseActivity(), SplashContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WorkoutApplication.get().components.createSplashComponent().inject(this)
 
         presenter.setView(this)
         presenter.start()

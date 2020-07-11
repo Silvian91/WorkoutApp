@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_show_routines_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineAdapter
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
@@ -38,7 +37,6 @@ class ShowRoutineActivity : BaseActivity(), ShowRoutineContract.View {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_show_routine)
-        WorkoutApplication.get().components.createShowRoutineComponent().inject(this)
 
         setToolbar()
         presenter.setView(this)

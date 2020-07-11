@@ -1,9 +1,9 @@
 package com.example.workoutapp.ui.common
 
-import androidx.appcompat.app.AppCompatActivity
+import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
     var compositeDisposable = CompositeDisposable()
 

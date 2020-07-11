@@ -7,7 +7,6 @@ import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
 import com.example.workoutapp.R.layout.activity_onboarding
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.common.adapter.FragmentAdapter
 import com.example.workoutapp.ui.register.RegisterActivity
@@ -32,7 +31,6 @@ class OnboardingActivity : BaseActivity(), OnboardingContract.View {
         super.onCreate(savedInstanceState)
 
         setContentView(activity_onboarding)
-        WorkoutApplication.get().components.createStartComponent().inject(this)
 
         presenter.setView(this)
 

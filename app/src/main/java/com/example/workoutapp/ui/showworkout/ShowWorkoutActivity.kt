@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
-import com.example.workoutapp.ui.WorkoutApplication
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
@@ -52,7 +51,6 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_workout)
-        WorkoutApplication.get().components.createShowWorkoutComponent().inject(this)
 
         setToolbar()
         presenter.setView(this)

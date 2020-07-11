@@ -1,9 +1,9 @@
 package com.example.workoutapp.ui.common
 
-import androidx.fragment.app.Fragment
+import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : DaggerFragment() {
 
     val compositeDisposable = CompositeDisposable()
 

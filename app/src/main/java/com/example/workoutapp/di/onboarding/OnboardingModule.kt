@@ -1,4 +1,4 @@
-package com.example.workoutapp.di.start
+package com.example.workoutapp.di.onboarding
 
 import com.example.workoutapp.ui.onboarding.OnboardingContract
 import com.example.workoutapp.ui.onboarding.OnboardingPresenter
