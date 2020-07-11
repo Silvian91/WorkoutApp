@@ -7,4 +7,4 @@ import dagger.Module
  */
 
 @Module(includes = [])
-interface ViewHolderModule
+interface ViewModelModule

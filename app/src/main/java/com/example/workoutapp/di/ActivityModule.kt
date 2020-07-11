@@ -1,4 +1,11 @@
 package com.example.workoutapp.di
 
-interface ActivityModule {
-}
+import com.example.workoutapp.di.addroutine.AddRoutineActivityModule
+import dagger.Module
+
+/**
+ * This module includes all feature activity modules
+ */
+
+@Module(includes = [AddRoutineActivityModule::class])
+interface ActivityModule

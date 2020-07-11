@@ -1,9 +1,5 @@
 package com.example.workoutapp.di.splash
 
-import android.content.Context
-import com.example.workoutapp.data.user.UserLocalDataSource
-import com.example.workoutapp.data.user.UserLocalDataSourceImpl
-import com.example.workoutapp.data.user.UserRepositoryImpl
 import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase
 import com.example.workoutapp.domain.user.IsUserDBEmptyUseCaseImpl
 import com.example.workoutapp.domain.user.UserRepository
@@ -29,18 +25,6 @@ class SplashModule {
         userRepository: UserRepository
     ): IsUserDBEmptyUseCase {
         return IsUserDBEmptyUseCaseImpl(userRepository)
-    }
-
-    @Provides
-    fun providesUserRepository(
-        userLocalDataSource: UserLocalDataSource
-    ): UserRepository {
-        return UserRepositoryImpl(userLocalDataSource)
-    }
-
-    @Provides
-    fun providesUserLocalDataSource(context: Context): UserLocalDataSource {
-        return UserLocalDataSourceImpl(context)
     }
 
 }

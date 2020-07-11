@@ -1,12 +1,5 @@
 package com.example.workoutapp.di.showroutine
 
-import android.content.Context
-import com.example.workoutapp.data.routine.RoutineLocalDataSource
-import com.example.workoutapp.data.routine.RoutineLocalDataSourceImpl
-import com.example.workoutapp.data.routine.RoutineRepositoryImpl
-import com.example.workoutapp.data.workout.WorkoutLocalDataSource
-import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
-import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
 import com.example.workoutapp.domain.routine.RoutineRepository
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCaseImpl
@@ -28,26 +21,6 @@ class ShowRoutineModule {
         compositeDisposable: CompositeDisposable
     ): ShowRoutineContract.Presenter {
         return ShowRoutinePresenter(deleteWorkoutUseCase, getRoutineUseCase, compositeDisposable)
-    }
-
-    @Provides
-    fun providesRoutineRepository(routineLocalDataSource: RoutineLocalDataSource): RoutineRepository {
-        return RoutineRepositoryImpl(routineLocalDataSource)
-    }
-
-    @Provides
-    fun providesRoutineLocalDataSource(context: Context): RoutineLocalDataSource {
-        return RoutineLocalDataSourceImpl(context)
-    }
-
-    @Provides
-    fun providesWorkoutRepository(workoutLocalDataSource: WorkoutLocalDataSource): WorkoutRepository {
-        return WorkoutRepositoryImpl(workoutLocalDataSource)
-    }
-
-    @Provides
-    fun providesWorkoutLocalDataSource(context: Context): WorkoutLocalDataSource {
-        return WorkoutLocalDataSourceImpl(context)
     }
 
     @Provides

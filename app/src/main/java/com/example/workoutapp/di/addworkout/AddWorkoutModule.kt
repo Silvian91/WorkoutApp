@@ -8,9 +8,6 @@ import com.example.workoutapp.data.session.SessionManagerImpl
 import com.example.workoutapp.data.user.UserLocalDataSource
 import com.example.workoutapp.data.user.UserLocalDataSourceImpl
 import com.example.workoutapp.data.user.UserRepositoryImpl
-import com.example.workoutapp.data.workout.WorkoutLocalDataSource
-import com.example.workoutapp.data.workout.WorkoutLocalDataSourceImpl
-import com.example.workoutapp.data.workout.WorkoutRepositoryImpl
 import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase
 import com.example.workoutapp.domain.addworkout.AddWorkoutUseCaseImpl
 import com.example.workoutapp.domain.session.SessionManager
@@ -33,16 +30,6 @@ class AddWorkoutModule {
         compositeDisposable: CompositeDisposable
     ): AddWorkoutContract.Presenter {
         return AddWorkoutPresenter(addWorkoutUseCase, getCurrentUserUseCase, compositeDisposable)
-    }
-
-    @Provides
-    fun providesWorkoutRepository(workoutLocalDataSource: WorkoutLocalDataSource): WorkoutRepository {
-        return WorkoutRepositoryImpl(workoutLocalDataSource)
-    }
-
-    @Provides
-    fun providesWorkoutLocalDataSource(context: Context): WorkoutLocalDataSource {
-        return WorkoutLocalDataSourceImpl(context)
     }
 
     @Provides

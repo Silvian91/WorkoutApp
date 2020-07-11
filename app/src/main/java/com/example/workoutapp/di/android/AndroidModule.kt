@@ -1,4 +1,4 @@
-package com.example.workoutapp.di
+package com.example.workoutapp.di.android
 
 import android.app.Application
 import android.content.Context

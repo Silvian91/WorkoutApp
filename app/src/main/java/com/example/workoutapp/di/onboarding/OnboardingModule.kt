@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class StartModule {
+class OnboardingModule {
 
     @Provides
     fun providesStartPresenter() : OnboardingContract.Presenter{

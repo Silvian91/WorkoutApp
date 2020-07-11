@@ -1,23 +1,13 @@
 package com.example.workoutapp.ui
 
-import android.app.Application
-import com.example.workoutapp.di.WorkoutAppComponentBuilder
-import com.example.workoutapp.di.WorkoutComponentProvider
+import com.example.workoutapp.di.AppComponent
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 
-class WorkoutApplication : Application() {
-    lateinit var components: WorkoutComponentProvider
+class WorkoutApplication : DaggerApplication() {
 
-    override fun onCreate() {
-        super.onCreate()
-        application = this
-        components = WorkoutComponentProvider(WorkoutAppComponentBuilder().build(this))
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return Dagger.factory(AppComponent.Factory::class.java).create(this)
     }
 
-    companion object {
-        private lateinit var application: WorkoutApplication
-
-        fun get(): WorkoutApplication {
-            return application
-        }
-    }
 }
