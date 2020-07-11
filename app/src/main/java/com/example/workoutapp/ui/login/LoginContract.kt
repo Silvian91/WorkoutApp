@@ -17,8 +17,8 @@ interface LoginContract {
     }
 
     enum class ErrorType(val error: String) {
-        INVALID_CREDENTIALS("Invalid username or password"),
-        USER_DOES_NOT_EXIST("This user does not exist"),
-        UNKNOWN("And unknown error has occurred")
+        INVALID_CREDENTIALS(LoginActivity.invalid_credentials),
+        USER_DOES_NOT_EXIST(LoginActivity.user_error),
+        UNKNOWN(LoginActivity.unknow)
     }
 }

@@ -13,6 +13,7 @@ import android.view.View
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.color.colorPrimary
+import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
 import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
@@ -81,6 +82,9 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     companion object {
         fun newIntent(context: Context) =
             Intent(context, LoginActivity::class.java)
+        const val invalid_credentials = text_error_invalid_credentials.toString()
+        const val user_error = text_error_user.toString()
+        const val unknow = text_unknown_error.toString()
     }
 
     override fun showHome() {
