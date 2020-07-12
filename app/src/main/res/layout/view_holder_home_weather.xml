@@ -17,8 +17,8 @@
 
             <ProgressBar
                 android:id="@+id/progress_circular_weather"
-                android:layout_width="@dimen/increasedMargin"
-                android:layout_height="@dimen/increasedMargin"
+                android:layout_width="@dimen/registrationMargin"
+                android:layout_height="@dimen/registrationMargin"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/defaultMargin"
                 android:layout_marginBottom="12dp"

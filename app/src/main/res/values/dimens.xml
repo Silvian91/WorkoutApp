@@ -7,11 +7,11 @@
 
     <!-- Margin sizes -->
     <dimen name="defaultMargin">@dimen/_20sdp</dimen>
-    <dimen name="increasedMargin">@dimen/_40sdp</dimen>
-    <dimen name="largeMargin">@dimen/_60sdp</dimen>
+    <dimen name="registrationMargin">@dimen/_40sdp</dimen>
+    <dimen name="onboardingMargin">@dimen/_60sdp</dimen>
 
     <!-- Font sizes -->
-    <dimen name="smallFont">@dimen/_10ssp</dimen>
-    <dimen name="mediumFont">@dimen/_12ssp</dimen>
-    <dimen name="largeFont">@dimen/_16ssp</dimen>
+    <dimen name="buttonsFont">@dimen/_10ssp</dimen>
+    <dimen name="textFont">@dimen/_12ssp</dimen>
+    <dimen name="headerTextFont">@dimen/_16ssp</dimen>
 </resources>
