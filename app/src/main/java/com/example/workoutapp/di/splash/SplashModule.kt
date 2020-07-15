@@ -11,13 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 @Module
 class SplashModule {
 
-    @Provides
-    fun providesSplashPresenter(
-        isUserDBEmptyUseCase: IsUserDBEmptyUseCase,
-        compositeDisposable: CompositeDisposable
-    ):  {
-        return SplashViewModel(isUserDBEmptyUseCase, compositeDisposable)
-    }
+
 
     @Provides
     fun providesGetExistingUserUseCase(
