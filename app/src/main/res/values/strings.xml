@@ -64,6 +64,5 @@
     <string name="text_start_screen2">The Workout Notebook app is meant to replace your old and bulky gym notebook</string>
     <string name="text_start_screen3">We aim to make it easy for you to track old workout sessions and add new ones</string>
     <string name="text_error_invalid_credentials">Invalid username or password</string>
-    <string name="text_error_user">This user does not exist</string>
 
 </resources>

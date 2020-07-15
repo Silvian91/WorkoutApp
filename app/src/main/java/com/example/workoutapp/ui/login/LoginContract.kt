@@ -16,9 +16,9 @@ interface LoginContract {
         fun onSignUpClicked()
     }
 
-    enum class ErrorType(val error: String) {
-        INVALID_CREDENTIALS(LoginActivity.invalid_credentials),
-        USER_DOES_NOT_EXIST(LoginActivity.user_error),
-        UNKNOWN(LoginActivity.unknow)
+    enum class ErrorType {
+        INVALID_CREDENTIALS,
+        USER_DOES_NOT_EXIST,
+        UNKNOWN
     }
 }

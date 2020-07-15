@@ -82,9 +82,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     companion object {
         fun newIntent(context: Context) =
             Intent(context, LoginActivity::class.java)
-        const val invalid_credentials = text_error_invalid_credentials.toString()
-        const val user_error = text_error_user.toString()
-        const val unknow = text_unknown_error.toString()
     }
 
     override fun showHome() {
@@ -98,16 +95,16 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         when (errorType) {
             INVALID_CREDENTIALS -> Snackbar.make(
                 login_layout,
-                INVALID_CREDENTIALS.error,
+                getString(R.string.text_error_invalid_credentials),
                 LENGTH_SHORT
             ).show()
             USER_DOES_NOT_EXIST -> Snackbar.make(
                 login_layout,
-                USER_DOES_NOT_EXIST.error,
+                getString(R.string.text_error_invalid_credentials),
                 LENGTH_SHORT
             ).show()
             else -> {
-                Snackbar.make(login_layout, UNKNOWN.error, LENGTH_SHORT).show()
+                Snackbar.make(login_layout, getString(R.string.text_unknown_error), LENGTH_SHORT).show()
             }
         }
     }
