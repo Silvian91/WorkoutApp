@@ -111,8 +111,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.27' // if you use the support libraries
     kapt 'com.google.dagger:dagger-android-processor:2.27'
 
-    //Dagger Reflect
-//    implementation 'com.jakewharton.dagger:dagger-reflect:0.2.0'
-//    kapt 'com.jakewharton.dagger:dagger-reflect-compiler:0.2.0'
+    // View Model
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
 }
