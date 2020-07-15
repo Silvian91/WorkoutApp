@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface MainActivityFragmentsModule {
+interface MainFragmentsModule {
 
     @FragmentScope
     @ContributesAndroidInjector

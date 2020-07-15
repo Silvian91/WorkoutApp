@@ -1,17 +1,18 @@
 package com.example.workoutapp.di.android
 
-import android.app.Application
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import com.example.workoutapp.ui.WorkoutApplication
 import dagger.Module
 import dagger.Provides
 
 @Module
 class AndroidModule {
+
     @Provides
-    fun providesContext(application: Application): Context {
-        return application
+    fun providesContext(application: WorkoutApplication): Context {
+        return application.applicationContext
     }
 
     @Provides

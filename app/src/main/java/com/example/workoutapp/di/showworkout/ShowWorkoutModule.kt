@@ -34,9 +34,4 @@ class ShowWorkoutModule {
         return GetWorkoutUseCaseImpl(workoutsRepository)
     }
 
-    @Provides
-    fun providesDeleteWorkoutFromRoutineUseCase(workoutRepository: WorkoutRepository): DeleteWorkoutUseCase {
-        return DeleteWorkoutUseCaseImpl(workoutRepository)
-    }
-
 }

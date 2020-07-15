@@ -8,15 +8,10 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface OnboardingActivityFragmentsModule {
+interface OnboardingActivityModule {
 
     @ActivityScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [OnboardingFragmentsModule::class])
     fun provideOnboardingActivity(): OnboardingActivity
-
-
-    @FragmentScope
-    @ContributesAndroidInjector
-    fun contributeOnboardingFragment(): OnboardingFragment
 
 }

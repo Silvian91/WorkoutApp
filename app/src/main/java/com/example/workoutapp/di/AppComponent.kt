@@ -15,27 +15,15 @@ import com.example.workoutapp.di.splash.SplashModule
 import com.example.workoutapp.ui.WorkoutApplication
 import dagger.Component
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-/**
- * if you wanna make a new feature:
- *
- *
- * - make a new component interface to inject to your new activities and fragments
- * - make a new module to describe how to create the dependencies in your activities and fragments
- *
- *
- * - add a plus method to this app component
- * - add a create method to FlashCardComponentProvider
- *
- *
- * the rest was groundwork that makes it easier to work with Dagger
- */
 @Singleton
 @Component(
-    modules = [AndroidModule::class,
+    modules = [
+        AndroidModule::class,
+        AndroidSupportInjectionModule::class,
         CompositeDisposableModule::class,
-        ApiModule::class,
         AddRoutineModule::class,
         AddWorkoutModule::class,
         ApiModule::class,

@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -102,10 +105,14 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
     // Dagger Android
-    implementation 'com.google.dagger:dagger:2.28.1'
-    kapt 'com.google.dagger:dagger-compiler:2.28.1'
+    implementation 'com.google.dagger:dagger:2.27'
+    kapt 'com.google.dagger:dagger-compiler:2.27'
     //implementation 'com.google.dagger:dagger-android:2.81.1'
-    implementation 'com.google.dagger:dagger-android-support:2.28.1' // if you use the support libraries
-    kapt 'com.google.dagger:dagger-android-processor:2.28.1'
+    implementation 'com.google.dagger:dagger-android-support:2.27' // if you use the support libraries
+    kapt 'com.google.dagger:dagger-android-processor:2.27'
+
+    //Dagger Reflect
+//    implementation 'com.jakewharton.dagger:dagger-reflect:0.2.0'
+//    kapt 'com.jakewharton.dagger:dagger-reflect-compiler:0.2.0'
 
 }
