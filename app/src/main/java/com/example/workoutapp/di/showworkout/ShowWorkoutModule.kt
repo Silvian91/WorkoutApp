@@ -1,7 +1,6 @@
 package com.example.workoutapp.di.showworkout
 
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
-import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCaseImpl
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCaseImpl
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase

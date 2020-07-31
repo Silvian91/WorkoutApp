@@ -13,10 +13,10 @@ import android.view.View
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import com.example.workoutapp.R
 import com.example.workoutapp.R.color.colorPrimary
-import com.example.workoutapp.R.string.*
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginContract.ErrorType
-import com.example.workoutapp.ui.login.LoginContract.ErrorType.*
+import com.example.workoutapp.ui.login.LoginContract.ErrorType.INVALID_CREDENTIALS
+import com.example.workoutapp.ui.login.LoginContract.ErrorType.USER_DOES_NOT_EXIST
 import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.register.RegisterActivity
 import com.google.android.material.snackbar.Snackbar

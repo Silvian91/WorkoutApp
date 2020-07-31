@@ -5,33 +5,29 @@ import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Input
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
-import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
-import io.reactivex.disposables.CompositeDisposable
+import com.example.workoutapp.ui.addroutine.error.ErrorType.*
+import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.workoutapp.ui.error.UIError
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Output.Success as DeleteRoutineSuccess
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase.Output.Success as SaveRoutineSuccess
 
-class AddRoutinePresenter(
+class AddRoutineViewModel @Inject constructor(
     private val saveRoutineUseCase: SaveRoutineUseCase,
-    private val deleteRoutineUseCase: DeleteRoutineUseCase,
-    private val compositeDisposable: CompositeDisposable
-) :
-    AddRoutineContract.Presenter {
+    private val deleteRoutineUseCase: DeleteRoutineUseCase
+) : BaseViewModel() {
 
-    private lateinit var view: AddRoutineContract.View
     private var workoutId: Long = 0
     private val routinePairs = ArrayList<RoutineModel>()
 
-    override fun setView(view: AddRoutineContract.View) {
-        this.view = view
-    }
+    val routines = BehaviorSubject.create<Boolean>()
+    val continueClicked = BehaviorSubject.create<Boolean>()
+    val finishClicked = BehaviorSubject.create<Boolean>()
 
-    override fun start() {}
-
-    override fun finish() = compositeDisposable.clear()
-
-    override fun setWorkoutId(workoutId: Long) {
+    fun setWorkoutId(workoutId: Long) {
         this.workoutId = workoutId
     }
 
@@ -62,8 +58,8 @@ class AddRoutinePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is SaveRoutineSuccess -> view.nextActivity()
-                    else -> view.errorUnknown()
+                    is SaveRoutineSuccess -> routines.onNext(true)
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
@@ -73,47 +69,51 @@ class AddRoutinePresenter(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ): Boolean {
+
+        var isValid = true
+
         when {
             routine_name.isEmpty() -> {
-                view.showError(NAME_EMPTY)
-                return false
+                error.onNext(ErrorNameEmpty)
+                isValid = false
             }
             routine_sets.isEmpty() -> {
-                view.showError(SETS_EMPTY)
-                return false
+                error.onNext(ErrorSetsEmpty)
+                isValid = false
             }
             routine_reps.isEmpty() -> {
-                view.showError(REPS_EMPTY)
-                return false
+                error.onNext(ErrorRepsEmpty)
+                isValid = false
             }
             routine_weight.isEmpty() -> {
-                view.showError(WEIGHT_EMPTY)
-                return false
+                error.onNext(ErrorWeightEmpty)
+                isValid = false
             }
             routine_weight_measurement.isEmpty() -> {
-                view.showError(WEIGHT_MEASUREMENT_EMPTY)
-                return false
+                error.onNext(ErrorWeightMeasurementEmpty)
+                isValid = false
             }
             routine_rest.isEmpty() -> {
-                view.showError(REST_EMPTY)
-                return false
-            }
-            else -> {
-                addRoutinePairs(
-                    routine_name,
-                    routine_sets,
-                    routine_reps,
-                    routine_weight,
-                    routine_weight_measurement,
-                    routine_rest,
-                    workoutId
-                )
-                return true
+                error.onNext(ErrorRestEmpty)
+                isValid = false
             }
         }
+
+        if (isValid) {
+            addRoutinePairs(
+                routine_name,
+                routine_sets,
+                routine_reps,
+                routine_weight,
+                routine_weight_measurement,
+                routine_rest,
+                workoutId
+            )
+        }
+        return isValid
     }
 
-    override fun onContinueClicked(
+    fun onContinueClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ) {
@@ -126,13 +126,12 @@ class AddRoutinePresenter(
                 routine_rest
             )
         ) {
-            view.clearAllInputFields()
-            view.resetFocus()
+            continueClicked.onNext(true)
         }
 
     }
 
-    override fun onFinishClicked(
+    fun onFinishClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ) {
@@ -146,11 +145,12 @@ class AddRoutinePresenter(
             )
         ) {
             saveRoutines(routinePairs)
+            finishClicked.onNext(true)
         }
 
     }
 
-    override fun onBackClicked(
+    fun onBackClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_weight_measurement: String, routine_rest: String
     ) {
@@ -161,8 +161,8 @@ class AddRoutinePresenter(
                 .doOnIoObserveOnMain()
                 .subscribeBy {
                     when (it) {
-                        is DeleteRoutineSuccess -> view.nextActivity()
-                        else -> view.errorUnknown()
+                        is DeleteRoutineSuccess -> routines.onNext(true)
+                        else -> error.onNext(Unknown)
                     }
                 }
                 .addTo(compositeDisposable)
@@ -180,5 +180,3 @@ class AddRoutinePresenter(
         }
     }
 }
-
-

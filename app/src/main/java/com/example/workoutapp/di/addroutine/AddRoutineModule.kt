@@ -13,22 +13,11 @@ import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCaseImpl
 import com.example.workoutapp.domain.routine.RoutineRepository
 import com.example.workoutapp.domain.workout.WorkoutRepository
-import com.example.workoutapp.ui.addroutine.AddRoutineContract
-import com.example.workoutapp.ui.addroutine.AddRoutinePresenter
 import dagger.Module
 import dagger.Provides
-import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class AddRoutineModule {
-    @Provides
-    fun providesAddRoutinePresenter(
-        saveRoutineUseCase: SaveRoutineUseCase,
-        deleteRoutineUseCase: DeleteRoutineUseCase,
-        compositeDisposable: CompositeDisposable
-    ): AddRoutineContract.Presenter {
-        return AddRoutinePresenter(saveRoutineUseCase, deleteRoutineUseCase, compositeDisposable)
-    }
 
     @Provides
     fun providesRoutineRepository(routineLocalDataSource: RoutineLocalDataSource): RoutineRepository {

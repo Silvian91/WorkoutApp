@@ -7,38 +7,46 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_add_routine_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
-import com.example.workoutapp.ui.addroutine.AddRoutineContract.ErrorType.*
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.ui.addroutine.error.ErrorType
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_add_routine.*
-import javax.inject.Inject
 
-class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
+class AddRoutineActivity : BaseActivity() {
 
-    @Inject
-    lateinit var presenter: AddRoutineContract.Presenter
+    private lateinit var viewModel: AddRoutineViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_add_routine)
+        viewModel = ViewModelProvider(
+            this, viewModelFactory.get()
+        ).get(AddRoutineViewModel::class.java)
 
         setToolbar()
-        presenter.setView(this)
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
-        presenter.setWorkoutId(workoutId)
-        setOnClickListenerEvent()
+        viewModel.setWorkoutId(workoutId)
 
         val adapter = ArrayAdapter(this, R.layout.component_dropdown_list_item, DROP_DOWN_LIST)
         weight_measurement.setAdapter(adapter)
         weight_measurement.onItemSelectedListener
+
+        setOnClickListenerEvent()
+        listenForFinish()
+        listenForContinue()
+        showError()
     }
 
     private fun setToolbar() {
@@ -55,7 +63,7 @@ class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                presenter.onContinueClicked(
+                viewModel.onContinueClicked(
                     routine_name.text.toString(),
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
@@ -68,7 +76,7 @@ class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                presenter.onFinishClicked(
+                viewModel.onFinishClicked(
                     routine_name.text.toString(),
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
@@ -80,7 +88,39 @@ class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
 
     }
 
-    override fun clearAllInputFields() {
+    private fun listenForFinish() {
+        viewModel.finishClicked
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                saveRoutines()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun listenForContinue() {
+        viewModel.continueClicked
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                clearAllInputFields()
+                resetFocus()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun saveRoutines() {
+        openMain()
+    }
+
+    private fun openMain() {
+        viewModel.routines
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                nextActivity()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun clearAllInputFields() {
         routine_name.setText("")
         routine_sets.setText("")
         routine_reps.setText("")
@@ -89,49 +129,58 @@ class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
         routine_rest.setText("")
     }
 
-    override fun resetFocus() {
+    private fun resetFocus() {
         routine_name.requestFocus()
     }
 
-    override fun nextActivity() {
+    private fun nextActivity() {
         startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
     }
 
-    override fun errorFieldEmpty(): String {
+    private fun errorFieldEmpty(): String {
         return getString(R.string.text_field_cannotEmpty)
     }
 
-    override fun showError(errorType: AddRoutineContract.ErrorType) {
-        when (errorType) {
-            NAME_EMPTY -> {
-                routine_name.requestFocus()
-                routine_name.error = errorFieldEmpty()
+    private fun showError() {
+        viewModel.error
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    ErrorType.ErrorNameEmpty -> {
+                        routine_name.requestFocus()
+                        routine_name.error = errorFieldEmpty()
+                    }
+                    ErrorType.ErrorSetsEmpty -> {
+                        routine_sets.requestFocus()
+                        routine_sets.error = errorFieldEmpty()
+                    }
+                    ErrorType.ErrorRepsEmpty -> {
+                        routine_reps.requestFocus()
+                        routine_reps.error = errorFieldEmpty()
+                    }
+                    ErrorType.ErrorWeightEmpty -> {
+                        routine_weight.requestFocus()
+                        routine_weight.error = errorFieldEmpty()
+                    }
+                    ErrorType.ErrorWeightMeasurementEmpty -> {
+                        weight_measurement.requestFocus()
+                        weight_measurement.error = errorFieldEmpty()
+                    }
+                    ErrorType.ErrorRestEmpty -> {
+                        routine_rest.requestFocus()
+                        routine_rest.error = errorFieldEmpty()
+                    }
+                    ErrorType.Unknown -> {
+                        Snackbar.make(
+                            add_routine_activity,
+                            text_unknown_error,
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
             }
-            SETS_EMPTY -> {
-                routine_sets.requestFocus()
-                routine_sets.error = errorFieldEmpty()
-            }
-            REPS_EMPTY -> {
-                routine_reps.requestFocus()
-                routine_reps.error = errorFieldEmpty()
-            }
-            WEIGHT_EMPTY -> {
-                routine_weight.requestFocus()
-                routine_weight.error = errorFieldEmpty()
-            }
-            WEIGHT_MEASUREMENT_EMPTY -> {
-                weight_measurement.requestFocus()
-                weight_measurement.error = errorFieldEmpty()
-            }
-            REST_EMPTY -> {
-                routine_rest.requestFocus()
-                routine_rest.error = errorFieldEmpty()
-            }
-        }
-    }
-
-    override fun errorUnknown() {
-        Snackbar.make(add_routine_activity, text_unknown_error, Snackbar.LENGTH_SHORT).show()
+            .addTo(compositeDisposable)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -145,7 +194,7 @@ class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
                 R.string.text_dialog_alert_confirm
             ) { _, _ ->
                 finish()
-                presenter.onBackClicked(
+                viewModel.onBackClicked(
                     routine_name.text.toString(),
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
@@ -159,7 +208,7 @@ class AddRoutineActivity : BaseActivity(), AddRoutineContract.View {
     }
 
     override fun onDestroy() {
-        presenter.finish()
+        compositeDisposable.clear()
 
         super.onDestroy()
     }

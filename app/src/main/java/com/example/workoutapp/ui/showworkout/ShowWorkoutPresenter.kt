@@ -33,6 +33,8 @@ class ShowWorkoutPresenter(
         this.view = view
     }
 
+    //TODO: When refactoring this presenter to view model the use case output will take
+    //TODO: a BehaviourSubject<List<ShowWorkoutItemWrapper>>
     override fun start() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
             .doOnIoObserveOnMain()

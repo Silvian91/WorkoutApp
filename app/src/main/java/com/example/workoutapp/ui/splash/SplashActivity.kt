@@ -6,10 +6,8 @@ import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.register.RegisterActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 
 class SplashActivity : BaseActivity() {
 

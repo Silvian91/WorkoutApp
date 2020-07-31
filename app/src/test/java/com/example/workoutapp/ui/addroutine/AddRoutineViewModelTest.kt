@@ -13,7 +13,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class AddRoutinePresenterTest {
+internal class AddRoutineViewModelTest {
 
     private val view: AddRoutineContract.View = mockk(relaxed = true)
     private val routineRepository: RoutineRepository = mockk()
@@ -21,7 +21,7 @@ internal class AddRoutinePresenterTest {
     private val compositeDisposable: CompositeDisposable = mockk(relaxed = true)
 
     private val presenter =
-        AddRoutinePresenter(routineRepository, workoutRepository, compositeDisposable)
+        AddRoutineViewModel(routineRepository, workoutRepository, compositeDisposable)
 
     @BeforeEach
     fun setUp() {
