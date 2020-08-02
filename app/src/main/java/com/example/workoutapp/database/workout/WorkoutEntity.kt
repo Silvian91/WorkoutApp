@@ -15,7 +15,7 @@ import com.example.workoutapp.domain.workout.model.WorkoutModel
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class WorkoutEntity(val title: String, val userId: Long) {
+data class WorkoutEntity(val title: String, val userId: Long, val isDeleted : Long = 0) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
