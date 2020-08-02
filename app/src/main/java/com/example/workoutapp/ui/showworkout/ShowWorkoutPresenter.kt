@@ -5,6 +5,7 @@ import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Input
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.SuccessNoData
+import com.example.workoutapp.domain.showworkout.SoftDeleteWorkoutUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
 import com.example.workoutapp.domain.workout.model.WorkoutModel
@@ -20,6 +21,7 @@ import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success a
 
 class ShowWorkoutPresenter(
     private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
+    private val softDeleteWorkoutUseCase: SoftDeleteWorkoutUseCase,
     private val getWorkoutUseCase: GetWorkoutUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val compositeDisposable: CompositeDisposable
@@ -98,7 +100,18 @@ class ShowWorkoutPresenter(
     }
 
     override fun onUndoDeletion(workoutId: Long) {
-        //TODO: Undo deletion
+        softDeleteWorkoutUseCase.execute(SoftDeleteWorkoutUseCase.Input(workoutId))
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    is SoftDeleteWorkoutUseCase.Output.Success -> {
+                        getWorkoutsForUser(userId)
+                        view.showUndoOption(workoutId)
+                    }
+                    else -> view.showError()
+                }
+            }
+            .addTo(compositeDisposable)
     }
 
     override fun onRetryClicked() {

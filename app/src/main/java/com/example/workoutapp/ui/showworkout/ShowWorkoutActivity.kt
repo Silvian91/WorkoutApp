@@ -93,13 +93,6 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
             workouts_view_holder, getString(text_snack_deletion_confirmed),
             Snackbar.LENGTH_SHORT
         ).setAction(getString(R.string.text_snackbar_undo)) {}
-            .addCallback(object : Snackbar.Callback() {
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    if (event == DISMISS_EVENT_TIMEOUT) {
-                        presenter.onDeleteClicked(workoutId)
-                    }
-                }
-            })
             .show()
     }
 
