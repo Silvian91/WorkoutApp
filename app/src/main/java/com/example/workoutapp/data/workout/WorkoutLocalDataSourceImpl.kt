@@ -34,4 +34,10 @@ class WorkoutLocalDataSourceImpl(val context: Context) : WorkoutLocalDataSource 
         }
     }
 
+    override fun softDeleteWorkout(workoutId: Long): Completable {
+        return Completable.fromCallable {
+            WorkoutAppDatabase.getInstance(context).workoutDao().softDeleteWorkout(workoutId)
+        }
+    }
+
 }

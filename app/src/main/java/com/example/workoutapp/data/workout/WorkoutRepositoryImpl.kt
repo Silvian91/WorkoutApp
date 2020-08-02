@@ -20,4 +20,8 @@ class WorkoutRepositoryImpl(private val workoutLocalDataSource: WorkoutLocalData
         return workoutLocalDataSource.deleteWorkout(workoutId)
     }
 
+    override fun softDeleteWorkout(workoutId: Long): Completable {
+        return workoutLocalDataSource.softDeleteWorkout(workoutId)
+    }
+
 }
