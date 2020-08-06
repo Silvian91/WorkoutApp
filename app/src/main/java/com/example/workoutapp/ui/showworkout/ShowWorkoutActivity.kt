@@ -81,18 +81,18 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
             .setMessage(R.string.text_dialog_delete_routines)
             .setNegativeButton(
                 R.string.text_dialog_alert_cancel
-            ) { _, _ -> }
+            ) { _, _ -> reloadActivity() }
             .setPositiveButton(
                 R.string.text_dialog_alert_confirm
-            ) { _, _ -> presenter.onUndoDeletion(workoutId) }
+            ) { _, _ -> presenter.softDeleteWorkout(workoutId) }
             .show()
     }
 
     override fun showUndoOption(workoutId: Long) {
         Snackbar.make(
-            workouts_view_holder, getString(text_snack_deletion_confirmed),
-            Snackbar.LENGTH_SHORT
-        ).setAction(getString(R.string.text_snackbar_undo)) {}
+            show_workout_activity, getString(text_snack_deletion_confirmed),
+            Snackbar.LENGTH_LONG
+        ).setAction(getString(text_snackbar_undo)) { presenter.onUndoDeletion(workoutId) }
             .show()
     }
 
@@ -101,6 +101,11 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
             LoginActivity.newIntent(this)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         )
+    }
+
+    override fun reloadActivity() {
+        finish()
+        startActivity(intent)
     }
 
     override fun onDestroy() {

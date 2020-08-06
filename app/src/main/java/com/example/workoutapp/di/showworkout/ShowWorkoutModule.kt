@@ -1,10 +1,7 @@
 package com.example.workoutapp.di.showworkout
 
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
-import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
-import com.example.workoutapp.domain.showworkout.GetWorkoutUseCaseImpl
-import com.example.workoutapp.domain.showworkout.SoftDeleteWorkoutUseCase
-import com.example.workoutapp.domain.showworkout.SoftDeleteWorkoutUseCaseImpl
+import com.example.workoutapp.domain.showworkout.*
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.workout.WorkoutRepository
 import com.example.workoutapp.ui.showworkout.ShowWorkoutContract
@@ -17,15 +14,15 @@ import io.reactivex.disposables.CompositeDisposable
 class ShowWorkoutModule {
     @Provides
     fun providesShowWorkoutPresenter(
-        deleteWorkoutUseCase: DeleteWorkoutUseCase,
         softDeleteWorkoutUseCase: SoftDeleteWorkoutUseCase,
+        undoSoftDeleteWorkoutUseCase: UndoSoftDeleteWorkoutUseCase,
         workoutUseCase: GetWorkoutUseCase,
         getCurrentUserUseCase: GetCurrentUserUseCase,
         compositeDisposable: CompositeDisposable
     ): ShowWorkoutContract.Presenter {
         return ShowWorkoutPresenter(
-            deleteWorkoutUseCase,
             softDeleteWorkoutUseCase,
+            undoSoftDeleteWorkoutUseCase,
             workoutUseCase,
             getCurrentUserUseCase,
             compositeDisposable
@@ -40,6 +37,11 @@ class ShowWorkoutModule {
     @Provides
     fun providesSoftDeleteWorkoutUseCase(workoutsRepository: WorkoutRepository): SoftDeleteWorkoutUseCase {
         return SoftDeleteWorkoutUseCaseImpl(workoutsRepository)
+    }
+
+    @Provides
+    fun providesUndoSoftDeleteWorkoutUseCase(workoutsRepository: WorkoutRepository): UndoSoftDeleteWorkoutUseCase {
+        return UndoSoftDeleteWorkoutUseCaseImpl(workoutsRepository)
     }
 
 }

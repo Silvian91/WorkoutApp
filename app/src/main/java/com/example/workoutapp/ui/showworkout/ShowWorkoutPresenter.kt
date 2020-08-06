@@ -1,11 +1,11 @@
 package com.example.workoutapp.ui.showworkout
 
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Input
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.SuccessNoData
 import com.example.workoutapp.domain.showworkout.SoftDeleteWorkoutUseCase
+import com.example.workoutapp.domain.showworkout.UndoSoftDeleteWorkoutUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
 import com.example.workoutapp.domain.workout.model.WorkoutModel
@@ -15,13 +15,14 @@ import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.Work
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.Success as DeleteWorkoutSuccess
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success as GetWorkoutSuccess
+import com.example.workoutapp.domain.showworkout.SoftDeleteWorkoutUseCase.Output.Success as SoftDeleteWorkouts
+import com.example.workoutapp.domain.showworkout.UndoSoftDeleteWorkoutUseCase.Output.Success as UndoSuccess
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetUserSuccess
 
 class ShowWorkoutPresenter(
-    private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
     private val softDeleteWorkoutUseCase: SoftDeleteWorkoutUseCase,
+    private val undoSoftDeleteWorkoutUseCase: UndoSoftDeleteWorkoutUseCase,
     private val getWorkoutUseCase: GetWorkoutUseCase,
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val compositeDisposable: CompositeDisposable
@@ -84,12 +85,12 @@ class ShowWorkoutPresenter(
         return itemWrappers
     }
 
-    override fun onDeleteClicked(workoutId: Long) {
-        deleteWorkoutUseCase.execute(DeleteWorkoutUseCase.Input(workoutId))
+    override fun softDeleteWorkout(workoutId: Long) {
+        softDeleteWorkoutUseCase.execute(SoftDeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is DeleteWorkoutSuccess -> {
+                    is SoftDeleteWorkouts -> {
                         getWorkoutsForUser(userId)
                         view.showUndoOption(workoutId)
                     }
@@ -100,13 +101,12 @@ class ShowWorkoutPresenter(
     }
 
     override fun onUndoDeletion(workoutId: Long) {
-        softDeleteWorkoutUseCase.execute(SoftDeleteWorkoutUseCase.Input(workoutId))
+        undoSoftDeleteWorkoutUseCase.execute(UndoSoftDeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is SoftDeleteWorkoutUseCase.Output.Success -> {
-                        getWorkoutsForUser(userId)
-                        view.showUndoOption(workoutId)
+                    is UndoSuccess -> {
+                        view.reloadActivity()
                     }
                     else -> view.showError()
                 }
