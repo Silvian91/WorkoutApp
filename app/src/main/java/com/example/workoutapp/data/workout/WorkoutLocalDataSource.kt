@@ -12,5 +12,8 @@ interface WorkoutLocalDataSource {
 
     fun deleteWorkout(workoutId: Long): Completable
 
-    fun softDeleteWorkout(workoutId: Long) : Completable
+    fun softDeleteWorkout(workoutId: Long): Completable
+
+    fun undoSoftDeleteWorkout(workoutId: Long): Completable
+
 }

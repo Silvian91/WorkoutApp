@@ -19,4 +19,7 @@ interface WorkoutDao {
     @Query("UPDATE workout SET isDeleted = 1 WHERE id = :currentWorkoutId")
     fun softDeleteWorkout(currentWorkoutId: Long)
 
+    @Query("UPDATE workout SET isDeleted = 0 WHERE id = :currentWorkoutId")
+    fun undoSoftDeleteWorkout(currentWorkoutId: Long)
+
 }
