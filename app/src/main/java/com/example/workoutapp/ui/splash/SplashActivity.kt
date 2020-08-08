@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
-import com.example.workoutapp.ui.register.RegisterActivity
+import com.example.workoutapp.ui.onboarding.OnboardingActivity
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -25,8 +25,8 @@ class SplashActivity : BaseActivity() {
         finish()
     }
 
-    private fun openRegister() {
-        startActivity(RegisterActivity.newIntent(this))
+    private fun openOnboarding() {
+        startActivity(OnboardingActivity.newIntent(this))
         finish()
     }
 
@@ -38,10 +38,10 @@ class SplashActivity : BaseActivity() {
             }
             .addTo(compositeDisposable)
 
-        viewModel.registerRequest
+        viewModel.onboardingRequest
             .doOnIoObserveOnMain()
             .subscribeBy {
-                openRegister()
+                openOnboarding()
             }
             .addTo(compositeDisposable)
     }

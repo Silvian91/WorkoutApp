@@ -16,7 +16,7 @@ class SplashViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val loginRequest = BehaviorSubject.create<Boolean>()
-    val registerRequest = BehaviorSubject.create<Boolean>()
+    val onboardingRequest = BehaviorSubject.create<Boolean>()
 
     init {
         isUserDBEmptyUseCase.execute(Input)
@@ -24,7 +24,7 @@ class SplashViewModel @Inject constructor(
             .subscribeBy {
                 when (it) {
                     is DBNotEmpty -> loginRequest.onNext(true)
-                    is DBEmpty -> registerRequest.onNext(true)
+                    is DBEmpty -> onboardingRequest.onNext(true)
                     else -> loginRequest.onNext(true)
                 }
             }
