@@ -9,7 +9,6 @@ interface HomeContract {
 
     interface View : BaseView<Presenter> {
         fun showNetworkError()
-        fun handleAddWorkoutClick()
         fun handleShowWorkoutClick()
         fun showData(items: List<HomeItemWrapper>)
     }

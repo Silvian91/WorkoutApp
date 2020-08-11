@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_network_error
-import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
 import com.example.workoutapp.ui.common.BaseFragment
 import com.example.workoutapp.ui.home.adapter.HomeAdapter
 import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
@@ -52,10 +51,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
             homeAdapter = HomeAdapter(presenter, this@HomeFragment.lifecycle)
             adapter = homeAdapter
         }
-    }
-
-    override fun handleAddWorkoutClick() {
-        startActivity(AddWorkoutActivity.newIntent(requireContext()))
     }
 
     override fun handleShowWorkoutClick() {

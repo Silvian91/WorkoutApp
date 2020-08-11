@@ -54,7 +54,6 @@ class HomeAdapter(
     }
 
     interface ButtonHolderViewListener {
-        fun onAddWorkoutClicked()
         fun onShowWorkoutClicked()
     }
 

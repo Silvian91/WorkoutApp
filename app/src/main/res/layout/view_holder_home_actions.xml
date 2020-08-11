@@ -11,14 +11,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/add_workout"
-            style="@style/buttonColorAndBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/defaultMargin"
-            android:text="@string/text_add_workout" />
-
-        <Button
             android:id="@+id/show_workout"
             style="@style/buttonColorAndBackground"
             android:layout_width="match_parent"

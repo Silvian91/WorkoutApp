@@ -55,10 +55,6 @@ class HomePresenter(
             .addTo(compositeDisposable)
     }
 
-    override fun onAddWorkoutClicked() {
-        view.handleAddWorkoutClick()
-    }
-
     override fun onShowWorkoutClicked() {
         view.handleShowWorkoutClick()
     }
