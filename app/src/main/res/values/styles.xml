@@ -41,7 +41,16 @@
         <item name="android:textSize">@dimen/textFont</item>
     </style>
 
-<!--    <style name="inputLayout" parent="Widget.Design.TextInputLayout">-->
+    <!-- Input Field -->
+    <style name="textParagraphStyle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/DarkSlateGray</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/buttonsFont</item>
+    </style>
+
+
+    <!--    <style name="inputLayout" parent="Widget.Design.TextInputLayout">-->
 <!--        <item name="editTextStyle">@style/inputText</item>-->
 <!--    </style>-->
 

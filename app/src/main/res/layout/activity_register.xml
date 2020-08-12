@@ -60,15 +60,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        style="@style/textBodyStyle"
+        style="@style/textParagraphStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/defaultMargin"
-        android:layout_marginEnd="@dimen/defaultMargin"
+        android:paddingStart="@dimen/defaultMargin"
         android:text="@string/text_password_length"
-        app:layout_constraintTop_toBottomOf="@+id/password_text_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/password_text_layout" />
 
     <Button
         android:id="@+id/button_confirm_register"
