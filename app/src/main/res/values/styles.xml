@@ -46,7 +46,7 @@
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/buttonsFont</item>
+        <item name="android:textSize">@dimen/paragraphFont</item>
     </style>
 
 

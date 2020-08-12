@@ -11,7 +11,8 @@
     <dimen name="onboardingMargin">@dimen/_60sdp</dimen>
 
     <!-- Font sizes -->
-    <dimen name="buttonsFont">@dimen/_12ssp</dimen>
+    <dimen name="buttonsFont">@dimen/_10ssp</dimen>
     <dimen name="textFont">@dimen/_14ssp</dimen>
     <dimen name="headerTextFont">@dimen/_16ssp</dimen>
+    <dimen name="paragraphFont">@dimen/_12ssp</dimen>
 </resources>
