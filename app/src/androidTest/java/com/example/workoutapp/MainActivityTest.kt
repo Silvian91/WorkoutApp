@@ -27,7 +27,7 @@ class MainActivityTest {
 
     @Test
     fun test_visibility_title_showWorkout() {
-        onView(withId(R.id.show_workout)).check(matches(isDisplayed()))
+        onView(withId(R.id.action_holder)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -39,7 +39,7 @@ class MainActivityTest {
 
     @Test
     fun test_nav_showWorkout() {
-        onView(withId(R.id.show_workout)).perform(click())
+        onView(withId(R.id.action_holder)).perform(click())
 
         onView(withId(R.id.show_workout_activity)).check(matches(isDisplayed()))
     }

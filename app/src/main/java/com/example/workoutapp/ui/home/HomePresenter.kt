@@ -39,13 +39,13 @@ class HomePresenter(
             .subscribeBy {
                 when (it.first) {
                     is WeatherSuccess -> {
-                        itemsWrapper.add(HomeItemWrapper.Weather((it.first as WeatherSuccess).weather))
+                        view.showWeather((it.first as WeatherSuccess).weather)
                     }
                     else -> view.showNetworkError()
                 }
                 when (it.second) {
                     is QuoteSuccess -> {
-                        itemsWrapper.add(HomeItemWrapper.Quote((it.second as QuoteSuccess).quote))
+                        view.showQoute((it.second as QuoteSuccess).quote)
                         itemsWrapper.add(HomeItemWrapper.Actions)
                         view.showData(itemsWrapper)
                     }

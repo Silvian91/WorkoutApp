@@ -19,7 +19,7 @@ class ActionViewHolder(
 ) : BaseViewHolder<HomeItemWrapper>(containerView), LayoutContainer {
 
     override fun bind(model: HomeItemWrapper) {
-        show_workout
+        action_holder
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(parent, ON_DESTROY))
             .subscribe {

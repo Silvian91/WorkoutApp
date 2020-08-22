@@ -8,7 +8,7 @@
     tools:context=".ui.main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/toolbar_layout"
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,23 +16,65 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleGravity="bottom"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:expandedTitleTextAppearance="@style/expandedToolbarText"
-            app:collapsedTitleTextAppearance="@style/collapsedToolbarText"
-            app:title="Workout App">
+            app:titleEnabled="false">
 
-            <ImageView
-                android:id="@+id/toolbar_image"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/weather_frame_layout"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_undraw_personal_trainer_ote3" />
+                android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/home_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="parallax" />
+                <ImageView
+                    android:id="@+id/toolbar_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/ic_undraw_personal_trainer_ote3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/weather_icon"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/defaultMargin"
+                    android:layout_marginBottom="12dp"
+                    android:paddingEnd="6dp"
+                    android:src="@drawable/ic_temperature"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
+                    app:layout_constraintStart_toStartOf="@id/toolbar_image" />
+
+                <TextView
+                    android:id="@+id/weather_api"
+                    style="@style/subheadingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/defaultMargin"
+                    android:layout_marginTop="@dimen/defaultMargin"
+                    android:layout_marginEnd="@dimen/defaultMargin"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/AntiqueWhite"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
+                    app:layout_constraintStart_toStartOf="@id/weather_icon"
+                    tools:text="The Weather is Berlin is 23" />
+
+                <TextView
+                    android:id="@+id/quote_api"
+                    style="@style/subheadingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/defaultMargin"
+                    android:layout_marginEnd="@dimen/defaultMargin"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:gravity="center"
+                    android:textColor="@color/AntiqueWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_image"
+                    tools:text="Super Inspirational quote" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -41,6 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:paddingBottom="@dimen/_48sdp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

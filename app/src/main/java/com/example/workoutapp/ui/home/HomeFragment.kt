@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_network_error
+import com.example.workoutapp.domain.inspirationalquote.model.QuoteModel
+import com.example.workoutapp.domain.openweathermap.model.WeatherModel
 import com.example.workoutapp.ui.common.BaseFragment
 import com.example.workoutapp.ui.home.adapter.HomeAdapter
 import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
@@ -41,25 +43,26 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         presenter.setView(this)
         initHomeRecyclerView()
         presenter.start()
-
-        setToolbar()
     }
 
     private fun initHomeRecyclerView() {
         recycler_view_home_fragment.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = GridLayoutManager(requireContext(), 2)
             homeAdapter = HomeAdapter(presenter, this@HomeFragment.lifecycle)
             adapter = homeAdapter
         }
     }
 
-    override fun handleShowWorkoutClick() {
-        startActivity(ShowWorkoutActivity.newIntent(requireContext()))
+    override fun showQoute(quote: QuoteModel) {
+        quote_api.text = "\"${quote.quote}\" - ${quote.author}"
     }
 
-    private fun setToolbar() {
-        (activity as AppCompatActivity)
-            .setSupportActionBar(home_toolbar)
+    override fun showWeather(weather: WeatherModel) {
+        weather_api.text = "The weather in Berlin is: ${weather.temp.toInt()} ${weather.name}"
+    }
+
+    override fun handleShowWorkoutClick() {
+        startActivity(ShowWorkoutActivity.newIntent(requireContext()))
     }
 
     override fun showNetworkError() {
