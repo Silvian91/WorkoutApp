@@ -5,35 +5,31 @@ import com.example.workoutapp.domain.login.LoginUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase.Input
 import com.example.workoutapp.domain.user.model.UserModel
+import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.workoutapp.ui.error.ErrorType
+import com.example.workoutapp.ui.error.ErrorType.ErrorRegistration
+import com.example.workoutapp.ui.error.ErrorType.Unknown
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.BehaviorSubject
 import com.example.workoutapp.domain.login.LoginUseCase.Output.Success as LoginSuccess
 import com.example.workoutapp.domain.register.RegisterUseCase.Output.Success as RegistrationSuccess
 
-class RegisterPresenter(
+class RegisterViewModel(
     private val registerUseCase: RegisterUseCase,
-    private val loginUseCase: LoginUseCase,
-    private val compositeDisposable: CompositeDisposable
-) : RegisterContract.Presenter {
+    private val loginUseCase: LoginUseCase
+) : BaseViewModel() {
 
-    private lateinit var view: RegisterContract.View
+    val home = BehaviorSubject.create<Boolean>()
 
-    override fun setView(view: RegisterContract.View) {
-        this.view = view
-    }
-
-    override fun start() {}
-
-    override fun finish() = compositeDisposable.clear()
-
-    override fun onContinueClicked(username: String, password: String, id: Long) {
+    fun onContinueClicked(username: String, password: String, id: Long) {
         registerUseCase.execute(Input(UserModel(username, password, id)))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is RegistrationSuccess -> setCurrentUserId(username, password)
-                    else -> view.showError()
+                    else -> error.onNext(ErrorRegistration)
                 }
             }
             .addTo(compositeDisposable)
@@ -44,8 +40,8 @@ class RegisterPresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is LoginSuccess -> view.showHome()
-                    else -> view.showError()
+                    is LoginSuccess -> home.onNext(true)
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)

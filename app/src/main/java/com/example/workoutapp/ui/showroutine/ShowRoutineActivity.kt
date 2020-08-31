@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_show_routines_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineAdapter
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
@@ -19,17 +21,17 @@ import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_show_routine.*
-import javax.inject.Inject
 
-class ShowRoutineActivity : BaseActivity(), ShowRoutineContract.View {
+class ShowRoutineActivity : BaseActivity() {
 
-    @Inject
-    lateinit var presenter: ShowRoutineContract.Presenter
+    private lateinit var viewModel: ShowRoutineViewModel
 
     private lateinit var showRoutineAdapter: ShowRoutineAdapter
 
-    override fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
+    fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
         showRoutineAdapter.items = routineData
     }
 
@@ -37,24 +39,20 @@ class ShowRoutineActivity : BaseActivity(), ShowRoutineContract.View {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_show_routine)
+        viewModel = ViewModelProvider(
+            this, viewModelFactory.get()
+        ).get(ShowRoutineViewModel::class.java)
 
         setToolbar()
-        presenter.setView(this)
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
-        presenter.setWorkoutId(workoutId)
+        viewModel.setWorkoutId(workoutId)
         initRoutineRecyclerView()
-        presenter.start()
-
+        viewModel.getRoutine()
+        routineDataResponse()
         deleteWorkout()
-    }
-
-    private fun deleteWorkout() {
-        button_delete_workout
-            .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe {
-                presenter.onDeleteClicked()
-            }
+        deleteDialog()
+        showWorkoutResponse()
+        onError()
     }
 
     private fun setToolbar() {
@@ -64,6 +62,15 @@ class ShowRoutineActivity : BaseActivity(), ShowRoutineContract.View {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back_arrow)
         }
+    }
+
+    private fun routineDataResponse() {
+        viewModel.routineData
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showRoutineData(viewModel.routineData.value!!)
+            }
+            .addTo(compositeDisposable)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,15 +87,25 @@ class ShowRoutineActivity : BaseActivity(), ShowRoutineContract.View {
         }
     }
 
-    override fun openShowWorkoutActivity() {
-        startActivity(ShowWorkoutActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+    private fun deleteWorkout() {
+        button_delete_workout
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                viewModel.onDeleteClicked()
+            }
     }
 
-    override fun errorUnknown() {
-        Snackbar.make(upper_layout, text_unknown_error, LENGTH_SHORT).show()
+    private fun deleteDialog() {
+        viewModel.delete
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showDeleteConfirmation(viewModel.delete.value!!)
+            }
+            .addTo(compositeDisposable)
     }
 
-    override fun showDeleteConfirmation(workoutId: Long) {
+    private fun showDeleteConfirmation(workoutId: Long) {
         AlertDialog.Builder(this)
             .setMessage(R.string.text_dialog_delete_routines)
             .setNegativeButton(
@@ -96,12 +113,41 @@ class ShowRoutineActivity : BaseActivity(), ShowRoutineContract.View {
             ) { _, _ -> }
             .setPositiveButton(
                 R.string.text_dialog_alert_confirm
-            ) { _, _ -> presenter.onDeleteConfirmed(workoutId) }
+            ) { _, _ -> viewModel.onDeleteConfirmed(workoutId) }
             .show()
     }
 
+    private fun showWorkoutResponse() {
+        viewModel.showWorkout
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openShowWorkout()
+            }
+            .addTo(compositeDisposable)
+    }
+
+
+    private fun openShowWorkout() = startActivity(
+        ShowWorkoutActivity.newIntent(
+            this
+        ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    )
+
+    private fun onError() {
+        viewModel.error
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                errorUnknown()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun errorUnknown() {
+        Snackbar.make(upper_layout, text_unknown_error, LENGTH_SHORT).show()
+    }
+
     override fun onDestroy() {
-        presenter.finish()
+        compositeDisposable.clear()
 
         super.onDestroy()
     }

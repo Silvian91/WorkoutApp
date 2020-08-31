@@ -12,8 +12,8 @@ import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_add_routine_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.addroutine.error.ErrorType
 import com.example.workoutapp.ui.common.BaseActivity
+import com.example.workoutapp.ui.error.ErrorType
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
@@ -107,10 +107,6 @@ class AddRoutineActivity : BaseActivity() {
             .addTo(compositeDisposable)
     }
 
-    private fun saveRoutines() {
-        openMain()
-    }
-
     private fun openMain() {
         viewModel.routines
             .doOnIoObserveOnMain()
@@ -119,6 +115,8 @@ class AddRoutineActivity : BaseActivity() {
             }
             .addTo(compositeDisposable)
     }
+
+    private fun saveRoutines() = openMain()
 
     private fun clearAllInputFields() {
         routine_name.setText("")
@@ -129,17 +127,17 @@ class AddRoutineActivity : BaseActivity() {
         routine_rest.setText("")
     }
 
-    private fun resetFocus() {
-        routine_name.requestFocus()
-    }
+    private fun resetFocus() = routine_name.requestFocus()
 
-    private fun nextActivity() {
-        startActivity(MainActivity.newIntent(this).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-    }
+    private fun nextActivity() = startActivity(
+        MainActivity.newIntent(
+            this
+        ).addFlags(
+            Intent.FLAG_ACTIVITY_CLEAR_TOP
+        )
+    )
 
-    private fun errorFieldEmpty(): String {
-        return getString(R.string.text_field_cannotEmpty)
-    }
+    private fun errorFieldEmpty(): String = getString(R.string.text_field_cannotEmpty)
 
     private fun showError() {
         viewModel.error

@@ -6,7 +6,6 @@ import com.example.workoutapp.di.android.AndroidModule
 import com.example.workoutapp.di.api.ApiModule
 import com.example.workoutapp.di.home.HomeModule
 import com.example.workoutapp.di.login.LoginModule
-import com.example.workoutapp.di.onboarding.OnboardingModule
 import com.example.workoutapp.di.profile.ProfileModule
 import com.example.workoutapp.di.register.RegisterModule
 import com.example.workoutapp.di.showroutine.ShowRoutineModule
@@ -34,7 +33,6 @@ import javax.inject.Singleton
         ShowRoutineModule::class,
         ShowWorkoutModule::class,
         SplashModule::class,
-        OnboardingModule::class,
         AndroidModule::class,
         ActivityModule::class,
         ViewModelModule::class

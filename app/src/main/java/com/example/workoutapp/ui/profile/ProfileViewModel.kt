@@ -6,6 +6,7 @@ import com.example.workoutapp.domain.logout.LogoutUseCase.Output.ErrorUnknown
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Input
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
+import com.example.workoutapp.ui.profile.adapter.ProfileItemWrapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
@@ -18,6 +19,16 @@ class ProfilePresenter(
     private val compositeDisposable: CompositeDisposable
 ) : ProfileContract.Presenter {
 
+    private lateinit var viewState: ProfileViewState
+
+    private lateinit var items: MutableList<ProfileItemWrapper>
+
+    init {
+
+        items = mutableListOf(ProfileItemWrapper.Profile(), ProfileItemWrapper.Heading)
+        viewState = ProfileViewState(items)
+    }
+
     private lateinit var view: ProfileContract.View
 
     override fun setView(view: ProfileContract.View) {
@@ -29,7 +40,11 @@ class ProfilePresenter(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetUserSuccess -> view.showUsername(it.user.username)
+                    is GetUserSuccess -> {
+                        items[0] = ProfileItemWrapper.Profile(it.user.username)
+                        viewState.copy(items)
+                        view.render(viewState)
+                    }
                     is ErrorUnauthorized -> view.showLogin()
                     else -> view.showError()
                 }
@@ -62,8 +77,8 @@ class ProfilePresenter(
         view.openCamera()
     }
 
-    override fun onImageSelected() {
-
+    override fun onGallerySelected() {
+        view.openGallery()
     }
 
     override fun finish() = compositeDisposable.clear()

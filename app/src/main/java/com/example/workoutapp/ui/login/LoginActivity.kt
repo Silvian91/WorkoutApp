@@ -11,12 +11,12 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.R
 import com.example.workoutapp.R.color.colorPrimary
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
-import com.example.workoutapp.ui.login.LoginContract.ErrorType
-import com.example.workoutapp.ui.login.LoginContract.ErrorType.INVALID_CREDENTIALS
-import com.example.workoutapp.ui.login.LoginContract.ErrorType.USER_DOES_NOT_EXIST
+import com.example.workoutapp.ui.error.ErrorType
 import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.register.RegisterActivity
 import com.google.android.material.snackbar.Snackbar
@@ -24,24 +24,27 @@ import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
-import javax.inject.Inject
 
-class LoginActivity : BaseActivity(), LoginContract.View {
+class LoginActivity : BaseActivity() {
 
-    @Inject
-    lateinit var presenter: LoginContract.Presenter
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
-
-        presenter.setView(this)
+        viewModel = ViewModelProvider(
+            this, viewModelFactory.get()
+        ).get(LoginViewModel::class.java)
 
         clickLogin()
+        homeResponse()
         setUpSignUpAction()
+        showError()
     }
 
     private fun setUpSignUpAction() {
@@ -56,7 +59,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             }
 
             override fun onClick(widget: View) {
-                presenter.onSignUpClicked()
+                viewModel.onSignUpClicked()
             }
         }
 
@@ -72,11 +75,29 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                presenter.onLoginClicked(
+                viewModel.onLoginClicked(
                     login_username_field.text.toString().toLowerCase(Locale.ENGLISH),
                     login_password_field.text.toString()
                 )
             }
+    }
+
+    private fun homeResponse() {
+        viewModel.showHome
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openHome()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun signUpResponse() {
+        viewModel.showRegister
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openRegister()
+            }
+            .addTo(compositeDisposable)
     }
 
     companion object {
@@ -84,40 +105,56 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             Intent(context, LoginActivity::class.java)
     }
 
-    override fun showHome() {
-        startActivity(
-            MainActivity.newIntent(this)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
-    }
+    private fun showError() {
+        viewModel.error
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    ErrorType.ErrorInvalidCredentials -> {
+                        errorSnackbar()
+                    }
+                    ErrorType.Unknown -> {
+                        Snackbar.make(
+                            login_layout,
+                            getString(R.string.text_unknown_error),
+                            LENGTH_SHORT
+                        ).show()
+                    }
+                }
 
-    override fun showError(errorType: ErrorType) {
-        when (errorType) {
-            INVALID_CREDENTIALS -> Snackbar.make(
-                login_layout,
-                getString(R.string.text_error_invalid_credentials),
-                LENGTH_SHORT
-            ).show()
-            USER_DOES_NOT_EXIST -> Snackbar.make(
-                login_layout,
-                getString(R.string.text_error_invalid_credentials),
-                LENGTH_SHORT
-            ).show()
-            else -> {
-                Snackbar.make(login_layout, getString(R.string.text_unknown_error), LENGTH_SHORT).show()
             }
-        }
+            .addTo(compositeDisposable)
     }
 
-    override fun openRegisterActivity() {
-        startActivity(
-            RegisterActivity.newIntent(this)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
+    private fun errorSnackbar() {
+        Snackbar.make(
+            login_layout,
+            getString(R.string.text_error_invalid_credentials),
+            LENGTH_SHORT
+        ).show()
     }
+
+    private fun openHome() = startActivity(
+        MainActivity.newIntent(
+            this
+        )
+            .addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+            )
+    )
+
+
+    private fun openRegister() = startActivity(
+        RegisterActivity.newIntent(
+            this
+        )
+            .addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+            )
+    )
 
     override fun onDestroy() {
-        presenter.finish()
+        compositeDisposable.clear()
 
         super.onDestroy()
     }

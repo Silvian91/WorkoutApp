@@ -6,34 +6,42 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_error_registration_failed
+import com.example.workoutapp.R.string.text_unknown_error
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
+import com.example.workoutapp.ui.error.ErrorType
 import com.example.workoutapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
-import javax.inject.Inject
 
-class RegisterActivity : BaseActivity(), RegisterContract.View {
+class RegisterActivity : BaseActivity() {
 
-    @Inject
-    lateinit var presenter: RegisterContract.Presenter
+    private lateinit var viewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_register)
+        viewModel = ViewModelProvider(
+            this, viewModelFactory.get()
+        ).get(RegisterViewModel::class.java)
 
         setOnClickListenerEvent()
-        presenter.setView(this)
 
         register_username_field.addTextChangedListener(setTextWatcher)
         register_password_field.addTextChangedListener(setTextWatcher)
 
+        homeResponse()
+        errorResponse()
     }
 
     companion object {
@@ -61,7 +69,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                presenter.onContinueClicked(
+                viewModel.onContinueClicked(
                     register_username_field.text.toString().toLowerCase(Locale.ENGLISH),
                     register_password_field.text.toString(),
                     id = 0
@@ -69,23 +77,46 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
             }
     }
 
-    override fun showHome() {
-        startActivity(
-            MainActivity.newIntent(this)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
+    private fun homeResponse() {
+        viewModel.home
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openHome()
+            }
+            .addTo(compositeDisposable)
     }
 
-    override fun showError() {
-        Snackbar.make(
-            register_layout,
-            text_error_registration_failed,
-            Snackbar.LENGTH_SHORT
-        ).show()
+    private fun errorResponse() {
+        viewModel.error
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    ErrorType.ErrorRegistration -> {
+                        Snackbar.make(
+                            register_layout,
+                            text_error_registration_failed,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                    ErrorType.Unknown -> {
+                        Snackbar.make(
+                            register_layout,
+                            text_unknown_error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+            .addTo(compositeDisposable)
     }
+
+    private fun openHome() = startActivity(
+        MainActivity.newIntent(this)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    )
 
     override fun onDestroy() {
-        presenter.finish()
+        compositeDisposable.clear()
 
         super.onDestroy()
     }

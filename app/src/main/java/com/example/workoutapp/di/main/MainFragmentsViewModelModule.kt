@@ -3,7 +3,6 @@ package com.example.workoutapp.di.main
 import androidx.lifecycle.ViewModel
 import com.example.workoutapp.di.FragmentScope
 import com.example.workoutapp.di.ViewModelKey
-import com.example.workoutapp.ui.addroutine.AddRoutineViewModel
 import com.example.workoutapp.ui.home.HomeFragment
 import com.example.workoutapp.ui.main.MainViewModel
 import com.example.workoutapp.ui.profile.ProfileFragment

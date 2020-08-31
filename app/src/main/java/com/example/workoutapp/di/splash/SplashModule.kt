@@ -9,8 +9,6 @@ import dagger.Provides
 @Module
 class SplashModule {
 
-
-
     @Provides
     fun providesGetExistingUserUseCase(
         userRepository: UserRepository

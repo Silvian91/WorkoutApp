@@ -5,37 +5,44 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_add_workout_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.addroutine.AddRoutineActivity
 import com.example.workoutapp.ui.common.BaseActivity
+import com.example.workoutapp.ui.error.ErrorType
 import com.example.workoutapp.ui.login.LoginActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_add_workout.*
-import javax.inject.Inject
 
-class AddWorkoutActivity : BaseActivity(), AddWorkoutContract.View {
+class AddWorkoutActivity : BaseActivity() {
 
-    @Inject
-    lateinit var presenter: AddWorkoutContract.Presenter
+    private lateinit var viewModel: AddWorkoutViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_add_workout)
+        viewModel = ViewModelProvider(
+            this, viewModelFactory.get()
+        ).get(AddWorkoutViewModel::class.java)
 
         setToolbar()
-        presenter.start()
-        presenter.setView(this)
+        viewModel.getUser()
+        onUserUnauthorized()
+        saveWorkoutId()
         button_confirm_workout
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                presenter.onConfirmClicked(workout_title_field.text.toString())
+                viewModel.onConfirmClicked(workout_title_field.text.toString())
             }
     }
 
@@ -48,27 +55,62 @@ class AddWorkoutActivity : BaseActivity(), AddWorkoutContract.View {
         }
     }
 
-    override fun showAddRoutine(workoutId: Long) {
-        startActivity(
+    private fun onUserUnauthorized() {
+        viewModel.userUnauthorized
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openLogin()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun saveWorkoutId() {
+        viewModel.workout
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openAddRoutine(viewModel.workout.value!!)
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun openLogin() = startActivity(
+        LoginActivity.newIntent(
+            this
+        ).addFlags(
+            Intent.FLAG_ACTIVITY_CLEAR_TOP
+        )
+    )
+
+    private fun openAddRoutine(workoutId: Long) = startActivity(
             AddRoutineActivity.newIntent(
                 this,
                 workoutId
-            ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            ).addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+            )
         )
+
+    private fun onError() {
+        viewModel.error
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    ErrorType.Unknown -> {
+                        errorUnknown()
+                    }
+                    ErrorType.ErrorWorkoutName -> {
+                        errorTitle()
+                    }
+                }
+            }
+            .addTo(compositeDisposable)
     }
 
-    override fun errorUnknown() {
+    private fun errorUnknown() {
         Snackbar.make(add_workout_activity, text_unknown_error, Snackbar.LENGTH_SHORT)
     }
 
-    override fun showLogin() {
-        startActivity(
-            LoginActivity.newIntent(this)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
-    }
-
-    override fun showError() {
+    private fun errorTitle() {
         workout_title_field.error = getString(R.string.text_toast_add_workout)
     }
 
@@ -78,9 +120,8 @@ class AddWorkoutActivity : BaseActivity(), AddWorkoutContract.View {
         return true
     }
 
-    //ALWAYS CALL METHODS BEFORE SUPER.ONDESTROY BECAUSE SUPER SHOULD BE THE LAST THING THAT RUNS
     override fun onDestroy() {
-        presenter.finish()
+        compositeDisposable.clear()
 
         super.onDestroy()
     }

@@ -16,7 +16,8 @@ import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutNoDat
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutViewHolder
 
 class ShowWorkoutAdapter(
-    private val listener: WorkoutViewHolderListener,
+    private val workoutListener: WorkoutClickListener,
+    private val deleteListener: WorkoutDeleteClickListener,
     private val parentLifecycle: Lifecycle
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -30,7 +31,7 @@ class ShowWorkoutAdapter(
         )
         return when (viewType) {
             view_holder_workouts_no_data -> ShowWorkoutNoDataViewHolder(view)
-            else -> ShowWorkoutViewHolder(view, parentLifecycle, listener)
+            else -> ShowWorkoutViewHolder(view, parentLifecycle, workoutListener, deleteListener)
         }
     }
 
@@ -59,9 +60,12 @@ class ShowWorkoutAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    interface WorkoutViewHolderListener {
-        fun onWorkoutClicked(workoutId: Long)
-        fun onDeleteWorkout(workoutId: Long)
+    class WorkoutClickListener(val workoutListener: (workoutId: Long) -> Unit) {
+        fun onWorkoutClicked(workoutId: Long) = workoutListener(workoutId)
+    }
+
+    class WorkoutDeleteClickListener(val deleteListener: (workoutId: Long) -> Unit) {
+        fun onDeleteWorkout(workoutId: Long) = deleteListener(workoutId)
     }
 
 }

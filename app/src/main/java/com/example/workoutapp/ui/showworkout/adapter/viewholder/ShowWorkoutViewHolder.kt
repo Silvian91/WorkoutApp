@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.view_holder_workouts.*
 class ShowWorkoutViewHolder(
     override val containerView: View,
     private val parent: Lifecycle,
-    private val listener: ShowWorkoutAdapter.WorkoutViewHolderListener
+    private val workoutListener: ShowWorkoutAdapter.WorkoutClickListener,
+    private val deleteListener: ShowWorkoutAdapter.WorkoutDeleteClickListener
 ) : BaseViewHolder<ShowWorkoutItemWrapper>(containerView), LayoutContainer {
 
     override fun bind(model: ShowWorkoutItemWrapper) {
@@ -28,7 +29,7 @@ class ShowWorkoutViewHolder(
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(parent, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                listener.onWorkoutClicked(model.workoutTitle.id!!)
+                workoutListener.onWorkoutClicked(model.workoutTitle.id!!)
             }
         val behavior = SwipeDismissBehavior<View>()
         behavior.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_START_TO_END)
@@ -37,7 +38,7 @@ class ShowWorkoutViewHolder(
         coordinatorParameters.behavior = behavior
         behavior.listener = object : SwipeDismissBehavior.OnDismissListener {
             override fun onDismiss(view: View?) {
-                listener.onDeleteWorkout(model.workoutTitle.id!!)
+                deleteListener.onDeleteWorkout(model.workoutTitle.id!!)
             }
 
             override fun onDragStateChanged(state: Int) {

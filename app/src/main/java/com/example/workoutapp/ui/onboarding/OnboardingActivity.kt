@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
 import com.example.workoutapp.R.layout.activity_onboarding
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.common.adapter.FragmentAdapter
 import com.example.workoutapp.ui.register.RegisterActivity
@@ -15,13 +17,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_onboarding.*
-import javax.inject.Inject
 
-class OnboardingActivity : BaseActivity(), OnboardingContract.View {
+class OnboardingActivity : BaseActivity() {
 
-    @Inject
-    lateinit var presenter: OnboardingContract.Presenter
+    private lateinit var viewModel: OnboardingViewModel
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
@@ -31,12 +33,14 @@ class OnboardingActivity : BaseActivity(), OnboardingContract.View {
         super.onCreate(savedInstanceState)
 
         setContentView(activity_onboarding)
-
-        presenter.setView(this)
+        viewModel = ViewModelProvider(
+            this, viewModelFactory.get()
+        ).get(OnboardingViewModel::class.java)
 
         loadFragment()
         setLayoutTab()
         onRegisterClicked()
+        registerResponse()
     }
 
     private fun loadFragment() {
@@ -77,13 +81,23 @@ class OnboardingActivity : BaseActivity(), OnboardingContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                presenter.registerClicked()
+                viewModel.registerClicked()
             }
     }
 
-    override fun openRegister() {
-        startActivity(RegisterActivity.newIntent(this))
+    private fun registerResponse() {
+        viewModel.register
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openRegister()
+            }
+            .addTo(compositeDisposable)
     }
+
+    private fun openRegister() = startActivity(
+        RegisterActivity.newIntent(this)
+    )
+
 
     companion object {
         fun newIntent(context: Context) =

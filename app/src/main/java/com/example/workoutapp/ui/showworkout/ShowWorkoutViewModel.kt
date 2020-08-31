@@ -9,36 +9,36 @@ import com.example.workoutapp.domain.showworkout.UndoSoftDeleteWorkoutUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
 import com.example.workoutapp.domain.workout.model.WorkoutModel
+import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.workoutapp.ui.error.ErrorType.Unknown
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutNoData
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.BehaviorSubject
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success as GetWorkoutSuccess
 import com.example.workoutapp.domain.showworkout.SoftDeleteWorkoutUseCase.Output.Success as SoftDeleteWorkouts
 import com.example.workoutapp.domain.showworkout.UndoSoftDeleteWorkoutUseCase.Output.Success as UndoSuccess
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetUserSuccess
 
-class ShowWorkoutPresenter(
+class ShowWorkoutViewModel(
     private val softDeleteWorkoutUseCase: SoftDeleteWorkoutUseCase,
     private val undoSoftDeleteWorkoutUseCase: UndoSoftDeleteWorkoutUseCase,
     private val getWorkoutUseCase: GetWorkoutUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val compositeDisposable: CompositeDisposable
-) : ShowWorkoutContract.Presenter {
-
-    private lateinit var view: ShowWorkoutContract.View
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
+) : BaseViewModel() {
 
     private var userId: Long = 0
 
-    override fun setView(view: ShowWorkoutContract.View) {
-        this.view = view
-    }
+    val getWorkoutList = BehaviorSubject.create<List<ShowWorkoutItemWrapper>>()
+    val login = BehaviorSubject.create<Boolean>()
+    val deleteWorkoutResponse = BehaviorSubject.create<Long>()
+    val showRoutinesResponse = BehaviorSubject.create<Long>()
+    val undoOption = BehaviorSubject.create<Long>()
+    val undoDelete = BehaviorSubject.create<Boolean>()
 
-    //TODO: When refactoring this presenter to view model the use case output will take
-    //TODO: a BehaviourSubject<List<ShowWorkoutItemWrapper>>
-    override fun start() {
+    fun getUser() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
@@ -47,8 +47,8 @@ class ShowWorkoutPresenter(
                         userId = it.user.id!!
                         getWorkoutsForUser(userId)
                     }
-                    is ErrorUnauthorized -> view.showLogin()
-                    else -> view.showError()
+                    is ErrorUnauthorized -> login.onNext(true)
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
@@ -61,13 +61,13 @@ class ShowWorkoutPresenter(
                 when (output) {
                     is SuccessNoData -> {
                         val items = convertToItemWrapper()
-                        view.showWorkouts(items)
+                        getWorkoutList.onNext(items)
                     }
                     is GetWorkoutSuccess -> {
                         val items = convertToItemWrapper(output.workouts)
-                        view.showWorkouts(items)
+                        getWorkoutList.onNext(items)
                     }
-                    else -> view.showError()
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
@@ -85,45 +85,40 @@ class ShowWorkoutPresenter(
         return itemWrappers
     }
 
-    override fun softDeleteWorkout(workoutId: Long) {
+    fun softDeleteWorkout(workoutId: Long) {
         softDeleteWorkoutUseCase.execute(SoftDeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is SoftDeleteWorkouts -> {
                         getWorkoutsForUser(userId)
-                        view.showUndoOption(workoutId)
+                        undoOption.onNext(workoutId)
                     }
-                    else -> view.showError()
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
     }
 
-    override fun onUndoDeletion(workoutId: Long) {
+    fun onUndoDeletion(workoutId: Long) {
         undoSoftDeleteWorkoutUseCase.execute(UndoSoftDeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is UndoSuccess -> {
-                        view.reloadActivity()
+                        undoDelete.onNext(true)
                     }
-                    else -> view.showError()
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
     }
 
-    override fun onRetryClicked() {
-        start()
-    }
+    fun onRetryClicked() = getUser()
 
-    override fun finish() = compositeDisposable.clear()
+    fun onWorkoutClicked(workoutId: Long) = showRoutinesResponse.onNext(workoutId)
 
-    override fun onWorkoutClicked(workoutId: Long) = view.showRoutines(workoutId)
+    fun onDeleteWorkout(workoutId: Long) = deleteWorkoutResponse.onNext(workoutId)
 
-    override fun onDeleteWorkout(workoutId: Long) {
-        view.showDeleteConfirmation(workoutId)
-    }
 
 }

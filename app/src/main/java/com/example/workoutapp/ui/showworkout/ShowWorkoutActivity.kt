@@ -8,39 +8,25 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter.WorkoutClickListener
+import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter.WorkoutDeleteClickListener
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_show_workout.*
 import kotlinx.android.synthetic.main.view_holder_workouts.*
-import javax.inject.Inject
 
-class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
+class ShowWorkoutActivity : BaseActivity() {
 
-    @Inject
-    lateinit var presenter: ShowWorkoutContract.Presenter
+    private lateinit var viewModel: ShowWorkoutViewModel
 
     private lateinit var workoutAdapter: ShowWorkoutAdapter
-
-    override fun showWorkouts(workoutsList: List<ShowWorkoutItemWrapper>) {
-        workoutAdapter.setData(workoutsList)
-    }
-
-    override fun showRoutines(workoutId: Long) {
-        startActivity(ShowRoutineActivity.newIntent(this, workoutId))
-    }
-
-    override fun showError() {
-        Snackbar.make(
-            workouts_view_holder,
-            text_unknown_error,
-            Snackbar.LENGTH_INDEFINITE
-        ).setAction(getString(text_snackbar_retry)) { presenter.onRetryClicked() }
-            .show()
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
@@ -53,9 +39,15 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
         setContentView(R.layout.activity_show_workout)
 
         setToolbar()
-        presenter.setView(this)
         initWorkoutRecyclerView()
-        presenter.start()
+        viewModel.getUser()
+        getWorkouts()
+        onError()
+        onLogin()
+        onShowRoutines()
+        onDelete()
+        onUndo()
+        onUndoDelete()
     }
 
     private fun setToolbar() {
@@ -71,12 +63,79 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
         recyclerViewWorkout.apply {
             layoutManager = LinearLayoutManager(this@ShowWorkoutActivity)
             workoutAdapter =
-                ShowWorkoutAdapter(presenter, this@ShowWorkoutActivity.lifecycle)
+                ShowWorkoutAdapter(
+                    WorkoutClickListener { workoutId -> viewModel.onWorkoutClicked(workoutId) },
+                    WorkoutDeleteClickListener { workoutId -> viewModel.onDeleteWorkout(workoutId) },
+                    this@ShowWorkoutActivity.lifecycle
+                )
             adapter = workoutAdapter
         }
     }
 
-    override fun showDeleteConfirmation(workoutId: Long) {
+    private fun showWorkouts(workoutsList: List<ShowWorkoutItemWrapper>) {
+        workoutAdapter.setData(workoutsList)
+    }
+
+    private fun getWorkouts() {
+        viewModel.getWorkoutList
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showWorkouts(viewModel.getWorkoutList.value!!)
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun onError() {
+        viewModel.error
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showError()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun onLogin() {
+        viewModel.login
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showLogin()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun onShowRoutines() {
+        viewModel.showRoutinesResponse
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showRoutines(viewModel.showRoutinesResponse.value!!)
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun onDelete() {
+        viewModel.deleteWorkoutResponse
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showDeleteConfirmation(viewModel.deleteWorkoutResponse.value!!)
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun showError() {
+        Snackbar.make(
+            workouts_view_holder,
+            text_unknown_error,
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(getString(text_snackbar_retry)) { viewModel.onRetryClicked() }
+            .show()
+    }
+
+    private fun showLogin() = startActivity(
+        LoginActivity.newIntent(this)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    )
+
+    private fun showDeleteConfirmation(workoutId: Long) {
         AlertDialog.Builder(this)
             .setMessage(R.string.text_dialog_delete_routines)
             .setNegativeButton(
@@ -84,32 +143,50 @@ class ShowWorkoutActivity : BaseActivity(), ShowWorkoutContract.View {
             ) { _, _ -> reloadActivity() }
             .setPositiveButton(
                 R.string.text_dialog_alert_confirm
-            ) { _, _ -> presenter.softDeleteWorkout(workoutId) }
+            ) { _, _ -> viewModel.softDeleteWorkout(workoutId) }
             .show()
     }
 
-    override fun showUndoOption(workoutId: Long) {
+    private fun onUndo() {
+        viewModel.undoOption
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showUndoOption(viewModel.undoOption.value!!)
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun showUndoOption(workoutId: Long) {
         Snackbar.make(
             show_workout_activity, getString(text_snack_deletion_confirmed),
             Snackbar.LENGTH_LONG
-        ).setAction(getString(text_snackbar_undo)) { presenter.onUndoDeletion(workoutId) }
+        ).setAction(getString(text_snackbar_undo)) { viewModel.onUndoDeletion(workoutId) }
             .show()
     }
 
-    override fun showLogin() {
-        startActivity(
-            LoginActivity.newIntent(this)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
+    private fun onUndoDelete() {
+        viewModel.undoDelete
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                reloadActivity()
+            }
+            .addTo(compositeDisposable)
     }
 
-    override fun reloadActivity() {
+
+    private fun showRoutines(workoutId: Long) = startActivity(
+        ShowRoutineActivity.newIntent(
+            this, workoutId
+        )
+    )
+
+    private fun reloadActivity() {
         finish()
         startActivity(intent)
     }
 
     override fun onDestroy() {
-        presenter.finish()
+        compositeDisposable.clear()
 
         super.onDestroy()
     }

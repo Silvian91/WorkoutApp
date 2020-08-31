@@ -15,22 +15,11 @@ import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCaseImpl
 import com.example.workoutapp.domain.user.UserRepository
 import com.example.workoutapp.domain.workout.WorkoutRepository
-import com.example.workoutapp.ui.addworkout.AddWorkoutContract
-import com.example.workoutapp.ui.addworkout.AddWorkoutPresenter
 import dagger.Module
 import dagger.Provides
-import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class AddWorkoutModule {
-    @Provides
-    fun providesAddWorkoutPresenter(
-        addWorkoutUseCase: AddWorkoutUseCase,
-        getCurrentUserUseCase: GetCurrentUserUseCase,
-        compositeDisposable: CompositeDisposable
-    ): AddWorkoutContract.Presenter {
-        return AddWorkoutPresenter(addWorkoutUseCase, getCurrentUserUseCase, compositeDisposable)
-    }
 
     @Provides
     fun providesAddWorkoutUseCase(workoutRepository: WorkoutRepository): AddWorkoutUseCase {

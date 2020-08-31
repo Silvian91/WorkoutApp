@@ -6,43 +6,42 @@ import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
 import com.example.workoutapp.domain.workout.model.WorkoutModel
-import io.reactivex.disposables.CompositeDisposable
+import com.example.workoutapp.ui.error.ErrorType.ErrorWorkoutName
+import com.example.workoutapp.ui.error.ErrorType.Unknown
+import com.example.workoutapp.ui.common.BaseViewModel
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase.Output.Success as SaveWorkoutSuccess
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetUserSuccess
 
-class AddWorkoutPresenter
-    (
+class AddWorkoutViewModel @Inject constructor (
     private val addWorkoutUseCase: AddWorkoutUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val compositeDisposable: CompositeDisposable
-) : AddWorkoutContract.Presenter {
-
-    private lateinit var view: AddWorkoutContract.View
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
+) : BaseViewModel() {
 
     private var userId: Long = 0
 
-    override fun setView(view: AddWorkoutContract.View) {
-        this.view = view
-    }
+    val userUnauthorized = BehaviorSubject.create<Boolean>()
+    val workout = BehaviorSubject.create<Long>()
 
-    override fun start() {
+    fun getUser() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is GetUserSuccess -> userId = it.user.id!!
-                    is ErrorUnauthorized -> view.showLogin()
-                    else -> view.showError()
+                    is ErrorUnauthorized -> userUnauthorized.onNext(true)
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
     }
 
-    override fun onConfirmClicked(workoutTitle: String) {
+    fun onConfirmClicked(workoutTitle: String) {
         if (workoutTitle.isEmpty()) {
-            view.showError()
+            error.onNext(ErrorWorkoutName)
         } else {
             saveWorkout(WorkoutModel(title = workoutTitle, userId = userId))
         }
@@ -53,13 +52,11 @@ class AddWorkoutPresenter
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is SaveWorkoutSuccess -> view.showAddRoutine(it.workoutId)
-                    else -> view.errorUnknown()
+                    is SaveWorkoutSuccess -> workout.onNext(it.workoutId)
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
     }
-
-    override fun finish() = compositeDisposable.clear()
 
 }

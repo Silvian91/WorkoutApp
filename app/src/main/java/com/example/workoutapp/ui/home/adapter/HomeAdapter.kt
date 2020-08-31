@@ -42,8 +42,8 @@ class HomeAdapter(
         return view_holder_home_actions
     }
 
-    interface ButtonHolderViewListener {
-        fun onShowWorkoutClicked()
+    class ButtonHolderViewListener(val clickListener: () -> Unit) {
+        fun onShowWorkoutClicked() = clickListener()
     }
 
 }

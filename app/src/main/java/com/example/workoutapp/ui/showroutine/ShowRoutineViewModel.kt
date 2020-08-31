@@ -6,38 +6,39 @@ import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Input
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Output.ErrorNoRoutines
+import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.workoutapp.ui.error.ErrorType
+import com.example.workoutapp.ui.error.ErrorType.Unknown
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.BehaviorSubject
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.Success as DeleteWorkoutSuccess
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Output.Success as GetRoutineSuccess
 
-class ShowRoutinePresenter(
+class ShowRoutineViewModel(
     private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
-    private val getRoutineUseCase: GetRoutineUseCase,
-    private val compositeDisposable: CompositeDisposable
-) : ShowRoutineContract.Presenter {
-
-    private lateinit var view: ShowRoutineContract.View
+    private val getRoutineUseCase: GetRoutineUseCase
+) : BaseViewModel() {
 
     private var workoutId: Long = 0
 
-    override fun setView(view: ShowRoutineContract.View) {
-        this.view = view
-    }
+    val routineData = BehaviorSubject.create<List<ShowRoutineItemWrapper>>()
+    val showWorkout = BehaviorSubject.create<Boolean>()
+    val delete = BehaviorSubject.create<Long>()
 
-    override fun start() {
+     fun getRoutine() {
         getRoutineUseCase.execute(Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is GetRoutineSuccess -> {
                         val routines = convertToItemWrappers(it.routines)
-                        view.showRoutineData(routines)
+                        routineData.onNext(routines)
                     }
                     is ErrorNoRoutines -> {
-                        view.errorUnknown()
+                        error.onNext(Unknown)
                     }
                 }
             }
@@ -55,29 +56,24 @@ class ShowRoutinePresenter(
         return itemWrappers
     }
 
-    override fun setWorkoutId(workoutId: Long) {
+    fun setWorkoutId(workoutId: Long) {
         this.workoutId = workoutId
     }
 
-    override fun onDeleteConfirmed(workoutId: Long) {
+    fun onDeleteConfirmed(workoutId: Long) {
         deleteWorkoutUseCase.execute(DeleteWorkoutUseCase.Input(workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is DeleteWorkoutSuccess -> view.openShowWorkoutActivity()
-                    else -> view.errorUnknown()
+                    is DeleteWorkoutSuccess -> showWorkout.onNext(true)
+                    else -> error.onNext(Unknown)
                 }
             }
             .addTo(compositeDisposable)
     }
 
-    override fun onDeleteClicked() {
-        view.showDeleteConfirmation(workoutId)
-    }
+    fun onDeleteClicked() = delete.onNext(workoutId)
 
-    override fun finish() {
-        compositeDisposable.clear()
-    }
 
     companion object {
         const val ROUTINES = "Routines"

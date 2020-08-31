@@ -14,27 +14,11 @@ import com.example.workoutapp.domain.openweathermap.GetWeatherUseCaseImpl
 import com.example.workoutapp.domain.openweathermap.WeatherRepository
 import com.example.workoutapp.http.inspirationalquote.InspirationalApiService
 import com.example.workoutapp.http.openweathermap.OpenWeatherMapApiService
-import com.example.workoutapp.ui.home.HomeContract
-import com.example.workoutapp.ui.home.HomePresenter
 import dagger.Module
 import dagger.Provides
-import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class HomeModule {
-
-    @Provides
-    fun providesMainPresenter(
-        compositeDisposable: CompositeDisposable,
-        getWeatherUseCase: GetWeatherUseCase,
-        getQuoteUseCase: GetQuoteUseCase
-    ): HomeContract.Presenter {
-        return HomePresenter(
-            compositeDisposable,
-            getWeatherUseCase,
-            getQuoteUseCase
-        )
-    }
 
     @Provides
     fun providesGetQuoteUseCase(quoteRepository: QuoteRepository): GetQuoteUseCase {

@@ -5,9 +5,8 @@ import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Input
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.routine.model.RoutineModel
-import com.example.workoutapp.ui.addroutine.error.ErrorType.*
+import com.example.workoutapp.ui.error.ErrorType.*
 import com.example.workoutapp.ui.common.BaseViewModel
-import com.example.workoutapp.ui.error.UIError
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject

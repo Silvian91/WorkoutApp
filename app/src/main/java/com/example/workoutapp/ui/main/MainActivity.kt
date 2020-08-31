@@ -65,9 +65,9 @@ class MainActivity : BaseActivity() {
             .addTo(compositeDisposable)
     }
 
-    private fun openAddWorkoutActivity() {
-        startActivity(AddWorkoutActivity.newIntent(this))
-    }
+    private fun openAddWorkoutActivity() = startActivity(
+        AddWorkoutActivity.newIntent(this)
+    )
 
     private fun loadFragment() {
         viewPager = findViewById(R.id.view_pager)
