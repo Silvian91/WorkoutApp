@@ -15,7 +15,7 @@ import dagger.Binds
 import dagger.Module
 
 /**
- * This module includes all feature view holder modules
+ * This module includes all feature view_holder_profile_routines_count holder modules
  */
 
 @Module(

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
@@ -37,6 +38,10 @@ class ShowWorkoutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_workout)
+
+        viewModel = ViewModelProvider(
+            this,viewModelFactory.get()
+        ).get(ShowWorkoutViewModel::class.java)
 
         setToolbar()
         initWorkoutRecyclerView()

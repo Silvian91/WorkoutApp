@@ -45,6 +45,7 @@ class LoginActivity : BaseActivity() {
         homeResponse()
         setUpSignUpAction()
         showError()
+        signUpResponse()
     }
 
     private fun setUpSignUpAction() {

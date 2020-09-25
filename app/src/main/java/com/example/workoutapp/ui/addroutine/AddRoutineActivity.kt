@@ -36,6 +36,7 @@ class AddRoutineActivity : BaseActivity() {
         ).get(AddRoutineViewModel::class.java)
 
         setToolbar()
+        viewModel.getUser()
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
         viewModel.setWorkoutId(workoutId)
 

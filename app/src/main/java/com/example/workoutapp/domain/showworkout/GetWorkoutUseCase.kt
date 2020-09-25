@@ -13,7 +13,7 @@ interface GetWorkoutUseCase : BaseSingleUseCase<Input, Output> {
     sealed class Output : BaseUseCase.Output {
 
         data class Success(val workouts: List<WorkoutModel>) : Output()
-        data class SuccessNoData(val noWorkouts: List<WorkoutModel>) : Output()
+        object SuccessNoData : Output()
         object ErrorUnknown : Output()
     }
 }

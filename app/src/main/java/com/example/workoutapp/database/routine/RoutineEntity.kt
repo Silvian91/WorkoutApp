@@ -22,7 +22,8 @@ data class RoutineEntity(
     var weight: String,
     var weightMeasurement: String,
     var rest: String,
-    var workoutId: Long
+    var workoutId: Long,
+    var userId: Long
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -35,7 +36,8 @@ data class RoutineEntity(
             weight,
             weightMeasurement,
             rest,
-            workoutId
+            workoutId,
+            userId
         )
     }
 
@@ -48,7 +50,8 @@ data class RoutineEntity(
                 routineModel.weight,
                 routineModel.weightMeasurement,
                 routineModel.rest,
-                routineModel.workoutId
+                routineModel.workoutId,
+                routineModel.userId
             )
         }
     }

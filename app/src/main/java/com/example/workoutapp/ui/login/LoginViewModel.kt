@@ -11,9 +11,10 @@ import com.example.workoutapp.ui.error.ErrorType.Unknown
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 import com.example.workoutapp.domain.login.LoginUseCase.Output.Success as LoginSuccess
 
-class LoginViewModel(
+class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : BaseViewModel() {
 

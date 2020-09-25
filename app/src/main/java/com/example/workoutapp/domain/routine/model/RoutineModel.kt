@@ -7,5 +7,6 @@ data class RoutineModel(
     val weight: String,
     val weightMeasurement: String,
     val rest: String,
-    val workoutId: Long
+    val workoutId: Long,
+    val userId: Long
 )

@@ -14,10 +14,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase.Output.Success as DeleteWorkoutSuccess
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Output.Success as GetRoutineSuccess
 
-class ShowRoutineViewModel(
+class ShowRoutineViewModel @Inject constructor(
     private val deleteWorkoutUseCase: DeleteWorkoutUseCase,
     private val getRoutineUseCase: GetRoutineUseCase
 ) : BaseViewModel() {

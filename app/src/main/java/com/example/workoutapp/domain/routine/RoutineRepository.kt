@@ -10,5 +10,7 @@ interface RoutineRepository {
 
     fun getRoutine(workoutId: Long): Single<List<RoutineModel>>
 
+    fun getUserRoutine(userId: Long): Single<List<RoutineModel>>
+
     fun deleteRoutine(workoutId: Long): Completable
 }

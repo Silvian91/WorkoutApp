@@ -19,12 +19,16 @@ class ActionViewHolder(
 ) : BaseViewHolder<HomeItemWrapper>(containerView), LayoutContainer {
 
     override fun bind(model: HomeItemWrapper) {
+        model as HomeItemWrapper.Action
+
         action_holder
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(parent, ON_DESTROY))
             .subscribe {
                 listener.onShowWorkoutClicked()
             }
+        image_show_workout.setImageResource(model.actionIconId)
+        text_show_workout.text = containerView.context.getString(model.actionTextId)
     }
 
 }

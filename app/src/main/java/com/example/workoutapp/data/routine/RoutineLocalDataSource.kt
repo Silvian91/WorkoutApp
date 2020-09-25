@@ -10,6 +10,8 @@ interface RoutineLocalDataSource {
 
     fun getRoutines(workoutId: Long): Single<List<RoutineModel>>
 
+    fun getUserRoutines(userId: Long): Single<List<RoutineModel>>
+
     fun deleteRoutines(workoutId: Long): Completable
 
 }

@@ -4,9 +4,12 @@ import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase
 import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Input
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
+import com.example.workoutapp.domain.profile.GetUserRoutinesUseCase
 import com.example.workoutapp.domain.routine.model.RoutineModel
+import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.ui.error.ErrorType.*
 import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.workoutapp.ui.profile.adapter.ProfileItemWrapper
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
@@ -16,10 +19,12 @@ import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase.Output.Succes
 
 class AddRoutineViewModel @Inject constructor(
     private val saveRoutineUseCase: SaveRoutineUseCase,
-    private val deleteRoutineUseCase: DeleteRoutineUseCase
+    private val deleteRoutineUseCase: DeleteRoutineUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) : BaseViewModel() {
 
     private var workoutId: Long = 0
+    private var userId: Long = 0
     private val routinePairs = ArrayList<RoutineModel>()
 
     val routines = BehaviorSubject.create<Boolean>()
@@ -28,6 +33,23 @@ class AddRoutineViewModel @Inject constructor(
 
     fun setWorkoutId(workoutId: Long) {
         this.workoutId = workoutId
+    }
+
+    fun getUser() {
+        getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    is GetCurrentUserUseCase.Output.Success -> {
+                        userId = it.user.id!!
+                    }
+                    is GetCurrentUserUseCase.Output.ErrorUnauthorized -> {
+                        error.onNext(Unknown)
+                    }
+                    else -> error.onNext(Unknown)
+                }
+            }
+            .addTo(compositeDisposable)
     }
 
     private fun addRoutinePairs(
@@ -47,7 +69,8 @@ class AddRoutineViewModel @Inject constructor(
                 routine_weight,
                 routine_weight_measurement,
                 routine_rest,
-                workoutId
+                workoutId,
+                userId
             )
         )
     }

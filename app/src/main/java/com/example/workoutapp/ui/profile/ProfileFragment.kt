@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -17,25 +18,31 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
+import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseFragment
+import com.example.workoutapp.ui.error.ErrorType
 import com.example.workoutapp.ui.login.LoginActivity
+import com.example.workoutapp.ui.profile.adapter.ProfileAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.toolbar.*
-import javax.inject.Inject
 
-class ProfileFragment : BaseFragment(), ProfileContract.View {
+class ProfileFragment : BaseFragment() {
 
-    @Inject
-    lateinit var presenter: ProfileContract.Presenter
+    private lateinit var viewModel: ProfileViewModel
+
+    private lateinit var profileAdapter: ProfileAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,53 +53,53 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(
+            this, viewModelFactory.get()
+        ).get(ProfileViewModel::class.java)
 
-
-        presenter.setView(this)
-        presenter.start()
-
+        initProfileRecyclerView()
         setToolbar()
-        bottomSheetDialogOnClickListener()
+        subscribeToViewState()
+    }
 
-        button_log_out
-            .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe {
-                presenter.logOutClicked()
+    private fun initProfileRecyclerView() {
+        recycler_view_profile.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            profileAdapter =
+                ProfileAdapter(
+                    ProfileAdapter.ProfileListener {
+                        viewModel.onBottomSheetClicked()
+                    },
+                    this@ProfileFragment.lifecycle
+                )
+            adapter = profileAdapter
+        }
+    }
+
+    private fun subscribeToViewState() {
+        viewModel.viewState
+            .doOnIoObserveOnMain()
+            .subscribeBy { state ->
+                profileAdapter.setData(state.items)
+                showLogin(state.login)
+                openBottomSheetDialog(state.bottomSheetDialog)
+                openCamera(state.cameraClicked)
+                checkPermissionForImage(state.permissionCheck)
+                openGallery(state.galleryPermission)
             }
+            .addTo(compositeDisposable)
     }
 
-    private fun setToolbar() {
-        (activity as AppCompatActivity)
-            .setSupportActionBar(toolbar)
-        toolbar.title = "Workout App"
+    private fun handleError(error: ErrorType?) {
+        error?.run {
+            showError()
+        } ?: run {
+            //TODO: hideError()
+        }
+
     }
 
-    override fun showUsername(username: String) {
-        profile_username.text = username
-    }
-
-    override fun showLogin() {
-        startActivity(LoginActivity.newIntent(requireContext()))
-        activity!!.finish()
-    }
-
-    override fun showError() {
-        Snackbar.make(
-            profile_layout,
-            text_error_registration_failed,
-            LENGTH_SHORT
-        ).show()
-    }
-
-    override fun showLoginActivity() {
-        startActivity(
-            LoginActivity.newIntent(requireContext()).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        )
-    }
-
-    override fun showLogOutConfirmationDialog() {
-        //TODO: fix style issue
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         AlertDialog.Builder(requireContext())
             .setMessage(text_alert_log_out)
             .setNegativeButton(
@@ -100,26 +107,47 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
             ) { _, _ -> }
             .setPositiveButton(
                 text_dialog_alert_confirm
-            ) { _, _ -> presenter.onLogOutConfirmed() }
+            ) { _, _ -> viewModel.onLogOutConfirmed() }
             .show()
+        return super.onOptionsItemSelected(item)
     }
 
-    private fun bottomSheetDialogOnClickListener() {
-        button_add_profile_picture
-            .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe {
-                val bottomSheetDialog = BottomSheetDialog(requireContext())
-                val bottomSheetView = layoutInflater.inflate(
-                    R.layout.bottom_sheet_layout,
-                    null
-                )
-                galleryOnClickListener(bottomSheetView)
-                cameraOnClickListener(bottomSheetView)
-                bottomSheetDialog.setContentView(bottomSheetView)
-                bottomSheetDialog.show()
-            }
+    private fun setToolbar() {
+        (activity as AppCompatActivity)
+            .setSupportActionBar(toolbar)
     }
+
+    private fun showLogin(isLoading: Boolean) {
+        if (isLoading) {
+            startActivity(LoginActivity.newIntent(requireContext()))
+            activity!!.finish()
+        }
+    }
+
+    private fun showError() {
+        Snackbar.make(
+            profile_layout,
+            text_unknown_error,
+            LENGTH_SHORT
+        ).show()
+    }
+
+    private fun openBottomSheetDialog(bottomSheet: Boolean) {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetView = layoutInflater.inflate(
+            R.layout.bottom_sheet_layout,
+            null
+        )
+        galleryOnClickListener(bottomSheetView)
+        cameraOnClickListener(bottomSheetView)
+        bottomSheetDialog.setContentView(bottomSheetView)
+        if (bottomSheet) {
+            bottomSheetDialog.show()
+        } else {
+            bottomSheetDialog.cancel()
+        }
+    }
+
 
     private fun galleryOnClickListener(bottomSheetView: View) {
         val gallery = bottomSheetView.findViewById<ImageView>(R.id.profile_open_gallery)
@@ -127,10 +155,9 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                presenter.onGalleryClicked()
+                viewModel.onGalleryClicked()
             }
     }
-
 
     private fun cameraOnClickListener(bottomSheetView: View) {
         val camera = bottomSheetView.findViewById<ImageView>(R.id.profile_open_camera)
@@ -138,68 +165,70 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                presenter.onCameraClicked()
+                viewModel.onCameraClicked()
             }
     }
 
-    override fun openCamera() {
-        val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val packageManager = activity!!.packageManager
-        if (callCameraIntent.resolveActivity(packageManager) != null) {
-            startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
+    private fun openCamera(cameraClicked: Boolean) {
+        if (cameraClicked) {
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
+                }
+            }
         }
     }
 
-    private fun pickImageFromGallery() {
-        presenter.onImageSelected()
+    private fun openGallery(galleryPermission: Boolean) {
+        if (galleryPermission) {
+            val galleryIntent = Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+        }
     }
 
-    override fun startIntent() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(
-            intent,
-            IMAGE_PICK_CODE
-        ) // GIVE AN INTEGER VALUE FOR IMAGE_PICK_CODE LIKE 1000
+    private fun galleryOption() {
+        viewModel.onGalleryOption()
     }
 
-    override fun checkPermissionForImage() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ((checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED)
-                && (checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED)
-            ) {
-                val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                val permissionCoarse = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    private fun checkPermissionForImage(permissionCheck: Boolean) {
+        if (permissionCheck) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if ((checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED)
+                    && (checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED)
+                ) {
+                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    val permissionCoarse = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-                requestPermissions(
-                    permission,
-                    PERMISSION_CODE
-                ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_READ LIKE 1001
-                requestPermissions(
-                    permissionCoarse,
-                    1002
-                ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
-            } else {
-                pickImageFromGallery()
+                    requestPermissions(
+                        permission,
+                        PERMISSION_CODE
+                    )
+                    requestPermissions(
+                        permissionCoarse,
+                        1002
+                    )
+                } else {
+                    galleryOption()
+                }
             }
         }
     }
 
     companion object {
-        //image pick code
-        private const val IMAGE_PICK_CODE = 1000
-
-        //Permission code
         private const val PERMISSION_CODE = 1001
 
-        //camera request mode
-        private const val CAMERA_REQUEST_CODE = 0
+        private const val CAMERA_REQUEST_CODE = 1
+
+        private const val GALLERY_REQUEST_CODE = 1234
     }
 
     override fun onRequestPermissionsResult(
@@ -212,29 +241,31 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
                 if (grantResults.isNotEmpty() && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED
                 ) {
-                    //permission from popup granted
-                    pickImageFromGallery()
+                    galleryOption()
                 } else {
-                    //permission from popup denied
                     Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
             CAMERA_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    profile_image.setImageBitmap(data.extras.get("data") as Bitmap)
+                    val imageBitmap = data!!.extras.get("data") as Bitmap
+                    viewModel.setImage(imageBitmap)
                 }
             }
-            PERMISSION_CODE -> {
-                if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-                    profile_image.setImageBitmap(data!!.extras.get("data") as Bitmap)
+            GALLERY_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+                    data?.data?.let { uri ->
+                        val bitmap =
+                            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+                        viewModel.setImage(bitmap)
+                    }
                 }
             }
             else -> {
@@ -247,8 +278,9 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
     }
 
     override fun onDestroyView() {
-        presenter.finish()
+        compositeDisposable.clear()
 
         super.onDestroyView()
     }
+
 }

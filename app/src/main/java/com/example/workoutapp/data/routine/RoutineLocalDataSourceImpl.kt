@@ -36,6 +36,22 @@ class RoutineLocalDataSourceImpl(val context: Context) : RoutineLocalDataSource 
 
     }
 
+    override fun getUserRoutines(userId: Long): Single<List<RoutineModel>> {
+        return Single.fromCallable {
+            WorkoutAppDatabase.getInstance(context).routineDao().getAllUserRoutines(
+                userId
+            )
+        }
+            .map {
+                val models = ArrayList<RoutineModel>()
+                it.forEach { routines ->
+                    models.add(routines.toModel())
+                }
+                models
+            }
+
+    }
+
     override fun deleteRoutines(workoutId: Long): Completable {
         return Completable.fromCallable {
             WorkoutAppDatabase.getInstance(context).routineDao().deleteWorkoutRoutine(workoutId)

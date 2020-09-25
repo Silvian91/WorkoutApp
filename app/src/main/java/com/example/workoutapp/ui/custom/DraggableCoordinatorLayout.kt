@@ -15,7 +15,7 @@ class DraggableCoordinatorLayout @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) :
     CoordinatorLayout(context!!, attrs) {
-    /** A listener to use when a child view is being dragged  */
+    /** A listener to use when a child view_holder_profile_routines_count is being dragged  */
     interface ViewDragListener {
         fun onViewCaptured(view: View, i: Int)
         fun onViewReleased(

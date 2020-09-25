@@ -13,7 +13,7 @@ class GetWorkoutUseCaseImpl(
         return workoutRepository.getAllWorkouts(input.userId)
             .map { workouts ->
                 if (workouts.isEmpty()) {
-                    SuccessNoData(workouts)
+                    SuccessNoData
                 } else {
                     Success(workouts)
                 }

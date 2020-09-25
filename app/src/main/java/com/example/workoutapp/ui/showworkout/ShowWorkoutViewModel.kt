@@ -17,12 +17,13 @@ import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.Work
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase.Output.Success as GetWorkoutSuccess
 import com.example.workoutapp.domain.showworkout.SoftDeleteWorkoutUseCase.Output.Success as SoftDeleteWorkouts
 import com.example.workoutapp.domain.showworkout.UndoSoftDeleteWorkoutUseCase.Output.Success as UndoSuccess
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetUserSuccess
 
-class ShowWorkoutViewModel(
+class ShowWorkoutViewModel @Inject constructor(
     private val softDeleteWorkoutUseCase: SoftDeleteWorkoutUseCase,
     private val undoSoftDeleteWorkoutUseCase: UndoSoftDeleteWorkoutUseCase,
     private val getWorkoutUseCase: GetWorkoutUseCase,

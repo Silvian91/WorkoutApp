@@ -13,10 +13,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 import com.example.workoutapp.domain.login.LoginUseCase.Output.Success as LoginSuccess
 import com.example.workoutapp.domain.register.RegisterUseCase.Output.Success as RegistrationSuccess
 
-class RegisterViewModel(
+class RegisterViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
     private val loginUseCase: LoginUseCase
 ) : BaseViewModel() {

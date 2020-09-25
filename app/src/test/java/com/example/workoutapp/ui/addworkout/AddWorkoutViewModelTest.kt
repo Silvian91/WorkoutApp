@@ -14,7 +14,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class AddWorkoutPresenterTest {
+internal class AddWorkoutViewModelTest {
 
     private val view: AddWorkoutContract.View = mockk(relaxed = true)
     private val repository: WorkoutRepository = mockk()
@@ -22,7 +22,7 @@ internal class AddWorkoutPresenterTest {
     private val workoutTitleField: String = "test string"
 
 
-    private val presenter = AddWorkoutPresenter(repository, compositeDisposable)
+    private val presenter = AddWorkoutViewModel(repository, compositeDisposable)
     private val workoutEntity =
         WorkoutEntity(workoutTitleField)
 

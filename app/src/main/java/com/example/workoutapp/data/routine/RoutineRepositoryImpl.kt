@@ -16,6 +16,10 @@ class RoutineRepositoryImpl(private val routineLocalDataSource: RoutineLocalData
         return routineLocalDataSource.getRoutines(workoutId)
     }
 
+    override fun getUserRoutine(userId: Long): Single<List<RoutineModel>> {
+        return routineLocalDataSource.getUserRoutines(userId)
+    }
+
     override fun deleteRoutine(workoutId: Long): Completable {
         return routineLocalDataSource.deleteRoutines(workoutId)
     }
