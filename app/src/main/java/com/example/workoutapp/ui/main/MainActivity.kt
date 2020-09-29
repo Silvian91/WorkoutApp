@@ -43,8 +43,17 @@ class MainActivity : BaseActivity() {
             true
         }
 
+        onNavigationSwipe()
         onClickListener()
         listenForFab()
+    }
+
+    private fun onNavigationSwipe() {
+        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                bottom_navigation.menu.getItem(position).isChecked = true
+            }
+        })
     }
 
     private fun onClickListener() {
