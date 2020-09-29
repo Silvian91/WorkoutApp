@@ -7,7 +7,6 @@
     <item
         android:id="@+id/button_logout"
         android:orderInCategory="300"
-        android:title="@string/text_log_out"
-        app:showAsAction="ifRoom" />
+        android:title="@string/text_log_out" />
 
 </menu>

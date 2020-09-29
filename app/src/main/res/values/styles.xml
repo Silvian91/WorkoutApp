@@ -10,6 +10,12 @@
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
+    <style name="profileToolbar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColorPrimary">@color/AntiqueWhite</item>
+        <item name="actionMenuTextColor">@color/AntiqueWhite</item>
+        <item name="android:textColorSecondary">@color/AntiqueWhite</item>
+    </style>
+
     <!-- Splash Screen -->
     <style name="splashScreenStyle" parent="BaseAppTheme">
         <item name="android:windowBackground">@drawable/launch_screen</item>

@@ -9,10 +9,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +35,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
+
 class ProfileFragment : BaseFragment() {
 
     private lateinit var viewModel: ProfileViewModel
@@ -59,6 +57,7 @@ class ProfileFragment : BaseFragment() {
 
         initProfileRecyclerView()
         setToolbar()
+        setHasOptionsMenu(true)
         subscribeToViewState()
     }
 
@@ -99,6 +98,15 @@ class ProfileFragment : BaseFragment() {
 
     }
 
+    private fun setToolbar() {
+        (activity as AppCompatActivity)
+            .setSupportActionBar(toolbar)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.profile_logout, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         AlertDialog.Builder(requireContext())
             .setMessage(text_alert_log_out)
@@ -110,11 +118,6 @@ class ProfileFragment : BaseFragment() {
             ) { _, _ -> viewModel.onLogOutConfirmed() }
             .show()
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun setToolbar() {
-        (activity as AppCompatActivity)
-            .setSupportActionBar(toolbar)
     }
 
     private fun showLogin(isLoading: Boolean) {
