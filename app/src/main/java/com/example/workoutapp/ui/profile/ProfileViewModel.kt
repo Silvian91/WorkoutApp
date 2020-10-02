@@ -43,9 +43,9 @@ class ProfileViewModel @Inject constructor(
         items,
         login = false,
         bottomSheetDialog = false,
-        cameraClicked = false,
+        cameraOpen = false,
         permissionCheck = false,
-        galleryPermission = false
+        galleryOpen = false
     )
 
     val viewState = BehaviorSubject.createDefault(currentViewState)
@@ -87,7 +87,7 @@ class ProfileViewModel @Inject constructor(
                     }
                     else -> error.onNext(Unknown)
                 }
-                currentViewState.copy(items)
+                currentViewState = currentViewState.copy(items = items)
                 viewState.onNext(currentViewState)
             }
             .addTo(compositeDisposable)
@@ -106,7 +106,7 @@ class ProfileViewModel @Inject constructor(
                     }
                     else -> error.onNext(Unknown)
                 }
-                currentViewState.copy(items)
+                currentViewState = currentViewState.copy(items = items)
                 viewState.onNext(currentViewState)
             }
             .addTo(compositeDisposable)
@@ -131,18 +131,15 @@ class ProfileViewModel @Inject constructor(
         viewState.onNext(currentViewState)
     }
 
+    //TODO: Remove
     private fun bottomSheetDismissed() {
         currentViewState = currentViewState.copy(bottomSheetDialog = false)
     }
 
     fun onCameraClicked() {
-        currentViewState = currentViewState.copy(cameraClicked = true)
+        currentViewState = currentViewState.copy(cameraOpen = true)
         bottomSheetDismissed()
         viewState.onNext(currentViewState)
-    }
-
-    private fun cameraDismissed() {
-        currentViewState = currentViewState.copy(cameraClicked = false)
     }
 
     fun onGalleryClicked() {
@@ -151,27 +148,26 @@ class ProfileViewModel @Inject constructor(
         viewState.onNext(currentViewState)
     }
 
-    private fun dismissPermissionCheck() {
-        currentViewState = currentViewState.copy(permissionCheck = false)
-    }
-
     fun onGalleryOption() {
-        currentViewState = currentViewState.copy(galleryPermission = true)
-        dismissPermissionCheck()
+        currentViewState = currentViewState.copy(galleryOpen = true, permissionCheck = false)
         viewState.onNext(currentViewState)
     }
 
-    private fun dismissGalleryView() {
-        currentViewState = currentViewState.copy(galleryPermission = false)
+    fun onCameraDismissed() {
+        currentViewState = currentViewState.copy(cameraOpen = false)
+        viewState.onNext(currentViewState)
     }
 
-    fun setImage(imageBitmap: Bitmap) {
+    fun onGalleryDismissed() {
+        currentViewState = currentViewState.copy(galleryOpen = false)
+        viewState.onNext(currentViewState)
+    }
+
+
+    fun onImageSelected(imageBitmap: Bitmap) {
         items[0] = (items[0] as ProfileItemWrapper.Profile).copy(profilePicture = imageBitmap)
-        currentViewState.copy(items)
-        cameraDismissed()
-        dismissPermissionCheck()
-        dismissGalleryView()
         bottomSheetDismissed()
+        currentViewState = currentViewState.copy(items = items, permissionCheck = false)
         viewState.onNext(currentViewState)
     }
 

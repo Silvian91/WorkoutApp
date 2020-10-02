@@ -42,6 +42,8 @@ class ProfileFragment : BaseFragment() {
 
     private lateinit var profileAdapter: ProfileAdapter
 
+    private lateinit var bottomSheetDialog : BottomSheetDialog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,9 +84,9 @@ class ProfileFragment : BaseFragment() {
                 profileAdapter.setData(state.items)
                 showLogin(state.login)
                 openBottomSheetDialog(state.bottomSheetDialog)
-                openCamera(state.cameraClicked)
+                openCamera(state.cameraOpen)
                 checkPermissionForImage(state.permissionCheck)
-                openGallery(state.galleryPermission)
+                openGallery(state.galleryOpen)
             }
             .addTo(compositeDisposable)
     }
@@ -135,24 +137,26 @@ class ProfileFragment : BaseFragment() {
         ).show()
     }
 
-    private fun openBottomSheetDialog(bottomSheet: Boolean) {
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
-        val bottomSheetView = layoutInflater.inflate(
-            R.layout.bottom_sheet_layout,
-            null
-        )
-        galleryOnClickListener(bottomSheetView)
-        cameraOnClickListener(bottomSheetView)
-        bottomSheetDialog.setContentView(bottomSheetView)
-        if (bottomSheet) {
+    private fun openBottomSheetDialog(isBottomSheetOpen: Boolean) {
+        if (!::bottomSheetDialog.isInitialized) {
+            val bottomSheetView = layoutInflater.inflate(
+                R.layout.bottom_sheet_layout,
+                null
+            )
+            setGalleryOnClickListener(bottomSheetView)
+            setCameraOnClickListener(bottomSheetView)
+            bottomSheetDialog = BottomSheetDialog(requireContext())
+            bottomSheetDialog.setContentView(bottomSheetView)
+        }
+        if (isBottomSheetOpen) {
             bottomSheetDialog.show()
         } else {
-            bottomSheetDialog.cancel()
+            bottomSheetDialog.dismiss()
         }
     }
 
 
-    private fun galleryOnClickListener(bottomSheetView: View) {
+    private fun setGalleryOnClickListener(bottomSheetView: View) {
         val gallery = bottomSheetView.findViewById<ImageView>(R.id.profile_open_gallery)
         gallery
             .clicks()
@@ -162,7 +166,7 @@ class ProfileFragment : BaseFragment() {
             }
     }
 
-    private fun cameraOnClickListener(bottomSheetView: View) {
+    private fun setCameraOnClickListener(bottomSheetView: View) {
         val camera = bottomSheetView.findViewById<ImageView>(R.id.profile_open_camera)
         camera
             .clicks()
@@ -257,17 +261,19 @@ class ProfileFragment : BaseFragment() {
 
         when (requestCode) {
             CAMERA_REQUEST_CODE -> {
+                viewModel.onCameraDismissed()
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val imageBitmap = data!!.extras.get("data") as Bitmap
-                    viewModel.setImage(imageBitmap)
+                    viewModel.onImageSelected(imageBitmap)
                 }
             }
             GALLERY_REQUEST_CODE -> {
+                viewModel.onGalleryDismissed()
                 if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
                     data?.data?.let { uri ->
                         val bitmap =
                             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-                        viewModel.setImage(bitmap)
+                        viewModel.onImageSelected(bitmap)
                     }
                 }
             }

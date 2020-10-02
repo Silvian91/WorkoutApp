@@ -81,6 +81,7 @@ class MainActivity : BaseActivity() {
     private fun loadFragment() {
         viewPager = findViewById(R.id.view_pager)
         fragmentAdapter = FragmentAdapter(this)
+        //TODO: newInstance here
         fragmentAdapter.addFragment(HomeFragment())
         fragmentAdapter.addFragment(ProfileFragment())
         viewPager.adapter = fragmentAdapter

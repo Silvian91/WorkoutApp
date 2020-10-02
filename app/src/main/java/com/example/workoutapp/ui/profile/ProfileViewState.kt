@@ -6,7 +6,7 @@ data class ProfileViewState(
     val items: MutableList<ProfileItemWrapper>,
     val login: Boolean,
     val bottomSheetDialog: Boolean,
-    val cameraClicked: Boolean,
+    val cameraOpen: Boolean,
     val permissionCheck: Boolean,
-    val galleryPermission: Boolean
+    val galleryOpen: Boolean
 )
