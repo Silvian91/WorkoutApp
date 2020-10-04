@@ -72,7 +72,7 @@ class HomeFragment : BaseFragment() {
             .doOnIoObserveOnMain()
             .subscribeBy {
                 showQuote(viewModel.quote.value!!)
-                hideProgressBar()
+                hideLoading()
             }
             .addTo(compositeDisposable)
     }
@@ -82,12 +82,12 @@ class HomeFragment : BaseFragment() {
             .doOnIoObserveOnMain()
             .subscribeBy {
                 showData(viewModel.data.value!!)
-                hideProgressBar()
+                hideLoading()
             }
             .addTo(compositeDisposable)
     }
 
-    private fun hideProgressBar() {
+    private fun hideLoading() {
         progress_circular_home.visibility = View.GONE
     }
 

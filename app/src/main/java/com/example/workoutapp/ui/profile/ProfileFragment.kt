@@ -82,6 +82,7 @@ class ProfileFragment : BaseFragment() {
             .doOnIoObserveOnMain()
             .subscribeBy { state ->
                 profileAdapter.setData(state.items)
+                hideLoading(state.loading)
                 showLogin(state.login)
                 openBottomSheetDialog(state.bottomSheetDialog)
                 openCamera(state.cameraOpen)
@@ -89,6 +90,12 @@ class ProfileFragment : BaseFragment() {
                 openGallery(state.galleryOpen)
             }
             .addTo(compositeDisposable)
+    }
+
+    private fun hideLoading(showLoading: Boolean) {
+        if (!showLoading) {
+            progress_circular_profile.visibility = View.GONE
+        }
     }
 
     private fun handleError(error: ErrorType?) {

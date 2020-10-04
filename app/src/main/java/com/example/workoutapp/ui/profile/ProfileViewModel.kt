@@ -41,6 +41,7 @@ class ProfileViewModel @Inject constructor(
 
     private var currentViewState = ProfileViewState(
         items,
+        loading = false,
         login = false,
         bottomSheetDialog = false,
         cameraOpen = false,
@@ -60,10 +61,10 @@ class ProfileViewModel @Inject constructor(
             .subscribeBy {
                 when (it) {
                     is GetUserSuccess -> {
-                        items[0] = (items[0] as ProfileItemWrapper.Profile).copy(it.user.username)
-                        currentViewState.copy(items)
+                        items[0] = (items[0] as ProfileItemWrapper.Profile).copy(username = it.user.username)
+                        currentViewState.copy(items = items, loading = true)
                         getWorkoutsCount(it.user.id!!)
-                        getRoutinesCount(it.user.id!!)
+                        getRoutinesCount(it.user.id)
                     }
                     is ErrorUnauthorized ->
                         currentViewState = currentViewState.copy(login = true)
