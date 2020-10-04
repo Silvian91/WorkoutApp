@@ -72,6 +72,7 @@ class HomeFragment : BaseFragment() {
             .doOnIoObserveOnMain()
             .subscribeBy {
                 showQuote(viewModel.quote.value!!)
+                hideProgressBar()
             }
             .addTo(compositeDisposable)
     }
@@ -81,8 +82,13 @@ class HomeFragment : BaseFragment() {
             .doOnIoObserveOnMain()
             .subscribeBy {
                 showData(viewModel.data.value!!)
+                hideProgressBar()
             }
             .addTo(compositeDisposable)
+    }
+
+    private fun hideProgressBar() {
+        progress_circular_home.visibility = View.GONE
     }
 
     private fun showWorkoutClicked() {
