@@ -4,7 +4,6 @@ import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.login.LoginUseCase
 import com.example.workoutapp.domain.login.LoginUseCase.Input
 import com.example.workoutapp.domain.login.LoginUseCase.Output.ErrorInvalidCredentials
-import com.example.workoutapp.domain.login.LoginUseCase.Output.ErrorUserDoesNotExist
 import com.example.workoutapp.ui.common.BaseViewModel
 import com.example.workoutapp.ui.error.ErrorType
 import com.example.workoutapp.ui.error.ErrorType.Unknown
@@ -18,23 +17,48 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : BaseViewModel() {
 
-    val showHome = BehaviorSubject.create<Boolean>()
-    val showRegister = BehaviorSubject.create<Boolean>()
+    private var currentViewState = LoginViewState(
+        home = false,
+        register = false,
+        showError = false
+    )
+
+    val viewState = BehaviorSubject.createDefault(currentViewState)
 
     fun onLoginClicked(username: String, password: String) {
         loginUseCase.execute(Input(username, password))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is LoginSuccess -> showHome.onNext(true)
-                    is ErrorInvalidCredentials -> error.onNext(ErrorType.ErrorInvalidCredentials)
-                    is ErrorUserDoesNotExist -> error.onNext(ErrorType.ErrorUserNotExist)
-                    else -> error.onNext(Unknown)
+                    is LoginSuccess -> {
+                        currentViewState = currentViewState.copy(
+                            home = true,
+                            register = false,
+                            showError = false
+                        )
+                    }
+                    is ErrorInvalidCredentials -> {
+
+                        currentViewState = currentViewState.copy(
+                            home = false,
+                            showError = true,
+                            errorType = ErrorType.ErrorInvalidCredentials)
+                    }
+                    else -> {
+                        currentViewState = currentViewState.copy(
+                            home = false,
+                            showError = true,
+                            errorType = Unknown)
+                    }
                 }
+                viewState.onNext(currentViewState)
             }
             .addTo(compositeDisposable)
     }
 
-    fun onSignUpClicked() = showRegister.onNext(true)
+    fun onSignUpClicked() {
+        currentViewState = currentViewState.copy(register = true)
+        viewState.onNext(currentViewState)
+    }
 
 }

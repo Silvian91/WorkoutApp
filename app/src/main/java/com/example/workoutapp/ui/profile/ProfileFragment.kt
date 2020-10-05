@@ -129,8 +129,8 @@ class ProfileFragment : BaseFragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showLogin(isLoading: Boolean) {
-        if (isLoading) {
+    private fun showLogin(login: Boolean) {
+        if (login) {
             startActivity(LoginActivity.newIntent(requireContext()))
             activity!!.finish()
         }

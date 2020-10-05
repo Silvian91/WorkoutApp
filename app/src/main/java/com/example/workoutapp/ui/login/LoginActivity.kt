@@ -17,6 +17,7 @@ import com.example.workoutapp.R.color.colorPrimary
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.error.ErrorType
+import com.example.workoutapp.ui.error.UIError
 import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.register.RegisterActivity
 import com.google.android.material.snackbar.Snackbar
@@ -41,11 +42,20 @@ class LoginActivity : BaseActivity() {
             this, viewModelFactory.get()
         ).get(LoginViewModel::class.java)
 
+        subscribeToViewState()
         clickLogin()
-        homeResponse()
         setUpSignUpAction()
-        showError()
-        signUpResponse()
+    }
+
+    private fun subscribeToViewState() {
+        viewModel.viewState
+            .doOnIoObserveOnMain()
+            .subscribeBy { state ->
+                openHome(state.home)
+                openRegister(state.register)
+                showError(state.showError, state.errorType)
+            }
+            .addTo(compositeDisposable)
     }
 
     private fun setUpSignUpAction() {
@@ -83,76 +93,49 @@ class LoginActivity : BaseActivity() {
             }
     }
 
-    private fun homeResponse() {
-        viewModel.showHome
-            .doOnIoObserveOnMain()
-            .subscribeBy {
-                openHome()
-            }
-            .addTo(compositeDisposable)
-    }
-
-    private fun signUpResponse() {
-        viewModel.showRegister
-            .doOnIoObserveOnMain()
-            .subscribeBy {
-                openRegister()
-            }
-            .addTo(compositeDisposable)
-    }
-
     companion object {
         fun newIntent(context: Context) =
             Intent(context, LoginActivity::class.java)
     }
 
-    private fun showError() {
-        viewModel.error
-            .doOnIoObserveOnMain()
-            .subscribeBy {
-                when (it) {
-                    ErrorType.ErrorInvalidCredentials -> {
-                        errorSnackbar()
-                    }
-                    ErrorType.Unknown -> {
-                        Snackbar.make(
-                            login_layout,
-                            getString(R.string.text_unknown_error),
-                            LENGTH_SHORT
-                        ).show()
-                    }
+    private fun showError(showError: Boolean, errorType: UIError.UIErrorFeature?) {
+        if (showError) {
+            when (errorType) {
+                is ErrorType.ErrorInvalidCredentials -> {
+                    Snackbar.make(
+                        login_layout,
+                        getString(R.string.text_error_invalid_credentials),
+                        LENGTH_SHORT
+                    ).show()
                 }
-
+                is ErrorType.Unknown -> {
+                    Snackbar.make(
+                        login_layout,
+                        getString(R.string.text_unknown_error),
+                        LENGTH_SHORT
+                    ).show()
+                }
             }
-            .addTo(compositeDisposable)
+        }
     }
 
-    private fun errorSnackbar() {
-        Snackbar.make(
-            login_layout,
-            getString(R.string.text_error_invalid_credentials),
-            LENGTH_SHORT
-        ).show()
+    private fun openHome(showHome: Boolean) {
+        if (showHome) {
+            startActivity(
+                MainActivity.newIntent(this)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            )
+        }
     }
 
-    private fun openHome() = startActivity(
-        MainActivity.newIntent(
-            this
-        )
-            .addFlags(
-                Intent.FLAG_ACTIVITY_CLEAR_TOP
+    private fun openRegister(showRegister: Boolean) {
+        if (showRegister) {
+            startActivity(
+                RegisterActivity.newIntent(this)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             )
-    )
-
-
-    private fun openRegister() = startActivity(
-        RegisterActivity.newIntent(
-            this
-        )
-            .addFlags(
-                Intent.FLAG_ACTIVITY_CLEAR_TOP
-            )
-    )
+        }
+    }
 
     override fun onDestroy() {
         compositeDisposable.clear()

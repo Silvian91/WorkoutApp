@@ -13,7 +13,6 @@ interface LoginUseCase : BaseSingleUseCase<Input, Output> {
 
         object Success : Output()
         object ErrorInvalidCredentials : Output()
-        object ErrorUserDoesNotExist : Output()
         object ErrorUnknown : Output()
     }
 
