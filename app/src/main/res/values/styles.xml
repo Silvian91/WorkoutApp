@@ -23,8 +23,15 @@
 
     <!-- Buttons -->
     <style name="buttonColorAndBackground" parent="TextAppearance.MaterialComponents.Button">
-        <item name="android:background">@color/DarkSlateGray</item>
         <item name="android:textColor">@color/AntiqueWhite</item>
+        <item name="android:textSize">@dimen/buttonsFont</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="alternativeButton" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:background">@color/DarkRed</item>
+        <item name="android:textColor">@color/DarkSlateGray</item>
         <item name="android:textSize">@dimen/buttonsFont</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-medium</item>

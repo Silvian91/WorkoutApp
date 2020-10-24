@@ -1,2 +1,3 @@
+include ':lib-image-loader'
 include ':app'
 rootProject.name='WorkoutApp'

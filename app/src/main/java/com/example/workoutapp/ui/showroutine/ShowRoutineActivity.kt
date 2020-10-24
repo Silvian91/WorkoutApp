@@ -31,7 +31,7 @@ class ShowRoutineActivity : BaseActivity() {
 
     private lateinit var showRoutineAdapter: ShowRoutineAdapter
 
-    fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
+    private fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
         showRoutineAdapter.items = routineData
     }
 

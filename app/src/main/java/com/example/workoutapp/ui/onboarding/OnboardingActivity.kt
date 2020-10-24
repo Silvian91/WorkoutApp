@@ -11,7 +11,7 @@ import com.example.workoutapp.R.layout.activity_onboarding
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
 import com.example.workoutapp.ui.common.adapter.FragmentAdapter
-import com.example.workoutapp.ui.register.RegisterActivity
+import com.example.workoutapp.ui.consent.ConsentActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding3.view.clicks
@@ -89,13 +89,13 @@ class OnboardingActivity : BaseActivity() {
         viewModel.register
             .doOnIoObserveOnMain()
             .subscribeBy {
-                openRegister()
+                showConsent()
             }
             .addTo(compositeDisposable)
     }
 
-    private fun openRegister() = startActivity(
-        RegisterActivity.newIntent(this)
+    private fun showConsent() = startActivity(
+        ConsentActivity.newIntent(this)
     )
 
 

@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.LruCache
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast

@@ -1,6 +1,9 @@
 package com.example.workoutapp.ui.profile
 
+import android.content.SharedPreferences
 import android.graphics.Bitmap
+import com.example.lib_image_loader.ImageLoader
+import com.example.lib_image_loader.Source.KEY_VALUE_STORAGE
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_profile_header
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
@@ -29,7 +32,9 @@ class ProfileViewModel @Inject constructor(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val getWorkoutUseCase: GetWorkoutUseCase,
     private val getUserRoutinesUseCase: GetUserRoutinesUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    //TODO: TO BE REFACTORED ....... NEVER!
+    private val sharedPreferences: SharedPreferences
 ) : BaseViewModel() {
 
     private var items = mutableListOf(
@@ -55,13 +60,17 @@ class ProfileViewModel @Inject constructor(
         getStatistics()
     }
 
+    private var userId: Long = 0
+
     private fun getStatistics() {
         getCurrentUserUseCase.execute(Input)
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is GetUserSuccess -> {
-                        items[0] = (items[0] as ProfileItemWrapper.Profile).copy(username = it.user.username)
+                        userId = it.user.id!!
+                        items[0] =
+                            (items[0] as ProfileItemWrapper.Profile).copy(username = it.user.username)
                         currentViewState.copy(items = items, loading = true)
                         getWorkoutsCount(it.user.id!!)
                         getRoutinesCount(it.user.id)
@@ -164,12 +173,31 @@ class ProfileViewModel @Inject constructor(
         viewState.onNext(currentViewState)
     }
 
-
     fun onImageSelected(imageBitmap: Bitmap) {
-        items[0] = (items[0] as ProfileItemWrapper.Profile).copy(profilePicture = imageBitmap)
-        bottomSheetDismissed()
-        currentViewState = currentViewState.copy(items = items, permissionCheck = false)
-        viewState.onNext(currentViewState)
+        ImageLoader.storeImage(
+            imageBitmap,
+            KEY_VALUE_STORAGE,
+            sharedPreferences,
+            "$PROFILE_IMAGE_PREFIX$userId"
+        )
+            .doOnIoObserveOnMain()
+            .subscribeBy(
+                onError = {
+                    error.onNext(Unknown)
+                },
+                onComplete = {
+                    items[0] =
+                        (items[0] as ProfileItemWrapper.Profile).copy(profilePicture = imageBitmap)
+                    bottomSheetDismissed()
+                    currentViewState = currentViewState.copy(items = items, permissionCheck = false)
+                    viewState.onNext(currentViewState)
+                }
+            )
+            .addTo(compositeDisposable)
+    }
+
+    companion object {
+        private const val PROFILE_IMAGE_PREFIX = "profile-image-"
     }
 
 }

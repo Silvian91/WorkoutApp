@@ -2,6 +2,7 @@ package com.example.workoutapp.di
 
 import com.example.workoutapp.di.addroutine.AddRoutineActivityModule
 import com.example.workoutapp.di.addworkout.AddWorkoutActivityModule
+import com.example.workoutapp.di.consent.ConsentActivityModule
 import com.example.workoutapp.di.login.LoginActivityModule
 import com.example.workoutapp.di.main.MainActivityModule
 import com.example.workoutapp.di.onboarding.OnboardingActivityModule
@@ -9,6 +10,7 @@ import com.example.workoutapp.di.register.RegisterActivityModule
 import com.example.workoutapp.di.showroutine.ShowRoutineActivityModule
 import com.example.workoutapp.di.showworkout.ShowWorkoutActivityModule
 import com.example.workoutapp.di.splash.SplashActivityModule
+import com.example.workoutapp.ui.consent.ConsentActivity
 import dagger.Module
 
 /**
@@ -19,6 +21,7 @@ import dagger.Module
     includes = [
         AddRoutineActivityModule::class,
         AddWorkoutActivityModule::class,
+        ConsentActivityModule::class,
         LoginActivityModule::class,
         MainActivityModule::class,
         OnboardingActivityModule::class,

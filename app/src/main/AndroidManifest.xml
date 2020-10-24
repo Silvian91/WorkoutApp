@@ -41,6 +41,7 @@
         <activity android:name="com.example.workoutapp.ui.register.RegisterActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.example.workoutapp.ui.onboarding.OnboardingActivity" />
+        <activity android:name="com.example.workoutapp.ui.consent.ConsentActivity" />
     </application>
 
 </manifest>

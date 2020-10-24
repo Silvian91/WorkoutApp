@@ -3,6 +3,7 @@ package com.example.workoutapp.di
 import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.di.addroutine.AddRoutineViewModelModule
 import com.example.workoutapp.di.addworkout.AddWorkoutViewModelModule
+import com.example.workoutapp.di.consent.ConsentViewModelModule
 import com.example.workoutapp.di.home.HomeViewModelModule
 import com.example.workoutapp.di.login.LoginViewModelModule
 import com.example.workoutapp.di.onboarding.OnboardingViewModelModule
@@ -22,6 +23,7 @@ import dagger.Module
     includes = [
         AddRoutineViewModelModule::class,
         AddWorkoutViewModelModule::class,
+        ConsentViewModelModule::class,
         HomeViewModelModule::class,
         LoginViewModelModule::class,
         OnboardingViewModelModule::class,

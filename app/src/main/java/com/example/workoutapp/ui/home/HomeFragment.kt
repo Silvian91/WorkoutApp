@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment() {
         initHomeRecyclerView()
         viewModel.showWeatherAndQuote()
         weatherResponse()
-        quoteResponse()
+//        quoteResponse()
         dataResponse()
         showWorkoutClicked()
         onError()
@@ -67,15 +67,15 @@ class HomeFragment : BaseFragment() {
             .addTo(compositeDisposable)
     }
 
-    private fun quoteResponse() {
-        viewModel.quote
-            .doOnIoObserveOnMain()
-            .subscribeBy {
-                showQuote(viewModel.quote.value!!)
-                hideLoading()
-            }
-            .addTo(compositeDisposable)
-    }
+//    private fun quoteResponse() {
+//        viewModel.quote
+//            .doOnIoObserveOnMain()
+//            .subscribeBy {
+//                showQuote(viewModel.quote.value!!)
+//                hideLoading()
+//            }
+//            .addTo(compositeDisposable)
+//    }
 
     private fun dataResponse() {
         viewModel.data
