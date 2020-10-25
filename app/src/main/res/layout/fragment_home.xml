@@ -59,6 +59,17 @@
                     app:layout_constraintStart_toStartOf="@id/weather_icon"
                     tools:text="The Weather is Berlin is 23" />
 
+                <ProgressBar
+                    android:id="@+id/progress_circular_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/AntiqueWhite"
+                    android:indeterminateTintMode="src_atop"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
+                    app:layout_constraintStart_toStartOf="@id/weather_icon"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
                 <TextView
                     android:id="@+id/quote_api"
                     style="@style/subheadingStyle"
@@ -73,18 +84,22 @@
                     app:layout_constraintTop_toBottomOf="@+id/toolbar_image"
                     tools:text="Super Inspirational quote" />
 
+                <ProgressBar
+                    android:id="@+id/progress_circular_quote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/AntiqueWhite"
+                    android:indeterminateTintMode="src_atop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_circular_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/colorPrimary"
-        android:indeterminateTintMode="src_atop" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_home_fragment"

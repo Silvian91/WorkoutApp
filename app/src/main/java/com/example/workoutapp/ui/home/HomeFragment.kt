@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment() {
         initHomeRecyclerView()
         viewModel.showWeatherAndQuote()
         weatherResponse()
-//        quoteResponse()
+        quoteResponse()
         dataResponse()
         showWorkoutClicked()
         onError()
@@ -63,32 +63,36 @@ class HomeFragment : BaseFragment() {
             .doOnIoObserveOnMain()
             .subscribeBy {
                 showWeather(viewModel.weather.value!!)
+                hideWeatherLoading()
             }
             .addTo(compositeDisposable)
     }
 
-//    private fun quoteResponse() {
-//        viewModel.quote
-//            .doOnIoObserveOnMain()
-//            .subscribeBy {
-//                showQuote(viewModel.quote.value!!)
-//                hideLoading()
-//            }
-//            .addTo(compositeDisposable)
-//    }
+    private fun quoteResponse() {
+        viewModel.quote
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                showQuote(viewModel.quote.value!!)
+                hideQuoteLoading()
+            }
+            .addTo(compositeDisposable)
+    }
 
     private fun dataResponse() {
         viewModel.data
             .doOnIoObserveOnMain()
             .subscribeBy {
                 showData(viewModel.data.value!!)
-                hideLoading()
             }
             .addTo(compositeDisposable)
     }
 
-    private fun hideLoading() {
-        progress_circular_home.visibility = View.GONE
+    private fun hideWeatherLoading() {
+        progress_circular_weather.visibility = View.GONE
+    }
+
+    private fun hideQuoteLoading() {
+        progress_circular_quote.visibility = View.GONE
     }
 
     private fun showWorkoutClicked() {
