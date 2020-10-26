@@ -1,8 +1,10 @@
 package com.example.workoutapp.ui.profile
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import com.example.lib_image_loader.ImageLoader
+import com.example.lib_image_loader.Source.FILE_SYSTEM
 import com.example.lib_image_loader.Source.KEY_VALUE_STORAGE
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_profile_header
@@ -173,12 +175,13 @@ class ProfileViewModel @Inject constructor(
         viewState.onNext(currentViewState)
     }
 
-    fun onImageSelected(imageBitmap: Bitmap) {
+    fun onImageSelected(imageBitmap: Bitmap, context: Context) {
         ImageLoader.storeImage(
             imageBitmap,
-            KEY_VALUE_STORAGE,
+            FILE_SYSTEM,
             sharedPreferences,
-            "$PROFILE_IMAGE_PREFIX$userId"
+            "$PROFILE_IMAGE_PREFIX$userId",
+            context
         )
             .doOnIoObserveOnMain()
             .subscribeBy(

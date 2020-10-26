@@ -272,7 +272,7 @@ class ProfileFragment : BaseFragment() {
                 viewModel.onCameraDismissed()
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val imageBitmap = data!!.extras.get("data") as Bitmap
-                    viewModel.onImageSelected(imageBitmap)
+                    viewModel.onImageSelected(imageBitmap, requireContext())
                 }
             }
             GALLERY_REQUEST_CODE -> {
@@ -281,7 +281,7 @@ class ProfileFragment : BaseFragment() {
                     data?.data?.let { uri ->
                         val bitmap =
                             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-                        viewModel.onImageSelected(bitmap)
+                        viewModel.onImageSelected(bitmap, requireContext())
                     }
                 }
             }
