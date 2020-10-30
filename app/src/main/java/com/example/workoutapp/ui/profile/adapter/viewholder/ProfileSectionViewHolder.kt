@@ -2,6 +2,7 @@ package com.example.workoutapp.ui.profile.adapter.viewholder
 
 import android.view.View
 import androidx.lifecycle.Lifecycle
+import com.example.workoutapp.R
 import com.example.workoutapp.domain.user.model.UserModel
 import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.profile.adapter.ProfileAdapter
@@ -23,7 +24,7 @@ class ProfileSectionViewHolder(
         model as ProfileItemWrapper.Profile
 
         if (model.profilePicture == null) {
-            button_add_profile_picture.setImageResource(model.defaultUserPic)
+            button_add_profile_picture.setImageResource(R.drawable.ic_profile_image)
         } else {
             button_add_profile_picture.setImageBitmap(model.profilePicture)
         }

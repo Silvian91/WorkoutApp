@@ -17,8 +17,7 @@ sealed class ProfileItemWrapper(
 
     data class Profile(
         val username: String? = null,
-        val profilePicture: Bitmap? = null,
-        @DrawableRes val defaultUserPic: Int
+        val profilePicture: Bitmap? = null
     ) : ProfileItemWrapper(ItemType.PROFILE)
 
     data class Heading(@StringRes val header: Int) : ProfileItemWrapper(ItemType.HEADING)

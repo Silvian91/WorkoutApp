@@ -1,12 +1,9 @@
 package com.example.workoutapp.ui.profile
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import com.example.lib_image_loader.ImageLoader
 import com.example.lib_image_loader.Source.FILE_SYSTEM
-import com.example.lib_image_loader.Source.KEY_VALUE_STORAGE
-import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_profile_header
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.logout.LogoutUseCase
@@ -40,7 +37,7 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private var items = mutableListOf(
-        ProfileItemWrapper.Profile(defaultUserPic = R.drawable.ic_profile_image),
+        ProfileItemWrapper.Profile(),
         ProfileItemWrapper.Heading(text_profile_header),
         ProfileItemWrapper.WorkoutsCount(),
         ProfileItemWrapper.RoutinesCount()
@@ -76,6 +73,7 @@ class ProfileViewModel @Inject constructor(
                         currentViewState.copy(items = items, loading = true)
                         getWorkoutsCount(it.user.id!!)
                         getRoutinesCount(it.user.id)
+                        getProfilePicture()
                     }
                     is ErrorUnauthorized ->
                         currentViewState = currentViewState.copy(login = true)
@@ -122,6 +120,24 @@ class ProfileViewModel @Inject constructor(
                 viewState.onNext(currentViewState)
             }
             .addTo(compositeDisposable)
+    }
+
+    private fun getProfilePicture() {
+        if (ImageLoader.loadImage(
+                sharedPreferences,
+                "$PROFILE_IMAGE_PREFIX$userId"
+            ) != null
+        ) {
+            items[0] =
+                (items[0] as ProfileItemWrapper.Profile)
+                    .copy(
+                        profilePicture = ImageLoader.imageBitmap
+                    )
+            currentViewState.copy(items = items)
+        } else {
+            currentViewState.copy(items = items)
+        }
+        viewState.onNext(currentViewState)
     }
 
     fun onLogOutConfirmed() {
@@ -175,13 +191,12 @@ class ProfileViewModel @Inject constructor(
         viewState.onNext(currentViewState)
     }
 
-    fun onImageSelected(imageBitmap: Bitmap, context: Context) {
+    fun onImageSelected(imageBitmap: Bitmap) {
         ImageLoader.storeImage(
             imageBitmap,
             FILE_SYSTEM,
             sharedPreferences,
-            "$PROFILE_IMAGE_PREFIX$userId",
-            context
+            "$PROFILE_IMAGE_PREFIX$userId"
         )
             .doOnIoObserveOnMain()
             .subscribeBy(

@@ -9,7 +9,6 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.LruCache
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
@@ -36,14 +35,13 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-
 class ProfileFragment : BaseFragment() {
 
     private lateinit var viewModel: ProfileViewModel
 
     private lateinit var profileAdapter: ProfileAdapter
 
-    private lateinit var bottomSheetDialog : BottomSheetDialog
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -272,7 +270,7 @@ class ProfileFragment : BaseFragment() {
                 viewModel.onCameraDismissed()
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val imageBitmap = data!!.extras.get("data") as Bitmap
-                    viewModel.onImageSelected(imageBitmap, requireContext())
+                    viewModel.onImageSelected(imageBitmap)
                 }
             }
             GALLERY_REQUEST_CODE -> {
@@ -281,7 +279,7 @@ class ProfileFragment : BaseFragment() {
                     data?.data?.let { uri ->
                         val bitmap =
                             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-                        viewModel.onImageSelected(bitmap, requireContext())
+                        viewModel.onImageSelected(bitmap)
                     }
                 }
             }
