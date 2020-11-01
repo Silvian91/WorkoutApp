@@ -41,10 +41,11 @@ class HomeFragment : BaseFragment() {
         ).get(HomeViewModel::class.java)
 
         initHomeRecyclerView()
+        viewModel.showWorkoutsButton()
+        dataResponse()
         viewModel.showWeatherAndQuote()
         weatherResponse()
         quoteResponse()
-        dataResponse()
         showWorkoutClicked()
         onError()
     }
