@@ -2,8 +2,9 @@ package com.example.workoutapp.di
 
 import com.example.workoutapp.di.addroutine.AddRoutineModule
 import com.example.workoutapp.di.addworkout.AddWorkoutModule
-import com.example.workoutapp.di.android.AndroidModule
+import com.example.lib_key_value_storage.di.android.SharedPreferencesModule
 import com.example.workoutapp.di.api.ApiModule
+import com.example.workoutapp.di.app.AppModule
 import com.example.workoutapp.di.home.HomeModule
 import com.example.workoutapp.di.login.LoginModule
 import com.example.workoutapp.di.profile.ProfileModule
@@ -20,7 +21,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AndroidModule::class,
+        AppModule::class,
         AndroidSupportInjectionModule::class,
         CompositeDisposableModule::class,
         AddRoutineModule::class,
@@ -30,10 +31,10 @@ import javax.inject.Singleton
         LoginModule::class,
         ProfileModule::class,
         RegisterModule::class,
+        SharedPreferencesModule::class,
         ShowRoutineModule::class,
         ShowWorkoutModule::class,
         SplashModule::class,
-        AndroidModule::class,
         ActivityModule::class,
         ViewModelModule::class
     ]

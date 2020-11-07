@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import com.example.lib_image_loader.ImageLoader
 import com.example.lib_image_loader.Source.FILE_SYSTEM
+import com.example.lib_image_loader.Source.KEY_VALUE_STORAGE
 import com.example.workoutapp.R.string.text_profile_header
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.logout.LogoutUseCase
@@ -32,7 +33,6 @@ class ProfileViewModel @Inject constructor(
     private val getWorkoutUseCase: GetWorkoutUseCase,
     private val getUserRoutinesUseCase: GetUserRoutinesUseCase,
     private val logoutUseCase: LogoutUseCase,
-    //TODO: TO BE REFACTORED ....... NEVER!
     private val sharedPreferences: SharedPreferences
 ) : BaseViewModel() {
 
@@ -123,15 +123,14 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun getProfilePicture() {
-        if (ImageLoader.loadImage(
-                sharedPreferences,
+        if (ImageLoader(sharedPreferences).loadImage(
                 "$PROFILE_IMAGE_PREFIX$userId"
             ) != null
         ) {
             items[0] =
                 (items[0] as ProfileItemWrapper.Profile)
                     .copy(
-                        profilePicture = ImageLoader.imageBitmap
+                        profilePicture = ImageLoader(sharedPreferences).loadImage("$PROFILE_IMAGE_PREFIX$userId")
                     )
             currentViewState.copy(items = items)
         } else {
@@ -159,7 +158,6 @@ class ProfileViewModel @Inject constructor(
         viewState.onNext(currentViewState)
     }
 
-    //TODO: Remove
     private fun bottomSheetDismissed() {
         currentViewState = currentViewState.copy(bottomSheetDialog = false)
     }
@@ -192,10 +190,9 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onImageSelected(imageBitmap: Bitmap) {
-        ImageLoader.storeImage(
+        ImageLoader(sharedPreferences).storeImage(
             imageBitmap,
             FILE_SYSTEM,
-            sharedPreferences,
             "$PROFILE_IMAGE_PREFIX$userId"
         )
             .doOnIoObserveOnMain()

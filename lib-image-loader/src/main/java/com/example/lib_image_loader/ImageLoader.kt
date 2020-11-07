@@ -10,42 +10,40 @@ import com.example.lib_image_loader.extensions.convertToByteArray
 import io.reactivex.Completable
 import java.io.File
 import java.nio.charset.Charset
+import javax.inject.Inject
 
-object ImageLoader {
-
-    var imageBitmap: Bitmap? = null
+class ImageLoader @Inject constructor(
+    private var sharedPreferences: SharedPreferences
+) {
 
     fun loadImage(
-        sharedPreferences: SharedPreferences,
         imageKey: String
     ): Bitmap? {
-        return when {
+        when {
             sharedPreferences.contains(imageKey) -> {
                 val byteArray = Base64.decode(
                     sharedPreferences.getString(imageKey, "null")!!,
                     Base64.DEFAULT
                 )
-                imageBitmap = BitmapFactory.decodeByteArray(
+                return BitmapFactory.decodeByteArray(
                     byteArray,
                     0,
                     byteArray.size
                 )
-                imageBitmap
             }
             File("$PROFILE_IMAGE_FILE$imageKey").exists() -> {
                 val byteArray = Base64.decode(
                     File("$PROFILE_IMAGE_FILE$imageKey").readText(),
                     Base64.DEFAULT
                 )
-                imageBitmap = BitmapFactory.decodeByteArray(
+                return BitmapFactory.decodeByteArray(
                     byteArray,
                     0,
                     byteArray.size
                 )
-                imageBitmap
             }
             else -> {
-                null
+                return null
             }
         }
     }
@@ -53,7 +51,6 @@ object ImageLoader {
     fun storeImage(
         imageBitmap: Bitmap,
         source: Source,
-        sharedPreferences: SharedPreferences,
         imageKey: String
     ): Completable {
         val imageValue = convertToString(imageBitmap)
@@ -72,12 +69,13 @@ object ImageLoader {
         }
     }
 
-
     private fun convertToString(imageBitmap: Bitmap): String {
         val byteArray = imageBitmap.convertToByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
-    private const val PROFILE_IMAGE_FILE = "/data/data/com.example.workoutapp.debug/files/"
+    companion object {
+        private const val PROFILE_IMAGE_FILE = "/data/data/com.example.workoutapp.debug/files/"
+    }
 
 }

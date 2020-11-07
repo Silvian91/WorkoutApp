@@ -1,19 +1,13 @@
-package com.example.workoutapp.di.android
+package com.example.lib_key_value_storage.di.android
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.example.workoutapp.ui.WorkoutApplication
 import dagger.Module
 import dagger.Provides
 
 @Module
-class AndroidModule {
-
-    @Provides
-    fun providesContext(application: WorkoutApplication): Context {
-        return application.applicationContext
-    }
+class SharedPreferencesModule {
 
     @Provides
     fun providesSharedPreferences(context: Context): SharedPreferences {
