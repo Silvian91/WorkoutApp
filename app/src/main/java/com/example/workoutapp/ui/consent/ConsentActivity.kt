@@ -3,8 +3,10 @@ package com.example.workoutapp.ui.consent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.workoutapp.R
 import com.example.workoutapp.R.layout.activity_consent
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.common.BaseActivity
@@ -45,7 +47,7 @@ class ConsentActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(context)
             consentAdapter = ConsentAdapter(
                 ActionsViewHolderAcceptListener { viewModel.acceptedConsent() },
-                ConsentAdapter.ActionsViewHolderDenyListener { viewModel.deniedConsent() },
+                ConsentAdapter.ActionsViewHolderDenyListener { viewModel.showDeclinedConfirmation() },
                 this@ConsentActivity.lifecycle
             )
             adapter = consentAdapter
@@ -58,6 +60,7 @@ class ConsentActivity : BaseActivity() {
             .subscribeBy { state ->
                 showData(state.items)
                 openRegister(state.accepted)
+                showDialog(state.dialog)
                 openOnboarding(state.denied)
             }
             .addTo(compositeDisposable)
@@ -65,10 +68,25 @@ class ConsentActivity : BaseActivity() {
 
     private fun openRegister(consentAccepted: Boolean) {
         if (consentAccepted) {
+            finish()
             startActivity(
                 RegisterActivity.newIntent(this)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             )
+        }
+    }
+
+    private fun showDialog(dialog: Boolean) {
+        if (dialog) {
+            AlertDialog.Builder(this)
+                .setMessage(R.string.text_consent_dialog_decline)
+                .setNegativeButton(
+                    R.string.text_dialog_alert_cancel
+                ) { _, _ -> viewModel.setData()}
+                .setPositiveButton(
+                    R.string.text_dialog_alert_confirm
+                ) { _, _ -> viewModel.deniedConsent() }
+                .show()
         }
     }
 

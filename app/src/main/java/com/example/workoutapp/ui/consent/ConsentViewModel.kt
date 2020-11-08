@@ -21,13 +21,23 @@ class ConsentViewModel @Inject constructor(
     private var currentViewState = ConsentViewState(
         items,
         accepted = false,
+        dialog = false,
         denied = false
     )
 
     val viewState = BehaviorSubject.createDefault(currentViewState)
 
+    init {
+        setData()
+    }
+
     fun setData() {
-        currentViewState = currentViewState.copy(items = items, accepted = false, denied = false)
+        currentViewState = currentViewState.copy(items = items, accepted = false, dialog = false, denied = false)
+        viewState.onNext(currentViewState)
+    }
+
+    fun showDeclinedConfirmation() {
+        currentViewState = currentViewState.copy(dialog = true)
         viewState.onNext(currentViewState)
     }
 
@@ -37,7 +47,7 @@ class ConsentViewModel @Inject constructor(
     }
 
     fun deniedConsent() {
-        currentViewState = currentViewState.copy(denied = true)
+        currentViewState = currentViewState.copy(dialog = false, denied = true)
         viewState.onNext(currentViewState)
     }
 
