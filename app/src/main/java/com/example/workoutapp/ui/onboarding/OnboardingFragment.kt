@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.workoutapp.R
-import com.example.workoutapp.ui.common.BaseFragment
+import com.example.core.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_onboarding.*
 
 class OnboardingFragment : BaseFragment() {

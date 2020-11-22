@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil.DiffResult
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutapp.R.layout.view_holder_workouts
 import com.example.workoutapp.R.layout.view_holder_workouts_no_data
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.ItemType.WORKOUT_NO_DATA
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.ItemType.WORKOUT_TITLE
 import com.example.workoutapp.ui.showworkout.adapter.viewholder.ShowWorkoutNoDataViewHolder

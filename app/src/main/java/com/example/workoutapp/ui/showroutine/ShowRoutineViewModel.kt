@@ -6,11 +6,9 @@ import com.example.workoutapp.domain.showroutine.DeleteWorkoutUseCase
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Input
 import com.example.workoutapp.domain.showroutine.GetRoutineUseCase.Output.ErrorNoRoutines
-import com.example.workoutapp.ui.common.BaseViewModel
-import com.example.workoutapp.ui.error.ErrorType
-import com.example.workoutapp.ui.error.ErrorType.Unknown
+import com.example.core.ui.BaseViewModel
+import com.example.core.ui.error.ErrorType.Unknown
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject

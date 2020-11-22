@@ -11,7 +11,7 @@ import com.example.workoutapp.R.string.text_network_error
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.inspirationalquote.model.QuoteModel
 import com.example.workoutapp.domain.openweathermap.model.WeatherModel
-import com.example.workoutapp.ui.common.BaseFragment
+import com.example.core.ui.BaseFragment
 import com.example.workoutapp.ui.home.adapter.HomeAdapter
 import com.example.workoutapp.ui.home.adapter.HomeAdapter.ButtonHolderViewListener
 import com.example.workoutapp.ui.home.adapter.HomeItemWrapper

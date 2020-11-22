@@ -5,7 +5,7 @@ import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase
 import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Input
 import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Output.DBEmpty
 import com.example.workoutapp.domain.user.IsUserDBEmptyUseCase.Output.DBNotEmpty
-import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.core.ui.BaseViewModel
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject

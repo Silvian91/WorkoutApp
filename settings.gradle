@@ -1,3 +1,4 @@
+include ':core'
 include ':lib-key-value-storage'
 include ':lib-image-loader'
 include ':app'

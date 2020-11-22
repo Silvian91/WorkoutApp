@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import com.example.lib_image_loader.ImageLoader
 import com.example.lib_image_loader.Source.FILE_SYSTEM
-import com.example.lib_image_loader.Source.KEY_VALUE_STORAGE
 import com.example.workoutapp.R.string.text_profile_header
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.logout.LogoutUseCase
@@ -14,8 +13,8 @@ import com.example.workoutapp.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Input
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
-import com.example.workoutapp.ui.common.BaseViewModel
-import com.example.workoutapp.ui.error.ErrorType.Unknown
+import com.example.core.ui.BaseViewModel
+import com.example.core.ui.error.ErrorType.Unknown
 import com.example.workoutapp.ui.profile.adapter.ProfileItemWrapper
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy

@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.common.BaseFragment
-import com.example.workoutapp.ui.error.ErrorType
+import com.example.core.ui.BaseFragment
+import com.example.core.ui.error.ErrorType
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.profile.adapter.ProfileAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog

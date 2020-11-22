@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
 import com.example.workoutapp.R.layout.activity_onboarding
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.common.BaseActivity
+import com.example.core.ui.BaseActivity
 import com.example.workoutapp.ui.common.adapter.FragmentAdapter
 import com.example.workoutapp.ui.consent.ConsentActivity
 import com.google.android.material.tabs.TabLayout

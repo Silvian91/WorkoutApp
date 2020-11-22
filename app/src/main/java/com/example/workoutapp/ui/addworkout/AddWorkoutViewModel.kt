@@ -6,13 +6,13 @@ import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
 import com.example.workoutapp.domain.workout.model.WorkoutModel
-import com.example.workoutapp.ui.error.ErrorType.ErrorWorkoutName
-import com.example.workoutapp.ui.error.ErrorType.Unknown
-import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.core.ui.error.ErrorType.ErrorWorkoutName
+import com.example.core.ui.error.ErrorType.Unknown
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
+import com.example.core.ui.BaseViewModel as BaseViewModel
 import com.example.workoutapp.domain.addworkout.AddWorkoutUseCase.Output.Success as SaveWorkoutSuccess
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.Success as GetUserSuccess
 

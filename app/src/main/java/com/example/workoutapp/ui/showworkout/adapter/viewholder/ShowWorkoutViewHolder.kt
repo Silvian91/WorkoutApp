@@ -3,7 +3,7 @@ package com.example.workoutapp.ui.showworkout.adapter.viewholder
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Lifecycle
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle

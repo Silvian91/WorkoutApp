@@ -3,7 +3,7 @@ package com.example.workoutapp.ui.splash
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.common.BaseActivity
+import com.example.core.ui.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.onboarding.OnboardingActivity
 import io.reactivex.rxkotlin.addTo

@@ -7,8 +7,8 @@ import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase.Input
 import com.example.workoutapp.domain.inspirationalquote.model.QuoteModel
 import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase
 import com.example.workoutapp.domain.openweathermap.model.WeatherModel
-import com.example.workoutapp.ui.common.BaseViewModel
-import com.example.workoutapp.ui.error.ErrorType.NetworkError
+import com.example.core.ui.BaseViewModel
+import com.example.core.ui.error.ErrorType.NetworkError
 import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy

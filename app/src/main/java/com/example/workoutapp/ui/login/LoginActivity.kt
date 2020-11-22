@@ -15,9 +15,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.workoutapp.R
 import com.example.workoutapp.R.color.colorPrimary
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.common.BaseActivity
-import com.example.workoutapp.ui.error.ErrorType
-import com.example.workoutapp.ui.error.UIError
+import com.example.core.ui.BaseActivity
+import com.example.core.ui.error.ErrorType
+import com.example.core.ui.error.UIError
 import com.example.workoutapp.ui.main.MainActivity
 import com.example.workoutapp.ui.register.RegisterActivity
 import com.google.android.material.snackbar.Snackbar

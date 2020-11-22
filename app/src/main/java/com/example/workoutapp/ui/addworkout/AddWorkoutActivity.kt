@@ -11,8 +11,7 @@ import com.example.workoutapp.R.string.text_add_workout_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.addroutine.AddRoutineActivity
-import com.example.workoutapp.ui.common.BaseActivity
-import com.example.workoutapp.ui.error.ErrorType
+import com.example.core.ui.error.ErrorType
 import com.example.workoutapp.ui.login.LoginActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
@@ -21,6 +20,7 @@ import com.uber.autodispose.autoDispose
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_add_workout.*
+import com.example.core.ui.BaseActivity as BaseActivity
 
 class AddWorkoutActivity : BaseActivity() {
 

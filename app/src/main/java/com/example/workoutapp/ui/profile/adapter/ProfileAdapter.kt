@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutapp.R.layout.*
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.profile.adapter.ProfileItemWrapper.ItemType.*
 import com.example.workoutapp.ui.profile.adapter.viewholder.HeaderViewHolder
 import com.example.workoutapp.ui.profile.adapter.viewholder.ProfileSectionViewHolder

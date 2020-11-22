@@ -1,6 +1,6 @@
 package com.example.workoutapp.ui.login
 
-import com.example.workoutapp.ui.error.UIError
+import com.example.core.ui.error.UIError
 
 data class LoginViewState (
     val home: Boolean,

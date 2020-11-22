@@ -1,9 +1,8 @@
 package com.example.workoutapp.ui.consent
 
-import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_consent_body
 import com.example.workoutapp.R.string.text_consent_header
-import com.example.workoutapp.ui.common.BaseViewModel
+import com.example.core.ui.BaseViewModel
 import com.example.workoutapp.ui.consent.adapter.ConsentItemWrapper
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject

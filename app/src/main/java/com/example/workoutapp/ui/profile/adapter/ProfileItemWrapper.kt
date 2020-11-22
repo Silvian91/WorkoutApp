@@ -1,12 +1,16 @@
 package com.example.workoutapp.ui.profile.adapter
 
 import android.graphics.Bitmap
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.example.core.recyclerView.ItemWrapper
 
 sealed class ProfileItemWrapper(
     val type: ItemType
-) {
+): ItemWrapper {
+
+    override fun getItemType(): Int {
+        return type.ordinal
+    }
 
     enum class ItemType {
         PROFILE,

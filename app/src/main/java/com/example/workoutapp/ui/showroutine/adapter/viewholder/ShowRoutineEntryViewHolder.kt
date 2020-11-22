@@ -1,7 +1,7 @@
 package com.example.workoutapp.ui.showroutine.adapter.viewholder
 
 import android.view.View
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper.Entry
 import kotlinx.android.extensions.LayoutContainer
@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.view_holder_routines_entry.view.*
 class ShowRoutineEntryViewHolder(
     override val containerView: View
 ) : BaseViewHolder<ShowRoutineItemWrapper>(containerView), LayoutContainer {
-
 
     override fun bind(model: ShowRoutineItemWrapper) {
         model as Entry

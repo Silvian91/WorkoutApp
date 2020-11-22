@@ -23,7 +23,7 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         AndroidSupportInjectionModule::class,
-        CompositeDisposableModule::class,
+        com.example.core.di.CompositeDisposableModule::class,
         AddRoutineModule::class,
         AddWorkoutModule::class,
         ApiModule::class,

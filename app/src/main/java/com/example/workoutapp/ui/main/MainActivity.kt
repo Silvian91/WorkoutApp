@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.workoutapp.R
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
-import com.example.workoutapp.ui.common.BaseActivity
+import com.example.core.ui.BaseActivity
 import com.example.workoutapp.ui.common.adapter.FragmentAdapter
 import com.example.workoutapp.ui.home.HomeFragment
 import com.example.workoutapp.ui.profile.ProfileFragment

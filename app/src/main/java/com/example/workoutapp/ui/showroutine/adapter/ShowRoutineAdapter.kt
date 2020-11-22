@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workoutapp.R.layout.view_holder_routines_entry
 import com.example.workoutapp.R.layout.view_holder_routines_title
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper.ItemType.ENTRY
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper.ItemType.TITLE
 import com.example.workoutapp.ui.showroutine.adapter.viewholder.ShowRoutineEntryViewHolder

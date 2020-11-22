@@ -5,11 +5,9 @@ import com.example.workoutapp.domain.login.LoginUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase
 import com.example.workoutapp.domain.register.RegisterUseCase.Input
 import com.example.workoutapp.domain.user.model.UserModel
-import com.example.workoutapp.ui.common.BaseViewModel
-import com.example.workoutapp.ui.error.ErrorType
-import com.example.workoutapp.ui.error.ErrorType.ErrorRegistration
-import com.example.workoutapp.ui.error.ErrorType.Unknown
-import io.reactivex.disposables.CompositeDisposable
+import com.example.core.ui.BaseViewModel
+import com.example.core.ui.error.ErrorType.ErrorRegistration
+import com.example.core.ui.error.ErrorType.Unknown
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject

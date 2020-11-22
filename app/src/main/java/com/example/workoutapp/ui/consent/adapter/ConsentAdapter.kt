@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.R.layout.*
-import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.consent.adapter.ConsentItemWrapper.ItemType.*
 import com.example.workoutapp.ui.consent.adapter.viewholder.ActionsViewHolder
 import com.example.workoutapp.ui.consent.adapter.viewholder.BodyViewHolder
@@ -38,7 +38,7 @@ class ConsentAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position].type) {
-            HEADRER -> view_holder_consent_header
+            HEADER -> view_holder_consent_header
             BODY -> view_holder_consent_body
             ACTIONS -> view_holder_consent_actions
         }

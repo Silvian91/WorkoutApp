@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion BuildConfig.MIN_SDK
+        targetSdkVersion BuildConfig.TARGET_SDK
+        versionCode BuildConfig.VERSION_CODE
+        versionName BuildConfig.VERSION_NAME
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Kotlin.KOTLIN_STB
+    implementation AndroidX.CORE_KTX
+    implementation AndroidX.APP_COMPAT
+    implementation AndroidX.RECYCLERVIEW
+    implementation AndroidX.LIFECYCLE_VIEWMODEL
+    implementation AndroidX.LIFECYCLE_EXTENSION
+
+    implementation Rx.RX_BINDING
+    implementation Rx.RX_BINDING_RECYCLERVIEW
+    implementation Rx.RX_ANDROID
+    implementation Rx.RX_JAVA
+    implementation Rx.RX_KOTLIN
+    implementation AutoDispose.AUTODISPOSE
+    implementation AutoDispose.AUTODISPOSE_ANDROID
+
+    implementation Dagger.DAGGER
+    kapt Dagger.DAGGER_COMPILER
+    implementation Dagger.DAGGER_ANDROID
+    kapt Dagger.DAGGER_PROCESSOR
+
+}

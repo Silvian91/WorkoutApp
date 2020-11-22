@@ -3,7 +3,7 @@ package com.example.workoutapp.ui.home.adapter.viewholder
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.home.adapter.HomeAdapter
 import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
 import com.jakewharton.rxbinding3.view.clicks

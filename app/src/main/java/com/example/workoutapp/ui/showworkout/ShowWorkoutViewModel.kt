@@ -9,8 +9,8 @@ import com.example.workoutapp.domain.showworkout.UndoSoftDeleteWorkoutUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase.Output.ErrorUnauthorized
 import com.example.workoutapp.domain.workout.model.WorkoutModel
-import com.example.workoutapp.ui.common.BaseViewModel
-import com.example.workoutapp.ui.error.ErrorType.Unknown
+import com.example.core.ui.BaseViewModel
+import com.example.core.ui.error.ErrorType.Unknown
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutNoData
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper.WorkoutTitle

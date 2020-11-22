@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.R.layout.view_holder_home_actions
-import com.example.workoutapp.ui.common.BaseViewHolder
 import com.example.workoutapp.ui.home.adapter.viewholder.ActionViewHolder
 
 class HomeAdapter(

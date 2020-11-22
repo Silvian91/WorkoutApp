@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.string.*
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.common.BaseActivity
+import com.example.core.ui.BaseActivity
 import com.example.workoutapp.ui.login.LoginActivity
 import com.example.workoutapp.ui.showroutine.ShowRoutineActivity
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutAdapter

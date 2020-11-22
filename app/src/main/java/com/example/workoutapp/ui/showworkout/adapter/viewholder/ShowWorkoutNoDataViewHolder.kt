@@ -1,7 +1,7 @@
 package com.example.workoutapp.ui.showworkout.adapter.viewholder
 
 import android.view.View
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import kotlinx.android.extensions.LayoutContainer
 

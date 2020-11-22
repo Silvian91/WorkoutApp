@@ -7,12 +7,12 @@ sealed class ConsentItemWrapper(
 ) {
 
     enum class ItemType {
-        HEADRER,
+        HEADER,
         BODY,
         ACTIONS
     }
 
-    data class Header(@StringRes val header: Int) : ConsentItemWrapper(ItemType.HEADRER)
+    data class Header(@StringRes val header: Int) : ConsentItemWrapper(ItemType.HEADER)
 
     data class Body(@StringRes val body: Int) : ConsentItemWrapper(ItemType.BODY)
 

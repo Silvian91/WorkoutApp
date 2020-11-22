@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.R
 import com.example.workoutapp.R.layout.activity_consent
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.common.BaseActivity
+import com.example.core.ui.BaseActivity
 import com.example.workoutapp.ui.consent.adapter.ConsentAdapter
 import com.example.workoutapp.ui.consent.adapter.ConsentAdapter.ActionsViewHolderAcceptListener
 import com.example.workoutapp.ui.consent.adapter.ConsentItemWrapper

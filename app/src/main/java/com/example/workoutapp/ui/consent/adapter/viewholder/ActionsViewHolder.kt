@@ -2,7 +2,7 @@ package com.example.workoutapp.ui.consent.adapter.viewholder
 
 import android.view.View
 import androidx.lifecycle.Lifecycle
-import com.example.workoutapp.ui.common.BaseViewHolder
+import com.example.core.recyclerView.BaseViewHolder
 import com.example.workoutapp.ui.consent.adapter.ConsentAdapter
 import com.example.workoutapp.ui.consent.adapter.ConsentItemWrapper
 import com.jakewharton.rxbinding3.view.clicks

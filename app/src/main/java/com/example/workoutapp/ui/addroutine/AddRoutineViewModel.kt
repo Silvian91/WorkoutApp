@@ -4,12 +4,10 @@ import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase
 import com.example.workoutapp.domain.addroutine.DeleteRoutineUseCase.Input
 import com.example.workoutapp.domain.addroutine.SaveRoutineUseCase
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.domain.profile.GetUserRoutinesUseCase
 import com.example.workoutapp.domain.routine.model.RoutineModel
 import com.example.workoutapp.domain.user.GetCurrentUserUseCase
-import com.example.workoutapp.ui.error.ErrorType.*
-import com.example.workoutapp.ui.common.BaseViewModel
-import com.example.workoutapp.ui.profile.adapter.ProfileItemWrapper
+import com.example.core.ui.error.ErrorType.*
+import com.example.core.ui.BaseViewModel
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject

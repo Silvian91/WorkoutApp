@@ -12,7 +12,7 @@ import com.example.workoutapp.R
 import com.example.workoutapp.R.string.text_show_routines_toolbar
 import com.example.workoutapp.R.string.text_unknown_error
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
-import com.example.workoutapp.ui.common.BaseActivity
+import com.example.core.ui.BaseActivity
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineAdapter
 import com.example.workoutapp.ui.showroutine.adapter.ShowRoutineItemWrapper
 import com.example.workoutapp.ui.showworkout.ShowWorkoutActivity
