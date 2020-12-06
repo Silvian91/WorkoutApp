@@ -9,7 +9,8 @@ interface OpenWeatherMapApiService {
 
     @GET("weather")
     fun getCurrentWeather(
-        @Query("q") location: String = "Berlin",
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
         @Query("lang") languageCode: String = "en",
         @Query("units") units: String = "metric"
     ): Single<OpenWeatherMapResponse>

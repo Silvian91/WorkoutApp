@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.example.core.ui.BaseActivity
 import com.example.workoutapp.R
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.ui.addworkout.AddWorkoutActivity
-import com.example.core.ui.BaseActivity
 import com.example.workoutapp.ui.common.adapter.FragmentAdapter
 import com.example.workoutapp.ui.home.HomeFragment
 import com.example.workoutapp.ui.profile.ProfileFragment
@@ -49,7 +49,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun onNavigationSwipe() {
-        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 bottom_navigation.menu.getItem(position).isChecked = true
             }

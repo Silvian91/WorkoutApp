@@ -1,7 +1,7 @@
 package com.example.workoutapp.http.openweathermap.response
 
 
-import com.example.workoutapp.domain.openweathermap.model.WeatherModel
+import com.example.workoutapp.domain.weather.model.WeatherModel
 import com.google.gson.annotations.SerializedName
 
 data class OpenWeatherMapResponse(

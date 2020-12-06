@@ -1,22 +1,22 @@
 package com.example.workoutapp.ui.home
 
+import com.example.core.ui.BaseViewModel
+import com.example.core.ui.error.ErrorType.NetworkError
 import com.example.workoutapp.R
 import com.example.workoutapp.domain.extension.doOnIoObserveOnMain
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase.Input
 import com.example.workoutapp.domain.inspirationalquote.model.QuoteModel
-import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase
-import com.example.workoutapp.domain.openweathermap.model.WeatherModel
-import com.example.core.ui.BaseViewModel
-import com.example.core.ui.error.ErrorType.NetworkError
+import com.example.workoutapp.domain.location.model.LocationModel
+import com.example.workoutapp.domain.weather.GetWeatherUseCase
+import com.example.workoutapp.domain.weather.model.WeatherModel
 import com.example.workoutapp.ui.home.adapter.HomeItemWrapper
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.rxkotlin.zipWith
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase.Output.Success as QuoteSuccess
-import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase.Output.Success as WeatherSuccess
+import com.example.workoutapp.domain.weather.GetWeatherUseCase.Output.Success as WeatherSuccess
 
 class HomeViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase,
@@ -39,22 +39,28 @@ class HomeViewModel @Inject constructor(
         )
     }
 
-    fun showWeatherAndQuote() {
-        getWeatherUseCase.execute(GetWeatherUseCase.Input)
-            .zipWith(
-                getQuoteUseCase.execute(Input)
-            )
+    fun fetchWeather(locationModel: LocationModel) {
+        getWeatherUseCase.execute(GetWeatherUseCase.Input(locationModel))
             .doOnIoObserveOnMain()
             .subscribeBy {
-                when (it.first) {
+                when (it) {
                     is WeatherSuccess -> {
-                        weather.onNext((it.first as WeatherSuccess).weather)
+                        weather.onNext((it).weather)
                     }
                     else -> error.onNext(NetworkError)
                 }
-                when (it.second) {
+            }
+            .addTo(compositeDisposable)
+    }
+
+
+    fun fetchQuote() {
+        getQuoteUseCase.execute(Input)
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
                     is QuoteSuccess -> {
-                        quote.onNext((it.second as QuoteSuccess).quote)
+                        quote.onNext((it).quote)
                     }
                     else -> error.onNext(NetworkError)
                 }

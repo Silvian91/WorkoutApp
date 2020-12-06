@@ -38,9 +38,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 class ProfileFragment : BaseFragment() {
 
     private lateinit var viewModel: ProfileViewModel
-
     private lateinit var profileAdapter: ProfileAdapter
-
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
     override fun onCreateView(

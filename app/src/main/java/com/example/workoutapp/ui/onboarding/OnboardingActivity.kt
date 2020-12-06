@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.activity_onboarding.*
 class OnboardingActivity : BaseActivity() {
 
     private lateinit var viewModel: OnboardingViewModel
-
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var fragmentAdapter: FragmentAdapter

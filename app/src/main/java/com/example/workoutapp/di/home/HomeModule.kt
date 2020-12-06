@@ -9,9 +9,9 @@ import com.example.workoutapp.data.openweathermap.WeatherRepositoryImpl
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCase
 import com.example.workoutapp.domain.inspirationalquote.GetQuoteUseCaseImpl
 import com.example.workoutapp.domain.inspirationalquote.QuoteRepository
-import com.example.workoutapp.domain.openweathermap.GetWeatherUseCase
-import com.example.workoutapp.domain.openweathermap.GetWeatherUseCaseImpl
-import com.example.workoutapp.domain.openweathermap.WeatherRepository
+import com.example.workoutapp.domain.weather.GetWeatherUseCase
+import com.example.workoutapp.domain.weather.GetWeatherUseCaseImpl
+import com.example.workoutapp.domain.weather.WeatherRepository
 import com.example.workoutapp.http.inspirationalquote.InspirationalApiService
 import com.example.workoutapp.http.openweathermap.OpenWeatherMapApiService
 import dagger.Module
