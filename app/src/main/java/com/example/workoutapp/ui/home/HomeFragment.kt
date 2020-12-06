@@ -39,6 +39,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private lateinit var geocoder: Geocoder
+    private var city: String = ""
     private val REQUEST_CODE = 1010
 
     override fun onCreateView(
@@ -57,18 +58,6 @@ class HomeFragment : BaseFragment() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         geocoder = Geocoder(requireContext(), Locale.getDefault())
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                locationResult?.run {
-                    val locationModel = LocationModel(
-                        locationResult.lastLocation.longitude,
-                        locationResult.lastLocation.latitude
-                    )
-                    viewModel.fetchWeather(locationModel)
-                }
-            }
-        }
 
         initHomeRecyclerView()
         fetchLastLocation()
@@ -148,6 +137,11 @@ class HomeFragment : BaseFragment() {
                         location.longitude,
                         location.latitude
                     )
+                    city = geocoder.getFromLocation(
+                        location.latitude,
+                        location.longitude,
+                        1
+                    )[0].locality
                     viewModel.fetchWeather(locationModel)
                 }
             }
@@ -233,7 +227,7 @@ class HomeFragment : BaseFragment() {
 
     private fun showWeather(weather: WeatherModel) {
         weather_api.text =
-            "The weather in Berlin is: ${weather.temp.toInt()} degrees"
+            "The weather in $city is: ${weather.temp.toInt()} degrees"
     }
 
     private fun openShowWorkout() = startActivity(ShowWorkoutActivity.newIntent(requireContext()))
