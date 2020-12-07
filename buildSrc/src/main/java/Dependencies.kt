@@ -1,5 +1,5 @@
 object BuildConfig {
-    const val APP_ID = "com.example.workoutapp"
+    const val APP_ID = "com.example.workoutnotebook"
     const val MIN_SDK = 23
     const val TARGET_SDK = 30
     const val VERSION_CODE = 1

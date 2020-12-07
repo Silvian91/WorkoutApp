@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WorkoutApp</string>
+    <string name="app_name">Workout Notebook</string>
     <string name="text_main_activity_title">Workout Tracker</string>
     <string name="text_main_activity_subheading">Add and track personalized workouts</string>
     <string name="text_add_workout">Add Workout</string>

@@ -5,7 +5,7 @@
     android:id="@+id/add_routine_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.workoutapp.ui.addroutine.AddRoutineActivity">
+    tools:context="com.example.workoutnotebook.ui.addroutine.AddRoutineActivity">
 
     <include layout="@layout/toolbar" />
 
