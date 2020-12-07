@@ -59,6 +59,24 @@ class HomeFragment : BaseFragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         geocoder = Geocoder(requireContext(), Locale.getDefault())
 
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult?.run {
+                    val locationModel = LocationModel(
+                        this.lastLocation.longitude,
+                        this.lastLocation.latitude
+                    )
+                    city = geocoder.getFromLocation(
+                        this.lastLocation.latitude,
+                        this.lastLocation.longitude,
+                        1
+                    )[0].locality
+
+                    viewModel.fetchWeather(locationModel)
+                }
+            }
+        }
+
         initHomeRecyclerView()
         fetchLastLocation()
         viewModel.showWorkoutsButton()
