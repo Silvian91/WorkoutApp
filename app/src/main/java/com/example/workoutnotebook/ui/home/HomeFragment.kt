@@ -2,7 +2,6 @@ package com.example.workoutnotebook.ui.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.os.Looper
@@ -10,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.core.ui.BaseFragment
@@ -29,9 +27,10 @@ import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_home.*
+import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var homeAdapter: HomeAdapter
@@ -100,22 +99,6 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun isLocationPermissionGranted(): Boolean {
-        if (
-            checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED ||
-            checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
-        }
-        return false
-    }
-
     private fun requestPermission() {
         requestPermissions(
             arrayOf(
@@ -131,22 +114,26 @@ class HomeFragment : BaseFragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when (requestCode) {
-            REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    fetchLastLocation()
-                } else {
-                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(REQUEST_CODE, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        fetchLastLocation()
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("MissingPermission")
     private fun fetchLastLocation() {
-        if (isLocationPermissionGranted()) {
+        if (EasyPermissions.hasPermissions(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location == null) {
                     requestLocationData()
