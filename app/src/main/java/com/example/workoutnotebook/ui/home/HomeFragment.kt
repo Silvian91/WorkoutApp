@@ -39,7 +39,6 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
     private lateinit var locationCallback: LocationCallback
     private lateinit var geocoder: Geocoder
     private var city: String = ""
-    private val REQUEST_CODE = 1010
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,6 +96,10 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
                 )
             adapter = homeAdapter
         }
+    }
+
+    companion object {
+        private const val REQUEST_CODE = 1010
     }
 
     private fun requestPermission() {

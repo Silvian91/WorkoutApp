@@ -75,7 +75,7 @@ class ImageLoader @Inject constructor(
     }
 
     companion object {
-        private const val PROFILE_IMAGE_FILE = "/data/data/com.example.workoutapp.debug/files/"
+        private const val PROFILE_IMAGE_FILE = "/data/data/com.example.workoutnotebook.debug/files"
     }
 
 }

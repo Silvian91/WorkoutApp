@@ -4,24 +4,21 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.core.ui.BaseFragment
+import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.R
 import com.example.workoutnotebook.R.string.*
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
-import com.example.core.ui.BaseFragment
-import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.ui.login.LoginActivity
 import com.example.workoutnotebook.ui.profile.adapter.ProfileAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -34,8 +31,9 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import pub.devrel.easypermissions.EasyPermissions
 
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var viewModel: ProfileViewModel
     private lateinit var profileAdapter: ProfileAdapter
@@ -206,30 +204,24 @@ class ProfileFragment : BaseFragment() {
 
     private fun checkPermissionForImage(permissionCheck: Boolean) {
         if (permissionCheck) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if ((checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_DENIED)
-                    && (checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_DENIED)
-                ) {
-                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    val permissionCoarse = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            val permissionCoarse = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-                    requestPermissions(
-                        permission,
-                        PERMISSION_CODE
-                    )
-                    requestPermissions(
-                        permissionCoarse,
-                        1002
-                    )
-                } else {
-                    galleryOption()
-                }
+            if (EasyPermissions.hasPermissions(
+                    requireContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+                galleryOption()
+            } else {
+                requestPermissions(
+                    permission,
+                    PERMISSION_CODE
+                )
+                requestPermissions(
+                    permissionCoarse,
+                    1002
+                )
             }
         }
     }
@@ -247,17 +239,22 @@ class ProfileFragment : BaseFragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when (requestCode) {
-            PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    galleryOption()
-                } else {
-                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(
+            GALLERY_REQUEST_CODE,
+            permissions,
+            grantResults,
+            this
+        )
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        galleryOption()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
