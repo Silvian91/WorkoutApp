@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.location.Geocoder
 import android.os.Bundle
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.example.workoutnotebook.R
 import com.example.workoutnotebook.R.string.text_network_error
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.inspirationalquote.model.QuoteModel
-import com.example.workoutnotebook.domain.location.model.LocationModel
 import com.example.workoutnotebook.domain.weather.model.WeatherModel
 import com.example.workoutnotebook.ui.home.adapter.HomeAdapter
 import com.example.workoutnotebook.ui.home.adapter.HomeAdapter.ButtonHolderViewListener
@@ -34,9 +32,6 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var homeAdapter: HomeAdapter
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
     private lateinit var geocoder: Geocoder
     private var city: String = ""
 
@@ -54,27 +49,7 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
             this, viewModelFactory.get()
         ).get(HomeViewModel::class.java)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         geocoder = Geocoder(requireContext(), Locale.getDefault())
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                locationResult?.run {
-                    val locationModel = LocationModel(
-                        this.lastLocation.longitude,
-                        this.lastLocation.latitude
-                    )
-                    city = geocoder.getFromLocation(
-                        this.lastLocation.latitude,
-                        this.lastLocation.longitude,
-                        1
-                    )[0].locality
-
-                    viewModel.fetchWeather(locationModel)
-                }
-            }
-        }
-
         initHomeRecyclerView()
         fetchLastLocation()
         viewModel.showWorkoutsButton()
@@ -137,37 +112,26 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
         ) {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                if (location == null) {
-                    requestLocationData()
-                } else {
-                    val locationModel = LocationModel(
-                        location.longitude,
-                        location.latitude
-                    )
-                    city = geocoder.getFromLocation(
-                        location.latitude,
-                        location.longitude,
-                        1
-                    )[0].locality
-                    viewModel.fetchWeather(locationModel)
-                }
-            }
+            viewModel.fetchCurrentLocation()
+            getUserLocation()
+
         } else {
             requestPermission()
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun requestLocationData() {
-        locationRequest = LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = 0
-        locationRequest.fastestInterval = 0
-        locationRequest.numUpdates = 1
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest, locationCallback, Looper.myLooper()
-        )
+    private fun getUserLocation(){
+        viewModel.location
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                city = geocoder.getFromLocation(
+                    viewModel.location.value!!.latitude,
+                    viewModel.location.value!!.longitude,
+                    1
+                )[0].locality
+                viewModel.fetchWeather(viewModel.location.value!!)
+            }
+            .addTo(compositeDisposable)
     }
 
     private fun weatherResponse() {

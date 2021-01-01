@@ -7,6 +7,7 @@ import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.inspirationalquote.GetQuoteUseCase
 import com.example.workoutnotebook.domain.inspirationalquote.GetQuoteUseCase.Input
 import com.example.workoutnotebook.domain.inspirationalquote.model.QuoteModel
+import com.example.workoutnotebook.domain.location.GetLocationUseCase
 import com.example.workoutnotebook.domain.location.model.LocationModel
 import com.example.workoutnotebook.domain.weather.GetWeatherUseCase
 import com.example.workoutnotebook.domain.weather.model.WeatherModel
@@ -20,7 +21,8 @@ import com.example.workoutnotebook.domain.weather.GetWeatherUseCase.Output.Succe
 
 class HomeViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase,
-    private val getQuoteUseCase: GetQuoteUseCase
+    private val getQuoteUseCase: GetQuoteUseCase,
+    private val getLocationUseCase: GetLocationUseCase,
 ) : BaseViewModel() {
 
     private val itemsWrapper = ArrayList<HomeItemWrapper>()
@@ -28,6 +30,7 @@ class HomeViewModel @Inject constructor(
     val weather = BehaviorSubject.create<WeatherModel>()
     val quote = BehaviorSubject.create<QuoteModel>()
     val showWorkout = BehaviorSubject.create<Boolean>()
+    val location = BehaviorSubject.create<LocationModel>()
 
     fun showWorkoutsButton() {
         data.onNext(itemsWrapper)
@@ -37,6 +40,20 @@ class HomeViewModel @Inject constructor(
                 R.string.text_show_workout
             )
         )
+    }
+
+    fun fetchCurrentLocation() {
+        getLocationUseCase.execute(GetLocationUseCase.Input)
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                when (it) {
+                    is GetLocationUseCase.Output.Success -> {
+                        location.onNext((it).location)
+                    }
+                    else -> error.onNext(NetworkError)
+                }
+            }
+            .addTo(compositeDisposable)
     }
 
     fun fetchWeather(locationModel: LocationModel) {
@@ -52,7 +69,6 @@ class HomeViewModel @Inject constructor(
             }
             .addTo(compositeDisposable)
     }
-
 
     fun fetchQuote() {
         getQuoteUseCase.execute(Input)
