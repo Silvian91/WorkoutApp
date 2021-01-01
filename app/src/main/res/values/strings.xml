@@ -4,7 +4,8 @@
     <string name="text_main_activity_subheading">Add and track personalized workouts</string>
     <string name="text_add_workout">Add Workout</string>
     <string name="text_show_workout">Show Workouts</string>
-    <string name="text_add_workout_title">Add a name for your workout:</string>
+    <string name="text_add_workout_title">Add a name for your workout.</string>
+    <string name="text_add_workout_description">To make it easy to track one good approach would be to add the date and the workout category (e.g. Jan 01 - Upper Body,  Jan 03 - Lower Body)</string>
     <string name="text_add_workout_title_field">workout name</string>
     <string name="text_continue">Continue</string>
     <string name="text_save_routines">Save</string>
