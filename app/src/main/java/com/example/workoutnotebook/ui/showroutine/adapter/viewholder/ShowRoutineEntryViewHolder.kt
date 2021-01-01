@@ -25,7 +25,6 @@ class ShowRoutineEntryViewHolder(
         show_routine_sets.text = model.routine.sets
         show_routine_reps.text = model.routine.reps
         show_routine_weight.text = model.routine.weight
-        show_weight_measurement.text = model.routine.weightMeasurement
         show_routine_rest.text = model.routine.rest
     }
 

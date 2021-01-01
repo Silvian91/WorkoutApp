@@ -55,7 +55,6 @@ class AddRoutineViewModel @Inject constructor(
         routine_reps: String,
         routine_sets: String,
         routine_weight: String,
-        routine_weight_measurement: String,
         routine_rest: String,
         workoutId: Long
     ) {
@@ -65,7 +64,6 @@ class AddRoutineViewModel @Inject constructor(
                 routine_sets,
                 routine_reps,
                 routine_weight,
-                routine_weight_measurement,
                 routine_rest,
                 workoutId,
                 userId
@@ -87,7 +85,7 @@ class AddRoutineViewModel @Inject constructor(
 
     private fun addRoutinePairsOrShowError(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_weight_measurement: String, routine_rest: String
+        routine_weight: String, routine_rest: String
     ): Boolean {
 
         var isValid = true
@@ -109,10 +107,6 @@ class AddRoutineViewModel @Inject constructor(
                 error.onNext(ErrorWeightEmpty)
                 isValid = false
             }
-            routine_weight_measurement.isEmpty() -> {
-                error.onNext(ErrorWeightMeasurementEmpty)
-                isValid = false
-            }
             routine_rest.isEmpty() -> {
                 error.onNext(ErrorRestEmpty)
                 isValid = false
@@ -125,7 +119,6 @@ class AddRoutineViewModel @Inject constructor(
                 routine_sets,
                 routine_reps,
                 routine_weight,
-                routine_weight_measurement,
                 routine_rest,
                 workoutId
             )
@@ -135,14 +128,13 @@ class AddRoutineViewModel @Inject constructor(
 
     fun onContinueClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_weight_measurement: String, routine_rest: String
+        routine_weight: String, routine_rest: String
     ) {
         if (addRoutinePairsOrShowError(
                 routine_name,
                 routine_sets,
                 routine_reps,
                 routine_weight,
-                routine_weight_measurement,
                 routine_rest
             )
         ) {
@@ -153,14 +145,13 @@ class AddRoutineViewModel @Inject constructor(
 
     fun onFinishClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_weight_measurement: String, routine_rest: String
+        routine_weight: String, routine_rest: String
     ) {
         if (addRoutinePairsOrShowError(
                 routine_name,
                 routine_sets,
                 routine_reps,
                 routine_weight,
-                routine_weight_measurement,
                 routine_rest
             )
         ) {
@@ -172,9 +163,9 @@ class AddRoutineViewModel @Inject constructor(
 
     fun onBackClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
-        routine_weight: String, routine_weight_measurement: String, routine_rest: String
+        routine_weight: String, routine_rest: String
     ) {
-        if (routine_name.isEmpty() || routine_sets.isEmpty() || routine_reps.isEmpty() || routine_weight.isEmpty() || routine_weight_measurement.isEmpty() ||
+        if (routine_name.isEmpty() || routine_sets.isEmpty() || routine_reps.isEmpty() || routine_weight.isEmpty() ||
             routine_rest.isEmpty()
         ) {
             deleteRoutineUseCase.execute(Input(workoutId))
@@ -192,7 +183,6 @@ class AddRoutineViewModel @Inject constructor(
                 routine_sets,
                 routine_reps,
                 routine_weight,
-                routine_weight_measurement,
                 routine_rest,
                 workoutId
             )

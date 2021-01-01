@@ -40,10 +40,6 @@ class AddRoutineActivity : BaseActivity() {
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
         viewModel.setWorkoutId(workoutId)
 
-        val adapter = ArrayAdapter(this, R.layout.component_dropdown_list_item, DROP_DOWN_LIST)
-        weight_measurement.setAdapter(adapter)
-        weight_measurement.onItemSelectedListener
-
         setOnClickListenerEvent()
         listenForFinish()
         listenForContinue()
@@ -69,7 +65,6 @@ class AddRoutineActivity : BaseActivity() {
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
                     routine_weight.text.toString(),
-                    weight_measurement.text.toString(),
                     routine_rest.text.toString()
                 )
             }
@@ -82,7 +77,6 @@ class AddRoutineActivity : BaseActivity() {
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
                     routine_weight.text.toString(),
-                    weight_measurement.text.toString(),
                     routine_rest.text.toString()
                 )
             }
@@ -124,7 +118,6 @@ class AddRoutineActivity : BaseActivity() {
         routine_sets.setText("")
         routine_reps.setText("")
         routine_weight.setText("")
-        weight_measurement.setText("")
         routine_rest.setText("")
     }
 
@@ -161,10 +154,6 @@ class AddRoutineActivity : BaseActivity() {
                         routine_weight.requestFocus()
                         routine_weight.error = errorFieldEmpty()
                     }
-                    ErrorType.ErrorWeightMeasurementEmpty -> {
-                        weight_measurement.requestFocus()
-                        weight_measurement.error = errorFieldEmpty()
-                    }
                     ErrorType.ErrorRestEmpty -> {
                         routine_rest.requestFocus()
                         routine_rest.error = errorFieldEmpty()
@@ -198,7 +187,6 @@ class AddRoutineActivity : BaseActivity() {
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
                     routine_weight.text.toString(),
-                    weight_measurement.text.toString(),
                     routine_rest.text.toString()
                 )
             }

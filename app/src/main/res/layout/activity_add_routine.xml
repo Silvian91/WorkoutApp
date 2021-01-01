@@ -90,13 +90,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/weight_layout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toTopOf="@id/rest_layout"
-                app:layout_constraintEnd_toStartOf="@id/weight_measurement_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/weight_layout">
+                app:layout_constraintTop_toBottomOf="@id/reps_layout"
+                app:layout_constraintBottom_toTopOf="@id/rest_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/routine_weight"
@@ -110,30 +108,6 @@
                     android:inputType="textPersonName"
                     android:textColor="@color/DarkSlateGray" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/weight_measurement_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/defaultMargin"
-
-                app:layout_constraintBottom_toTopOf="@+id/rest_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/weight_layout"
-                app:layout_constraintTop_toBottomOf="@id/reps_layout">
-
-                <AutoCompleteTextView
-                    android:id="@+id/weight_measurement"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    style="@style/inputFields"
-                    android:cursorVisible="false"
-                    android:layout_marginBottom="12dp"
-                    android:focusable="false" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/rest_layout"
@@ -169,7 +143,7 @@
         android:layout_marginStart="@dimen/registrationMargin"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/text_continue"
+        android:text="@string/text_next_page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button_save_routine"
         app:layout_constraintStart_toStartOf="parent"

@@ -20,7 +20,6 @@ data class RoutineEntity(
     var sets: String,
     var reps: String,
     var weight: String,
-    var weightMeasurement: String,
     var rest: String,
     var workoutId: Long,
     var userId: Long
@@ -34,7 +33,6 @@ data class RoutineEntity(
             sets,
             reps,
             weight,
-            weightMeasurement,
             rest,
             workoutId,
             userId
@@ -48,7 +46,6 @@ data class RoutineEntity(
                 routineModel.sets,
                 routineModel.reps,
                 routineModel.weight,
-                routineModel.weightMeasurement,
                 routineModel.rest,
                 routineModel.workoutId,
                 routineModel.userId
