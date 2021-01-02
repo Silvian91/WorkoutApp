@@ -24,12 +24,13 @@ import com.uber.autodispose.autoDispose
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_show_routine.*
+import java.util.ArrayList
 
 class ShowRoutineActivity : BaseActivity() {
 
     private lateinit var viewModel: ShowRoutineViewModel
-
     private lateinit var showRoutineAdapter: ShowRoutineAdapter
+    private var routineData: ArrayList<ShowRoutineItemWrapper> = ArrayList()
 
     private fun showRoutineData(routineData: List<ShowRoutineItemWrapper>) {
         showRoutineAdapter.items = routineData
@@ -47,6 +48,8 @@ class ShowRoutineActivity : BaseActivity() {
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
         viewModel.setWorkoutId(workoutId)
         initRoutineRecyclerView()
+        viewModel.getTitle()
+        titleResponse()
         viewModel.getRoutine()
         routineDataResponse()
         deleteWorkout()
@@ -64,11 +67,25 @@ class ShowRoutineActivity : BaseActivity() {
         }
     }
 
-    private fun routineDataResponse() {
-        viewModel.routineData
+    private fun titleResponse(){
+        viewModel.workoutTitle
             .doOnIoObserveOnMain()
             .subscribeBy {
-                showRoutineData(viewModel.routineData.value!!)
+                viewModel.workoutTitle.value!!.forEach {
+                    routineData.add(it)
+                }
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun routineDataResponse() {
+        viewModel.workoutData
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                viewModel.workoutData.value!!.forEach {
+                    routineData.add(it)
+                }
+                showRoutineData(routineData)
             }
             .addTo(compositeDisposable)
     }

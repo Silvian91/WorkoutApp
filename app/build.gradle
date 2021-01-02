@@ -120,4 +120,10 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:17.1.0"
 
     implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    mavenCentral()
 }

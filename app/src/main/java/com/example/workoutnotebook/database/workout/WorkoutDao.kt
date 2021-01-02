@@ -13,6 +13,9 @@ interface WorkoutDao {
     @Query("SELECT * FROM workout WHERE userId = :currentUserId AND isDeleted = 0")
     fun getAllWorkouts(currentUserId: Long): List<WorkoutEntity>
 
+    @Query("SELECT * FROM workout WHERE id = :workoutId")
+    fun getWorkoutTitle(workoutId: Long): List<WorkoutEntity>
+
     @Query("DELETE FROM workout WHERE id = :currentWorkoutId")
     fun deleteWorkoutFromRoutine(currentWorkoutId: Long)
 

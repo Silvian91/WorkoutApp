@@ -1,6 +1,7 @@
 package com.example.workoutnotebook.ui.showroutine.adapter
 
 import com.example.workoutnotebook.domain.routine.model.RoutineModel
+import com.example.workoutnotebook.domain.workout.model.WorkoutModel
 
 sealed class ShowRoutineItemWrapper(
     val type: ItemType,
@@ -12,7 +13,7 @@ sealed class ShowRoutineItemWrapper(
         ENTRY
     }
 
-    data class Title(val title: String) : ShowRoutineItemWrapper(ItemType.TITLE)
+    data class Title(val workoutTitle: WorkoutModel) : ShowRoutineItemWrapper(ItemType.TITLE)
 
     data class Entry(val routine: RoutineModel) : ShowRoutineItemWrapper(ItemType.ENTRY)
 }

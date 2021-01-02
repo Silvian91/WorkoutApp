@@ -46,5 +46,11 @@ dependencies {
     kapt Dagger.DAGGER_COMPILER
     implementation Dagger.DAGGER_ANDROID
     kapt Dagger.DAGGER_PROCESSOR
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    mavenCentral()
 }

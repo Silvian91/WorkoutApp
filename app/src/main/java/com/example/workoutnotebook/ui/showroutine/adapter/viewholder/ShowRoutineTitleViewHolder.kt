@@ -21,6 +21,6 @@ class ShowRoutineTitleViewHolder(
             containerView.title_divider.visibility = View.VISIBLE
         }
 
-        show_routine_title.text = model.title
+        show_routine_title.text = model.workoutTitle.title
     }
 }

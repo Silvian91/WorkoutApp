@@ -28,6 +28,19 @@ class WorkoutLocalDataSourceImpl(val context: Context) : WorkoutLocalDataSource 
             }
     }
 
+    override fun getWorkoutTitle(workoutId: Long): Single<List<WorkoutModel>> {
+        return Single.fromCallable {
+            WorkoutAppDatabase.getInstance(context).workoutDao().getWorkoutTitle(workoutId)
+        }
+            .map {
+                val models = ArrayList<WorkoutModel>()
+                it.forEach { title ->
+                    models.add(title.toModel())
+                }
+                models
+            }
+    }
+
     override fun deleteWorkout(workoutId: Long): Completable {
         return Completable.fromCallable {
             WorkoutAppDatabase.getInstance(context).workoutDao().deleteWorkoutFromRoutine(workoutId)
