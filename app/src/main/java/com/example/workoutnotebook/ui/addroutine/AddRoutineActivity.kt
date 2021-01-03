@@ -4,16 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ArrayAdapter
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import androidx.lifecycle.ViewModelProvider
+import com.example.core.ui.BaseActivity
+import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.R
 import com.example.workoutnotebook.R.string.text_add_routine_toolbar
 import com.example.workoutnotebook.R.string.text_unknown_error
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
-import com.example.core.ui.BaseActivity
-import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
@@ -41,8 +41,10 @@ class AddRoutineActivity : BaseActivity() {
         viewModel.setWorkoutId(workoutId)
 
         setOnClickListenerEvent()
-        listenForFinish()
-        listenForContinue()
+        setPreviousInvisible()
+        listenForSave()
+        listenForNext()
+        listenForPrevious()
         showError()
     }
 
@@ -56,11 +58,11 @@ class AddRoutineActivity : BaseActivity() {
     }
 
     private fun setOnClickListenerEvent() {
-        button_confirm_routine
+        button_next_routine
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                viewModel.onContinueClicked(
+                viewModel.onNextClicked(
                     routine_name.text.toString(),
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
@@ -72,7 +74,7 @@ class AddRoutineActivity : BaseActivity() {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                viewModel.onFinishClicked(
+                viewModel.onSaveClicked(
                     routine_name.text.toString(),
                     routine_sets.text.toString(),
                     routine_reps.text.toString(),
@@ -81,33 +83,76 @@ class AddRoutineActivity : BaseActivity() {
                 )
             }
 
+        button_previous_routine
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
+            .subscribe { viewModel.onPreviousClicked() }
+
     }
 
-    private fun listenForFinish() {
-        viewModel.finishClicked
+    private fun setPreviousVisible() {
+        button_previous_routine.visibility = View.VISIBLE
+    }
+
+    private fun setPreviousInvisible() {
+        button_previous_routine.visibility = View.INVISIBLE
+    }
+
+    private fun listenForSave() {
+        viewModel.saveClicked
             .doOnIoObserveOnMain()
-            .subscribeBy {
-                saveRoutines()
-            }
+            .subscribeBy { saveRoutines() }
             .addTo(compositeDisposable)
     }
 
-    private fun listenForContinue() {
-        viewModel.continueClicked
+    private fun listenForNext() {
+        viewModel.nextClicked
             .doOnIoObserveOnMain()
             .subscribeBy {
                 clearAllInputFields()
                 resetFocus()
+                setPreviousVisible()
             }
             .addTo(compositeDisposable)
+    }
+
+    private fun listenForPrevious() {
+        viewModel.previousClicked
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                routine_name.setText(it.routineName)
+                routine_sets.setText(it.sets)
+                routine_reps.setText(it.reps)
+                routine_weight.setText(it.weight)
+                routine_rest.setText(it.rest)
+                resetFocus()
+                viewModel.checkPreviousVisible()
+                checkVisible()
+                viewModel.removeLastIndex()
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun checkVisible() {
+        if (viewModel.previousNotVisible.value!!) {
+            viewModel.previousNotVisible
+                .doOnIoObserveOnMain()
+                .subscribeBy { button_previous_routine.visibility = View.INVISIBLE }
+                .addTo(compositeDisposable)
+        } else {
+            viewModel.previousVisible
+                .doOnIoObserveOnMain()
+                .subscribeBy {
+                    button_previous_routine.visibility = View.VISIBLE
+                }
+                .addTo(compositeDisposable)
+        }
     }
 
     private fun openMain() {
         viewModel.routines
             .doOnIoObserveOnMain()
-            .subscribeBy {
-                nextActivity()
-            }
+            .subscribeBy { nextActivity() }
             .addTo(compositeDisposable)
     }
 
@@ -202,7 +247,6 @@ class AddRoutineActivity : BaseActivity() {
 
     companion object {
         const val workoutIdExtra = "workoutId"
-        private val DROP_DOWN_LIST = arrayOf("kg", "lbs")
 
         fun newIntent(context: Context, workoutId: Long) =
             Intent(context, AddRoutineActivity::class.java).apply {

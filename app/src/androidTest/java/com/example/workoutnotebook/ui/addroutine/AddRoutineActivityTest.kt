@@ -56,7 +56,7 @@ class AddRoutineActivityTest {
             .check(matches(isDisplayed()))
             .perform(typeText("rest"))
 
-        onView(withId(R.id.button_confirm_routine))
+        onView(withId(R.id.button_next_routine))
             .check(matches(isDisplayed()))
             .perform(click())
     }

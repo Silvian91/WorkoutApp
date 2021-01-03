@@ -13,7 +13,7 @@
         android:id="@+id/routine_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/button_confirm_routine"
+        app:layout_constraintBottom_toTopOf="@id/button_next_routine"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,12 +151,12 @@
         android:layout_marginBottom="4dp"
         android:text="@string/text_save_routines"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button_confirm_routine"
+        app:layout_constraintEnd_toStartOf="@id/button_next_routine"
         app:layout_constraintStart_toEndOf="@id/button_previous_routine"
         app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view" />
 
     <ImageView
-        android:id="@+id/button_confirm_routine"
+        android:id="@+id/button_next_routine"
         android:layout_width="@dimen/_42sdp"
         android:layout_height="@dimen/_42sdp"
         android:layout_marginBottom="4dp"

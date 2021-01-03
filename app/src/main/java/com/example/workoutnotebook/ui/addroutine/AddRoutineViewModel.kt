@@ -1,13 +1,13 @@
 package com.example.workoutnotebook.ui.addroutine
 
+import com.example.core.ui.BaseViewModel
+import com.example.core.ui.error.ErrorType.*
 import com.example.workoutnotebook.domain.addroutine.DeleteRoutineUseCase
 import com.example.workoutnotebook.domain.addroutine.DeleteRoutineUseCase.Input
 import com.example.workoutnotebook.domain.addroutine.SaveRoutineUseCase
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.routine.model.RoutineModel
 import com.example.workoutnotebook.domain.user.GetCurrentUserUseCase
-import com.example.core.ui.error.ErrorType.*
-import com.example.core.ui.BaseViewModel
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
@@ -26,8 +26,11 @@ class AddRoutineViewModel @Inject constructor(
     private val routinePairs = ArrayList<RoutineModel>()
 
     val routines = BehaviorSubject.create<Boolean>()
-    val continueClicked = BehaviorSubject.create<Boolean>()
-    val finishClicked = BehaviorSubject.create<Boolean>()
+    val nextClicked = BehaviorSubject.create<Boolean>()
+    val saveClicked = BehaviorSubject.create<Boolean>()
+    val previousNotVisible = BehaviorSubject.create<Boolean>()
+    val previousVisible = BehaviorSubject.create<Boolean>()
+    val previousClicked = BehaviorSubject.create<RoutineModel>()
 
     fun setWorkoutId(workoutId: Long) {
         this.workoutId = workoutId
@@ -126,24 +129,50 @@ class AddRoutineViewModel @Inject constructor(
         return isValid
     }
 
-    fun onContinueClicked(
+    fun onPreviousClicked() {
+        displayPreviousRoutine(
+            routinePairs[routinePairs.lastIndex].routineName,
+            routinePairs[routinePairs.lastIndex].sets,
+            routinePairs[routinePairs.lastIndex].reps,
+            routinePairs[routinePairs.lastIndex].weight,
+            routinePairs[routinePairs.lastIndex].rest
+        )
+    }
+
+    private fun displayPreviousRoutine(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_rest: String
     ) {
-        if (addRoutinePairsOrShowError(
+        previousClicked.onNext(
+            RoutineModel(
                 routine_name,
                 routine_sets,
                 routine_reps,
                 routine_weight,
-                routine_rest
+                routine_rest,
+                workoutId, userId
             )
-        ) {
-            continueClicked.onNext(true)
-        }
-
+        )
     }
 
-    fun onFinishClicked(
+    fun removeLastIndex() {
+        if (routinePairs.size == 0) {
+            routines.onNext(true)
+        } else {
+            routinePairs.removeAt(routinePairs.lastIndex)
+        }
+    }
+
+    fun checkPreviousVisible() {
+        if (routinePairs.size == 1) {
+            previousNotVisible.onNext(true)
+        } else {
+            previousNotVisible.onNext(false)
+            previousVisible.onNext(true)
+        }
+    }
+
+    fun onSaveClicked(
         routine_name: String, routine_sets: String, routine_reps: String,
         routine_weight: String, routine_rest: String
     ) {
@@ -156,9 +185,24 @@ class AddRoutineViewModel @Inject constructor(
             )
         ) {
             saveRoutines(routinePairs)
-            finishClicked.onNext(true)
+            saveClicked.onNext(true)
         }
+    }
 
+    fun onNextClicked(
+        routine_name: String, routine_sets: String, routine_reps: String,
+        routine_weight: String, routine_rest: String
+    ) {
+        if (addRoutinePairsOrShowError(
+                routine_name,
+                routine_sets,
+                routine_reps,
+                routine_weight,
+                routine_rest
+            )
+        ) {
+            nextClicked.onNext(true)
+        }
     }
 
     fun onBackClicked(

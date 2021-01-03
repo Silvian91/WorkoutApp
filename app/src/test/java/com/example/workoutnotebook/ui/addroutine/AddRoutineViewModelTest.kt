@@ -45,7 +45,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -72,7 +72,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -98,7 +98,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -124,7 +124,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -150,7 +150,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -177,7 +177,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = ""
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -203,7 +203,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -230,7 +230,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -257,7 +257,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = ""
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -284,7 +284,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -311,7 +311,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -338,7 +338,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = "rest"
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -365,7 +365,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = ""
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
@@ -393,7 +393,7 @@ internal class AddRoutineViewModelTest {
         val routineRest = ""
         presenter.setView(view)
 
-        presenter.onContinueClicked(
+        presenter.onNextClicked(
             routineName,
             routineSets,
             routineReps,
