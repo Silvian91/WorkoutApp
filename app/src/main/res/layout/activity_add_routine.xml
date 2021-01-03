@@ -25,7 +25,6 @@
                 android:id="@+id/name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="8dp"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@id/sets_layout"
@@ -64,7 +63,6 @@
                     android:inputType="textPersonName"
                     android:textColor="@color/DarkSlateGray" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/reps_layout"
@@ -129,25 +127,20 @@
                     android:textColor="@color/DarkSlateGray" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/button_confirm_routine"
-        style="@style/buttonColorAndBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/registrationMargin"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/text_next_page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button_save_routine"
+    <ImageView
+        android:id="@+id/button_previous_routine"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="@dimen/defaultMargin"
+        android:src="@drawable/ic_baseline_arrow_left_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view" />
+        app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
         android:id="@+id/button_save_routine"
@@ -155,12 +148,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/registrationMargin"
         android:layout_marginBottom="4dp"
         android:text="@string/text_save_routines"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button_confirm_routine"
+        app:layout_constraintEnd_toStartOf="@id/button_confirm_routine"
+        app:layout_constraintStart_toEndOf="@id/button_previous_routine"
         app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view" />
+
+    <ImageView
+        android:id="@+id/button_confirm_routine"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="@dimen/defaultMargin"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/routine_scroll_view"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
