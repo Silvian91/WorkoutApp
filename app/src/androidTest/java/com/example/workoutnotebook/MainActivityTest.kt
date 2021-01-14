@@ -21,24 +21,32 @@ class MainActivityTest {
     )
 
     @Test
-    fun test_visibility_title_addWorkout() {
-        onView(withId(R.id.add_workout)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun test_visibility_title_showWorkout() {
+    fun showWorkoutsButtonIsDisplayed() {
         onView(withId(R.id.action_holder)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun test_nav_addWorkout() {
-        onView(withId(R.id.add_workout)).perform(click())
-
-        onView(withId(R.id.add_workout_activity)).check(matches(isDisplayed()))
+    fun floatButtonIsDisplayed() {
+        onView(withId(R.id.fab_home)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun test_nav_showWorkout() {
+    fun bottomNavigationIsDisplayed() {
+        onView(withId(R.id.bottom_navigation)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun homeBottomNavIsDisplayed() {
+        onView(withId(R.id.nav_home)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun profileBottomNavIsDisplayed() {
+        onView(withId(R.id.nav_profile)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun navToShowWorkouts() {
         onView(withId(R.id.action_holder)).perform(click())
 
         onView(withId(R.id.show_workout_activity)).check(matches(isDisplayed()))

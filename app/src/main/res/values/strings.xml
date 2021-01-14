@@ -25,7 +25,7 @@
     <string name="text_routine_reps_list">Reps: </string>
     <string name="text_routine_weight_list">Weight: </string>
     <string name="text_routine_rest_list">Rest: </string>
-    <string name="text_toast_add_workout">"Please add a name for the workout" </string>
+    <string name="text_error_add_workout_empty_title">"Title cannot be empty" </string>
     <string name="text_toast_add_routine_onContinue">Please fill in all the information to add a routine to your workout</string>
     <string name="text_field_cannotEmpty">Field cannot be empty</string>
     <string name="text_delete_workout">Delete Workout</string>

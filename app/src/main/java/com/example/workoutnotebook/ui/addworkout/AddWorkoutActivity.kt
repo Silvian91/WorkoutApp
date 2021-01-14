@@ -44,6 +44,7 @@ class AddWorkoutActivity : BaseActivity() {
             .subscribe {
                 viewModel.onConfirmClicked(workout_title_field.text.toString())
             }
+        showError()
     }
 
     private fun setToolbar() {
@@ -90,7 +91,7 @@ class AddWorkoutActivity : BaseActivity() {
             )
         )
 
-    private fun onError() {
+    private fun showError() {
         viewModel.error
             .doOnIoObserveOnMain()
             .subscribeBy {
@@ -99,7 +100,8 @@ class AddWorkoutActivity : BaseActivity() {
                         errorUnknown()
                     }
                     ErrorType.ErrorWorkoutName -> {
-                        errorTitle()
+                        workout_title_field.requestFocus()
+                        workout_title_field.error = errorEmptyTitle()
                     }
                 }
             }
@@ -110,9 +112,7 @@ class AddWorkoutActivity : BaseActivity() {
         Snackbar.make(add_workout_activity, text_unknown_error, Snackbar.LENGTH_SHORT)
     }
 
-    private fun errorTitle() {
-        workout_title_field.error = getString(R.string.text_toast_add_workout)
-    }
+    private fun errorEmptyTitle(): String = getString(R.string.text_error_add_workout_empty_title)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)

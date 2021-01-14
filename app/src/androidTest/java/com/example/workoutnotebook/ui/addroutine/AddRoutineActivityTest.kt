@@ -1,10 +1,11 @@
 package com.example.workoutnotebook.ui.addroutine
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.workoutnotebook.R
@@ -21,14 +22,17 @@ class AddRoutineActivityTest {
         AddRoutineActivity::class.java
     )
 
+    private val context: Context = ApplicationProvider.getApplicationContext()
+    private val errorText: String = context.getString(R.string.text_field_cannotEmpty)
+
     @Test
-    fun test_isActivityInView() {
+    fun isActivityInView() {
         onView(withId(R.id.add_routine_activity))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun test_onContinueClickedSuccessful() {
+    fun nextRoutineClickedSuccess() {
         onView(withId(R.id.routine_name))
             .check(matches(isDisplayed()))
             .perform(typeText("name"))
@@ -47,10 +51,6 @@ class AddRoutineActivityTest {
             .check(matches(isDisplayed()))
             .perform(typeText("weight"))
 
-        onView(withId(R.id.weight_measurement))
-            .check(matches(isDisplayed()))
-            .perform(click())
-
         onView(withId(R.id.routine_rest))
             .perform(scrollTo())
             .check(matches(isDisplayed()))
@@ -59,6 +59,251 @@ class AddRoutineActivityTest {
         onView(withId(R.id.button_next_routine))
             .check(matches(isDisplayed()))
             .perform(click())
+
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("")))
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("")))
+
+        onView(withId(R.id.routine_reps))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .check(matches(withText("")))
+
+        onView(withId(R.id.routine_weight))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .check(matches(withText("")))
+
+        onView(withId(R.id.routine_rest))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .check(matches(withText("")))
+    }
+
+    @Test
+    fun nextRoutineClickedFailName() {
+        onView(withId(R.id.button_next_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_name))
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun nextRoutineClickedFailSets() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("name"))
+
+        onView(withId(R.id.button_next_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun nextRoutineClickedFailReps() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("name"))
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(isDisplayed()))
+            .perform(typeText("sets"))
+
+        onView(withId(R.id.button_next_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_reps))
+            .perform(scrollTo())
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun nextRoutineClickedFailWeight() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("Bench Press"))
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(isDisplayed()))
+            .perform(typeText("4"))
+
+        onView(withId(R.id.routine_reps))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .perform(typeText("12 12 12 12"))
+
+        onView(withId(R.id.button_next_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_weight))
+            .perform(scrollTo())
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun nextRoutineClickedFailRest() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("Bench Press"))
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(isDisplayed()))
+            .perform(typeText("4"))
+
+        onView(withId(R.id.routine_reps))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .perform(typeText("12 12 12 12"))
+
+        onView(withId(R.id.routine_weight))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .perform(typeText("2 mins"))
+
+        onView(withId(R.id.button_next_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_rest))
+            .perform(scrollTo())
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun saveRoutineClickedFailName() {
+        onView(withId(R.id.button_save_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_name))
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun saveRoutineClickedFailSets() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("name"))
+
+        onView(withId(R.id.button_save_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun saveRoutineClickedFailReps() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("name"))
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(isDisplayed()))
+            .perform(typeText("sets"))
+
+        onView(withId(R.id.button_save_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_reps))
+            .perform(scrollTo())
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun saveRoutineClickedFailWeight() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("Bench Press"))
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(isDisplayed()))
+            .perform(typeText("4"))
+
+        onView(withId(R.id.routine_reps))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .perform(typeText("12 12 12 12"))
+
+        onView(withId(R.id.button_save_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_weight))
+            .perform(scrollTo())
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun saveRoutineClickedFailRest() {
+        onView(withId(R.id.routine_name))
+            .check(matches(isDisplayed()))
+            .perform(typeText("Bench Press"))
+
+        onView(withId(R.id.routine_sets))
+            .check(matches(isDisplayed()))
+            .perform(typeText("4"))
+
+        onView(withId(R.id.routine_reps))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .perform(typeText("12 12 12 12"))
+
+        onView(withId(R.id.routine_weight))
+            .perform(scrollTo())
+            .check(matches(isDisplayed()))
+            .perform(typeText("2 mins"))
+
+        onView(withId(R.id.button_save_routine))
+            .check(matches(isDisplayed()))
+            .perform(click())
+
+        onView(withId(R.id.routine_rest))
+            .perform(scrollTo())
+            .check(matches(hasFocus()))
+
+        onView(hasErrorText(errorText))
+            .check(matches(isDisplayed()))
     }
 
 }
