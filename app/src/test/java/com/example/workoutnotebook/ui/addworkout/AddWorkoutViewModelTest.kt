@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test
 
 internal class AddWorkoutViewModelTest {
 
-    private val view: AddWorkoutContract.View = mockk(relaxed = true)
     private val repository: WorkoutRepository = mockk()
     private val compositeDisposable: CompositeDisposable = mockk(relaxed = true)
     private val workoutTitleField: String = "test string"
