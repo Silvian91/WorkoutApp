@@ -1,4 +1,4 @@
-package com.example.workoutnotebook.domain.showroutine
+package com.example.workoutnotebook.domain.showworkout
 
 import com.example.workoutnotebook.domain.workout.WorkoutRepository
 import com.example.workoutnotebook.domain.workout.model.WorkoutModel
@@ -12,19 +12,20 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class GetTitleUseCaseImplTest {
+internal class GetWorkoutUseCaseImplTest {
 
     private val repository: WorkoutRepository = mockk()
-    private lateinit var useCase: GetTitleUseCase
-    private var workoutId: Long = 1
+    private lateinit var useCase: GetWorkoutUseCase
+    private var userId: Long = 3
     private var model = listOf(
         WorkoutModel(1, "Jan 03 - Upper Body", 3),
         WorkoutModel(2, "Jan 05 - Lower Body", 3)
     )
+    private var modelEmpty = listOf<WorkoutModel>()
 
     @BeforeEach
     fun setUp() {
-        useCase = GetTitleUseCaseImpl(repository)
+        useCase = GetWorkoutUseCaseImpl(repository)
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
     }
 
@@ -36,18 +37,26 @@ class GetTitleUseCaseImplTest {
 
     @Test
     fun `verify on successful execution success output gets returned`() {
-        every { repository.getWorkoutTitle(workoutId) } returns Single.just(model)
+        every { repository.getAllWorkouts(userId) } returns Single.just(model)
 
-        useCase.execute(GetTitleUseCase.Input(workoutId)).test()
-            .assertValue(GetTitleUseCase.Output.Success(model))
+        useCase.execute(GetWorkoutUseCase.Input(userId)).test()
+            .assertValue(GetWorkoutUseCase.Output.Success(model))
+    }
+
+    @Test
+    fun `verify when no workouts exits success no data gets returned`() {
+        every { repository.getAllWorkouts(1) } returns Single.just(modelEmpty)
+
+        useCase.execute(GetWorkoutUseCase.Input(1)).test()
+            .assertValue(GetWorkoutUseCase.Output.SuccessNoData)
     }
 
     @Test
     fun `verify exceptions from source get mapped to unknown error`() {
-        every { repository.getWorkoutTitle(workoutId) } returns Single.error(RuntimeException())
+        every { repository.getAllWorkouts(userId) } returns Single.error(RuntimeException())
 
-        useCase.execute(GetTitleUseCase.Input(workoutId)).test()
-            .assertValue(GetTitleUseCase.Output.ErrorNoTitle)
+        useCase.execute(GetWorkoutUseCase.Input(userId)).test()
+            .assertValue(GetWorkoutUseCase.Output.ErrorUnknown)
     }
 
 }

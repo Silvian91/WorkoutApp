@@ -1,10 +1,9 @@
 package com.example.workoutnotebook.domain.showroutine
 
 import com.example.workoutnotebook.domain.workout.WorkoutRepository
-import com.example.workoutnotebook.domain.workout.model.WorkoutModel
 import io.mockk.every
 import io.mockk.mockk
-import io.reactivex.Single
+import io.reactivex.Completable
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
@@ -12,19 +11,15 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class GetTitleUseCaseImplTest {
+internal class DeleteWorkoutUseCaseImplTest {
 
     private val repository: WorkoutRepository = mockk()
-    private lateinit var useCase: GetTitleUseCase
+    private lateinit var useCase: DeleteWorkoutUseCase
     private var workoutId: Long = 1
-    private var model = listOf(
-        WorkoutModel(1, "Jan 03 - Upper Body", 3),
-        WorkoutModel(2, "Jan 05 - Lower Body", 3)
-    )
 
     @BeforeEach
     fun setUp() {
-        useCase = GetTitleUseCaseImpl(repository)
+        useCase = DeleteWorkoutUseCaseImpl(repository)
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
     }
 
@@ -36,18 +31,18 @@ class GetTitleUseCaseImplTest {
 
     @Test
     fun `verify on successful execution success output gets returned`() {
-        every { repository.getWorkoutTitle(workoutId) } returns Single.just(model)
+        every { repository.deleteWorkout(workoutId) } returns Completable.complete()
 
-        useCase.execute(GetTitleUseCase.Input(workoutId)).test()
-            .assertValue(GetTitleUseCase.Output.Success(model))
+        useCase.execute(DeleteWorkoutUseCase.Input(workoutId)).test()
+            .assertValue(DeleteWorkoutUseCase.Output.Success)
     }
 
     @Test
     fun `verify exceptions from source get mapped to unknown error`() {
-        every { repository.getWorkoutTitle(workoutId) } returns Single.error(RuntimeException())
+        every { repository.deleteWorkout(workoutId) } returns Completable.error(RuntimeException())
 
-        useCase.execute(GetTitleUseCase.Input(workoutId)).test()
-            .assertValue(GetTitleUseCase.Output.ErrorNoTitle)
+        useCase.execute(DeleteWorkoutUseCase.Input(workoutId)).test()
+            .assertValue(DeleteWorkoutUseCase.Output.ErrorNotDeleted)
     }
 
 }

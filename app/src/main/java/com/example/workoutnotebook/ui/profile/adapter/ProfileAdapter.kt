@@ -1,13 +1,13 @@
 package com.example.workoutnotebook.ui.profile.adapter
 
-import ProfileDiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workoutnotebook.R.layout.*
 import com.example.core.recyclerView.BaseViewHolder
+import com.example.core.recyclerView.DefaultDiffUtil
+import com.example.workoutnotebook.R.layout.*
 import com.example.workoutnotebook.ui.profile.adapter.ProfileItemWrapper.ItemType.*
 import com.example.workoutnotebook.ui.profile.adapter.viewholder.HeaderViewHolder
 import com.example.workoutnotebook.ui.profile.adapter.viewholder.ProfileSectionViewHolder
@@ -20,10 +20,10 @@ class ProfileAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items: List<ProfileItemWrapper> = ArrayList()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -61,7 +61,7 @@ class ProfileAdapter(
     fun setData(newList: List<ProfileItemWrapper>) {
         val oldList = items
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
-            ProfileDiffUtil(
+            DefaultDiffUtil(
                 oldList,
                 newList
             )
