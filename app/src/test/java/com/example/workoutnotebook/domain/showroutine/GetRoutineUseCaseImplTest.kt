@@ -11,18 +11,17 @@ import io.reactivex.schedulers.Schedulers
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.lang.RuntimeException
 
 internal class GetRoutineUseCaseImplTest {
 
     private val repository: RoutineRepository = mockk()
     private lateinit var useCase: GetRoutineUseCase
-    private var workoutId: Long = 1
-    private var model = listOf(
+    private val model = listOf(
         RoutineModel("Bench Press", "3", "4", "15.5", "2 minutes", 1, 1),
         RoutineModel("Squat", "3", "4", "17.5", "3 minutes", 1, 1)
     )
-    private var modelEmpty = listOf<RoutineModel>()
+    private val workoutId: Long = 1
+    private val modelEmpty = listOf<RoutineModel>()
 
     @BeforeEach
     fun setUp() {

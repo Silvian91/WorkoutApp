@@ -15,7 +15,7 @@ internal class DeleteWorkoutUseCaseImplTest {
 
     private val repository: WorkoutRepository = mockk()
     private lateinit var useCase: DeleteWorkoutUseCase
-    private var workoutId: Long = 1
+    private val workoutId: Long = 1
 
     @BeforeEach
     fun setUp() {
@@ -38,7 +38,7 @@ internal class DeleteWorkoutUseCaseImplTest {
     }
 
     @Test
-    fun `verify exceptions from source get mapped to unknown error`() {
+    fun `verify exceptions from source get mapped to error not deleted`() {
         every { repository.deleteWorkout(workoutId) } returns Completable.error(RuntimeException())
 
         useCase.execute(DeleteWorkoutUseCase.Input(workoutId)).test()

@@ -1,15 +1,12 @@
 package com.example.workoutnotebook.domain.location
 
 import com.example.workoutnotebook.domain.location.model.LocationModel
-import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 
 internal class GetLocationUseCaseImplTest {
 

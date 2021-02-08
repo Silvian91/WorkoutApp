@@ -11,7 +11,6 @@ class LogoutUseCaseImpl(
     private val sessionManager: SessionManager
 ) : LogoutUseCase {
     override fun execute(input: Input): Single<Output> {
-        //TODO: Add test to prove it's null!!
         return sessionManager.setCurrentUserId(null)
             .andThen(Single.just(Success as Output))
             .onErrorReturn { ErrorUnknown }

@@ -4,13 +4,11 @@ import com.example.workoutnotebook.domain.routine.RoutineRepository
 import com.example.workoutnotebook.domain.routine.model.RoutineModel
 import io.mockk.every
 import io.mockk.mockk
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -18,10 +16,11 @@ internal class GetUserRoutinesUseCaseImplTest {
 
     private val repository: RoutineRepository = mockk()
     private lateinit var useCase: GetUserRoutinesUseCase
-    private var model = listOf(
+    private val model = listOf(
         RoutineModel("Bench Press", "3", "4", "15.5", "2 minutes", 1, 1),
         RoutineModel("Squat", "3", "4", "17.5", "3 minutes", 1, 1)
     )
+    private val emptyModel = listOf<RoutineModel>()
 
     @BeforeEach
     fun setUp() {
@@ -41,6 +40,14 @@ internal class GetUserRoutinesUseCaseImplTest {
 
         useCase.execute(GetUserRoutinesUseCase.Input(1)).test()
             .assertValue(GetUserRoutinesUseCase.Output.Success(model))
+    }
+
+    @Test
+    fun `verify on no routines success no routines gets returned`() {
+        every { repository.getUserRoutine(2) } returns Single.just(emptyModel)
+
+        useCase.execute(GetUserRoutinesUseCase.Input(2)).test()
+            .assertValue(GetUserRoutinesUseCase.Output.SuccessNoRoutines)
     }
 
     @Test

@@ -16,7 +16,7 @@ internal class RegisterUseCaseImplTest {
 
     private val repository: UserRepository = mockk()
     private lateinit var useCase: RegisterUseCase
-    private var model = UserModel("username", "password", 1)
+    private val model = UserModel("username", "password", 1)
 
     @BeforeEach
     fun setUp() {
@@ -39,7 +39,7 @@ internal class RegisterUseCaseImplTest {
     }
 
     @Test
-    fun `verify exceptions from source get mapped to unknown error`() {
+    fun `verify exceptions from source get mapped to registration failed error`() {
         every { repository.insertUser(model) } returns Completable.error(RuntimeException())
 
         useCase.execute(RegisterUseCase.Input(model)).test()

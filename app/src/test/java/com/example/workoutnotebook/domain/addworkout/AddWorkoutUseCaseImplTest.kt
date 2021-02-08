@@ -9,7 +9,6 @@ import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -17,8 +16,8 @@ internal class AddWorkoutUseCaseImplTest {
 
     private val repository: WorkoutRepository = mockk()
     private lateinit var useCase: AddWorkoutUseCase
-    private var model = WorkoutModel(1, "Jan 03 - Upper Body", 3)
-    private var workoutId: Long = 1
+    private val model = WorkoutModel(1, "Jan 03 - Upper Body", 3)
+    private val workoutId: Long = 1
 
     @BeforeEach
     fun setUp() {

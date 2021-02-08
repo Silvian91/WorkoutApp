@@ -43,7 +43,7 @@ class GetTitleUseCaseImplTest {
     }
 
     @Test
-    fun `verify exceptions from source get mapped to unknown error`() {
+    fun `verify exceptions from source get mapped to error no title`() {
         every { repository.getWorkoutTitle(workoutId) } returns Single.error(RuntimeException())
 
         useCase.execute(GetTitleUseCase.Input(workoutId)).test()

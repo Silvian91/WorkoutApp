@@ -15,7 +15,7 @@ internal class GetQuoteUseCaseImplTest {
 
     private val repository: QuoteRepository = mockk()
     private lateinit var useCase: GetQuoteUseCase
-    private var model = QuoteModel("quote", "author")
+    private val model = QuoteModel("quote", "author")
 
     @BeforeEach
     fun setUp() {

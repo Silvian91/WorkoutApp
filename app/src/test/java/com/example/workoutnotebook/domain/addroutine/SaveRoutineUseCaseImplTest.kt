@@ -16,13 +16,9 @@ internal class SaveRoutineUseCaseImplTest {
 
     private val repository: RoutineRepository = mockk()
     private lateinit var useCase: SaveRoutineUseCase
-    private var model = listOf(
-        RoutineModel(
-            "Bench Press", "3", "4", "15.5", "2 minutes", 1, 1
-        ),
-        RoutineModel(
-            "Squat", "3", "4", "17.5", "3 minutes", 1, 1
-        )
+    private val model = listOf(
+        RoutineModel("Bench Press", "3", "4", "15.5", "2 minutes", 1, 1),
+        RoutineModel("Squat", "3", "4", "17.5", "3 minutes", 1, 1)
     )
 
     @BeforeEach
