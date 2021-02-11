@@ -8,8 +8,8 @@ class MainViewModel @Inject constructor(
 
 ) : BaseViewModel() {
 
-    val fabClicked = BehaviorSubject.create<Boolean>()
+    val addWorkoutClicked = BehaviorSubject.create<Boolean>()
 
-    fun onFloatingClicked() = fabClicked.onNext(true)
+    fun onFloatingClicked() = addWorkoutClicked.onNext(true)
 
 }

@@ -3,6 +3,8 @@ package com.example.workoutnotebook.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -25,6 +27,7 @@ class MainActivity : BaseActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var viewModel: MainViewModel
     private lateinit var fragmentAdapter: FragmentAdapter
+    private var fabOpen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +49,7 @@ class MainActivity : BaseActivity() {
         onNavigationSwipe()
         onClickListener()
         listenForFab()
+        listenForAddWorkout()
     }
 
     private fun onNavigationSwipe() {
@@ -56,8 +60,26 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    private fun listenForFab() {
+        fab_menu.setOnClickListener {
+            if (!fabOpen) {
+                fab_add_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+                fab_add_workout.visibility = View.VISIBLE
+                fab_copy_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+                fab_copy_workout.visibility = View.VISIBLE
+                fabOpen = true
+            } else {
+                fab_add_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+                fab_add_workout.visibility = View.INVISIBLE
+                fab_copy_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+                fab_copy_workout.visibility = View.INVISIBLE
+                fabOpen = false
+            }
+        }
+    }
+
     private fun onClickListener() {
-        fab_home
+        fab_add_workout
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
@@ -65,8 +87,8 @@ class MainActivity : BaseActivity() {
             }
     }
 
-    private fun listenForFab() {
-        viewModel.fabClicked
+    private fun listenForAddWorkout() {
+        viewModel.addWorkoutClicked
             .doOnIoObserveOnMain()
             .subscribeBy {
                 openAddWorkoutActivity()

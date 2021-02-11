@@ -30,7 +30,39 @@
         app:menu="@menu/bottom_navigation" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_home"
+        app:fabSize="mini"
+        android:id="@+id/fab_add_workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_copy_workout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_baseline_create_24"
+        android:visibility="invisible"
+        app:backgroundTint="@color/CustomFab"
+        app:elevation="8dp"
+        app:tint="@color/AntiqueWhite"
+        app:borderWidth="2dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:fabSize="mini"
+        android:id="@+id/fab_copy_workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_baseline_content_copy_24"
+        android:visibility="invisible"
+        app:backgroundTint="@color/CustomFab"
+        app:elevation="8dp"
+        app:tint="@color/AntiqueWhite"
+        app:borderWidth="2dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"

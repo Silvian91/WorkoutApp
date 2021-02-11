@@ -27,7 +27,7 @@ class MainActivityTest {
 
     @Test
     fun floatButtonIsDisplayed() {
-        onView(withId(R.id.fab_home)).check(matches(isDisplayed()))
+        onView(withId(R.id.fab_menu)).check(matches(isDisplayed()))
     }
 
     @Test
