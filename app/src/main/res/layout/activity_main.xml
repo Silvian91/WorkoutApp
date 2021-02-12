@@ -45,6 +45,17 @@
         app:tint="@color/AntiqueWhite"
         app:borderWidth="2dp"/>
 
+    <TextView
+        android:id="@+id/add_workout_text"
+        style="@style/textParagraphStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/fab_add_workout"
+        app:layout_constraintStart_toEndOf="@id/fab_add_workout"
+        app:layout_constraintBottom_toBottomOf="@id/fab_add_workout"
+        android:visibility="invisible"
+        android:text="@string/text_add_workout" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         app:fabSize="mini"
         android:id="@+id/fab_copy_workout"
@@ -60,6 +71,17 @@
         app:elevation="8dp"
         app:tint="@color/AntiqueWhite"
         app:borderWidth="2dp"/>
+
+    <TextView
+        android:id="@+id/copy_workout_text"
+        style="@style/textParagraphStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/fab_copy_workout"
+        app:layout_constraintStart_toEndOf="@id/fab_copy_workout"
+        app:layout_constraintBottom_toBottomOf="@id/fab_copy_workout"
+        android:visibility="invisible"
+        android:text="@string/text_copy_workout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_menu"

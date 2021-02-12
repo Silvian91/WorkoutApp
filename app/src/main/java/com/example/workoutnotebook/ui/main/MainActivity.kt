@@ -64,15 +64,23 @@ class MainActivity : BaseActivity() {
         fab_menu.setOnClickListener {
             if (!fabOpen) {
                 fab_add_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+                add_workout_text.animation = AnimationUtils.loadAnimation(this, R.anim.fab_open)
                 fab_add_workout.visibility = View.VISIBLE
+                add_workout_text.visibility = View.VISIBLE
                 fab_copy_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+                copy_workout_text.animation = AnimationUtils.loadAnimation(this, R.anim.fab_open)
                 fab_copy_workout.visibility = View.VISIBLE
+                copy_workout_text.visibility = View.VISIBLE
                 fabOpen = true
             } else {
                 fab_add_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+                add_workout_text.animation = AnimationUtils.loadAnimation(this, R.anim.fab_close)
                 fab_add_workout.visibility = View.INVISIBLE
+                add_workout_text.visibility = View.INVISIBLE
                 fab_copy_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+                copy_workout_text.animation = AnimationUtils.loadAnimation(this, R.anim.fab_close)
                 fab_copy_workout.visibility = View.INVISIBLE
+                copy_workout_text.visibility = View.INVISIBLE
                 fabOpen = false
             }
         }
