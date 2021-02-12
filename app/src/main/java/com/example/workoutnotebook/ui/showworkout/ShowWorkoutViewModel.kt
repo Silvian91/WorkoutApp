@@ -121,5 +121,4 @@ class ShowWorkoutViewModel @Inject constructor(
 
     fun onDeleteWorkout(workoutId: Long) = deleteWorkoutResponse.onNext(workoutId)
 
-
 }

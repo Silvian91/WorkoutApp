@@ -9,7 +9,9 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val addWorkoutClicked = BehaviorSubject.create<Boolean>()
+    val copyWorkoutClicked = BehaviorSubject.create<Boolean>()
 
-    fun onFloatingClicked() = addWorkoutClicked.onNext(true)
+    fun onAddWorkoutClicked() = addWorkoutClicked.onNext(true)
+    fun onCopyWorkoutClicked() = copyWorkoutClicked.onNext(true)
 
 }

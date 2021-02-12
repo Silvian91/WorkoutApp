@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.workoutnotebook.di.addroutine.AddRoutineViewModelModule
 import com.example.workoutnotebook.di.addworkout.AddWorkoutViewModelModule
 import com.example.workoutnotebook.di.consent.ConsentViewModelModule
+import com.example.workoutnotebook.di.copyworkout.CopyWorkoutViewModelModule
 import com.example.workoutnotebook.di.home.HomeViewModelModule
 import com.example.workoutnotebook.di.login.LoginViewModelModule
 import com.example.workoutnotebook.di.onboarding.OnboardingViewModelModule
@@ -24,6 +25,7 @@ import dagger.Module
         AddRoutineViewModelModule::class,
         AddWorkoutViewModelModule::class,
         ConsentViewModelModule::class,
+        CopyWorkoutViewModelModule::class,
         HomeViewModelModule::class,
         LoginViewModelModule::class,
         OnboardingViewModelModule::class,

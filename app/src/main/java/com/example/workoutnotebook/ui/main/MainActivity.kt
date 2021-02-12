@@ -13,6 +13,7 @@ import com.example.workoutnotebook.R
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.ui.addworkout.AddWorkoutActivity
 import com.example.workoutnotebook.ui.common.adapter.FragmentAdapter
+import com.example.workoutnotebook.ui.copyworkout.CopyWorkoutActivity
 import com.example.workoutnotebook.ui.home.HomeFragment
 import com.example.workoutnotebook.ui.profile.ProfileFragment
 import com.jakewharton.rxbinding3.view.clicks
@@ -47,9 +48,11 @@ class MainActivity : BaseActivity() {
         }
 
         onNavigationSwipe()
-        onClickListener()
-        listenForFab()
+        fabClickListener()
+        addWorkoutClickListener()
+        copyWorkoutClickListener()
         listenForAddWorkout()
+        listenForCopyWorkout()
     }
 
     private fun onNavigationSwipe() {
@@ -60,7 +63,7 @@ class MainActivity : BaseActivity() {
         })
     }
 
-    private fun listenForFab() {
+    private fun fabClickListener() {
         fab_menu.setOnClickListener {
             if (!fabOpen) {
                 fab_add_workout.animation = AnimationUtils.loadAnimation(this, R.anim.fab_open)
@@ -86,12 +89,21 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun onClickListener() {
+    private fun addWorkoutClickListener() {
         fab_add_workout
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                viewModel.onFloatingClicked()
+                viewModel.onAddWorkoutClicked()
+            }
+    }
+
+    private fun copyWorkoutClickListener() {
+        fab_copy_workout
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                viewModel.onCopyWorkoutClicked()
             }
     }
 
@@ -104,8 +116,21 @@ class MainActivity : BaseActivity() {
             .addTo(compositeDisposable)
     }
 
+    private fun listenForCopyWorkout() {
+        viewModel.copyWorkoutClicked
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openCopyWorkoutActivity()
+            }
+            .addTo(compositeDisposable)
+    }
+
     private fun openAddWorkoutActivity() = startActivity(
         AddWorkoutActivity.newIntent(this)
+    )
+
+    private fun openCopyWorkoutActivity() = startActivity(
+        CopyWorkoutActivity.newIntent(this)
     )
 
     private fun loadFragment() {
