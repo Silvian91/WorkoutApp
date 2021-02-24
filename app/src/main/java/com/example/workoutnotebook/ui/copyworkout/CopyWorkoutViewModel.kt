@@ -4,11 +4,9 @@ import com.example.core.ui.BaseViewModel
 import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.showworkout.GetWorkoutUseCase
-import com.example.workoutnotebook.domain.showworkout.SoftDeleteWorkoutUseCase
-import com.example.workoutnotebook.domain.showworkout.UndoSoftDeleteWorkoutUseCase
 import com.example.workoutnotebook.domain.user.GetCurrentUserUseCase
 import com.example.workoutnotebook.domain.workout.model.WorkoutModel
-import com.example.workoutnotebook.ui.showworkout.adapter.ShowWorkoutItemWrapper
+import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
@@ -20,8 +18,9 @@ class CopyWorkoutViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private var userId: Long = 0
+    private var selectedItem: WorkoutModel? = null
 
-    val getWorkoutList = BehaviorSubject.create<List<ShowWorkoutItemWrapper>>()
+    val getWorkoutList = BehaviorSubject.create<List<WorkoutItemWrapper>>()
     val login = BehaviorSubject.create<Boolean>()
 
     fun getUser() {
@@ -45,10 +44,6 @@ class CopyWorkoutViewModel @Inject constructor(
             .doOnIoObserveOnMain()
             .subscribeBy { output ->
                 when (output) {
-                    is GetWorkoutUseCase.Output.SuccessNoData -> {
-                        val items = convertToItemWrapper()
-                        getWorkoutList.onNext(items)
-                    }
                     is GetWorkoutUseCase.Output.Success -> {
                         val items = convertToItemWrapper(output.workouts)
                         getWorkoutList.onNext(items)
@@ -59,16 +54,17 @@ class CopyWorkoutViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<ShowWorkoutItemWrapper> {
-        val itemWrappers = ArrayList<ShowWorkoutItemWrapper>()
-        if (models.isNotEmpty()) {
-            models.forEach {
-                itemWrappers.add(ShowWorkoutItemWrapper.WorkoutTitle(it))
+    private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<WorkoutItemWrapper> {
+        return models.map {
+            WorkoutItemWrapper.WorkoutTitle(it, it == selectedItem) {
+                onCheckedChange(it)
             }
-        } else {
-            itemWrappers.add(ShowWorkoutItemWrapper.WorkoutNoData)
         }
-        return itemWrappers
+    }
+
+    private fun onCheckedChange(workoutModel: WorkoutModel) {
+        selectedItem = workoutModel
+        getWorkoutsForUser(userId)
     }
 
 }

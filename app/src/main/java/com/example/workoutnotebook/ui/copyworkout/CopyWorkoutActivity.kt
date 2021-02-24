@@ -3,13 +3,17 @@ package com.example.workoutnotebook.ui.copyworkout
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.ui.BaseActivity
 import com.example.workoutnotebook.R
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.ui.copyworkout.adapter.CopyWorkoutAdapter
+import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper
 import com.example.workoutnotebook.ui.login.LoginActivity
+import com.example.workoutnotebook.ui.showworkout.ShowWorkoutViewModel
 import com.example.workoutnotebook.ui.showworkout.adapter.ShowWorkoutItemWrapper
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
@@ -18,15 +22,13 @@ import kotlinx.android.synthetic.main.activity_show_routine.*
 import kotlinx.android.synthetic.main.activity_show_workout.*
 import kotlinx.android.synthetic.main.view_holder_workouts.*
 
+
+//TODO: Refactor to Dialog Fragment
 class CopyWorkoutActivity : BaseActivity() {
 
     private lateinit var viewModel: CopyWorkoutViewModel
 
     private lateinit var copyWorkoutAdapter: CopyWorkoutAdapter
-
-    private fun showData(list: List<ShowWorkoutItemWrapper>) {
-        copyWorkoutAdapter.items = list
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,7 @@ class CopyWorkoutActivity : BaseActivity() {
         viewModel.getUser()
         getWorkouts()
         onLogin()
+        onRadioButtonClicked(findViewById(R.id.activity_copy_workout))
     }
 
     private fun setToolbar() {
@@ -55,11 +58,25 @@ class CopyWorkoutActivity : BaseActivity() {
     private fun initCopyWorkoutRecyclerView() {
         copy_workout_recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
-            copyWorkoutAdapter = CopyWorkoutAdapter(this@CopyWorkoutActivity.lifecycle)
+            copyWorkoutAdapter = CopyWorkoutAdapter()
             adapter = copyWorkoutAdapter
         }
     }
 
+    fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+            // Is the button now checked?
+            val checked = view.isChecked
+
+            // Check which radio button was clicked
+            when (view.getId()) {
+                R.id.radio_workout ->
+                    if (checked) {
+                        // Pirates are the best
+                    }
+            }
+        }
+    }
 
     private fun getWorkouts() {
         viewModel.getWorkoutList
@@ -68,6 +85,10 @@ class CopyWorkoutActivity : BaseActivity() {
                 showData(viewModel.getWorkoutList.value!!)
             }
             .addTo(compositeDisposable)
+    }
+
+    private fun showData(workoutsList: List<WorkoutItemWrapper>) {
+        copyWorkoutAdapter.setData(workoutsList)
     }
 
     private fun onLogin() {
