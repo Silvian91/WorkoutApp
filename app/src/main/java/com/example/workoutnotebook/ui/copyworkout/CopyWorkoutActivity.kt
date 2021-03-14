@@ -3,6 +3,7 @@ package com.example.workoutnotebook.ui.copyworkout
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
@@ -22,13 +23,17 @@ import kotlinx.android.synthetic.main.activity_show_routine.*
 import kotlinx.android.synthetic.main.activity_show_workout.*
 import kotlinx.android.synthetic.main.view_holder_workouts.*
 
-
-//TODO: Refactor to Dialog Fragment
 class CopyWorkoutActivity : BaseActivity() {
 
     private lateinit var viewModel: CopyWorkoutViewModel
 
     private lateinit var copyWorkoutAdapter: CopyWorkoutAdapter
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        super.onOptionsItemSelected(item)
+        finish()
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +113,12 @@ class CopyWorkoutActivity : BaseActivity() {
     companion object {
         fun newIntent(context: Context) =
             Intent(context, CopyWorkoutActivity::class.java)
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+
+        super.onDestroy()
     }
 
 }
