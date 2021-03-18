@@ -2,7 +2,6 @@ package com.example.workoutnotebook.ui.copyworkout
 
 import com.example.core.ui.BaseViewModel
 import com.example.core.ui.error.ErrorType
-import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutnotebook.domain.user.GetCurrentUserUseCase
 import com.example.workoutnotebook.domain.workout.model.WorkoutModel
@@ -11,6 +10,12 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class CopyWorkoutViewModel @Inject constructor(
     private val getWorkoutUseCase: GetWorkoutUseCase,
@@ -25,7 +30,9 @@ class CopyWorkoutViewModel @Inject constructor(
 
     fun getUser() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
-            .doOnIoObserveOnMain()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
             .subscribeBy {
                 when (it) {
                     is GetCurrentUserUseCase.Output.Success -> {
@@ -41,7 +48,9 @@ class CopyWorkoutViewModel @Inject constructor(
 
     private fun getWorkoutsForUser(userId: Long) {
         getWorkoutUseCase.execute(GetWorkoutUseCase.Input(userId))
-            .doOnIoObserveOnMain()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
             .subscribeBy { output ->
                 when (output) {
                     is GetWorkoutUseCase.Output.Success -> {

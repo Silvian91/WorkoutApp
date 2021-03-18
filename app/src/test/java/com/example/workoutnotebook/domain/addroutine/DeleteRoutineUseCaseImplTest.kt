@@ -26,7 +26,6 @@ internal class DeleteRoutineUseCaseImplTest {
 
     @AfterEach
     fun tearDown() {
-        RxAndroidPlugins.reset()
         RxJavaPlugins.reset()
     }
 
