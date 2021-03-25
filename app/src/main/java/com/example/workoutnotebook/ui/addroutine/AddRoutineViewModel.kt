@@ -74,7 +74,7 @@ class AddRoutineViewModel @Inject constructor(
         )
     }
 
-    private fun saveRoutines(routinePairs: List<RoutineModel>) {
+    fun saveRoutines(routinePairs: List<RoutineModel>) {
         saveRoutineUseCase.execute(SaveRoutineUseCase.Input(routinePairs))
             .doOnIoObserveOnMain()
             .subscribeBy {

@@ -1,7 +1,10 @@
 package com.example.workoutnotebook.ui.login
 
+import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.domain.login.LoginUseCase
 import com.example.workoutnotebook.ui.common.BaseTest
+import com.example.core.ui.error.ErrorType.Unknown
+import com.example.core.ui.error.UIError
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Single
@@ -32,4 +35,45 @@ class LoginViewModelTest : BaseTest() {
 
         viewModel.viewState.test().assertValue(expectedValue)
     }
+
+    @Test
+    fun `on login clicked emits expected output on invalid credentials`(){
+        val expectedValue = LoginViewState(
+            home = false,
+            register = false,
+            showError = true,
+            errorType = ErrorType.ErrorInvalidCredentials
+        )
+        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns Single.just(LoginUseCase.Output.ErrorInvalidCredentials)
+        viewModel.onLoginClicked("user", "password")
+
+        viewModel.viewState.test().assertValue(expectedValue)
+    }
+
+    @Test
+    fun `on login clicked emits expected output on error unknown`(){
+        val expectedValue = LoginViewState(
+            home = false,
+            register = false,
+            showError = true,
+            errorType = ErrorType.Unknown
+        )
+        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns Single.just(LoginUseCase.Output.ErrorUnknown)
+        viewModel.onLoginClicked("user", "password")
+
+        viewModel.viewState.test().assertValue(expectedValue)
+    }
+
+    @Test
+    fun `on signup clicked `(){
+        val expectedValue = LoginViewState(
+            home = false,
+            register = true,
+            showError = false
+        )
+        viewModel.onSignUpClicked()
+
+        viewModel.viewState.test().assertValue(expectedValue)
+    }
+
 }
