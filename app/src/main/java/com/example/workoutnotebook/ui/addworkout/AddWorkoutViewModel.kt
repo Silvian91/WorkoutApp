@@ -47,7 +47,7 @@ class AddWorkoutViewModel @Inject constructor (
         }
     }
 
-    private fun saveWorkout(workoutModel: WorkoutModel) {
+    fun saveWorkout(workoutModel: WorkoutModel) {
         addWorkoutUseCase.execute(Input(workoutModel))
             .doOnIoObserveOnMain()
             .subscribeBy {

@@ -2,6 +2,7 @@ package com.example.workoutnotebook.ui.copyworkout
 
 import com.example.core.ui.BaseViewModel
 import com.example.core.ui.error.ErrorType
+import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutnotebook.domain.user.GetCurrentUserUseCase
 import com.example.workoutnotebook.domain.workout.model.WorkoutModel
@@ -30,9 +31,7 @@ class CopyWorkoutViewModel @Inject constructor(
 
     fun getUser() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
+            .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is GetCurrentUserUseCase.Output.Success -> {
@@ -46,11 +45,9 @@ class CopyWorkoutViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    private fun getWorkoutsForUser(userId: Long) {
+    fun getWorkoutsForUser(userId: Long) {
         getWorkoutUseCase.execute(GetWorkoutUseCase.Input(userId))
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
+            .doOnIoObserveOnMain()
             .subscribeBy { output ->
                 when (output) {
                     is GetWorkoutUseCase.Output.Success -> {

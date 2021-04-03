@@ -34,7 +34,7 @@ object AndroidX {
 }
 
 object Kotlin {
-    private const val KOTLIN_STB_VERSION = "1.4.10"
+    private const val KOTLIN_STB_VERSION = "1.4.31"
 
     const val KOTLIN_STB = "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_STB_VERSION"
 }
