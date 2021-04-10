@@ -30,7 +30,10 @@ class LoginViewModelTest : BaseTest() {
             register = false,
             showError = false
         )
-        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns Single.just(LoginUseCase.Output.Success)
+
+        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns
+                Single.just(LoginUseCase.Output.Success)
+
         viewModel.onLoginClicked("user", "password")
 
         viewModel.viewState.test().assertValue(expectedValue)
@@ -44,7 +47,10 @@ class LoginViewModelTest : BaseTest() {
             showError = true,
             errorType = ErrorType.ErrorInvalidCredentials
         )
-        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns Single.just(LoginUseCase.Output.ErrorInvalidCredentials)
+
+        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns
+                Single.just(LoginUseCase.Output.ErrorInvalidCredentials)
+
         viewModel.onLoginClicked("user", "password")
 
         viewModel.viewState.test().assertValue(expectedValue)
@@ -58,7 +64,10 @@ class LoginViewModelTest : BaseTest() {
             showError = true,
             errorType = ErrorType.Unknown
         )
-        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns Single.just(LoginUseCase.Output.ErrorUnknown)
+
+        every { useCase.execute(LoginUseCase.Input("user", "password")) } returns
+                Single.just(LoginUseCase.Output.ErrorUnknown)
+
         viewModel.onLoginClicked("user", "password")
 
         viewModel.viewState.test().assertValue(expectedValue)

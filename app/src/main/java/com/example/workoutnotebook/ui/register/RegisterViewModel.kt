@@ -34,7 +34,7 @@ class RegisterViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    private fun setCurrentUserId(username: String, password: String) {
+    fun setCurrentUserId(username: String, password: String) {
         loginUseCase.execute(LoginUseCase.Input(username, password))
             .doOnIoObserveOnMain()
             .subscribeBy {

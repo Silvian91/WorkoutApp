@@ -83,7 +83,7 @@ class ProfileViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    private fun getWorkoutsCount(id: Long) {
+    fun getWorkoutsCount(id: Long) {
         getWorkoutUseCase.execute(GetWorkoutUseCase.Input(id))
             .doOnIoObserveOnMain()
             .subscribeBy { output ->
