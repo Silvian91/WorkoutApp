@@ -72,6 +72,7 @@ class CopyWorkoutActivity : BaseActivity() {
         if (view is RadioButton) {
             // Is the button now checked?
             val checked = view.isChecked
+            button_copy_routine.visibility = View.VISIBLE
 
             // Check which radio button was clicked
             when (view.getId()) {
