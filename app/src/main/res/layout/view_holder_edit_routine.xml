@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@id/sets_layout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/routine_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/inputFields"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:hint="@string/text_routine_name"
+            android:inputType="textPersonName"
+            android:textColor="@color/DarkSlateGray" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sets_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@id/reps_layout"
+        app:layout_constraintTop_toBottomOf="@+id/name_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/routine_sets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/inputFields"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:hint="@string/text_routine_sets"
+            android:inputType="textPersonName"
+            android:textColor="@color/DarkSlateGray" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/reps_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@id/weight_layout"
+        app:layout_constraintTop_toBottomOf="@id/sets_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/routine_reps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/inputFields"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:hint="@string/text_routine_reps"
+            android:inputType="textPersonName"
+            android:textColor="@color/DarkSlateGray" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weight_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/reps_layout"
+        app:layout_constraintBottom_toTopOf="@id/rest_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/routine_weight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/inputFields"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:hint="@string/text_routine_weight"
+            android:inputType="textPersonName"
+            android:textColor="@color/DarkSlateGray" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/rest_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/weight_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/routine_rest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/inputFields"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:hint="@string/text_routine_rest"
+            android:inputType="textPersonName"
+            android:textColor="@color/DarkSlateGray" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
