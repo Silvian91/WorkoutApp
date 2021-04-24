@@ -11,12 +11,6 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
-import io.reactivex.Completable
-import io.reactivex.Maybe
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class CopyWorkoutViewModel @Inject constructor(
     private val getWorkoutUseCase: GetWorkoutUseCase,
@@ -28,6 +22,7 @@ class CopyWorkoutViewModel @Inject constructor(
 
     val getWorkoutList = BehaviorSubject.create<List<WorkoutItemWrapper>>()
     val login = BehaviorSubject.create<Boolean>()
+    val showRoutinesResponse = BehaviorSubject.create<Long>()
 
     fun getUser() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
@@ -58,6 +53,10 @@ class CopyWorkoutViewModel @Inject constructor(
                 }
             }
             .addTo(compositeDisposable)
+    }
+
+    fun routinesResponse(workoutId: Long){
+        showRoutinesResponse.onNext(workoutId)
     }
 
     private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<WorkoutItemWrapper> {

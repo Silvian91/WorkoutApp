@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.ui.BaseActivity
@@ -13,21 +14,20 @@ import com.example.workoutnotebook.R
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.ui.copyworkout.adapter.CopyWorkoutAdapter
 import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper
+import com.example.workoutnotebook.ui.editroutine.EditRoutineActivity
 import com.example.workoutnotebook.ui.login.LoginActivity
-import com.example.workoutnotebook.ui.showworkout.ShowWorkoutViewModel
-import com.example.workoutnotebook.ui.showworkout.adapter.ShowWorkoutItemWrapper
+import com.jakewharton.rxbinding3.view.clicks
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDispose
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_copy_workout.*
-import kotlinx.android.synthetic.main.activity_show_routine.*
-import kotlinx.android.synthetic.main.activity_show_workout.*
-import kotlinx.android.synthetic.main.view_holder_workouts.*
 
 class CopyWorkoutActivity : BaseActivity() {
 
     private lateinit var viewModel: CopyWorkoutViewModel
-
     private lateinit var copyWorkoutAdapter: CopyWorkoutAdapter
+    private var workoutId: Long = 0
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
@@ -48,6 +48,8 @@ class CopyWorkoutActivity : BaseActivity() {
         viewModel.getUser()
         getWorkouts()
         onLogin()
+        onContinueClicked()
+        routinesResponse()
         onRadioButtonClicked(findViewById(R.id.activity_copy_workout))
     }
 
@@ -106,9 +108,32 @@ class CopyWorkoutActivity : BaseActivity() {
             .addTo(compositeDisposable)
     }
 
+    private fun onContinueClicked() {
+        button_copy_routine
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                viewModel.routinesResponse(workoutId)
+            }
+
+    }
+
+    private fun routinesResponse(){
+        viewModel.showRoutinesResponse
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openEditRoutines(viewModel.showRoutinesResponse.value!!)
+            }
+            .addTo(compositeDisposable)
+    }
+
     private fun showLogin() = startActivity(
         LoginActivity.newIntent(this)
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    )
+
+    private fun openEditRoutines(workoutId: Long) = startActivity(
+        EditRoutineActivity.newIntent(this, workoutId)
     )
 
     companion object {
