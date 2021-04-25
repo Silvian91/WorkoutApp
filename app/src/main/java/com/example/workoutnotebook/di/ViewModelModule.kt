@@ -5,6 +5,7 @@ import com.example.workoutnotebook.di.addroutine.AddRoutineViewModelModule
 import com.example.workoutnotebook.di.addworkout.AddWorkoutViewModelModule
 import com.example.workoutnotebook.di.consent.ConsentViewModelModule
 import com.example.workoutnotebook.di.copyworkout.CopyWorkoutViewModelModule
+import com.example.workoutnotebook.di.editroutine.EditRoutineViewModelModule
 import com.example.workoutnotebook.di.editworkout.EditWorkoutViewModelModule
 import com.example.workoutnotebook.di.home.HomeViewModelModule
 import com.example.workoutnotebook.di.login.LoginViewModelModule
@@ -28,6 +29,7 @@ import dagger.Module
         ConsentViewModelModule::class,
         CopyWorkoutViewModelModule::class,
         EditWorkoutViewModelModule::class,
+        EditRoutineViewModelModule::class,
         HomeViewModelModule::class,
         LoginViewModelModule::class,
         OnboardingViewModelModule::class,
