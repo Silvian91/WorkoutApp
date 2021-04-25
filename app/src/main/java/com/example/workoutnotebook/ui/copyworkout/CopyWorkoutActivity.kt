@@ -14,7 +14,7 @@ import com.example.workoutnotebook.R
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.ui.copyworkout.adapter.CopyWorkoutAdapter
 import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper
-import com.example.workoutnotebook.ui.editroutine.EditRoutineActivity
+import com.example.workoutnotebook.ui.editworkout.EditWorkoutActivity
 import com.example.workoutnotebook.ui.login.LoginActivity
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -49,7 +49,7 @@ class CopyWorkoutActivity : BaseActivity() {
         getWorkouts()
         onLogin()
         onContinueClicked()
-        routinesResponse()
+        editWorkoutResponse()
         onRadioButtonClicked(findViewById(R.id.activity_copy_workout))
     }
 
@@ -113,16 +113,16 @@ class CopyWorkoutActivity : BaseActivity() {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                viewModel.routinesResponse(workoutId)
+                viewModel.workoutResponse(workoutId)
             }
 
     }
 
-    private fun routinesResponse(){
-        viewModel.showRoutinesResponse
+    private fun editWorkoutResponse(){
+        viewModel.editWorkoutResponse
             .doOnIoObserveOnMain()
             .subscribeBy {
-                openEditRoutines(viewModel.showRoutinesResponse.value!!)
+                openEditWorkout(viewModel.editWorkoutResponse.value!!)
             }
             .addTo(compositeDisposable)
     }
@@ -132,8 +132,8 @@ class CopyWorkoutActivity : BaseActivity() {
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     )
 
-    private fun openEditRoutines(workoutId: Long) = startActivity(
-        EditRoutineActivity.newIntent(this, workoutId)
+    private fun openEditWorkout(workoutId: Long) = startActivity(
+        EditWorkoutActivity.newIntent(this, workoutId)
     )
 
     companion object {

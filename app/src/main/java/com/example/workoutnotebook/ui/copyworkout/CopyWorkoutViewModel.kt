@@ -22,7 +22,7 @@ class CopyWorkoutViewModel @Inject constructor(
 
     val getWorkoutList = BehaviorSubject.create<List<WorkoutItemWrapper>>()
     val login = BehaviorSubject.create<Boolean>()
-    val showRoutinesResponse = BehaviorSubject.create<Long>()
+    val editWorkoutResponse = BehaviorSubject.create<Long>()
 
     fun getUser() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
@@ -55,8 +55,8 @@ class CopyWorkoutViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    fun routinesResponse(workoutId: Long){
-        showRoutinesResponse.onNext(workoutId)
+    fun workoutResponse(workoutId: Long){
+        editWorkoutResponse.onNext(workoutId)
     }
 
     private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<WorkoutItemWrapper> {
