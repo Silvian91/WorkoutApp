@@ -27,7 +27,6 @@ class CopyWorkoutActivity : BaseActivity() {
 
     private lateinit var viewModel: CopyWorkoutViewModel
     private lateinit var copyWorkoutAdapter: CopyWorkoutAdapter
-    private var workoutId: Long = 0
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
@@ -86,6 +85,15 @@ class CopyWorkoutActivity : BaseActivity() {
         }
     }
 
+    private fun onContinueClicked() {
+        button_copy_routine
+            .clicks()
+            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
+            .subscribe {
+                viewModel.workoutResponse()
+            }
+    }
+
     private fun getWorkouts() {
         viewModel.getWorkoutList
             .doOnIoObserveOnMain()
@@ -108,17 +116,7 @@ class CopyWorkoutActivity : BaseActivity() {
             .addTo(compositeDisposable)
     }
 
-    private fun onContinueClicked() {
-        button_copy_routine
-            .clicks()
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe {
-                viewModel.workoutResponse(workoutId)
-            }
-
-    }
-
-    private fun editWorkoutResponse(){
+    private fun editWorkoutResponse() {
         viewModel.editWorkoutResponse
             .doOnIoObserveOnMain()
             .subscribeBy {

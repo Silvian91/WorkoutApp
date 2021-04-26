@@ -19,6 +19,7 @@ class CopyWorkoutViewModel @Inject constructor(
 
     private var userId: Long = 0
     private var selectedItem: WorkoutModel? = null
+    private var workoutId: Long = 0
 
     val getWorkoutList = BehaviorSubject.create<List<WorkoutItemWrapper>>()
     val login = BehaviorSubject.create<Boolean>()
@@ -55,10 +56,6 @@ class CopyWorkoutViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    fun workoutResponse(workoutId: Long){
-        editWorkoutResponse.onNext(workoutId)
-    }
-
     private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<WorkoutItemWrapper> {
         return models.map {
             WorkoutItemWrapper.WorkoutTitle(it, it == selectedItem) {
@@ -69,7 +66,12 @@ class CopyWorkoutViewModel @Inject constructor(
 
     private fun onCheckedChange(workoutModel: WorkoutModel) {
         selectedItem = workoutModel
+        workoutId = workoutModel.id!!
         getWorkoutsForUser(userId)
+    }
+
+    fun workoutResponse() {
+        editWorkoutResponse.onNext(workoutId)
     }
 
 }
