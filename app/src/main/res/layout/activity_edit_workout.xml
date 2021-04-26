@@ -51,7 +51,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/workout_title_field"
+                    android:id="@+id/edit_title_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/inputFields"
