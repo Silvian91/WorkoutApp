@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.example.core.ui.BaseActivity
+import com.example.workoutnotebook.R
 import com.example.workoutnotebook.R.layout.activity_edit_workout
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import io.reactivex.rxkotlin.addTo
@@ -23,10 +24,20 @@ class EditWorkoutActivity : BaseActivity() {
             this, viewModelFactory.get()
         ).get(EditWorkoutViewModel::class.java)
 
+        setToolbar()
         val workoutId = intent.getLongExtra(workoutIdExtra, 0)
         viewModel.setWorkoutId(workoutId)
         viewModel.getTitle()
         titleResponse()
+    }
+
+    private fun setToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.run {
+            title = getString(R.string.text_edit_workout_toolbar)
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_back_arrow)
+        }
     }
 
     private fun titleResponse(){
@@ -42,6 +53,7 @@ class EditWorkoutActivity : BaseActivity() {
 
     private fun displayTitle(title: String) {
         edit_title_field.setText(title)
+        edit_title_field.setSelection(title.length)
     }
 
     override fun onDestroy() {
