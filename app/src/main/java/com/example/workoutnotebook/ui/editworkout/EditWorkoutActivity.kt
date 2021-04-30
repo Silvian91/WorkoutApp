@@ -10,6 +10,7 @@ import com.example.core.ui.BaseActivity
 import com.example.workoutnotebook.R
 import com.example.workoutnotebook.R.layout.activity_edit_workout
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
+import com.example.workoutnotebook.ui.editroutine.EditRoutineActivity
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDispose
@@ -31,11 +32,13 @@ class EditWorkoutActivity : BaseActivity() {
         ).get(EditWorkoutViewModel::class.java)
 
         setToolbar()
-        val workoutId = intent.getLongExtra(workoutIdExtra, 0)
-        viewModel.setWorkoutId(workoutId)
+        val editWorkoutId = intent.getLongExtra(editWorkoutIdExtra, 0)
+        viewModel.getUser()
+        viewModel.setWorkoutId(editWorkoutId)
         viewModel.getTitle()
         titleResponse()
-        confirmEditClickListener()
+        saveWorkoutId()
+        confirmEditClicked()
     }
 
     private fun setToolbar() {
@@ -64,7 +67,7 @@ class EditWorkoutActivity : BaseActivity() {
         edit_title_field.setSelection(title.length)
     }
 
-    private fun confirmEditClickListener() {
+    private fun confirmEditClicked() {
         button_confirm_edit
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
@@ -77,7 +80,7 @@ class EditWorkoutActivity : BaseActivity() {
         if (edit_title_field.text.toString() == stringToCompare) {
             showDialog()
         } else {
-            openEditRoutine()
+            viewModel.onConfirmClicked(edit_title_field.text.toString())
         }
     }
 
@@ -89,13 +92,28 @@ class EditWorkoutActivity : BaseActivity() {
             ) { _, _ -> }
             .setPositiveButton(
                 R.string.text_dialog_alert_confirm
-            ) { _, _ -> openEditRoutine() }
+            ) { _, _ -> viewModel.onConfirmClicked(edit_title_field.text.toString()) }
             .show()
     }
 
-    private fun openEditRoutine() {
-
+    fun saveWorkoutId() {
+        viewModel.workout
+            .doOnIoObserveOnMain()
+            .subscribeBy {
+                openEditRoutine(viewModel.editWorkoutId.value!!, viewModel.workout.value!!)
+            }
+            .addTo(compositeDisposable)
     }
+
+    private fun openEditRoutine(editWorkoutId: Long, newWorkoutId: Long) = startActivity(
+        EditRoutineActivity.newIntent(
+            this,
+            editWorkoutId,
+            newWorkoutId
+        ).addFlags(
+            Intent.FLAG_ACTIVITY_CLEAR_TOP
+        )
+    )
 
     override fun onDestroy() {
         compositeDisposable.clear()
@@ -104,11 +122,11 @@ class EditWorkoutActivity : BaseActivity() {
     }
 
     companion object {
-        const val workoutIdExtra = "workoutId"
+        const val editWorkoutIdExtra = "workoutId"
 
         fun newIntent(context: Context, workoutId: Long) =
             Intent(context, EditWorkoutActivity::class.java).apply {
-                putExtra(workoutIdExtra, workoutId)
+                putExtra(editWorkoutIdExtra, workoutId)
             }
     }
 
