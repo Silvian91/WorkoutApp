@@ -72,11 +72,11 @@ class EditWorkoutActivity : BaseActivity() {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                checkForSameTitle()
+                checkForExistingWorkout()
             }
     }
 
-    private fun checkForSameTitle() {
+    private fun checkForExistingWorkout() {
         viewModel.workoutsListCompare.value!!.forEach {
             if (
                 edit_title_field.text.toString() == it

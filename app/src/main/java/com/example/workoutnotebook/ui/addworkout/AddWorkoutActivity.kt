@@ -4,14 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import androidx.lifecycle.ViewModelProvider
+import com.example.core.ui.BaseActivity
+import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.R
 import com.example.workoutnotebook.R.string.text_add_workout_toolbar
 import com.example.workoutnotebook.R.string.text_unknown_error
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.ui.addroutine.AddRoutineActivity
-import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.ui.login.LoginActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.view.clicks
@@ -20,11 +22,11 @@ import com.uber.autodispose.autoDispose
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_add_workout.*
-import com.example.core.ui.BaseActivity as BaseActivity
 
 class AddWorkoutActivity : BaseActivity() {
 
     private lateinit var viewModel: AddWorkoutViewModel
+    private var isSame: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,7 @@ class AddWorkoutActivity : BaseActivity() {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, ON_DESTROY))
             .subscribe {
-                viewModel.onConfirmClicked(workout_title_field.text.toString())
+                checkForExistingWorkout()
             }
         showError()
     }
@@ -82,14 +84,41 @@ class AddWorkoutActivity : BaseActivity() {
         )
     )
 
+    private fun checkForExistingWorkout() {
+        viewModel.workoutsListCompare.value!!.forEach {
+            if (
+                workout_title_field.text.toString() == it
+            ) {
+                isSame = true
+            }
+        }
+        if (isSame) {
+            showDialog()
+        } else {
+            viewModel.onConfirmClicked(workout_title_field.text.toString())
+        }
+    }
+
+    private fun showDialog() {
+        AlertDialog.Builder(this)
+            .setMessage(R.string.text_dialog_edit_workout)
+            .setNegativeButton(
+                R.string.text_dialog_alert_cancel
+            ) { _, _ -> }
+            .setPositiveButton(
+                R.string.text_dialog_alert_confirm
+            ) { _, _ -> viewModel.onConfirmClicked(workout_title_field.text.toString()) }
+            .show()
+    }
+
     private fun openAddRoutine(workoutId: Long) = startActivity(
-            AddRoutineActivity.newIntent(
-                this,
-                workoutId
-            ).addFlags(
-                Intent.FLAG_ACTIVITY_CLEAR_TOP
-            )
+        AddRoutineActivity.newIntent(
+            this,
+            workoutId
+        ).addFlags(
+            Intent.FLAG_ACTIVITY_CLEAR_TOP
         )
+    )
 
     private fun showError() {
         viewModel.error

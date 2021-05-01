@@ -47,7 +47,7 @@ class EditWorkoutViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    fun getWorkoutsForUser(userId: Long) {
+    private fun getWorkoutsForUser(userId: Long) {
         getWorkoutUseCase.execute(GetWorkoutUseCase.Input(userId))
             .doOnIoObserveOnMain()
             .subscribeBy { output ->
