@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_edit_workout.*
 class EditWorkoutActivity : BaseActivity() {
 
     private lateinit var viewModel: EditWorkoutViewModel
-    private lateinit var stringToCompare: String
+    private var isSame: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,7 @@ class EditWorkoutActivity : BaseActivity() {
             .subscribeBy {
                 viewModel.workoutTitle.value!!.forEach {
                     displayTitle(it)
-                    stringToCompare = it
+//                    stringToCompare = it
                 }
             }
             .addTo(compositeDisposable)
@@ -77,7 +77,14 @@ class EditWorkoutActivity : BaseActivity() {
     }
 
     private fun checkForSameTitle() {
-        if (edit_title_field.text.toString() == stringToCompare) {
+        viewModel.workoutsListCompare.value!!.forEach {
+            if (
+                edit_title_field.text.toString() == it
+            ) {
+                isSame = true
+            }
+        }
+        if (isSame) {
             showDialog()
         } else {
             viewModel.onConfirmClicked(edit_title_field.text.toString())

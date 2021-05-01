@@ -5,6 +5,7 @@ import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.domain.addworkout.AddWorkoutUseCase
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.showroutine.GetTitleUseCase
+import com.example.workoutnotebook.domain.showworkout.GetWorkoutUseCase
 import com.example.workoutnotebook.domain.user.GetCurrentUserUseCase
 import com.example.workoutnotebook.domain.workout.model.WorkoutModel
 import io.reactivex.rxkotlin.addTo
@@ -15,13 +16,15 @@ import javax.inject.Inject
 class EditWorkoutViewModel @Inject constructor(
     private val getTitleUseCase: GetTitleUseCase,
     private val addWorkoutUseCase: AddWorkoutUseCase,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val getWorkoutUseCase: GetWorkoutUseCase
 ) : BaseViewModel() {
 
     private var workoutId: Long = 0
     private var userId: Long = 0
 
     val workoutTitle = BehaviorSubject.create<List<String>>()
+    val workoutsListCompare = BehaviorSubject.create<List<String>>()
     val editWorkoutId = BehaviorSubject.create<Long>()
     private val userUnauthorized = BehaviorSubject.create<Boolean>()
     val workout = BehaviorSubject.create<Long>()
@@ -31,10 +34,28 @@ class EditWorkoutViewModel @Inject constructor(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is GetCurrentUserUseCase.Output.Success -> userId = it.user.id!!
+                    is GetCurrentUserUseCase.Output.Success -> {
+                        userId = it.user.id!!
+                        getWorkoutsForUser(userId)
+                    }
                     is GetCurrentUserUseCase.Output.ErrorUnauthorized -> userUnauthorized.onNext(
                         true
                     )
+                    else -> error.onNext(ErrorType.Unknown)
+                }
+            }
+            .addTo(compositeDisposable)
+    }
+
+    fun getWorkoutsForUser(userId: Long) {
+        getWorkoutUseCase.execute(GetWorkoutUseCase.Input(userId))
+            .doOnIoObserveOnMain()
+            .subscribeBy { output ->
+                when (output) {
+                    is GetWorkoutUseCase.Output.Success -> {
+                        val items = convertTitleToStringList(output.workouts)
+                        workoutsListCompare.onNext(items)
+                    }
                     else -> error.onNext(ErrorType.Unknown)
                 }
             }
@@ -79,7 +100,7 @@ class EditWorkoutViewModel @Inject constructor(
         }
     }
 
-    fun saveWorkout(workoutModel: WorkoutModel) {
+    private fun saveWorkout(workoutModel: WorkoutModel) {
         addWorkoutUseCase.execute(AddWorkoutUseCase.Input(workoutModel))
             .doOnIoObserveOnMain()
             .subscribeBy {
