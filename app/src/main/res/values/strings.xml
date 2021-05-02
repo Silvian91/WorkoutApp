@@ -45,6 +45,7 @@
     <string name="text_username">Username</string>
     <string name="text_password">Password</string>
     <string name="text_workouts_no_data">No workouts to show yet</string>
+    <string name="text_copy_workouts_no_data">No workouts to copy</string>
     <string name="text_password_length">Password should be at least 8 characters long</string>
     <string name="text_unknown_error">An unexpected error has occurred</string>
     <string name="text_error_registration_failed">Registration failed</string>

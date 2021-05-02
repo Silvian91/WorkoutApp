@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.recyclerView.BaseViewHolder
 import com.example.core.recyclerView.DefaultDiffUtil
-import com.example.workoutnotebook.R
-import com.example.workoutnotebook.ui.showworkout.adapter.viewholder.ShowWorkoutNoDataViewHolder
+import com.example.workoutnotebook.R.layout.*
+import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper.ItemType.WORKOUT_NO_DATA
+import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper.ItemType.WORKOUT_TITLE
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_holder_copy_workout.*
 
@@ -23,14 +24,15 @@ class CopyWorkoutAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             false
         )
         return when (viewType) {
-            R.layout.view_holder_workouts_no_data -> ShowWorkoutNoDataViewHolder(view)
+            view_holder_copy_workouts_no_data -> CopyWorkoutNoDataViewHolder(view)
             else -> CopyWorkoutViewHolder(view)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position].type) {
-            WorkoutItemWrapper.ItemType.WORKOUT_TITLE -> R.layout.view_holder_copy_workout
+            WORKOUT_NO_DATA -> view_holder_copy_workouts_no_data
+            WORKOUT_TITLE -> view_holder_copy_workout
         }
     }
 
@@ -67,6 +69,14 @@ class CopyWorkoutAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             radio_workout.setOnCheckedChangeListener { buttonView, isChecked -> model.checkChangeListener.invoke() }
         }
+
+    }
+
+    class CopyWorkoutNoDataViewHolder(
+        override val containerView: View
+    ) : BaseViewHolder<WorkoutItemWrapper>(containerView), LayoutContainer {
+
+        override fun bind(model: WorkoutItemWrapper) {}
 
     }
 

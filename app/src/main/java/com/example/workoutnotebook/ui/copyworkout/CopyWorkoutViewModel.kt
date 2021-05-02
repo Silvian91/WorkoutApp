@@ -4,9 +4,12 @@ import com.example.core.ui.BaseViewModel
 import com.example.core.ui.error.ErrorType
 import com.example.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.example.workoutnotebook.domain.showworkout.GetWorkoutUseCase
+import com.example.workoutnotebook.domain.showworkout.GetWorkoutUseCase.Output.Success
+import com.example.workoutnotebook.domain.showworkout.GetWorkoutUseCase.Output.SuccessNoData
 import com.example.workoutnotebook.domain.user.GetCurrentUserUseCase
 import com.example.workoutnotebook.domain.workout.model.WorkoutModel
 import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper
+import com.example.workoutnotebook.ui.copyworkout.adapter.WorkoutItemWrapper.WorkoutNoData
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
@@ -46,7 +49,11 @@ class CopyWorkoutViewModel @Inject constructor(
             .doOnIoObserveOnMain()
             .subscribeBy { output ->
                 when (output) {
-                    is GetWorkoutUseCase.Output.Success -> {
+                    is SuccessNoData -> {
+                        val items = convertToItemWrapper()
+                        getWorkoutList.onNext(items)
+                    }
+                    is Success -> {
                         val items = convertToItemWrapper(output.workouts)
                         getWorkoutList.onNext(items)
                     }
@@ -57,11 +64,18 @@ class CopyWorkoutViewModel @Inject constructor(
     }
 
     private fun convertToItemWrapper(models: List<WorkoutModel> = emptyList()): List<WorkoutItemWrapper> {
-        return models.map {
-            WorkoutItemWrapper.WorkoutTitle(it, it == selectedItem) {
-                onCheckedChange(it)
+        val itemWrappers = ArrayList<WorkoutItemWrapper>()
+        if (models.isNotEmpty()) {
+            models.map {
+                itemWrappers.add(
+                    WorkoutItemWrapper.WorkoutTitle(it, it == selectedItem)
+                    { onCheckedChange(it) }
+                )
             }
+        } else {
+            itemWrappers.add(WorkoutNoData)
         }
+        return itemWrappers
     }
 
     private fun onCheckedChange(workoutModel: WorkoutModel) {
