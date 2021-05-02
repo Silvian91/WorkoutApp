@@ -84,7 +84,15 @@ class AddWorkoutActivity : BaseActivity() {
         )
     )
 
-    private fun checkForExistingWorkout() {
+    private fun checkForExistingWorkout(){
+        if (viewModel.workoutsListCompare.value == null) {
+            viewModel.onConfirmClicked(workout_title_field.text.toString())
+        } else {
+            checkForExistingWorkoutTitle()
+        }
+    }
+
+    private fun checkForExistingWorkoutTitle() {
         viewModel.workoutsListCompare.value!!.forEach {
             if (
                 workout_title_field.text.toString() == it
@@ -104,7 +112,7 @@ class AddWorkoutActivity : BaseActivity() {
             .setMessage(R.string.text_dialog_edit_workout)
             .setNegativeButton(
                 R.string.text_dialog_alert_cancel
-            ) { _, _ -> }
+            ) { _, _ -> isSame = false }
             .setPositiveButton(
                 R.string.text_dialog_alert_confirm
             ) { _, _ -> viewModel.onConfirmClicked(workout_title_field.text.toString()) }

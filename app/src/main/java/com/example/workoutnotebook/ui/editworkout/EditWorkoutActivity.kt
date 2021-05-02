@@ -72,11 +72,11 @@ class EditWorkoutActivity : BaseActivity() {
             .clicks()
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe {
-                checkForExistingWorkout()
+                checkForExistingWorkoutTitle()
             }
     }
 
-    private fun checkForExistingWorkout() {
+    private fun checkForExistingWorkoutTitle() {
         viewModel.workoutsListCompare.value!!.forEach {
             if (
                 edit_title_field.text.toString() == it
@@ -96,7 +96,7 @@ class EditWorkoutActivity : BaseActivity() {
             .setMessage(R.string.text_dialog_edit_workout)
             .setNegativeButton(
                 R.string.text_dialog_alert_cancel
-            ) { _, _ -> }
+            ) { _, _ -> isSame = false }
             .setPositiveButton(
                 R.string.text_dialog_alert_confirm
             ) { _, _ -> viewModel.onConfirmClicked(edit_title_field.text.toString()) }
