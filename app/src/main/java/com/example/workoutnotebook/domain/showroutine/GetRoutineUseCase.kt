@@ -14,5 +14,6 @@ interface GetRoutineUseCase : BaseSingleUseCase<Input, Output> {
 
         data class Success(val routines: List<RoutineModel>) : Output()
         object ErrorNoRoutines : Output()
+        object ErrorUnknown: Output()
     }
 }

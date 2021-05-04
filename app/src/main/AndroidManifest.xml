@@ -39,6 +39,7 @@
         <activity android:name="com.example.workoutnotebook.ui.showroutine.ShowRoutineActivity" />
         <activity android:name="com.example.workoutnotebook.ui.copyworkout.CopyWorkoutActivity" />
         <activity android:name="com.example.workoutnotebook.ui.editworkout.EditWorkoutActivity" />
+        <activity android:name="com.example.workoutnotebook.ui.editroutine.EditRoutineActivity" />
         <activity android:name="com.example.workoutnotebook.ui.main.MainActivity" />
         <activity android:name="com.example.workoutnotebook.ui.login.LoginActivity"
             android:windowSoftInputMode="adjustResize" />

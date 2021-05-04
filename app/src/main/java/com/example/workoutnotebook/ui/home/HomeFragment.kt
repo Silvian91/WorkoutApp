@@ -51,11 +51,11 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
 
         geocoder = Geocoder(requireContext(), Locale.getDefault())
         initHomeRecyclerView()
-        fetchLastLocation()
+        //fetchLastLocation()
         viewModel.showWorkoutsButton()
         dataResponse()
         viewModel.fetchQuote()
-        weatherResponse()
+        //weatherResponse()
         quoteResponse()
         showWorkoutClicked()
         onError()
@@ -98,51 +98,51 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        fetchLastLocation()
+        //fetchLastLocation()
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun fetchLastLocation() {
-        if (EasyPermissions.hasPermissions(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        ) {
-            viewModel.fetchCurrentLocation()
-            getUserLocation()
+//    @SuppressLint("MissingPermission")
+//    private fun fetchLastLocation() {
+//        if (EasyPermissions.hasPermissions(
+//                requireContext(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            )
+//        ) {
+//            viewModel.fetchCurrentLocation()
+//            getUserLocation()
+//
+//        } else {
+//            requestPermission()
+//        }
+//    }
 
-        } else {
-            requestPermission()
-        }
-    }
+//    private fun getUserLocation(){
+//        viewModel.location
+//            .doOnIoObserveOnMain()
+//            .subscribeBy {
+//                city = geocoder.getFromLocation(
+//                    viewModel.location.value!!.latitude,
+//                    viewModel.location.value!!.longitude,
+//                    1
+//                )[0].locality
+//                viewModel.fetchWeather(viewModel.location.value!!)
+//            }
+//            .addTo(compositeDisposable)
+//    }
 
-    private fun getUserLocation(){
-        viewModel.location
-            .doOnIoObserveOnMain()
-            .subscribeBy {
-                city = geocoder.getFromLocation(
-                    viewModel.location.value!!.latitude,
-                    viewModel.location.value!!.longitude,
-                    1
-                )[0].locality
-                viewModel.fetchWeather(viewModel.location.value!!)
-            }
-            .addTo(compositeDisposable)
-    }
-
-    private fun weatherResponse() {
-        viewModel.weather
-            .doOnIoObserveOnMain()
-            .subscribeBy {
-                showWeather(viewModel.weather.value!!)
-                hideWeatherLoading()
-            }
-            .addTo(compositeDisposable)
-    }
+//    private fun weatherResponse() {
+//        viewModel.weather
+//            .doOnIoObserveOnMain()
+//            .subscribeBy {
+//                showWeather(viewModel.weather.value!!)
+//                hideWeatherLoading()
+//            }
+//            .addTo(compositeDisposable)
+//    }
 
     private fun quoteResponse() {
         viewModel.quote
@@ -163,9 +163,9 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
             .addTo(compositeDisposable)
     }
 
-    private fun hideWeatherLoading() {
-        progress_circular_weather.visibility = View.GONE
-    }
+//    private fun hideWeatherLoading() {
+//        progress_circular_weather.visibility = View.GONE
+//    }
 
     private fun hideQuoteLoading() {
         progress_circular_quote.visibility = View.GONE
@@ -197,10 +197,10 @@ class HomeFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
         quote_api.text = "\"${quote.quote}\" - ${quote.author}"
     }
 
-    private fun showWeather(weather: WeatherModel) {
-        weather_api.text =
-            "The weather in $city is: ${weather.temp.toInt()} degrees"
-    }
+//    private fun showWeather(weather: WeatherModel) {
+//        weather_api.text =
+//            "The weather in $city is: ${weather.temp.toInt()} degrees"
+//    }
 
     private fun openShowWorkout() = startActivity(ShowWorkoutActivity.newIntent(requireContext()))
 

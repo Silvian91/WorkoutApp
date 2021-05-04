@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_edit_routine"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/toolbar" />
@@ -11,23 +13,43 @@
         android:id="@+id/edit_routine_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_12sdp"
         android:clipToPadding="false"
         android:paddingBottom="48dp"
-        android:layout_marginBottom="@dimen/_12sdp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@+id/button_confirm_edit"/>
+        app:layout_constraintBottom_toTopOf="@+id/save_edited_routine"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+    <ImageView
+        android:id="@+id/previous_routine"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="@dimen/defaultMargin"
+        android:src="@drawable/ic_baseline_arrow_left_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
-        android:id="@+id/button_confirm_edit"
+        android:id="@+id/save_edited_routine"
         style="@style/buttonColorAndBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/_12sdp"
-        android:text="@string/text_continue"
-        app:layout_constraintTop_toBottomOf="@id/edit_routine_recycler_view"
+        android:layout_marginBottom="4dp"
+        android:text="@string/text_save_routines"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/next_routine"
+        app:layout_constraintStart_toEndOf="@id/previous_routine" />
+
+    <ImageView
+        android:id="@+id/next_routine"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="@dimen/defaultMargin"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

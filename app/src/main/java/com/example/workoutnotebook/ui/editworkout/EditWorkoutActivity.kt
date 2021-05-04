@@ -56,7 +56,6 @@ class EditWorkoutActivity : BaseActivity() {
             .subscribeBy {
                 viewModel.workoutTitle.value!!.forEach {
                     displayTitle(it)
-//                    stringToCompare = it
                 }
             }
             .addTo(compositeDisposable)
@@ -103,24 +102,27 @@ class EditWorkoutActivity : BaseActivity() {
             .show()
     }
 
-    fun saveWorkoutId() {
-        viewModel.workout
+    private fun saveWorkoutId() {
+        viewModel.newWorkoutId
             .doOnIoObserveOnMain()
-            .subscribeBy {
-                openEditRoutine(viewModel.editWorkoutId.value!!, viewModel.workout.value!!)
+            .subscribeBy { newWorkoutId ->
+                val editWorkoutId = viewModel.getEditWorkoutId()
+                openEditRoutine(editWorkoutId, newWorkoutId)
             }
             .addTo(compositeDisposable)
     }
 
-    private fun openEditRoutine(editWorkoutId: Long, newWorkoutId: Long) = startActivity(
-        EditRoutineActivity.newIntent(
-            this,
-            editWorkoutId,
-            newWorkoutId
-        ).addFlags(
-            Intent.FLAG_ACTIVITY_CLEAR_TOP
+    private fun openEditRoutine(editWorkoutId: Long, newWorkoutId: Long) {
+        startActivity(
+            EditRoutineActivity.newIntent(
+                this,
+                editWorkoutId,
+                newWorkoutId
+            )
         )
-    )
+        finish()
+    }
+
 
     override fun onDestroy() {
         compositeDisposable.clear()

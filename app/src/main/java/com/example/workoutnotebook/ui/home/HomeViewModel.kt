@@ -56,19 +56,19 @@ class HomeViewModel @Inject constructor(
             .addTo(compositeDisposable)
     }
 
-    fun fetchWeather(locationModel: LocationModel) {
-        getWeatherUseCase.execute(GetWeatherUseCase.Input(locationModel))
-            .doOnIoObserveOnMain()
-            .subscribeBy {
-                when (it) {
-                    is WeatherSuccess -> {
-                        weather.onNext((it).weather)
-                    }
-                    else -> error.onNext(NetworkError)
-                }
-            }
-            .addTo(compositeDisposable)
-    }
+//    fun fetchWeather(locationModel: LocationModel) {
+//        getWeatherUseCase.execute(GetWeatherUseCase.Input(locationModel))
+//            .doOnIoObserveOnMain()
+//            .subscribeBy {
+//                when (it) {
+//                    is WeatherSuccess -> {
+//                        weather.onNext((it).weather)
+//                    }
+//                    else -> error.onNext(NetworkError)
+//                }
+//            }
+//            .addTo(compositeDisposable)
+//    }
 
     fun fetchQuote() {
         getQuoteUseCase.execute(Input)

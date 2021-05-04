@@ -27,7 +27,7 @@ class EditWorkoutViewModel @Inject constructor(
     val workoutsListCompare = BehaviorSubject.create<List<String>>()
     val editWorkoutId = BehaviorSubject.create<Long>()
     private val userUnauthorized = BehaviorSubject.create<Boolean>()
-    val workout = BehaviorSubject.create<Long>()
+    val newWorkoutId = BehaviorSubject.create<Long>()
 
     fun getUser() {
         getCurrentUserUseCase.execute(GetCurrentUserUseCase.Input)
@@ -63,14 +63,14 @@ class EditWorkoutViewModel @Inject constructor(
     }
 
     fun getTitle() {
-        getTitleUseCase.execute(GetTitleUseCase.Input(workoutId))
+        getTitleUseCase.execute(GetTitleUseCase.Input(this.workoutId))
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
                     is GetTitleUseCase.Output.Success -> {
                         val title = convertTitleToStringList(it.workoutModel)
                         workoutTitle.onNext(title)
-                        editWorkoutId.onNext(workoutId)
+                        editWorkoutId.onNext(this.workoutId)
                     }
                     is GetTitleUseCase.Output.ErrorNoTitle -> {
                         error.onNext(ErrorType.Unknown)
@@ -105,11 +105,13 @@ class EditWorkoutViewModel @Inject constructor(
             .doOnIoObserveOnMain()
             .subscribeBy {
                 when (it) {
-                    is AddWorkoutUseCase.Output.Success -> workout.onNext(it.workoutId)
+                    is AddWorkoutUseCase.Output.Success -> this.newWorkoutId.onNext(it.workoutId)
                     else -> error.onNext(ErrorType.Unknown)
                 }
             }
             .addTo(compositeDisposable)
     }
+
+    fun getEditWorkoutId() = workoutId
 
 }

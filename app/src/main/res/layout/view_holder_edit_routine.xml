@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/routine_name"
+            android:id="@+id/edit_routine_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/inputFields"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/routine_sets"
+            android:id="@+id/edit_routine_sets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/inputFields"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/sets_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/routine_reps"
+            android:id="@+id/edit_routine_reps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/inputFields"
@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toTopOf="@id/rest_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/routine_weight"
+            android:id="@+id/edit_routine_weight"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="@style/inputFields"
@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@id/weight_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/routine_rest"
+            android:id="@+id/edit_routine_rest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/inputFields"
