@@ -5,7 +5,7 @@
     android:id="@+id/add_workout_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.workoutnotebook.ui.addworkout.AddWorkoutActivity">
+    tools:context="com.rosianu.workoutnotebook.ui.addworkout.AddWorkoutActivity">
 
     <include layout="@layout/toolbar" />
 
