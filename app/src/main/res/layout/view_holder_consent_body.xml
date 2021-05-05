@@ -19,15 +19,5 @@
         android:layout_marginBottom="@dimen/_24sdp"
         android:paddingBottom="@dimen/_24sdp"/>
 
-    <View
-        android:id="@+id/body_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="@dimen/defaultMargin"
-        android:layout_marginEnd="@dimen/defaultMargin"
-        android:background="@color/Gray"
-        app:layout_constraintTop_toBottomOf="@id/consent_body"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
