@@ -76,7 +76,8 @@
     <string name="text_profile_workouts">Workouts: &quot;%1$s&quot;</string>
     <string name="text_profile_routines">Routines: &quot;%1$s&quot;</string>
     <string name="text_consent_header">Terms and Conditions</string>
-    <string name="text_consent_body"> All of the user\'s data is stored locally, on the device. No data is collected or shared with any 3rd parties.</string>
+    <string name="text_consent_body">All of the user\'s data is stored locally, on the device. No data is collected or shared with any 3rd parties. For further info please see Privacy Policy.</string>
+    <string name="text_consent_link">For further info please see Privacy Policy.</string>
     <string name="text_consent_accept">Accept</string>
     <string name="text_consent_decline">Decline</string>
     <string name="text_consent_dialog_decline">Are you sure you want to decline? You can only use the app once the terms and conditions have been accepted</string>

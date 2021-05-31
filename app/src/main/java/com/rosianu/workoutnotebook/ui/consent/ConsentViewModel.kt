@@ -1,8 +1,7 @@
 package com.rosianu.workoutnotebook.ui.consent
 
-import com.rosianu.workoutnotebook.R.string.text_consent_body
-import com.rosianu.workoutnotebook.R.string.text_consent_header
 import com.rosianu.core.ui.BaseViewModel
+import com.rosianu.workoutnotebook.R.string.*
 import com.rosianu.workoutnotebook.ui.consent.adapter.ConsentItemWrapper
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject

@@ -14,6 +14,7 @@ import com.rosianu.workoutnotebook.ui.consent.adapter.viewholder.HeaderViewHolde
 class ConsentAdapter(
     private val acceptListener: ActionsViewHolderAcceptListener,
     private val denyListener: ActionsViewHolderDenyListener,
+    private val linkListener: PdfLink,
     private val parentLifecycle: Lifecycle
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -31,7 +32,7 @@ class ConsentAdapter(
         )
         return when (viewType) {
             view_holder_consent_header -> HeaderViewHolder(view)
-            view_holder_consent_body -> BodyViewHolder(view)
+            view_holder_consent_body -> BodyViewHolder(view, linkListener)
             else -> ActionsViewHolder(view, acceptListener, denyListener, parentLifecycle)
         }
     }
@@ -56,6 +57,10 @@ class ConsentAdapter(
 
     class ActionsViewHolderDenyListener(val denyListener: () -> Unit) {
         fun onDenyClicked() = denyListener()
+    }
+
+    class PdfLink(val linkListener: () -> Unit) {
+        fun onLinkClicked() = linkListener()
     }
 
 }

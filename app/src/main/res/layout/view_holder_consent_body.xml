@@ -11,13 +11,26 @@
         android:id="@+id/consent_body"
         style="@style/textBodyStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/defaultMargin"
         android:layout_marginEnd="@dimen/defaultMargin"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="@dimen/_24sdp"
         android:paddingBottom="@dimen/_24sdp"/>
+
+    <TextView
+        android:id="@+id/consent_link"
+        style="@style/textBodyStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/defaultMargin"
+        android:layout_marginEnd="@dimen/defaultMargin"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/_24sdp"
+        android:paddingBottom="@dimen/_24sdp"
+        app:layout_constraintTop_toBottomOf="@id/consent_body"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,6 +47,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.rosianu.workoutnotebook.ui.onboarding.OnboardingActivity" />
         <activity android:name="com.rosianu.workoutnotebook.ui.consent.ConsentActivity" />
+        <activity android:name="com.rosianu.workoutnotebook.ui.consentPdf.ConsentPdfActivity" />
+
     </application>
 
 </manifest>

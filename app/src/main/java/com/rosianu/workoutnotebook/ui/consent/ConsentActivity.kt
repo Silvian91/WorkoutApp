@@ -11,8 +11,9 @@ import com.rosianu.workoutnotebook.R.layout.activity_consent
 import com.rosianu.workoutnotebook.domain.extension.doOnIoObserveOnMain
 import com.rosianu.core.ui.BaseActivity
 import com.rosianu.workoutnotebook.ui.consent.adapter.ConsentAdapter
-import com.rosianu.workoutnotebook.ui.consent.adapter.ConsentAdapter.ActionsViewHolderAcceptListener
+import com.rosianu.workoutnotebook.ui.consent.adapter.ConsentAdapter.*
 import com.rosianu.workoutnotebook.ui.consent.adapter.ConsentItemWrapper
+import com.rosianu.workoutnotebook.ui.consentPdf.ConsentPdfActivity
 import com.rosianu.workoutnotebook.ui.onboarding.OnboardingActivity
 import com.rosianu.workoutnotebook.ui.register.RegisterActivity
 import io.reactivex.rxkotlin.addTo
@@ -47,7 +48,8 @@ class ConsentActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(context)
             consentAdapter = ConsentAdapter(
                 ActionsViewHolderAcceptListener { viewModel.acceptedConsent() },
-                ConsentAdapter.ActionsViewHolderDenyListener { viewModel.showDeclinedConfirmation() },
+                ActionsViewHolderDenyListener { viewModel.showDeclinedConfirmation() },
+                PdfLink { openPdf() },
                 this@ConsentActivity.lifecycle
             )
             adapter = consentAdapter
@@ -97,6 +99,12 @@ class ConsentActivity : BaseActivity() {
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             )
         }
+    }
+
+    private fun openPdf() {
+        startActivity(
+            ConsentPdfActivity.newIntent(this)
+        )
     }
 
     companion object {

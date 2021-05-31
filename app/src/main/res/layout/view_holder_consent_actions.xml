@@ -17,7 +17,6 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginBottom="@dimen/_24sdp"
         android:text="@string/text_consent_accept"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/consent_deny"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -32,7 +31,6 @@
         android:layout_marginBottom="@dimen/_24sdp"
         android:textColor="@drawable/button_custom_state"
         android:text="@string/text_consent_decline"
-        app:layout_constraintTop_toBottomOf="@id/consent_confirm"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 
